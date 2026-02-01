@@ -192,19 +192,6 @@ function renderProductModal(product) {
   const allVariants = getProductVariants(product.name);
   const variants = allVariants.filter(v => v.inStock);
 
-  if (!modalRoot.dataset.initialized) {
-    modalRoot.innerHTML =
-      '<div class="flex flex-col h-full">' +
-        '<div class="p-6 pb-4 border-b border-gray-200">' +
-          '<div class="h-6 w-32 rounded placeholder-shimmer mb-2"></div>' +
-          '<div class="h-4 w-40 rounded placeholder-shimmer"></div>' +
-        '</div>' +
-        '<div class="flex-1 p-4">' +
-          '<div class="h-full rounded-2xl bg-gray-100 placeholder-shimmer"></div>' +
-        '</div>' +
-      '</div>';
-  }
-
   if (!variants.length) {
     modalRoot.innerHTML =
       '<div class="flex flex-col h-full">' +
@@ -706,18 +693,22 @@ window.closeModal = function () {
   modal.classList.add('hidden');
   document.body.style.overflow = '';
 
-  // при явном закрытии — полный сброс состояния модалки
   selectedOption = {};
   currentProduct = null;
   selectedQuantity = 1;
   modalCurrentImageKey = null;
 
-  // сброс флагов восстановления при табах
   modalWasOpenOnShop = false;
-  modalSavedScrollTop = 0; 
+  modalSavedScrollTop = 0;
 
   const scrollContainer = document.querySelector('#modalContent .flex-1');
   if (scrollContainer) scrollContainer.scrollTop = 0;
+
+  const modalRoot = document.getElementById('modalContent');
+  if (modalRoot && modalRoot.dataset.initialized) {
+    delete modalRoot.dataset.initialized;
+    modalRoot.innerHTML = '';        // убрать старый layout
+  }
 
   tg?.HapticFeedback?.impactOccurred('light');
 };
