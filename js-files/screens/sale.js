@@ -8,7 +8,7 @@ function showSaleTab() {
     '</svg>' +
     '</div>' +
     '<h2 class="text-2xl font-bold text-gray-800 mb-4">Распродажа</h2>' +
-    '<p class="text-lg text-gray-600 mb-8 max-w-xs">Скоро здесь будут скидки до 70%.</p>' +
+    '<p class="text-lg text-gray-600 mb-8 max-w-xs">Скоро здесь будут акционные предложения.</p>' +
 '<button onclick="switchTab(\'shop\')" ' +
   'class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg transition-all">' +
   'В магазин' +
