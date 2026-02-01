@@ -102,11 +102,11 @@ function isCompleteSelection() {
   if (!allVariants.length) return false;
 
   const filtered = getFilteredVariants(allVariants);
-  if (filtered.length !== 1) return false; // должен остаться ровно один вариант
+  if (filtered.length !== 1) return false;
 
   const v = filtered[0];
 
-  // работаем только по реально используемым типам для этого товара
+  // только реально используемые типы
   const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
 
   return activeTypes.every(type => {
@@ -116,7 +116,6 @@ function isCompleteSelection() {
   });
 }
 
-// индекс секции, до которой выбор сделан (по реально активным типам)
 function getCurrentSectionIndex() {
   if (!currentProduct) return 0;
 
@@ -125,10 +124,10 @@ function getCurrentSectionIndex() {
 
   const filtered = getFilteredVariants(variants);
 
-  // типы, которые вообще используются в модели
   const activeTypes = getActiveTypesForProduct(currentProduct, variants);
 
-  // типы, которые реально участвуют в текущем фильтре (совпадают с finalTypes)
+  // те же типы, по которым рендерим (нет смысла требовать поле,
+  // если по текущим вариантам оно везде пустое)
   const finalTypes = activeTypes.filter(type =>
     filtered.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
   );

@@ -23,6 +23,23 @@ function getVariantCountText(count) {
   return count + ' вариантов';
 }
 
+// вспомогалка: получить finalTypes для текущего продукта/выбора
+function getFinalTypesForCurrentProduct() {
+  if (!currentProduct || !productsData) return [];
+
+  const variantsAll = getProductVariants(currentProduct.name).filter(v => v.inStock);
+  if (!variantsAll.length) return [];
+
+  const filtered = getFilteredVariants(variantsAll);
+  const activeTypes = getActiveTypesForProduct(currentProduct, variantsAll);
+
+  const finalTypes = activeTypes.filter(type =>
+    filtered.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
+  );
+
+  return finalTypes;
+}
+
 function selectOptionNoFocus(type, option) {
   if (document.activeElement && document.activeElement.blur) {
     document.activeElement.blur();
@@ -31,18 +48,20 @@ function selectOptionNoFocus(type, option) {
   const scrollContainer = document.querySelector('#modalContent .flex-1');
   const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
 
-  const order = getFilterOrderForProduct(currentProduct?.cat);
-  const typeIndex = order.indexOf(type);
+  const finalTypes = getFinalTypesForCurrentProduct();
+  const typeIndex = finalTypes.indexOf(type);
+
+  if (typeIndex === -1) return;
 
   if (selectedOption[type] === option) {
     // снимаем выбор и чистим всё дальше
-    for (let i = typeIndex; i < order.length; i++) {
-      delete selectedOption[order[i]];
+    for (let i = typeIndex; i < finalTypes.length; i++) {
+      delete selectedOption[finalTypes[i]];
     }
   } else {
     // ставим новое значение и чистим всё дальше
-    for (let i = typeIndex + 1; i < order.length; i++) {
-      delete selectedOption[order[i]];
+    for (let i = typeIndex + 1; i < finalTypes.length; i++) {
+      delete selectedOption[finalTypes[i]];
     }
     selectedOption[type] = option;
   }
@@ -63,11 +82,14 @@ function clearOptionNoFocus(type) {
   const scrollContainer = document.querySelector('#modalContent .flex-1');
   const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
 
-  const order = getFilterOrderForProduct(currentProduct?.cat);
-const typeIndex = order.indexOf(type);
-for (let i = typeIndex; i < order.length; i++) {
-  delete selectedOption[order[i]];
-}
+  const finalTypes = getFinalTypesForCurrentProduct();
+  const typeIndex = finalTypes.indexOf(type);
+
+  if (typeIndex === -1) return;
+
+  for (let i = typeIndex; i < finalTypes.length; i++) {
+    delete selectedOption[finalTypes[i]];
+  }
 
   renderProductModal(currentProduct);
 
@@ -133,19 +155,19 @@ window.addToCartFromModal = async function () {
     }
 
     const selectedVariant = variants[0];
-addToCart(selectedVariant, selectedQuantity);
+    addToCart(selectedVariant, selectedQuantity);
 
-const subtitle = getCartItemSubtitle(selectedVariant);
-tg?.showAlert?.(
-  '✅ ' +
-    selectedVariant.name +
-    (subtitle ? '\n' + subtitle : '') +
-    '\nКоличество: ' +
-    selectedQuantity +
-    '\nRUB ' +
-    selectedVariant.price * selectedQuantity
-);
-closeModal();
+    const subtitle = getCartItemSubtitle(selectedVariant);
+    tg?.showAlert?.(
+      '✅ ' +
+        selectedVariant.name +
+        (subtitle ? '\n' + subtitle : '') +
+        '\nКоличество: ' +
+        selectedQuantity +
+        '\nRUB ' +
+        selectedVariant.price * selectedQuantity
+    );
+    closeModal();
   } finally {
     isAddingToCart = false;
     const scA = document.querySelector('#modalContent .flex-1');
@@ -159,8 +181,6 @@ closeModal();
 };
 
 function renderProductModal(product) {
-  const filterOrder = getFilterOrderForProduct(product.cat);
-  const requiredTypes = getRequiredTypesForProduct(product);
   currentProduct = product;
 
   const allVariants = getProductVariants(product.name);
@@ -187,38 +207,20 @@ function renderProductModal(product) {
 
   const filteredVariants = getFilteredVariants(variants);
   const availableVariants = filteredVariants;
-  
+
   const activeTypes = getActiveTypesForProduct(product, variants);
-  
-  // Типы, которые показываем именно сейчас: если по оставшимся вариантам
-  // поле везде пустое, секцию не рендерим
+
+  // типы, которые показываем: по текущим вариантам поле должно быть где‑то непустым
   const finalTypes = activeTypes.filter(type =>
     availableVariants.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
   );
-  
+
   const availableOptions = {};
   finalTypes.forEach(type => {
     availableOptions[type] = getAvailableOptions(type, variants);
   });
-  
-  const complete = isCompleteSelection();  
 
-// Если остался один вариант и выбор считается полным,
-// можно выбросить те типы, значения которых у этого варианта пустые
-if (complete && availableVariants.length === 1) {
-  const v = availableVariants[0];
-  finalTypes = activeTypes.filter(type => {
-    const value = v[type];
-    return value !== undefined && value !== null && value !== '';
-  });
-}
-
-// Пересчитанные опции только по видимым типам
-const visibleOptions = {};
-finalTypes.forEach(type => {
-  visibleOptions[type] = availableOptions[type] || [];
-});
-
+  const complete = isCompleteSelection();
 
   const currentMinPrice = availableVariants.length
     ? Math.min.apply(null, availableVariants.map(v => v.price))
@@ -271,18 +273,18 @@ finalTypes.forEach(type => {
 
         '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
 
-'<div class="modal-image-section">' +
-  '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
-    '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner"></div>' +
-    '<div class="modal-carousel-footer">' +
-      '<div class="carousel-dots" id="modalDots"></div>' +
-      '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
-    '</div>' +
-    '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">‹</button>' +
-    '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">›</button>' +
-  '</div>' +
-'</div>' +
-'<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
+          '<div class="modal-image-section">' +
+            '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+              '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner"></div>' +
+              '<div class="modal-carousel-footer">' +
+                '<div class="carousel-dots" id="modalDots"></div>' +
+                '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
+              '</div>' +
+              '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">‹</button>' +
+              '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">›</button>' +
+            '</div>' +
+          '</div>' +
+          '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
         '</div>' +
 
         '<div class="modal-footer border-t bg-white">' +
@@ -472,8 +474,8 @@ finalTypes.forEach(type => {
 
   if (modalCurrentImageKey === null) {
     // первое открытие: fade-in 1500ms
-    buildSlides();              // сначала строим с modalCurrentImageKey === null
-    modalCurrentImageKey = nextKey; // потом запоминаем ключ
+    buildSlides();
+    modalCurrentImageKey = nextKey;
   } else if (modalCurrentImageKey !== nextKey) {
     // смена опций: 500ms fade-out старого + 500ms fade-in нового
     const slidesWrapperOld = document.getElementById('modalSlidesWrapper');
@@ -483,24 +485,24 @@ finalTypes.forEach(type => {
       );
       activeLayers.forEach(el => {
         el.classList.remove('modal-photo-visible');
-        el.classList.add('modal-photo-hidden'); // fade-out 0.5s (CSS)
+        el.classList.add('modal-photo-hidden');
       });
     }
   
     modalCurrentImageKey = nextKey;
   
     setTimeout(() => {
-      buildSlides(); // внутри fade-in 500ms
+      buildSlides();
     }, SWAP_FADE_MS);
-  }  
+  }
 
   // === ТЕЛО МОДАЛКИ (опции, количество) ===
   const body = document.getElementById('modalBodyDynamic');
   const order = finalTypes;
 
   body.innerHTML =
-  order.map((type, index) => {
-    const isLocked = index > getCurrentSectionIndex();
+    order.map((type, index) => {
+      const isLocked = index > getCurrentSectionIndex();
       return (
         '<div class="option-section ' +
           (isLocked ? 'locked' : 'unlocked') +
@@ -509,7 +511,7 @@ finalTypes.forEach(type => {
             getLabel(type) +
           '</label>' +
           '<div class="flex gap-2 scroll-carousel pb-1">' +
-          availableOptions[type]
+            availableOptions[type]
               .map(option => {
                 const isSelected = selectedOption[type] === option;
                 return (
