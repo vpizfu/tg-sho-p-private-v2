@@ -350,6 +350,15 @@ function switchTab(tabName) {
     return;
   }
 
+  // перед уходом с корзины — сохранить форму
+  if (currentTab === 'cart') {
+    try {
+      saveCartFormState();
+    } catch (e) {
+      console.log('[core] saveCartFormState on tab switch error', e);
+    }
+  }
+
   const prevTab = currentTab;
   saveCurrentTabScroll();
 

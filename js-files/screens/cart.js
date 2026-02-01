@@ -271,23 +271,23 @@ function restoreCartFormState() {
   const pickupLocationEl = document.getElementById('pickupLocation');
   const contactConfirmedEl = document.getElementById('contactConfirmed');
 
-  if (deliveryAddress && cartFormState.addressText) {
-    deliveryAddress.value = cartFormState.addressText;
+  if (deliveryAddress) {
+    deliveryAddress.value = cartFormState.addressText || '';
   }
-  if (deliveryComment && cartFormState.comment) {
-    deliveryComment.value = cartFormState.comment;
+  if (deliveryComment) {
+    deliveryComment.value = cartFormState.comment || '';
   }
-  if (contactNameEl && cartFormState.contactName) {
-    contactNameEl.value = cartFormState.contactName;
+  if (contactNameEl) {
+    contactNameEl.value = cartFormState.contactName || '';
   }
-  if (contactPhoneEl && cartFormState.contactPhone) {
-    contactPhoneEl.value = cartFormState.contactPhone;
+  if (contactPhoneEl) {
+    contactPhoneEl.value = cartFormState.contactPhone || '';
   }
-  if (savedAddress && cartFormState.savedAddressValue) {
-    savedAddress.value = cartFormState.savedAddressValue;
+  if (savedAddress) {
+    savedAddress.value = cartFormState.savedAddressValue || '';
   }
-  if (pickupLocationEl && cartFormState.pickupLocationValue) {
-    pickupLocationEl.value = cartFormState.pickupLocationValue;
+  if (pickupLocationEl) {
+    pickupLocationEl.value = cartFormState.pickupLocationValue || '';
   }
   if (contactConfirmedEl) {
     contactConfirmedEl.checked = !!cartFormState.contactConfirmed;
