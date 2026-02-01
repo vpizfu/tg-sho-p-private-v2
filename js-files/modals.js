@@ -187,17 +187,21 @@ function renderProductModal(product) {
 
   const filteredVariants = getFilteredVariants(variants);
   const availableVariants = filteredVariants;
+  
   const activeTypes = getActiveTypesForProduct(product, variants);
   
+  // Типы, которые показываем именно сейчас: если по оставшимся вариантам
+  // поле везде пустое, секцию не рендерим
+  const finalTypes = activeTypes.filter(type =>
+    availableVariants.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
+  );
+  
   const availableOptions = {};
-  activeTypes.forEach(type => {
+  finalTypes.forEach(type => {
     availableOptions[type] = getAvailableOptions(type, variants);
   });
   
-  const complete = isCompleteSelection();
-  
-  // Типы, которые реально показываем в интерфейсе
-let finalTypes = activeTypes;
+  const complete = isCompleteSelection();  
 
 // Если остался один вариант и выбор считается полным,
 // можно выбросить те типы, значения которых у этого варианта пустые
@@ -492,7 +496,7 @@ finalTypes.forEach(type => {
 
   // === ТЕЛО МОДАЛКИ (опции, количество) ===
   const body = document.getElementById('modalBodyDynamic');
-  const order = activeTypes;
+  const order = finalTypes;
 
   body.innerHTML =
   order.map((type, index) => {
@@ -505,7 +509,7 @@ finalTypes.forEach(type => {
             getLabel(type) +
           '</label>' +
           '<div class="flex gap-2 scroll-carousel pb-1">' +
-            visibleOptions[type]
+          availableOptions[type]
               .map(option => {
                 const isSelected = selectedOption[type] === option;
                 return (

@@ -123,12 +123,20 @@ function getCurrentSectionIndex() {
   const variants = getProductVariants(currentProduct.name).filter(v => v.inStock);
   if (!variants.length) return 0;
 
+  const filtered = getFilteredVariants(variants);
+
+  // типы, которые вообще используются в модели
   const activeTypes = getActiveTypesForProduct(currentProduct, variants);
 
-  for (let i = 0; i < activeTypes.length; i++) {
-    if (!selectedOption[activeTypes[i]]) return i;
+  // типы, которые реально участвуют в текущем фильтре (совпадают с finalTypes)
+  const finalTypes = activeTypes.filter(type =>
+    filtered.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
+  );
+
+  for (let i = 0; i < finalTypes.length; i++) {
+    if (!selectedOption[finalTypes[i]]) return i;
   }
-  return activeTypes.length;
+  return finalTypes.length;
 }
 
 
