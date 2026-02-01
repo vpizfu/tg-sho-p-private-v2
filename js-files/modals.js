@@ -183,9 +183,14 @@ window.addToCartFromModal = async function () {
 function renderProductModal(product) {
   currentProduct = product;
 
+  const modalRoot = document.getElementById('modalContent');
+
+  // жёсткий сброс скролла при каждом новом продукте
+  const scrollContainer = modalRoot.querySelector('.flex-1');
+  if (scrollContainer) scrollContainer.scrollTop = 0;
+
   const allVariants = getProductVariants(product.name);
   const variants = allVariants.filter(v => v.inStock);
-  const modalRoot = document.getElementById('modalContent');
 
   if (!modalRoot.dataset.initialized) {
     modalRoot.innerHTML =
@@ -285,7 +290,7 @@ function renderProductModal(product) {
         '</div>' +
 
         '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
-        
+
 '<div class="modal-image-section">' +
   '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
     '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
