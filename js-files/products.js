@@ -95,8 +95,6 @@ function getAvailableOptions(type, variants) {
 }
 
 
-// все ли опции выбраны
-// все ли опции выбраны (по конкретному оставшемуся варианту)
 function isCompleteSelection() {
   if (!currentProduct) return false;
 
@@ -107,10 +105,11 @@ function isCompleteSelection() {
   if (filtered.length !== 1) return false; // должен остаться ровно один вариант
 
   const v = filtered[0];
-  const order = getFilterOrderForProduct(currentProduct.cat);
 
-  // Для этого варианта: если поле непустое, соответствующая опция должна быть выбрана
-  return order.every(type => {
+  // работаем только по реально используемым типам для этого товара
+  const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
+
+  return activeTypes.every(type => {
     const value = v[type];
     if (value === undefined || value === null || value === '') return true;
     return !!selectedOption[type];

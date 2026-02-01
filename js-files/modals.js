@@ -188,13 +188,33 @@ function renderProductModal(product) {
   const filteredVariants = getFilteredVariants(variants);
   const availableVariants = filteredVariants;
   const activeTypes = getActiveTypesForProduct(product, variants);
+  
+  const availableOptions = {};
+  activeTypes.forEach(type => {
+    availableOptions[type] = getAvailableOptions(type, variants);
+  });
+  
+  const complete = isCompleteSelection();
+  
+  // Типы, которые реально показываем в интерфейсе
+let finalTypes = activeTypes;
 
-const availableOptions = {};
-activeTypes.forEach(type => {
-  availableOptions[type] = getAvailableOptions(type, variants);
+// Если остался один вариант и выбор считается полным,
+// можно выбросить те типы, значения которых у этого варианта пустые
+if (complete && availableVariants.length === 1) {
+  const v = availableVariants[0];
+  finalTypes = activeTypes.filter(type => {
+    const value = v[type];
+    return value !== undefined && value !== null && value !== '';
+  });
+}
+
+// Пересчитанные опции только по видимым типам
+const visibleOptions = {};
+finalTypes.forEach(type => {
+  visibleOptions[type] = availableOptions[type] || [];
 });
 
-  const complete = isCompleteSelection();
 
   const currentMinPrice = availableVariants.length
     ? Math.min.apply(null, availableVariants.map(v => v.price))
@@ -485,7 +505,7 @@ activeTypes.forEach(type => {
             getLabel(type) +
           '</label>' +
           '<div class="flex gap-2 scroll-carousel pb-1">' +
-            availableOptions[type]
+            visibleOptions[type]
               .map(option => {
                 const isSelected = selectedOption[type] === option;
                 return (
