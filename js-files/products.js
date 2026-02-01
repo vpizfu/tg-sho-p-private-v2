@@ -1,5 +1,6 @@
 // порядок выбора опций в модалке
 // порядок выбора опций в модалке
+// порядок выбора опций в модалке
 const FILTER_ORDER_BY_CAT = {
   'iPhone': ['simType', 'storage', 'color', 'region'],
   'Apple Watch': ['diameter', 'caseColor', 'bandType', 'bandColor', 'bandSize'],
@@ -10,6 +11,7 @@ function getFilterOrderForProduct(productCat) {
   return FILTER_ORDER_BY_CAT[productCat] || ['storage', 'color', 'region'];
 }
 
+// Какие типы реально используются у товара (есть непустое значение хотя бы у одного варианта)
 function getActiveTypesForProduct(product, variants) {
   const order = getFilterOrderForProduct(product.cat);
   return order.filter(type =>
@@ -71,6 +73,7 @@ function getProductVariants(productName) {
 }
 
 // текущие варианты по выбранным опциям
+// текущие варианты по выбранным опциям
 function getFilteredVariants(variants) {
   if (!variants.length) return [];
   const order = getFilterOrderForProduct(variants[0].cat);
@@ -84,8 +87,7 @@ function getFilteredVariants(variants) {
   );
 }
 
-
-// доступные значения для одного типа опции
+// доступные значения для одного типа опции (по уже отфильтрованным вариантам)
 function getAvailableOptions(type, variants) {
   const filteredVariants = getFilteredVariants(variants);
   const options = [...new Set(filteredVariants.map(v => v[type]).filter(Boolean))];
@@ -94,6 +96,7 @@ function getAvailableOptions(type, variants) {
 
 
 // все ли опции выбраны
+// все ли опции выбраны (по конкретному оставшемуся варианту)
 function isCompleteSelection() {
   if (!currentProduct) return false;
 
@@ -101,17 +104,34 @@ function isCompleteSelection() {
   if (!allVariants.length) return false;
 
   const filtered = getFilteredVariants(allVariants);
-  if (filtered.length !== 1) return false;
+  if (filtered.length !== 1) return false; // должен остаться ровно один вариант
 
   const v = filtered[0];
   const order = getFilterOrderForProduct(currentProduct.cat);
 
+  // Для этого варианта: если поле непустое, соответствующая опция должна быть выбрана
   return order.every(type => {
     const value = v[type];
     if (value === undefined || value === null || value === '') return true;
     return !!selectedOption[type];
   });
 }
+
+// индекс секции, до которой выбор сделан (по реально активным типам)
+function getCurrentSectionIndex() {
+  if (!currentProduct) return 0;
+
+  const variants = getProductVariants(currentProduct.name).filter(v => v.inStock);
+  if (!variants.length) return 0;
+
+  const activeTypes = getActiveTypesForProduct(currentProduct, variants);
+
+  for (let i = 0; i < activeTypes.length; i++) {
+    if (!selectedOption[activeTypes[i]]) return i;
+  }
+  return activeTypes.length;
+}
+
 
 function getRequiredTypesForProduct(product) {
   const variants = getProductVariants(product.name).filter(v => v.inStock);
@@ -120,26 +140,15 @@ function getRequiredTypesForProduct(product) {
   const order = getFilterOrderForProduct(product.cat);
 
   return order.filter(type => {
-    const values = variants.map(v => v[type]).filter(v => v !== undefined && v !== null && v !== '');
-    if (!values.length) return false; // вообще нет значения ни у одного варианта
+    const values = variants
+      .map(v => v[type])
+      .filter(v => v !== undefined && v !== null && v !== '');
+    if (!values.length) return false;
 
     const unique = Array.from(new Set(values.map(String)));
-    // Обязательно, только если реально различает варианты (есть больше одного значения)
     return unique.length > 1;
   });
 }
-
-
-// индекс секции, до которой выбор сделан
-function getCurrentSectionIndex() {
-  if (!currentProduct) return 0;
-  const order = getFilterOrderForProduct(currentProduct.cat);
-  for (let i = 0; i < order.length; i++) {
-    if (!selectedOption[order[i]]) return i;
-  }
-  return order.length;
-}
-
 
 // перемешивание массива
 function shuffleArray(items) {
