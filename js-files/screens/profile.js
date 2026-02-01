@@ -96,28 +96,25 @@ function renderOrdersSection() {
             '<div id="orderDetails_' +
               idx +
             '" class="hidden mt-2 pt-2 border-t border-dashed border-gray-200">' +
-              o.items
-                .map(
-                  item =>
-                    '<div class="flex items-center justify-between mb-1 gap-2">' +
-                      '<div class="flex-1 min-w-0">' +
-                        '<div class="font-semibold text-[11px] break-words">' +
-                          escapeHtml(item.name) +
-                        '</div>' +
-                        '<div class="text-[10px] text-gray-500">' +
-  escapeHtml(getCartItemSubtitle(item)) +
-                      '</div>' +
-                      '<div class="text-right text-[10px] whitespace-nowrap">' +
-                        '<div>' +
-                          item.quantity +
-                          ' шт.</div>' +
-                        '<div>RUB ' +
-                          item.price * item.quantity +
-                        '</div>' +
-                      '</div>' +
-                    '</div>'
-                )
-                .join('') +
+            o.items
+            .map(
+              item =>
+                '<div class="flex items-center justify-between mb-1 gap-2">' +
+                  '<div class="flex-1 min-w-0">' +
+                    '<div class="font-semibold text-[11px] break-words">' +
+                      escapeHtml(item.name) +
+                    '</div>' +
+                    '<div class="text-[10px] text-gray-500 break-words">' +
+                      escapeHtml(getCartItemSubtitle(item)) +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="text-right text-[10px] whitespace-nowrap">' +
+                    '<div>' + item.quantity + ' шт.</div>' +
+                    '<div>RUB ' + (item.price * item.quantity) + '</div>' +
+                  '</div>' +
+                '</div>'
+            )
+            .join('') +          
             '</div>' +
           '</div>' +
         '</div>'
@@ -240,11 +237,8 @@ function showProfileTab() {
         profilePhoneEl.value = '+7 ';
       }
     });
-
-    profilePhoneEl.addEventListener('blur', () => {
-      showTabBar();
-    });
-  }
+    profilePhoneEl.addEventListener('blur', showTabBar);
+  }  
 
   const newAddressEl = document.getElementById('newAddress');
   if (newAddressEl) {

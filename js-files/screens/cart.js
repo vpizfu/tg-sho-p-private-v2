@@ -326,7 +326,21 @@ window.onSavedAddressChange = function () {
   const select = document.getElementById('savedAddress');
   const wrapper = document.getElementById('deliveryAddressWrapper');
   if (!select || !wrapper) return;
-  wrapper.style.display = select.value ? 'none' : 'block';
+  if (select.value) {
+    wrapper.style.display = 'block';
+    const ta = document.getElementById('deliveryAddress');
+    if (ta) {
+      ta.value = select.value;
+      ta.readOnly = true;
+    }
+  } else {
+    wrapper.style.display = 'block';
+    const ta = document.getElementById('deliveryAddress');
+    if (ta) {
+      ta.readOnly = false;
+      ta.value = cartFormState.addressText || '';
+    }
+  }  
 
   cartFormState.savedAddressValue = select.value || '';
   saveDeliveryPrefs();
@@ -364,26 +378,26 @@ function showCartTab() {
 
   if (!cartItems.length) {
     root.innerHTML =
-      '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px]">' +
+      '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
         '<div class="w-28 h-28 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">' +
           '<svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-          '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-            ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
-          '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
-          '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
-        '</svg>' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+              ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
+            '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
+            '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
+          '</svg>' +
         '</div>' +
-        '<h2 class="text-2xl font-bold text-gray-800 mb-2">Корзина пуста</h2>' +
-        '<p class="text-sm text-gray-500 mb-6 max-w-xs">' +
+        '<h2 class="text-2xl font-bold text-gray-800 mb-3">Корзина пуста</h2>' +
+        '<p class="text-base text-gray-600 mb-6 max-w-xs">' +
           'Добавьте устройство в корзину, чтобы оформить заказ.' +
         '</p>' +
         '<button onclick="switchTab(\'shop\')"' +
-          ' class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg transition-all">' +
-          'Перейти в магазин' +
+          ' class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg transition-all">' +
+          'В магазин' +
         '</button>' +
       '</div>';
     return;
-  }
+  }  
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
@@ -514,7 +528,7 @@ function showCartTab() {
                 (cartFormState.savedAddressValue ? ' style="display:none"' : '') +
               '>' +
                 '<textarea id="deliveryAddress" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"' +
-                  ' rows="3" placeholder="Введите адрес доставки..."></textarea>' +
+                  ' rows="3" placeholder="Например: г. Москва, проспект Ленинский n, подъезд 1, этаж 1, кв 2"></textarea>' +
               '</div>' +
               '<div class="mt-1">' +
                 '<label class="text-sm font-semibold text-gray-700 block mb-1">Комментарий к доставке</label>' +
@@ -539,7 +553,7 @@ function showCartTab() {
               '<div class="mt-1">' +
                 '<label class="text-sm font-semibold text-gray-700 block mb-1">Комментарий к заказу</label>' +
                 '<textarea id="deliveryComment" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"' +
-                  ' rows="2" placeholder="Например: приеду к 19:00, позвонить заранее..."></textarea>' +
+                  ' rows="2" placeholder="Например: приеду к 19:00"></textarea>' +
               '</div>') +
         '</div>' +
         '<div class="space-y-2">' +
