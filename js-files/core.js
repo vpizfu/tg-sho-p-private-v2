@@ -2,7 +2,6 @@ const tg = window.Telegram?.WebApp;
 try {
   tg?.ready();
   tg?.expand();
-  tg?.requestFullscreen?.();
   tg?.setBackgroundColor?.('#f3f4f6'); // bg-gray-100
 } catch (e) {
   console.log('[core] tg init error', e);
