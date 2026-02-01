@@ -670,19 +670,24 @@ function setupHandlers() {
           // карточки новые → нужно навесить клики по ним
           document.querySelectorAll('[data-product-name]').forEach(card => {
             card.onclick = function (e) {
-              if (e.target.closest('button') || e.target.closest('.dot')) {
-                return;
-              }
+              if (e.target.closest('button') || e.target.closest('.dot')) return;
+          
+              const active = document.activeElement;
+              if (active && active.blur) active.blur();   // закрыть клавиатуру
+          
               const productName = card.dataset.productName;
               const product = productsData.find(p => p.name === productName);
-              if (product) {
-                selectedOption = {};
-                selectedQuantity = 1;
+              if (!product) return;
+          
+              selectedOption = {};
+              selectedQuantity = 1;
+          
+              setTimeout(() => {
                 showModal(product);
                 tg?.HapticFeedback?.impactOccurred('medium');
-              }
+              }, 50); // дать клаве убрать layout
             };
-          });
+          });          
         }
 
         if (sentinelEl) {
@@ -709,19 +714,24 @@ function setupHandlers() {
 
   document.querySelectorAll('[data-product-name]').forEach(card => {
     card.onclick = function (e) {
-      if (e.target.closest('button') || e.target.closest('.dot')) {
-        return;
-      }
+      if (e.target.closest('button') || e.target.closest('.dot')) return;
+  
+      const active = document.activeElement;
+      if (active && active.blur) active.blur();   // закрыть клавиатуру
+  
       const productName = card.dataset.productName;
       const product = productsData.find(p => p.name === productName);
-      if (product) {
-        selectedOption = {};
-        selectedQuantity = 1;
+      if (!product) return;
+  
+      selectedOption = {};
+      selectedQuantity = 1;
+  
+      setTimeout(() => {
         showModal(product);
         tg?.HapticFeedback?.impactOccurred('medium');
-      }
+      }, 50); // дать клаве убрать layout
     };
-  });
+  });  
 }
 
 

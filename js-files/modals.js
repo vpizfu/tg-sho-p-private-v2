@@ -187,6 +187,19 @@ function renderProductModal(product) {
   const variants = allVariants.filter(v => v.inStock);
   const modalRoot = document.getElementById('modalContent');
 
+  if (!modalRoot.dataset.initialized) {
+    modalRoot.innerHTML =
+      '<div class="flex flex-col h-full">' +
+        '<div class="p-6 pb-4 border-b border-gray-200">' +
+          '<div class="h-6 w-32 rounded placeholder-shimmer mb-2"></div>' +
+          '<div class="h-4 w-40 rounded placeholder-shimmer"></div>' +
+        '</div>' +
+        '<div class="flex-1 p-4">' +
+          '<div class="h-full rounded-2xl bg-gray-100 placeholder-shimmer"></div>' +
+        '</div>' +
+      '</div>';
+  }
+
   if (!variants.length) {
     modalRoot.innerHTML =
       '<div class="flex flex-col h-full">' +
