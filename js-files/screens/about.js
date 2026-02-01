@@ -6,7 +6,7 @@ function showAboutTab() {
       '<p>Магазин премиальной техники Apple с гарантией качества и лучшими ценами.</p>' +
       '<div class="grid grid-cols-2 gap-4 mt-8">' +
       '<div class="text-center p-4 bg-blue-50 rounded-xl">' +
-      '<div class="text-2xl font-bold text-blue-600">1000+</div>' +
+      '<div class="text-2xl font-bold text-blue-600">100+</div>' +
       '<div class="text-sm text-gray-600">товаров</div>' +
       '</div>' +
       '<div class="text-center p-4 bg-green-50 rounded-xl">' +

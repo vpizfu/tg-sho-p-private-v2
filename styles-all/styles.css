@@ -18,6 +18,12 @@ select {
   cursor: pointer !important;
 }
 
+.empty-cta-btn {
+  min-height: 48px;
+  font-size: 16px;
+  border-radius: 9999px; /* или 16px, если не нужен «пилл» */
+}
+
 input,
 textarea {
   caret-color: #111827;
