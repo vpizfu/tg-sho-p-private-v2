@@ -102,9 +102,22 @@ function isCompleteSelection() {
   if (!allVariants.length) return false;
 
   const filtered = getFilteredVariants(allVariants);
-  if (filtered.length !== 1) return false; // должен остаться ровно один вариант
+if (!filtered.length) return false;
 
-  const v = filtered[0];
+// было: if (filtered.length !== 1) return false;
+// стало:
+if (filtered.length > 1) {
+  // проверяем, что все отфильтрованные варианты полностью идентичны по активным типам
+  const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
+  const first = filtered[0];
+
+  const allSame = filtered.every(v =>
+    activeTypes.every(type => String(v[type] ?? '') === String(first[type] ?? ''))
+  );
+
+  if (!allSame) return false;
+}
+const v = filtered[0];
 
   // те же типы, что и в модалке
   const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
