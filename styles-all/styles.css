@@ -1,0 +1,478 @@
+body {
+  font-family: system-ui, -apple-system;
+}
+
+/* Глобальный дефолтный курсор */
+* {
+  cursor: default !important;
+}
+
+button,
+a,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="checkbox"],
+input[type="radio"],
+select {
+  cursor: pointer !important;
+}
+
+input,
+textarea {
+  caret-color: #111827;
+}
+
+/* Таббар: фиксированная высота */
+:root {
+  --tabbar-height: 70px;
+}
+
+/* Базовые настройки */
+html,
+body {
+  touch-action: manipulation;
+}
+
+/* Лоадер плейсхолдеров */
+.placeholder-shimmer {
+  background: linear-gradient(90deg, #f4f4f5 25%, #e5e7eb 50%, #f4f4f5 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Мини‑лоадер в кнопках */
+.loader-circle {
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #ffffff;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Общая анимация появления (если вдруг нужна) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Отключаем fadeIn для картинок в карточках товаров */
+.product-grid img.loaded {
+  animation: none;
+}
+
+/* Картинки */
+img,
+.image-carousel {
+  pointer-events: auto;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Сетка товаров: всегда 2 колонки */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-bottom: 5rem;
+}
+
+/* Карусель изображений (общий стиль) */
+.image-carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.image-carousel.h-32 { height: 128px; }
+.image-carousel.h-64 { height: 260px; }
+
+.image-carousel-inner {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Картинка в карусели (catalog) */
+.carousel-img {
+  width: 100%;
+  height: 95%;          /* чуть меньше, чтобы не упираться в низ */
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Карусель в модалке */
+#modalCarousel {
+  height: 290px;        /* фиксируем высоту блока с фото+dots+hint */
+  position: relative;
+}
+
+/* Внутренняя лента слайдов */
+#modalCarousel .image-carousel-inner {
+  display: flex;
+  height: 100%;
+  transition: transform 0.3s ease;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Картинка в модалке */
+#modalCarousel .carousel-img {
+  width: 100%;
+  height: 97%;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Хинт под картинкой: сидит внизу карусели, не мешает свайпу */
+#modalImageHint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 6px 12px 6px;
+  font-size: 0.75rem;
+  text-align: center;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+/* Когда хинта нет — просто скрываем текст, высота карусели неизменна */
+.modal-image-hint-hidden {
+  visibility: hidden;
+}
+
+/* Кнопки навигации карусели */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.9);
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  font-size: 14px;
+  font-weight: bold;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.image-carousel:hover .nav-btn {
+  opacity: 1;
+}
+
+.nav-prev { left: 8px; }
+.nav-next { right: 8px; }
+
+/* Индикаторы карусели */
+.carousel-dots {
+  position: absolute;
+  bottom: 17px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(59 130 246 / 0.25);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dot.active {
+  background: #3B82F6;
+}
+
+/* Секции опций (последовательный выбор) */
+.option-section {
+  transition: all 0.3s ease;
+}
+
+.option-section.locked {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.option-section.unlocked {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.option-btn {
+  min-width: 80px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.75rem 0.75rem;
+}
+
+/* Горизонтальный скролл опций */
+.scroll-carousel {
+  overflow-x: auto;
+  display: flex;
+  gap: 8px;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+}
+
+.scroll-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-item {
+  flex-shrink: 0;
+}
+
+/* Бекдроп модалки товара */
+#productModal {
+  padding-top: 0;
+  padding-bottom: 65px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Высота модалки задаётся в HTML через h-[85vh] */
+#modalContent {
+  min-height: 0;
+}
+
+/* Скролл внутри контентной части модалки (flex-1) */
+#modalContent .flex-1 {
+  min-height: 0;
+}
+
+/* Нижняя зона модалки с кнопкой */
+#modalContent .modal-footer {
+  padding: 12px 16px;
+}
+
+/* Кнопка "В корзину" — компактная */
+#modalContent .modal-footer button {
+  height: 44px;
+  font-size: 14px;
+  border-radius: 14px;
+}
+
+/* Блок с изображением в модалке */
+.modal-image-section {
+  padding: 16.5px 16px 0;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 16px;
+  background: #ffffff;
+}
+
+/* Состояние, когда нет изображений → белое поле с маленькой иконкой */
+.no-images {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #ffffff;
+  border-radius: 12px;
+  color: #64748b;
+}
+
+.no-images svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 0;
+}
+
+/* Поиск */
+#search {
+  color: #111827;
+}
+
+#search::placeholder {
+  color: #9ca3af;
+}
+
+/* Таббар */
+#tabBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0,0,0,0.1);
+  z-index: 999;
+  padding: 8px 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: var(--tabbar-height);
+  transition: opacity 0s ease;
+}
+
+.tab-item {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+  flex: 1;
+  max-width: 64px;
+  padding: 8px 4px;
+  color: #6b7280;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 10px;
+  font-weight: 500;
+  position: relative;
+}
+
+.tab-item {
+  color: #6b7280;
+}
+
+/* hover без синего */
+.tab-item:hover {
+  color: #4b5563;
+}
+
+/* единственный синий источник */
+.tab-item.active {
+  color: #3B82F6;
+}
+
+/* на всякий пожарный отключаем синий от :active/:focus */
+.tab-item:active,
+.tab-item:focus {
+  color: inherit;
+}
+
+.tab-item svg {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 2px;
+  flex-shrink: 0;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background: #EF4444;
+  color: white;
+  border-radius: 10px;
+  font-size: 9px;
+  font-weight: bold;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Отступ под таббар для основного контента */
+.main-content {
+  padding: 16px;
+  padding-bottom: calc(var(--tabbar-height) + 24px);
+  padding-top: 8px;
+  box-sizing: border-box;
+}
+
+/* Для модалки — базовый фон и фото поверх */
+#modalCarouselInner {
+  height: 290px;
+  position: relative;
+}
+
+/* base-placeholder сейчас не используем, но оставляем */
+.modal-base-placeholder {
+  position: absolute;
+  inset: 0;
+}
+
+/* слой для картинки или подложки в модалке */
+.modal-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.modal-photo-visible {
+  opacity: 1;
+}
+
+.modal-photo-hidden {
+  opacity: 0;
+}
+
+.image-placeholder-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* SVG‑плейсхолдер */
+.image-placeholder-svg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* плавное исчезновение SVG за 0.5s */
+.svg-fade-out {
+  opacity: 0;
+}
+
+/* Базовая картинка — без анимации по умолчанию */
+.product-image {
+  opacity: 1;
+  transition: none;
+}
+
+/* Для анимируемых случаев (svg → fade-out, image → fade-in) */
+.product-image.animatable {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.product-image.animatable.fade-in-image {
+  opacity: 1;
+}
+
+/* SVG-плейсхолдер */
+.image-placeholder-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.svg-fade-out {
+  opacity: 0;
+}
