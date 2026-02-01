@@ -102,14 +102,18 @@ function isCompleteSelection() {
   if (!allVariants.length) return false;
 
   const filtered = getFilteredVariants(allVariants);
-  if (filtered.length !== 1) return false;
+  if (filtered.length !== 1) return false; // должен остаться ровно один вариант
 
   const v = filtered[0];
 
-  // только реально используемые типы
+  // те же типы, что и в модалке
   const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
+  const finalTypes = activeTypes.filter(type =>
+    filtered.some(variant => variant[type] !== undefined && variant[type] !== null && variant[type] !== '')
+  );
 
-  return activeTypes.every(type => {
+  // если у варианта поле непустое — опция должна быть выбрана
+  return finalTypes.every(type => {
     const value = v[type];
     if (value === undefined || value === null || value === '') return true;
     return !!selectedOption[type];
