@@ -380,16 +380,16 @@ function showCartTab() {
     root.innerHTML =
       '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
         '<div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">' +
-          '<svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+          '<svg class="w-16 h-16text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
             '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-              ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
+            ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
             '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
             '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
           '</svg>' +
         '</div>' +
         '<h2 class="text-2xl font-bold text-gray-800 mb-4">Корзина пуста</h2>' +
         '<p class="text-lg text-gray-600 mb-8 max-w-xs">' +
-          'Добавьте устройство в корзину, чтобы оформить заказ.' +
+          'Добавьте устройство в корзину, чтобы оформить заказ.' + // или твой текст, но именно text-lg + mb-8
         '</p>' +
         '<button onclick="switchTab(\'shop\')"' +
           ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg transition-all">' +
