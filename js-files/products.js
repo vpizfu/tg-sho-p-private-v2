@@ -94,13 +94,16 @@ function isCompleteSelection() {
   if (!allVariants.length) return false;
 
   const filtered = getFilteredVariants(allVariants);
-  if (filtered.length !== 1) return false; // должен остаться ровно один вариант
+
+  // Если осталось больше одного варианта — ещё рано
+  if (filtered.length !== 1) return false;
 
   const v = filtered[0];
   const order = getFilterOrderForProduct(currentProduct.cat);
 
-  // Для финального варианта: если в нём поле заполнено,
-  // то для него должна быть выбрана опция
+  // Для КОНКРЕТНО этого варианта:
+  // если поле непустое, опция должна быть выбрана;
+  // если пустое — выбирать не нужно (и его может уже не быть среди availableOptions)
   return order.every(type => {
     const value = v[type];
     if (value === undefined || value === null || value === '') return true;
