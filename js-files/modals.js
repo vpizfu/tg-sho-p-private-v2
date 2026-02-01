@@ -206,14 +206,19 @@ function renderProductModal(product) {
   }
 
   const filteredVariants = getFilteredVariants(variants);
-  const availableVariants = filteredVariants;
+const availableVariants = filteredVariants;
 
-  const activeTypes = getActiveTypesForProduct(product, variants);
+const activeTypes = getActiveTypesForProduct(product, variants);
 
-  // типы, которые показываем: по текущим вариантам поле должно быть где‑то непустым
-  const finalTypes = activeTypes.filter(type =>
+// iPhone: показываем все активные типы, чтобы последний не отваливался
+let finalTypes;
+if (product.cat === 'iphone') {
+  finalTypes = activeTypes.slice(); // копия массива
+} else {
+  finalTypes = activeTypes.filter(type =>
     availableVariants.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
   );
+}
 
   const availableOptions = {};
   finalTypes.forEach(type => {
