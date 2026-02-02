@@ -1,10 +1,8 @@
 // порядок выбора опций в модалке
-// порядок выбора опций в модалке
-// порядок выбора опций в модалке
 const FILTER_ORDER_BY_CAT = {
-  'iPhone': ['simType', 'storage', 'color', 'region'],
+  iPhone: ['simType', 'storage', 'color', 'region'],
   'Apple Watch': ['diameter', 'caseColor', 'bandType', 'bandColor', 'bandSize'],
-  'MacBook': ['diagonal', 'cpu', 'gpu', 'ram', 'ssd', 'color', 'keyboard']
+  MacBook: ['cpu', 'gpu', 'ram', 'ssd', 'color', 'keyboard']
 };
 
 function getFilterOrderForProduct(productCat) {
@@ -25,43 +23,37 @@ function normalizeProducts(products) {
     return [];
   }
 
+  const toStr = v =>
+    v === null || v === undefined ? '' : String(v).trim();
+
+  const toNum = v => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  const toBool = v => {
+    if (typeof v === 'boolean') return v;
+    const s = String(v || '').trim();
+    if (!s) return false;
+    return s === 'true' || s === '1' || s.indexOf('✅') !== -1;
+  };
+
+  const toImagesArray = v => {
+    if (Array.isArray(v)) {
+      return v.map(toStr).filter(Boolean);
+    }
+    if (typeof v === 'string') {
+      return v.split(',').map(s => s.trim()).filter(Boolean);
+    }
+    return [];
+  };
+
   return products.map((row, idx) => {
     const safe = row && typeof row === 'object' ? row : {};
-
-    const toStr = v =>
-      v === null || v === undefined ? '' : String(v).trim();
-
-    const toNum = v => {
-      const n = Number(v);
-      return Number.isFinite(n) ? n : 0;
-    };
-
-    const toBool = v => {
-      if (typeof v === 'boolean') return v;
-      const s = String(v || '').trim();
-      if (!s) return false;
-      return s === 'true' || s === '1' || s.indexOf('✅') !== -1;
-    };
-
-    const toImagesArray = v => {
-      if (Array.isArray(v)) {
-        return v
-          .map(x => toStr(x))
-          .filter(x => x);
-      }
-      if (typeof v === 'string') {
-        return v
-          .split(',')
-          .map(s => s.trim())
-          .filter(Boolean);
-      }
-      return [];
-    };
 
     const id = toStr(safe.id || safe.code || safe.article || safe.sku || '');
     const name = toStr(safe.name || safe.title || '');
     const cat = toStr(safe.cat || safe.category || '');
-
     const price = toNum(safe.price);
 
     const storage = toStr(safe.memory || safe.storage);
@@ -83,7 +75,6 @@ function normalizeProducts(products) {
     const gpu = toStr(safe.gpu);
 
     const inStock = toBool(safe.inStock);
-
     const commonImage = toStr(safe.commonImage || safe.mainImage || '');
     const images = toImagesArray(safe.images);
 
