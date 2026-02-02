@@ -489,7 +489,7 @@ const isInstant = isLoadedPersistently && sessionCount > 0;
   });
 
   return (
-    '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative"' +
+'<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full"' +
       ' data-product-name="' + escapeHtml(product.name) + '"' +
       ' data-carousel-id="' + carouselId + '">' +
 
@@ -549,9 +549,9 @@ const isInstant = isLoadedPersistently && sessionCount > 0;
 
       '</div>' +
 
-      '<div class="font-bold text-base mb-1 truncate">' +
-        escapeHtml(product.name) +
-      '</div>' +
+'<div class="font-bold text-base mb-1 product-title">' +
+  escapeHtml(product.name) +
+'</div>' +
       '<div class="text-blue-600 font-black text-xl mb-1">RUB ' +
         cheapestVariant.price +
       '</div>' +

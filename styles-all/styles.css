@@ -24,6 +24,13 @@ select {
   border-radius: 9999px; /* или 16px, если не нужен «пилл» */
 }
 
+.product-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  /* максимум 2 строки */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 input,
 textarea {
   caret-color: #111827;
