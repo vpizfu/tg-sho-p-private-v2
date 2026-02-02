@@ -19,45 +19,109 @@ function getActiveTypesForProduct(product, variants) {
   );
 }
 
-// нормализация ответа из Google Apps Script (плоский массив вариантов)
 function normalizeProducts(products) {
-  return products.map(row => ({
-    // базовое
-    id: row.id,
-    name: row.name,
-    price: parseFloat(row.price) || 0,
-    cat: row.cat,
+  if (!Array.isArray(products)) {
+    console.warn('[normalizeProducts] products is not an array', products);
+    return [];
+  }
 
-    // универсальный код
-    code: row.id,
+  return products.map((row, idx) => {
+    const safe = row && typeof row === 'object' ? row : {};
 
-    // iPhone
-    storage: (row.memory || '').trim(),
-    region: (row.region || '').trim(),
-    simType: (row.sim || '').trim(),
-    color: (row.color || '').trim(),
+    const toStr = v =>
+      v === null || v === undefined ? '' : String(v).trim();
 
-    // Apple Watch
-    diameter: row.diameter != null ? String(row.diameter).trim() : '',
-    caseColor: (row.caseColor || '').trim(),
-    bandColor: (row.bandColor || '').trim(),
-    bandType: (row.bandType || '').trim(),
-    bandSize: (row.bandSize || '').trim(),
+    const toNum = v => {
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    };
 
-    // MacBook
-    diagonal: row.diagonal != null ? String(row.diagonal).trim() : '',
-    ram: (row.ram || '').trim(),
-    ssd: (row.ssd || '').trim(),
+    const toBool = v => {
+      if (typeof v === 'boolean') return v;
+      const s = String(v || '').trim();
+      if (!s) return false;
+      return s === 'true' || s === '1' || s.indexOf('✅') !== -1;
+    };
 
-    // ДОПОЛНИТЕЛЬНОЕ для MacBook:
-    keyboard: (row.keyboard || '').trim(),
-    cpu: (row.cpu || '').trim(),
-    gpu: (row.gpu || '').trim(),
+    const toImagesArray = v => {
+      if (Array.isArray(v)) {
+        return v
+          .map(x => toStr(x))
+          .filter(x => x);
+      }
+      if (typeof v === 'string') {
+        return v
+          .split(',')
+          .map(s => s.trim())
+          .filter(Boolean);
+      }
+      return [];
+    };
 
-    inStock: !!row.inStock,
-    commonImage: row.commonImage || '',
-    images: Array.isArray(row.images) ? row.images : []
-  }));
+    const id = toStr(safe.id || safe.code || safe.article || safe.sku || '');
+    const name = toStr(safe.name || safe.title || '');
+    const cat = toStr(safe.cat || safe.category || '');
+
+    const price = toNum(safe.price);
+
+    const storage = toStr(safe.memory || safe.storage);
+    const region = toStr(safe.region);
+    const simType = toStr(safe.sim || safe.simType);
+    const color = toStr(safe.color);
+
+    const diameter = toStr(safe.diameter);
+    const caseColor = toStr(safe.caseColor);
+    const bandColor = toStr(safe.bandColor);
+    const bandType = toStr(safe.bandType);
+    const bandSize = toStr(safe.bandSize);
+
+    const diagonal = toStr(safe.diagonal);
+    const ram = toStr(safe.ram);
+    const ssd = toStr(safe.ssd);
+    const keyboard = toStr(safe.keyboard);
+    const cpu = toStr(safe.cpu);
+    const gpu = toStr(safe.gpu);
+
+    const inStock = toBool(safe.inStock);
+
+    const commonImage = toStr(safe.commonImage || safe.mainImage || '');
+    const images = toImagesArray(safe.images);
+
+    if (!id && name) {
+      console.warn('[normalizeProducts] missing id for product', idx, name);
+    }
+
+    return {
+      id,
+      name,
+      price,
+      cat,
+
+      code: id,
+
+      storage,
+      region,
+      simType,
+      color,
+
+      diameter,
+      caseColor,
+      bandColor,
+      bandType,
+      bandSize,
+
+      diagonal,
+      ram,
+      ssd,
+      keyboard,
+      cpu,
+      gpu,
+
+      inStock,
+      commonImage,
+      images
+    };
+  });
 }
 
 function getFilteredProductImages(variants) {
