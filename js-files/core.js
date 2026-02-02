@@ -8,7 +8,7 @@ try {
 }
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbyeIkVtb102H2BK-E6j-ruWbmS-YXeYcJUMDlhenfrUpjKUaA6sj_MBSG6udqaeeVvZVA/exec';
+  'https://script.google.com/macros/s/AKfycbwuGikfFXf9dTAPN3V2iQ5BCoKiTUPgd2yTFU1_5izdvc4_2Mv3CO43_3n8u8CPZc9amg/exec';
 const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
 const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
 

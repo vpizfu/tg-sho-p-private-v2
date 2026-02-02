@@ -364,9 +364,12 @@ function getCartItemSubtitle(item) {
   if (item.cat === 'MacBook') {
     return [
       item.diagonal,
+      item.cpu,
+      item.gpu,
       item.ram,
       item.ssd,
-      item.color
+      item.color,
+      item.keyboard
     ].filter(Boolean).join(' | ');
   }
   return [item.storage, item.color, item.region].filter(Boolean).join(' | ');

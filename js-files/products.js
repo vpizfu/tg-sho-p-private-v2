@@ -4,7 +4,7 @@
 const FILTER_ORDER_BY_CAT = {
   'iPhone': ['simType', 'storage', 'color', 'region'],
   'Apple Watch': ['diameter', 'caseColor', 'bandType', 'bandColor', 'bandSize'],
-  'MacBook': ['diagonal', 'ram', 'ssd', 'color']
+  'MacBook': ['diagonal', 'cpu', 'gpu', 'ram', 'ssd', 'color', 'keyboard']
 };
 
 function getFilterOrderForProduct(productCat) {
@@ -22,6 +22,7 @@ function getActiveTypesForProduct(product, variants) {
 // нормализация ответа из Google Apps Script (плоский массив вариантов)
 function normalizeProducts(products) {
   return products.map(row => ({
+    // базовое
     id: row.id,
     name: row.name,
     price: parseFloat(row.price) || 0,
@@ -37,7 +38,6 @@ function normalizeProducts(products) {
     color: (row.color || '').trim(),
 
     // Apple Watch
-    // приводим к строкам, чтобы фильтр работал корректно
     diameter: row.diameter != null ? String(row.diameter).trim() : '',
     caseColor: (row.caseColor || '').trim(),
     bandColor: (row.bandColor || '').trim(),
@@ -48,6 +48,11 @@ function normalizeProducts(products) {
     diagonal: row.diagonal != null ? String(row.diagonal).trim() : '',
     ram: (row.ram || '').trim(),
     ssd: (row.ssd || '').trim(),
+
+    // ДОПОЛНИТЕЛЬНОЕ для MacBook:
+    keyboard: (row.keyboard || '').trim(),
+    cpu: (row.cpu || '').trim(),
+    gpu: (row.gpu || '').trim(),
 
     inStock: !!row.inStock,
     commonImage: row.commonImage || '',
