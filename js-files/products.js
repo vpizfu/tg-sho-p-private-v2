@@ -331,7 +331,10 @@ function getLabel(type) {
 
     diagonal: 'Диагональ',
     ram: 'ОЗУ',
-    ssd: 'SSD'
+    ssd: 'Объем памяти',
+    gpu: 'GPU',
+    cpu: 'CPU',
+    keyboard: 'Раскладка'
   };
   return labels[type] || type;
 }
