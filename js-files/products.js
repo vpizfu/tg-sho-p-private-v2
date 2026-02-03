@@ -2,7 +2,7 @@
 const FILTER_ORDER_BY_CAT = {
   iPhone: ['simType', 'storage', 'color', 'region'],
   'Apple Watch': ['diameter', 'caseColor', 'bandType', 'bandColor', 'bandSize'],
-  MacBook: ['cpu', 'gpu', 'ram', 'ssd', 'color', 'keyboard']
+  MacBook: ['diagonal', 'cpu', 'gpu', 'ram', 'ssd', 'color', 'keyboard']
 };
 
 function getFilterOrderForProduct(productCat) {
