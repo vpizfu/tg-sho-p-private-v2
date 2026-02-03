@@ -331,7 +331,7 @@ function getLabel(type) {
 
     diagonal: 'Диагональ',
     ram: 'ОЗУ',
-    ssd: 'Объем памяти',
+    ssd: 'SSD',
     gpu: 'GPU',
     cpu: 'CPU',
     keyboard: 'Раскладка'
