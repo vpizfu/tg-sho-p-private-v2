@@ -713,6 +713,7 @@ function showModal(product) {
 }
 
 window.closeModal = function () {
+  renderShop()
   modal.classList.add('hidden');
   // document.body.style.overflow = '';
 
