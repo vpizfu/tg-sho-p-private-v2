@@ -379,6 +379,7 @@ function switchTab(tabName) {
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
+        renderShop()
         restoreTabScroll('shop');
       
         if (modalWasOpenOnShop && currentProduct && modal) {
