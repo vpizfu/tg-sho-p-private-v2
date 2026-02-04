@@ -388,149 +388,6 @@ function renderProductModal(product) {
   }
 
   function buildSlides() {
-    // очищаем контейнер и dots
-    carouselInner.innerHTML =
-      '<div class="flex w-full h-full" id="modalSlidesWrapper"></div>';
-    dotsRoot.innerHTML = '';
-    modalImageCount = imagesToShow.length;
-  
-    const slidesWrapper = document.getElementById('modalSlidesWrapper');
-  
-    const svgPlaceholder =
-      '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"' +
-      ' class="w-12 h-12 text-gray-400">' +
-        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-        ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
-      '</svg>';
-  
-    function makeSlideContent(url, mode) {
-      const hasPhoto = mode === 'photo' && url;
-      const showPlaceholder = mode === 'placeholder';
-  
-      if (hasPhoto) {
-        return (
-          '<img src="' + url + '"' +
-          ' class="carousel-img w-full h-64 object-contain modal-photo modal-photo-hidden"' +
-          ' alt="Product image" loading="lazy" />'
-        );
-      }
-      if (showPlaceholder) {
-        return (
-          '<div class="modal-photo modal-photo-hidden flex items-center justify-center">' +
-            svgPlaceholder +
-          '</div>'
-        );
-      }
-      return '';
-    }
-  
-    function makeSlide(url, mode) {
-      return (
-        '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-          makeSlideContent(url, mode) +
-        '</div>'
-      );
-    }
-  
-    const durationForThisBuild =
-      modalCurrentImageKey === null ? INITIAL_FADE_MS : SWAP_FADE_MS;
-  
-    // 1) ВСТАВЛЯЕМ СЛАЙДЫ СРАЗУ (без доп. логики)
-    if (!imagesToShow.length) {
-      // только плейсхолдер
-      slidesWrapper.innerHTML = makeSlide('', 'placeholder');
-      prevBtn.style.display = 'none';
-      nextBtn.style.display = 'none';
-    } else {
-      // сразу создаём реальные <img>, но без fade
-      slidesWrapper.innerHTML = imagesToShow
-        .map(url => makeSlide(url, 'photo'))
-        .join('');
-    }
-  
-    // 2) ВТОРОЙ ШАГ — ЛОГИКА ПОВЕРХ УЖЕ ВСТАВЛЕННЫХ ЭЛЕМЕНТОВ
-    requestAnimationFrame(() => {
-      const slideEls = slidesWrapper.children;
-  
-      if (!imagesToShow.length) {
-        // один placeholder: включаем fade как раньше
-        const slide = slidesWrapper.firstElementChild;
-        const layer = slide?.querySelector('.modal-photo');
-        applyFadeIn(layer, durationForThisBuild);
-      } else {
-        // для каждого URL решаем: фото или SVG, плюс fade/ошибка
-        imagesToShow.forEach((url, idx) => {
-          const slide = slideEls[idx];
-  
-          // битый URL → SVG
-          if (!url || brokenImageMap.get(url)) {
-            slide.innerHTML = makeSlideContent('', 'placeholder');
-            const ph = slide.querySelector('.modal-photo');
-            requestAnimationFrame(() => {
-              applyFadeIn(ph, durationForThisBuild);
-            });
-            return;
-          }
-  
-          // уже есть img внутри (мы его создали выше через makeSlide(url,'photo'))
-          let img = slide.querySelector('img');
-  
-          // safety: если почему-то нет, создаём
-          if (!img) {
-            slide.innerHTML = makeSlideContent(url, 'photo');
-            img = slide.querySelector('img');
-          }
-  
-          // стартуем fade-in как раньше
-          requestAnimationFrame(() => {
-            applyFadeIn(img, durationForThisBuild);
-          });
-  
-          // обработка ошибок остаётся прежней
-          img.addEventListener('error', () => {
-            brokenImageMap.set(url, true);
-            slide.innerHTML = makeSlideContent('', 'placeholder');
-            const ph = slide.querySelector('.modal-photo');
-            requestAnimationFrame(() => {
-              applyFadeIn(ph, durationForThisBuild);
-            });
-          });
-        });
-  
-        modalCurrentIndex = 0;
-  
-        // dots + стрелки — полностью как раньше
-        if (imagesToShow.length > 1) {
-          dotsRoot.innerHTML = imagesToShow
-            .map(
-              (_, idx) =>
-                '<div class="dot' +
-                (idx === modalCurrentIndex ? ' active' : '') +
-                '" onclick="modalGoTo(' +
-                idx +
-                '); event.stopPropagation()"></div>'
-            )
-            .join('');
-          prevBtn.style.display = '';
-          nextBtn.style.display = '';
-          initModalCarousel(imagesToShow.length);
-        } else {
-          dotsRoot.innerHTML = '';
-          prevBtn.style.display = 'none';
-          nextBtn.style.display = 'none';
-        }
-      }
-  
-      // hint — тоже без изменений
-      if (!complete || !filteredImages.length) {
-        imageHintEl.textContent =
-          '❓ Чтобы посмотреть реальные фото товара, выберите все параметры устройства.';
-        imageHintEl.classList.remove('modal-image-hint-hidden');
-      } else {
-        imageHintEl.textContent = '';
-        imageHintEl.classList.add('modal-image-hint-hidden');
-      }
-    });
   }
   
 
@@ -747,27 +604,18 @@ function preloadProductVariantImages(product) {
 }
 
 function showModal(product) {
-  const modalRoot = document.getElementById('modalContent');
-
-  const isSameProduct = currentProduct && currentProduct.name === product.name;
-  const wasInitialized = modalRoot && modalRoot.dataset.initialized === '1';
-
-  if (!wasInitialized || !isSameProduct) {
-    renderProductModal(product);
-  } else {
-    currentProduct = product;
-  }
+  renderProductModal(product);
 
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  // это убрать:
-  // requestAnimationFrame(() => {
-  //   requestAnimationFrame(() => {
-  //     const scrollContainer = document.querySelector('#modalContent .flex-1');
-  //     if (scrollContainer) scrollContainer.scrollTop = 0;
-  //   });
-  // });
+  // мягкий сброс скролла после того, как браузер применил layout
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const scrollContainer = document.querySelector('#modalContent .flex-1');
+      if (scrollContainer) scrollContainer.scrollTop = 0;
+    });
+  });
 
   tg?.expand();
   preloadProductVariantImages(product);
