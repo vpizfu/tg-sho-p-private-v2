@@ -769,7 +769,7 @@ function setupInfiniteScroll() {
 
       const newSlice = all.slice(prevCount, showCount);
       grid.insertAdjacentHTML('beforeend', newSlice.map(productCard).join(''));
-      preloadAllImages(newSlice);
+      // preloadAllImages(newSlice);
       setupImageCarousels();
 
       document.querySelectorAll('[data-product-name]').forEach(card => {
