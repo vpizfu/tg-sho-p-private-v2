@@ -749,26 +749,25 @@ function preloadProductVariantImages(product) {
 function showModal(product) {
   const modalRoot = document.getElementById('modalContent');
 
-  // если каркас уже есть и открываем того же товара — можно не пересобирать всё
   const isSameProduct = currentProduct && currentProduct.name === product.name;
   const wasInitialized = modalRoot && modalRoot.dataset.initialized === '1';
 
   if (!wasInitialized || !isSameProduct) {
     renderProductModal(product);
   } else {
-    // только обновим заголовок/цену, если надо
     currentProduct = product;
   }
 
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const scrollContainer = document.querySelector('#modalContent .flex-1');
-      if (scrollContainer) scrollContainer.scrollTop = 0;
-    });
-  });
+  // это убрать:
+  // requestAnimationFrame(() => {
+  //   requestAnimationFrame(() => {
+  //     const scrollContainer = document.querySelector('#modalContent .flex-1');
+  //     if (scrollContainer) scrollContainer.scrollTop = 0;
+  //   });
+  // });
 
   tg?.expand();
   preloadProductVariantImages(product);

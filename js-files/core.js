@@ -383,9 +383,7 @@ function switchTab(tabName) {
         restoreTabScroll('shop');
       
         if (modalWasOpenOnShop && currentProduct) {
-          // НЕ пересоздаём модалку
-          // renderProductModal(currentProduct);
-      
+          // НЕ вызываем renderProductModal
           modal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
           tg?.expand();
@@ -393,6 +391,7 @@ function switchTab(tabName) {
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
         }
       }
+      
        else if (tabName === 'cart') {
         showCartTab();
         restoreTabScroll('cart');
