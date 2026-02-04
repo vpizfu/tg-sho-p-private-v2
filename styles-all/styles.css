@@ -489,3 +489,10 @@ img,
 .svg-fade-out {
   opacity: 0;
 }
+
+.option-btn:focus,
+.option-btn:active {
+  outline: none;
+  box-shadow: none;
+  background-color: inherit;
+}
