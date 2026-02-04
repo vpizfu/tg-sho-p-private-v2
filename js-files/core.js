@@ -379,18 +379,15 @@ function switchTab(tabName) {
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
-        if (!modal){
-          renderShop()
-          restoreTabScroll('shop');
-        }
-      
+        
         if (modalWasOpenOnShop && currentProduct && modal) {
           modal.classList.remove('hidden');     // только показать
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
+        } else {
+          renderShop()
         }
       }      
-      
        else if (tabName === 'cart') {
         showCartTab();
         restoreTabScroll('cart');
