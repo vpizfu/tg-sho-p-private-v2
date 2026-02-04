@@ -698,7 +698,7 @@ function showModal(product) {
   renderProductModal(product);
 
   modal.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
+  // document.body.style.overflow = 'hidden';
 
   // мягкий сброс скролла после того, как браузер применил layout
   requestAnimationFrame(() => {
@@ -714,7 +714,7 @@ function showModal(product) {
 
 window.closeModal = function () {
   modal.classList.add('hidden');
-  document.body.style.overflow = '';
+  // document.body.style.overflow = '';
 
   selectedOption = {};
   currentProduct = null;

@@ -368,28 +368,25 @@ function switchTab(tabName) {
       modalWasOpenOnShop = true;
       const scrollContainer = document.querySelector('#modalContent .flex-1');
       modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-      // НЕ трогаем modal.hidden и overflow
+      modal.classList.add('hidden');        // только скрыть
+      // НЕ трогаем document.body.style.overflow
     } else {
       modalWasOpenOnShop = false;
       modalSavedScrollTop = 0;
     }
-  }
+  }  
 
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
-        // renderShop();
         restoreTabScroll('shop');
       
-        // if (modalWasOpenOnShop && currentProduct) {
-        //   // НЕ вызываем renderProductModal
-        //   modal.classList.remove('hidden');
-        //   document.body.style.overflow = 'hidden';
-        //   tg?.expand();
-        //   const scrollContainer = document.querySelector('#modalContent .flex-1');
-        //   if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
-        // }
-      }
+        if (modalWasOpenOnShop && currentProduct && modal) {
+          modal.classList.remove('hidden');     // только показать
+          const scrollContainer = document.querySelector('#modalContent .flex-1');
+          if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
+        }
+      }      
       
        else if (tabName === 'cart') {
         showCartTab();
