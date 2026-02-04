@@ -716,12 +716,22 @@ function preloadProductVariantImages(product) {
 }
 
 function showModal(product) {
-  renderProductModal(product);
+  const modalRoot = document.getElementById('modalContent');
+
+  // если каркас уже есть и открываем того же товара — можно не пересобирать всё
+  const isSameProduct = currentProduct && currentProduct.name === product.name;
+  const wasInitialized = modalRoot && modalRoot.dataset.initialized === '1';
+
+  if (!wasInitialized || !isSameProduct) {
+    renderProductModal(product);
+  } else {
+    // только обновим заголовок/цену, если надо
+    currentProduct = product;
+  }
 
   modal.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  // мягкий сброс скролла после того, как браузер применил layout
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       const scrollContainer = document.querySelector('#modalContent .flex-1');
@@ -733,6 +743,7 @@ function showModal(product) {
   preloadProductVariantImages(product);
 }
 
+
 window.closeModal = function () {
   modal.classList.add('hidden');
   document.body.style.overflow = '';
@@ -740,19 +751,18 @@ window.closeModal = function () {
   selectedOption = {};
   currentProduct = null;
   selectedQuantity = 1;
-  modalCurrentImageKey = null;
-
-  modalWasOpenOnShop = false;
-  modalSavedScrollTop = 0;
+  modalCurrentImageKey = null; // можно оставить, но каркас не трогаем
 
   const scrollContainer = document.querySelector('#modalContent .flex-1');
   if (scrollContainer) scrollContainer.scrollTop = 0;
 
-  const modalRoot = document.getElementById('modalContent');
-  if (modalRoot && modalRoot.dataset.initialized) {
-    delete modalRoot.dataset.initialized;
-    modalRoot.innerHTML = '';        // убрать старый layout
-  }
+  // НЕ очищаем innerHTML и dataset.initialized
+  // const modalRoot = document.getElementById('modalContent');
+  // if (modalRoot && modalRoot.dataset.initialized) {
+  //   delete modalRoot.dataset.initialized;
+  //   modalRoot.innerHTML = '';
+  // }
 
   tg?.HapticFeedback?.impactOccurred('light');
 };
+

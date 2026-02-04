@@ -381,16 +381,19 @@ function switchTab(tabName) {
       if (tabName === 'shop') {
         renderShop();
         restoreTabScroll('shop');
-
+      
         if (modalWasOpenOnShop && currentProduct) {
-          renderProductModal(currentProduct);
+          // НЕ пересоздаём модалку
+          // renderProductModal(currentProduct);
+      
           modal.classList.remove('hidden');
           document.body.style.overflow = 'hidden';
           tg?.expand();
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
         }
-      } else if (tabName === 'cart') {
+      }
+       else if (tabName === 'cart') {
         showCartTab();
         restoreTabScroll('cart');
       } else if (tabName === 'sale') {
