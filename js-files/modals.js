@@ -12,6 +12,8 @@ let modalCurrentImageKey = null;
 // Запоминаем: для каких URL был onerror (чтобы сразу ставить заглушку)
 const brokenImageMap = new Map();
 
+let modalOptionsInitialized = false;
+
 function getVariantCountText(count) {
   const mod10 = count % 10;
   const mod100 = count % 100;
@@ -180,6 +182,27 @@ window.addToCartFromModal = async function () {
   }
 };
 
+function updateOptionButtonsClasses(finalTypes, availableOptions) {
+  finalTypes.forEach(type => {
+    const buttons = document.querySelectorAll(
+      '.option-section[data-section="' + type + '"] .option-btn'
+    );
+    buttons.forEach(btn => {
+      const option = btn.getAttribute('data-option');
+      const isSelected = selectedOption[type] === option;
+      btn.classList.toggle('bg-blue-500', isSelected);
+      btn.classList.toggle('text-white', isSelected);
+      btn.classList.toggle('border-blue-500', isSelected);
+      btn.classList.toggle('shadow-md', isSelected);
+      btn.classList.toggle('font-bold', isSelected);
+
+      btn.classList.toggle('bg-gray-100', !isSelected);
+      btn.classList.toggle('border-gray-300', !isSelected);
+    });
+  });
+}
+
+
 function renderProductModal(product) {
   currentProduct = product;
 
@@ -303,6 +326,14 @@ function renderProductModal(product) {
         '</div>' +
 
       '</div>';
+
+      if (!modalOptionsInitialized) {
+        modalOptionsInitialized = true;
+      } else {
+        // после первого раза делаем простой апдейт классов вместо полного innerHTML
+        updateOptionButtonsClasses(finalTypes, availableOptions);
+        return;
+      }      
 
     initModalSwipe();
   }
