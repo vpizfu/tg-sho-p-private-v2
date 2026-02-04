@@ -614,7 +614,7 @@ function renderShop() {
 
     if (grid) {
       grid.innerHTML = renderShopList(list, showCount);
-      preloadAllImages(list.slice(0, showCount));
+      // preloadAllImages(list.slice(0, showCount));
       setupImageCarousels();
       setupInfiniteScroll();
     }
@@ -676,7 +676,7 @@ function renderShop() {
     const grid = document.getElementById('productGrid');
     if (grid) {
       grid.innerHTML = renderShopList(list, showCount);
-      preloadAllImages(list.slice(0, showCount));
+      // preloadAllImages(list.slice(0, showCount));
     }
   
     setupHandlers();
@@ -728,7 +728,7 @@ function setupHandlers() {
 
         if (grid) {
           grid.innerHTML = renderShopList(list, showCount);
-          preloadAllImages(list.slice(0, showCount));
+          // preloadAllImages(list.slice(0, showCount));
           setupImageCarousels();
           // карточки новые → нужно навесить клики по ним
           document.querySelectorAll('[data-product-name]').forEach(card => {

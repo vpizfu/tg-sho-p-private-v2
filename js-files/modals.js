@@ -693,6 +693,32 @@ function initModalSwipe() {
   );
 }
 
+function preloadProductVariantImages(product) {
+  try {
+    const variants = getProductVariants(product.name).filter(v => v.inStock);
+    if (!variants.length) return;
+
+    // те же images, что и в getFilteredProductImages
+    const allImages = getFilteredProductImages(variants).slice(0, 2); // 1–2 картинки достаточно
+
+    allImages.forEach(imgSrc => {
+      if (!imgSrc) return;
+      if (imageCache && imageCache.has && imageCache.has(imgSrc)) return;
+
+      const img = new Image();
+      img.onload = () => {
+        if (imageCache && imageCache.set) imageCache.set(imgSrc, true);
+      };
+      img.onerror = () => {
+        if (imageCache && imageCache.set) imageCache.set(imgSrc, false);
+      };
+      img.src = imgSrc;
+    });
+  } catch (e) {
+    console.log('[modal-preload] error', e);
+  }
+}
+
 function showModal(product) {
   renderProductModal(product);
 
@@ -708,6 +734,7 @@ function showModal(product) {
   });
 
   tg?.expand();
+  preloadProductVariantImages(product);
 }
 
 window.closeModal = function () {
