@@ -385,6 +385,9 @@ function switchTab(tabName) {
           modal.classList.remove('hidden');     // только показать
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
+        } else {
+          renderShop()
+          restoreTabScroll('shop');
         }
       }      
        else if (tabName === 'cart') {
