@@ -695,12 +695,16 @@ function preloadProductVariantImages(product) {
 }
 
 function showModal(product) {
+  // запоминаем скролл магазина в момент открытия модалки
+  if (currentTab === 'shop') {
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    tabScrollTops.shop = y;
+  }
+
   renderProductModal(product);
 
   modal.classList.remove('hidden');
-  // document.body.style.overflow = 'hidden';
 
-  // мягкий сброс скролла после того, как браузер применил layout
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       const scrollContainer = document.querySelector('#modalContent .flex-1');
@@ -711,6 +715,7 @@ function showModal(product) {
   tg?.expand();
   preloadProductVariantImages(product);
 }
+
 
 window.closeModal = function () {
   renderShop()
