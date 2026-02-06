@@ -382,7 +382,7 @@ if (currentTab === 'shop' && tabName !== 'shop') {
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
-        if (modalWasOpenOnShop && currentProduct && modal && modal.dataset && modal.dataset.initialized) {
+        if (modalWasOpenOnShop && currentProduct && modal) {
           console.log('[modal] return to shop with open modal, restore modal scroll =', modalSavedScrollTop);
           modal.classList.remove('hidden');
           const scrollContainer = document.querySelector('#modalContent .flex-1');
