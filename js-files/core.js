@@ -364,33 +364,38 @@ function switchTab(tabName) {
   saveCurrentTabScroll();
 
   // спец‑логика выхода из shop (модалка)
-  if (currentTab === 'shop' && tabName !== 'shop') {
-    if (modal && !modal.classList.contains('hidden')) {
-      modalWasOpenOnShop = true;
-      const scrollContainer = document.querySelector('#modalContent .flex-1');
-      modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-      modal.classList.add('hidden');        // только скрыть
-      // НЕ трогаем document.body.style.overflow
-    } else {
-      modalWasOpenOnShop = false;
-      modalSavedScrollTop = 0;
-    }
-  }  
+// спец‑логика выхода из shop (модалка)
+if (currentTab === 'shop' && tabName !== 'shop') {
+  if (modal && !modal.classList.contains('hidden')) {
+    const scrollContainer = document.querySelector('#modalContent .flex-1');
+    modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+    modalWasOpenOnShop = true;
+    modal.classList.add('hidden'); // только скрыть
+    console.log('[modal] hide on tab switch, saved modal scroll =', modalSavedScrollTop);
+  } else {
+    modalWasOpenOnShop = false;
+    modalSavedScrollTop = 0;
+    console.log('[modal] no open modal on leaving shop');
+  }
+}
 
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
         if (modalWasOpenOnShop && currentProduct && modal && modal.dataset && modal.dataset.initialized) {
+          console.log('[modal] return to shop with open modal, restore modal scroll =', modalSavedScrollTop);
           modal.classList.remove('hidden');
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
+          restoreTabScroll('shop');
         } else {
+          console.log('[modal] return to shop without modal, rerender shop');
           modalWasOpenOnShop = false;
           modalSavedScrollTop = 0;
           renderShop();
           restoreTabScroll('shop');
         }
-      }       
+      }           
        else if (tabName === 'cart') {
         showCartTab();
         restoreTabScroll('cart');

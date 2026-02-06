@@ -695,12 +695,13 @@ function preloadProductVariantImages(product) {
 }
 
 function showModal(product) {
-  // запоминаем скролл магазина в момент открытия модалки
   if (currentTab === 'shop') {
     const y = window.scrollY || document.documentElement.scrollTop || 0;
     tabScrollTops.shop = y;
+    console.log('[modal] showModal, saved shop scrollY =', y);
   }
 
+  console.log('[modal] renderProductModal for', product?.name);
   renderProductModal(product);
 
   modal.classList.remove('hidden');
@@ -716,13 +717,13 @@ function showModal(product) {
   preloadProductVariantImages(product);
 }
 
-
 window.closeModal = function () {
-  // если модалка была открыта ДО ухода на другой таб и нас туда вернули,
-  // а сейчас пользователь её закрывает — пересобираем магазин и возвращаем скролл
   if (modalWasOpenOnShop) {
+    console.log('[modal] closeModal after tab return: renderShop + restoreTabScroll(shop), scrollY =', tabScrollTops.shop);
     renderShop();
     restoreTabScroll('shop');
+  } else {
+    console.log('[modal] closeModal from shop (no tab switch), no renderShop');
   }
 
   modal.classList.add('hidden');
