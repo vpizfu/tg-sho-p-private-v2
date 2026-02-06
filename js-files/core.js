@@ -380,12 +380,11 @@ function switchTab(tabName) {
     .then(() => {
       if (tabName === 'shop') {
         restoreTabScroll('shop');
+        renderShop()
         if (modalWasOpenOnShop && currentProduct && modal) {
           modal.classList.remove('hidden');     // только показать
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
-          // renderShop()
-          restoreTabScroll('shop');
         } else {
           renderShop()
           restoreTabScroll('shop');
