@@ -387,7 +387,6 @@ if (currentTab === 'shop' && tabName !== 'shop') {
           modal.classList.remove('hidden');
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
-          restoreTabScroll('shop');
         } else {
           console.log('[modal] return to shop without modal, rerender shop');
           modalWasOpenOnShop = false;
