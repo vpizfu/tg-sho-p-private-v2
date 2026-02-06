@@ -386,8 +386,8 @@ function switchTab(tabName) {
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
         } else {
           renderShop()
+          restoreTabScroll('shop');
         }
-        restoreTabScroll('shop');
       }      
        else if (tabName === 'cart') {
         showCartTab();
