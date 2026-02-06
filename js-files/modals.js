@@ -719,7 +719,6 @@ function showModal(product) {
 
 window.closeModal = function () {
   renderShop()
-  restoreTabScroll('shop');
   modal.classList.add('hidden');
   // document.body.style.overflow = '';
 
@@ -741,4 +740,5 @@ window.closeModal = function () {
   }
 
   tg?.HapticFeedback?.impactOccurred('light');
+  restoreTabScroll('shop');
 };
