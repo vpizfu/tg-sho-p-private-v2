@@ -718,9 +718,14 @@ function showModal(product) {
 
 
 window.closeModal = function () {
-  // renderShop()
+  // если модалка была открыта ДО ухода на другой таб и нас туда вернули,
+  // а сейчас пользователь её закрывает — пересобираем магазин и возвращаем скролл
+  if (modalWasOpenOnShop) {
+    renderShop();
+    restoreTabScroll('shop');
+  }
+
   modal.classList.add('hidden');
-  // document.body.style.overflow = '';
 
   selectedOption = {};
   currentProduct = null;
@@ -736,9 +741,8 @@ window.closeModal = function () {
   const modalRoot = document.getElementById('modalContent');
   if (modalRoot && modalRoot.dataset.initialized) {
     delete modalRoot.dataset.initialized;
-    modalRoot.innerHTML = '';        // убрать старый layout
+    modalRoot.innerHTML = '';
   }
 
   tg?.HapticFeedback?.impactOccurred('light');
-  // restoreTabScroll('shop');
 };

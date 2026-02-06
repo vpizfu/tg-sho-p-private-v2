@@ -62,6 +62,7 @@ let placeOrderTimeoutId = null;
 // модалка при переключении табов
 let modalWasOpenOnShop = false;
 let modalSavedScrollTop = 0;
+let modalClosedAfterTabReturn = false;
 
 // сохранение состояния формы корзины между рендерами
 let cartFormState = {
@@ -379,16 +380,17 @@ function switchTab(tabName) {
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
-        // renderShop()
-        if (modalWasOpenOnShop && currentProduct && modal) {
-          modal.classList.remove('hidden');     // только показать
+        if (modalWasOpenOnShop && currentProduct && modal && modal.dataset && modal.dataset.initialized) {
+          modal.classList.remove('hidden');
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
         } else {
-          renderShop()
+          modalWasOpenOnShop = false;
+          modalSavedScrollTop = 0;
+          renderShop();
           restoreTabScroll('shop');
         }
-      }      
+      }       
        else if (tabName === 'cart') {
         showCartTab();
         restoreTabScroll('cart');
