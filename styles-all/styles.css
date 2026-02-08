@@ -329,7 +329,7 @@ img,
 /* выбранная опция — аналог bg-blue-500 */
 .option-btn.selected {
   background-color: #3b82f6;
-  border: 1px solid #1d4ed8; /* более тёмный и толще */
+  border: 1px solid #d1d5db;/* более тёмный и толще */
   color: #ffffff;
   font-weight: 600;
 }
