@@ -1,10 +1,12 @@
-// поля, которые игнорируем при сравнении (служебные)
+// ===== ДЕДУПЛИКАЦИЯ ВАРИАНТОВ (ОБЩАЯ) =====
+
+// служебные поля, которые не влияют на спецификацию
 const VARIANT_TECH_FIELDS = ['Артикул', 'id', 'SKU'];
 
-// ключ «для пользователя» — все поля, кроме служебных И КРОМЕ цены
+// ключ без цены: всё, кроме служебных полей и "Цена"
 function makeVariantUserKeyWithoutPrice(variant) {
   const entries = Object.entries(variant)
-    .filter(([key]) => 
+    .filter(([key]) =>
       !VARIANT_TECH_FIELDS.includes(key) &&
       key !== 'Цена'
     )
@@ -13,9 +15,9 @@ function makeVariantUserKeyWithoutPrice(variant) {
   return JSON.stringify(entries);
 }
 
-// дедупликация: считаем дублями варианты, у которых всё совпадает, кроме цены,
-// и оставляем тот, у которого 'Цена' максимальная
-function dedupeIdenticalVariantsKeepMaxPrice(variants) {
+// считаем дублями варианты, одинаковые по всем полям, кроме цены;
+// оставляем вариант с максимальной ценой
+function dedupeIdenticalVariants(variants) {
   const map = new Map(); // key -> variant
 
   variants.forEach(v => {
