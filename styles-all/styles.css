@@ -129,8 +129,55 @@ img,
 
 /* Карусель в модалке */
 #modalCarousel {
-  height: 290px;        /* фиксируем высоту блока с фото+dots+hint */
+  height: 290px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* точная вертикальная центровка относительно изображения */
+#modalCarousel .nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border: none;
+  font-size: 24px;
+  color: #111827;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+#modalCarousel:hover .nav-btn {
+  opacity: 1;
+}
+
+#modalCarousel .nav-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+#modalCarousel .nav-btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+/* стороны */
+#modalCarousel .nav-prev {
+  left: 8px;
+}
+
+#modalCarousel .nav-next {
+  right: 8px;
 }
 
 /* Внутренняя лента слайдов */
