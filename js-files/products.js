@@ -126,13 +126,12 @@ function getProductVariants(productName) {
 }
 
 // текущие варианты по выбранным опциям
-// текущие варианты по выбранным опциям
 function getFilteredVariants(variants) {
   if (!variants.length) return [];
   const order = getFilterOrderForProduct(variants[0].cat);
   return variants.filter(variant =>
     order.every(type => {
-      const selectedValue = selectedOption[type];
+      const selectedValue = selectedOption[type]; // type = 'Память', 'Розетка', ...
       if (!selectedValue) return true;
       const v = variant[type];
       return String(v) === String(selectedValue);
@@ -140,7 +139,6 @@ function getFilteredVariants(variants) {
   );
 }
 
-// доступные значения для одного типа опции (по уже отфильтрованным вариантам)
 function getAvailableOptions(type, variants) {
   const filteredVariants = getFilteredVariants(variants);
   const options = [...new Set(filteredVariants.map(v => v[type]).filter(Boolean))];

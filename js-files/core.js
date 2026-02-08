@@ -8,7 +8,7 @@ try {
 }
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbyk_ZLsm2j8pfFLlwJ3jCGsv4Wh6XiaaMyQE9fXdxPO_EgUGh_nC6mSCuB9BXDteGAxKQ/exec';
+  'https://script.google.com/macros/s/AKfycbz-qrPhsSIybxgLNfTC7FWryqLDxCANUi2SBCekfmVJpBjduz9oPrO1Ortzz57DLzXJNQ/exec';
 const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
 const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
 
@@ -28,13 +28,15 @@ let FILTER_ORDER_BY_CAT = {}; // динамический порядок фил�
 // поля, которые не должны участвовать в фильтрах/модалке
 const EXCLUDE_FILTER_FIELDS = new Set([
   'id',
-  'code',
-  'name',
-  'price',
   'cat',
   'inStock',
-  'commonImage',
-  'images'
+  'Название',
+  'Цена',
+  'Категория',
+  'Артикул',
+  'Статус',
+  'Общая картинка',
+  'Изображения'
 ]);
 
 let selectedCategory = 'Все',
@@ -544,23 +546,20 @@ async function fetchAndUpdateProducts(showLoader = false) {
     if (!response.ok) throw new Error('HTTP ' + response.status);
   
     const products = await response.json();
-    logStage('products json parse', t0);
-    console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
-  
-    const normalized = normalizeProducts(products);
-    logStage('normalizeProducts', t0);
-  
-    productsData = normalized;
-  
-    FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
-    console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
-  
-    const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
-    CATEGORIES = ['Все', ...cats];
-    console.log('[core] CATEGORIES', CATEGORIES);
-  
-    syncProductsAndCart();
-    logStage('update productsData + sync', t0);
+logStage('products json parse', t0);
+console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
+
+productsData = Array.isArray(products) ? products : [];
+
+FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
+console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
+
+const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
+CATEGORIES = ['Все', ...cats];
+console.log('[core] CATEGORIES', CATEGORIES);
+
+syncProductsAndCart();
+logStage('update productsData + sync', t0);
   } catch (error) {  
     console.error('[core] products API error:', error);
     if (showLoader && currentTab === 'shop') {
