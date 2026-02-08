@@ -130,9 +130,10 @@ function normalizeProducts(products) {
 function getFilteredProductImages(variants) {
   const images = new Set();
   variants.forEach(variant => {
-    if (variant.images && Array.isArray(variant.images)) {
-      variant.images.forEach(img => {
-        if (img && img.trim()) images.add(img);
+    const arr = variant['Изображения'];
+    if (arr && Array.isArray(arr)) {
+      arr.forEach(img => {
+        if (img && String(img).trim()) images.add(String(img).trim());
       });
     }
   });
