@@ -645,19 +645,31 @@ function getImageCacheKey(product, url) {
 // Вычислить итоговую категорию для всех вариантов одного товара
 function resolveCategoryForVariants(variants) {
   const counts = new Map();
+  let hasNonEmptyCategory = false;
 
   variants.forEach(v => {
-    const raw = v.cat != null ? String(v.cat).trim() : '';
-    if (!raw) return; // пустые не считаем вообще
+    let raw = v.cat != null ? String(v.cat).trim() : '';
+
+    // "Без категории" приравниваем к пустой
+    if (raw === 'Без категории') {
+      raw = '';
+    }
+
+    if (!raw) {
+      return; // пустые не считаем в голосовании
+    }
+
+    hasNonEmptyCategory = true;
     counts.set(raw, (counts.get(raw) || 0) + 1);
   });
 
-  // если нет ни одной непустой категории — считаем, что категория не задана
-  if (counts.size === 0) {
-    return '';
+  // если нет ни одной нормальной (не пустой и не "Без категории") категории
+  // значит у товара реально только "без категории" → возвращаем "Без категории"
+  if (!hasNonEmptyCategory) {
+    return 'Без категории';
   }
 
-  // выбираем категорию с максимальным числом вариантов
+  // есть хотя бы одна нормальная категория → выбираем ту, у которой вариантов больше
   let bestCat = '';
   let bestCount = 0;
 
