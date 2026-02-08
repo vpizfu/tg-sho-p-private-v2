@@ -50,21 +50,13 @@ function selectOptionNoFocus(type, option) {
 
   const finalTypes = getFinalTypesForCurrentProduct();
   const typeIndex = finalTypes.indexOf(type);
-
   if (typeIndex === -1) return;
 
-  if (selectedOption[type] === option) {
-    // снимаем выбор и чистим всё дальше
-    for (let i = typeIndex; i < finalTypes.length; i++) {
-      delete selectedOption[finalTypes[i]];
-    }
-  } else {
-    // ставим новое значение и чистим всё дальше
-    for (let i = typeIndex + 1; i < finalTypes.length; i++) {
-      delete selectedOption[finalTypes[i]];
-    }
-    selectedOption[type] = option;
+  // всегда ставим выбранное значение и чистим только следующие типы
+  for (let i = typeIndex + 1; i < finalTypes.length; i++) {
+    delete selectedOption[finalTypes[i]];
   }
+  selectedOption[type] = option;
 
   renderProductModal(currentProduct);
 
@@ -78,12 +70,6 @@ function clearOptionNoFocus(type) {
   if (document.activeElement && document.activeElement.blur) {
     document.activeElement.blur();
   }
-
-  // гасим фокус у кнопки этого типа, если он есть
-  const focused = document.querySelector(
-    '.option-section[data-section="' + type + '"] .option-btn:focus'
-  );
-  if (focused && focused.blur) focused.blur();
 
   const scrollContainer = document.querySelector('#modalContent .flex-1');
   const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
@@ -512,10 +498,11 @@ function renderProductModal(product) {
   }
 
   // === ТЕЛО МОДАЛКИ (опции, количество) ===
-  const body = document.getElementById('modalBodyDynamic');
-  const order = finalTypes;
+  // === ТЕЛО МОДАЛКИ (опции, количество) ===
+const body = document.getElementById('modalBodyDynamic');
+const order = finalTypes;
 
-  body.innerHTML =
+body.innerHTML =
   order.map((type, index) => {
     const isLocked = index > getCurrentSectionIndex();
     return (
@@ -527,14 +514,13 @@ function renderProductModal(product) {
         '</label>' +
         '<div class="flex gap-2 scroll-carousel pb-1">' +
 
+          // КНОПКИ ОПЦИЙ
           availableOptions[type]
             .map(option => {
               const isSelected = selectedOption[type] === option;
               return (
-                '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full border scroll-item ' +
-                  (isSelected
-                    ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'
-                    : 'bg-gray-100 border-gray-300') +
+                '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
+                  (isSelected ? ' selected' : '') +
                 '"' +
                 ' data-type="' + type + '"' +
                 ' data-option="' + escapeHtml(option) + '"' +
@@ -545,6 +531,7 @@ function renderProductModal(product) {
             })
             .join('') +
 
+          // КРЕСТИК ДЛЯ СБРОСА СЕКЦИИ
           (selectedOption[type]
             ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
                 ' data-type="' + type + '">✕</button>'
@@ -557,6 +544,8 @@ function renderProductModal(product) {
       '</div>'
     );
   }).join('') +
+
+  // количество
   '<div class="quantity-section">' +
     '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
     '<div class="flex items-center gap-3">' +
