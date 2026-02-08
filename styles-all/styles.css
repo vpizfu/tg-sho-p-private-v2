@@ -169,18 +169,23 @@ img,
 .nav-prev .nav-icon { transform: translateX(1px); }
 .nav-next .nav-icon { transform: translateX(-1px); }
 
+#modalCarousel .nav-icon {
+  width: 12px;
+  height: 12px;
+  color: #020617; /* тёмный почти чёрный */
+}
 
 #modalCarousel:hover .nav-btn {
   opacity: 1;
 }
 
 #modalCarousel .nav-btn:hover {
-  background: rgba(255, 255, 255, 1);
-  transform: translateY(-50%) scale(1.1);
+  background-color: #ffffff;
+  transform: translateY(-50%) scale(1.05);
 }
 
 #modalCarousel .nav-btn:active {
-  transform: translateY(-50%) scale(0.92);
+  transform: translateY(-50%) scale(0.95);
 }
 
 /* стороны */

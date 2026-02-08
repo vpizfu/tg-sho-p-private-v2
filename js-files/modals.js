@@ -281,8 +281,16 @@ function renderProductModal(product) {
       '<div class="carousel-dots" id="modalDots"></div>' +
       '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
     '</div>' +
-    '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()"><span class="nav-icon">‹</span></button>' +
-    '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()"><span class="nav-icon">›</span></button>' +
+    '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
+  '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+  '</svg>' +
+'</button>' +
+'<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
+  '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+  '</svg>' +
+'</button>' +
   '</div>' +
 '</div>' +
           '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
