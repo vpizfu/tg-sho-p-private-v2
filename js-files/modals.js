@@ -539,10 +539,8 @@ function renderProductModal(product) {
               })
               .join('') +
               (selectedOption[type]
-                ? '<button onclick="(function(e){ e.stopPropagation(); e.preventDefault(); clearOptionNoFocus(\'' +
-                    type +
-                    '\'); })(event);"' +
-                  ' class="px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 hover:bg-red-50 scroll-item w-12">✕</button>'
+                ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 hover:bg-red-50 scroll-item w-12"' +
+                    ' data-type="' + type + '">✕</button>'
                 : '') +
           '</div>' +
           (!availableOptions[type].length
