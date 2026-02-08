@@ -281,8 +281,8 @@ function renderProductModal(product) {
       '<div class="carousel-dots" id="modalDots"></div>' +
       '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
     '</div>' +
-    '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">‹</button>' +
-    '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">›</button>' +
+    '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()"><span class="nav-icon">‹</span></button>' +
+    '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()"><span class="nav-icon">›</span></button>' +
   '</div>' +
 '</div>' +
           '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +

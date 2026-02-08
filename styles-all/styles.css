@@ -139,16 +139,16 @@ img,
 /* точная вертикальная центровка относительно изображения */
 #modalCarousel .nav-btn {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 17px);
   transform: translateY(-50%);
   z-index: 20;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   border: none;
-  font-size: 24px;
+  font-size: 14px;
   color: #111827;
   display: flex;
   align-items: center;
@@ -157,6 +157,18 @@ img,
   transition: opacity 0.25s ease, transform 0.25s ease;
   cursor: pointer;
 }
+
+.nav-icon {
+  display: inline-block;
+  font-size: 14px;  /* под размер кнопки из пункта 1 */
+  line-height: 1;
+  color: #020617;
+}
+
+/* оптическая правка, если нужно */
+.nav-prev .nav-icon { transform: translateX(1px); }
+.nav-next .nav-icon { transform: translateX(-1px); }
+
 
 #modalCarousel:hover .nav-btn {
   opacity: 1;
