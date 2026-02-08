@@ -147,34 +147,29 @@ function getProductVariants(productName) {
 function isCompleteSelection() {
   if (!currentProduct) return false;
 
-  const allVariants = getProductVariants(currentProduct.name).filter(v => v.inStock);
+  const allVariants = getProductVariants(currentProduct['Название']).filter(v => v.inStock);
   if (!allVariants.length) return false;
 
   const filtered = getFilteredVariants(allVariants);
-if (!filtered.length) return false;
+  if (!filtered.length) return false;
 
-// было: if (filtered.length !== 1) return false;
-// стало:
-if (filtered.length > 1) {
-  // проверяем, что все отфильтрованные варианты полностью идентичны по активным типам
-  const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
-  const first = filtered[0];
+  if (filtered.length > 1) {
+    const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
+    const first = filtered[0];
 
-  const allSame = filtered.every(v =>
-    activeTypes.every(type => String(v[type] ?? '') === String(first[type] ?? ''))
-  );
+    const allSame = filtered.every(v =>
+      activeTypes.every(type => String(v[type] ?? '') === String(first[type] ?? ''))
+    );
 
-  if (!allSame) return false;
-}
-const v = filtered[0];
+    if (!allSame) return false;
+  }
+  const v = filtered[0];
 
-  // те же типы, что и в модалке
   const activeTypes = getActiveTypesForProduct(currentProduct, allVariants);
   const finalTypes = activeTypes.filter(type =>
     filtered.some(variant => variant[type] !== undefined && variant[type] !== null && variant[type] !== '')
   );
 
-  // если у варианта поле непустое — опция должна быть выбрана
   return finalTypes.every(type => {
     const value = v[type];
     if (value === undefined || value === null || value === '') return true;
@@ -185,15 +180,12 @@ const v = filtered[0];
 function getCurrentSectionIndex() {
   if (!currentProduct) return 0;
 
-  const variants = getProductVariants(currentProduct.name).filter(v => v.inStock);
+  const variants = getProductVariants(currentProduct['Название']).filter(v => v.inStock);
   if (!variants.length) return 0;
 
   const filtered = getFilteredVariants(variants);
-
   const activeTypes = getActiveTypesForProduct(currentProduct, variants);
 
-  // те же типы, по которым рендерим (нет смысла требовать поле,
-  // если по текущим вариантам оно везде пустое)
   const finalTypes = activeTypes.filter(type =>
     filtered.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
   );
@@ -206,7 +198,7 @@ function getCurrentSectionIndex() {
 
 
 function getRequiredTypesForProduct(product) {
-  const variants = getProductVariants(product.name).filter(v => v.inStock);
+  const variants = getProductVariants(product['Название']).filter(v => v.inStock);
   if (!variants.length) return [];
 
   const order = getFilterOrderForProduct(product.cat);

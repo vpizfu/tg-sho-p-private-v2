@@ -50,33 +50,18 @@ function addToCart(variant, quantity) {
   } else {
     const base = {
       id: freshVariant.id,
-      name: freshVariant.name,
-      price: freshVariant.price,
+      // сохраняем читабельное имя и цену отдельно,
+      // чтобы корзина не зависела от названий колонок
+      name: freshVariant['Название'],
+      price: freshVariant['Цена'],
       cat: freshVariant.cat,
       quantity,
-      available: true
+      available: true,
+      // плюс целиком сырые поля варианта, если потом пригодятся
+      raw: freshVariant
     };
-    
-    if (freshVariant.cat === 'iPhone') {
-      base.storage = freshVariant.storage;
-      base.color = freshVariant.color;
-      base.region = freshVariant.region;
-      base.simType = freshVariant.simType;
-    } else if (freshVariant.cat === 'Apple Watch') {
-      base.diameter = freshVariant.diameter;
-      base.caseColor = freshVariant.caseColor;
-      base.bandType = freshVariant.bandType;
-      base.bandColor = freshVariant.bandColor;
-      base.bandSize = freshVariant.bandSize;
-      base.region = freshVariant.region;
-    } else if (freshVariant.cat === 'MacBook') {
-      base.diagonal = freshVariant.diagonal;
-      base.color = freshVariant.color;
-      base.ram = freshVariant.ram;
-      base.ssd = freshVariant.ssd;
-    }
-    
-    cartItems.push(base);    
+
+    cartItems.push(base);
   }
 
   saveCartToStorage();
@@ -158,10 +143,10 @@ window.refreshCartPricesAndCleanup = async function () {
 
     cartItems = cartItems.map(item => {
       const fresh = productsData.find(p => p.id === item.id && p.inStock);
-      if (!fresh) {
-        removedCount++;
-        removedItems.push({ ...item });
-        return { ...item, available: false, deleted: true };
+      if (fresh['Цена'] !== item.price) {
+        changedCount++;
+        changedItems.push({ ...item });
+        return { ...item, available: false, newPrice: fresh['Цена'] };
       }
       if (fresh.price !== item.price) {
         changedCount++;
@@ -349,30 +334,18 @@ window.onSavedAddressChange = function () {
 };
 
 function getCartItemSubtitle(item) {
-  if (item.cat === 'iPhone') {
-    return [item.storage, item.color, item.region].filter(Boolean).join(' | ');
-  }
-  if (item.cat === 'Apple Watch') {
-    return [
-      item.diameter,
-      item.caseColor,
-      item.bandType,
-      item.bandColor,
-      item.bandSize
-    ].filter(Boolean).join(' | ');
-  }
-  if (item.cat === 'MacBook') {
-    return [
-      item.diagonal,
-      item.cpu,
-      item.gpu,
-      item.ram,
-      item.ssd,
-      item.color,
-      item.keyboard
-    ].filter(Boolean).join(' | ');
-  }
-  return [item.storage, item.color, item.region].filter(Boolean).join(' | ');
+  if (!item.raw || typeof item.raw !== 'object') return '';
+
+  const raw = item.raw;
+
+  const parts = Object.keys(raw)
+    // не показываем служебные поля
+    .filter(key => !EXCLUDE_FILTER_FIELDS.has(key))
+    // берём только непустые значения
+    .map(key => raw[key])
+    .filter(v => v !== undefined && v !== null && String(v).trim() !== '');
+
+  return parts.join(' | ');
 }
 
 function showCartTab() {
@@ -822,11 +795,11 @@ window.placeOrder = async function () {
         hasUnavailable = true;
         return { ...item, available: false };
       }
-      if (fresh.price !== item.price) {
+      if (fresh['Цена'] !== item.price) {
         hasPriceChanged = true;
-        return { ...item, available: false, newPrice: fresh.price };
+        return { ...item, available: false, newPrice: fresh['Цена'] };
       }
-      return { ...item, available: true, newPrice: undefined };
+      return { ...item, available: true, newPrice: undefined };      
     });
 
     console.log(

@@ -27,7 +27,7 @@ function getVariantCountText(count) {
 function getFinalTypesForCurrentProduct() {
   if (!currentProduct || !productsData) return [];
 
-  const variantsAll = getProductVariants(currentProduct.name).filter(v => v.inStock);
+  const variantsAll = getProductVariants(currentProduct['Название']).filter(v => v.inStock);
   if (!variantsAll.length) return [];
 
   const filtered = getFilteredVariants(variantsAll);
@@ -146,18 +146,19 @@ window.addToCartFromModal = async function () {
     }
 
     const selectedVariant = variants[0];
-    addToCart(selectedVariant, selectedQuantity);
+addToCart(selectedVariant, selectedQuantity);
 
-    const subtitle = getCartItemSubtitle(selectedVariant);
-    tg?.showAlert?.(
-      '✅ ' +
-        selectedVariant.name +
-        (subtitle ? '\n' + subtitle : '') +
-        '\nКоличество: ' +
-        selectedQuantity +
-        '\nRUB ' +
-        selectedVariant.price * selectedQuantity
-    );
+const subtitle = getCartItemSubtitle(selectedVariant);
+const price = selectedVariant['Цена'] || 0;
+tg?.showAlert?.(
+  '✅ ' +
+    (selectedVariant['Название'] || currentProduct['Название']) +
+    (subtitle ? '\n' + subtitle : '') +
+    '\nКоличество: ' +
+    selectedQuantity +
+    '\nRUB ' +
+    price * selectedQuantity
+);
     closeModal();
   } finally {
     isAddingToCart = false;
@@ -180,7 +181,7 @@ function renderProductModal(product) {
   const scrollContainer = modalRoot.querySelector('.flex-1');
   if (scrollContainer) scrollContainer.scrollTop = 0;
 
-  const allVariants = getProductVariants(product.name);
+  const allVariants = getProductVariants(product['Название']);
   const variants = allVariants.filter(v => v.inStock);
 
   if (!variants.length) {
@@ -219,8 +220,8 @@ function renderProductModal(product) {
   const complete = isCompleteSelection();
 
   const currentMinPrice = availableVariants.length
-    ? Math.min.apply(null, availableVariants.map(v => v.price))
-    : Math.min.apply(null, variants.map(v => v.price));
+  ? Math.min.apply(null, availableVariants.map(v => v['Цена']))
+  : Math.min.apply(null, variants.map(v => v['Цена']));
 
   let headerPriceText;
   let headerSuffix = '';
@@ -229,7 +230,7 @@ function renderProductModal(product) {
     headerPriceText = 'от RUB ' + currentMinPrice;
     headerSuffix = 'за единицу';
   } else if (complete && availableVariants.length > 0) {
-    const priceToShow = availableVariants[0].price;
+    const priceToShow = availableVariants[0]['Цена'];
     headerPriceText = 'RUB ' + priceToShow;
     headerSuffix = 'за единицу';
   } else {
@@ -244,7 +245,7 @@ function renderProductModal(product) {
     }
   }
 
-  const productCommonImage = product.commonImage || '';
+  const productCommonImage = product['Общая картинка'] || '';
 
   if (!modalRoot.dataset.initialized) {
     modalRoot.dataset.initialized = '1';
@@ -306,7 +307,7 @@ function renderProductModal(product) {
     initModalSwipe();
   }
 
-  document.getElementById('modalTitle').textContent = product.name;
+  document.getElementById('modalTitle').textContent = product['Название'];
   document.getElementById('modalPrice').textContent =
     headerPriceText + (headerSuffix ? ' ' + headerSuffix : '');
   document.getElementById('modalVariantCount').textContent =
@@ -610,9 +611,8 @@ document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(btn => {
       'w-full flex itemscenter justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
     btn.disabled = true;
   } else if (complete && availableVariants.length > 0) {
-    const sum = availableVariants[0].price
-      ? availableVariants[0].price * selectedQuantity
-      : '';
+    const price = availableVariants[0]['Цена'] || 0;
+    const sum = price * selectedQuantity;
     btn.innerHTML = '✅ В корзину RUB ' + sum;
     btn.className =
       'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
@@ -698,11 +698,10 @@ function initModalSwipe() {
 }
 
 function preloadProductVariantImages(product) {
-  const variants = getProductVariants(product.name).filter(v => v.inStock);
+  const variants = getProductVariants(product['Название']).filter(v => v.inStock);
   if (!variants.length) return;
 
-  // все уникальные картинки по вариантам этого товара
-  const allImages = getFilteredProductImages(variants); // без slice
+  const allImages = getFilteredProductImages(variants);
 
   allImages.forEach(imgSrc => {
     if (!imgSrc) return;
@@ -726,7 +725,7 @@ function showModal(product) {
     console.log('[modal] showModal, saved shop scrollY =', y);
   }
 
-  console.log('[modal] renderProductModal for', product?.name);
+  console.log('[modal] renderProductModal for', product?.['Название']);
   renderProductModal(product);
 
   modal.classList.remove('hidden');
