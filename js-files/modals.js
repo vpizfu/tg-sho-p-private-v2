@@ -56,7 +56,8 @@ function selectOptionNoFocus(type, option) {
   for (let i = typeIndex + 1; i < finalTypes.length; i++) {
     delete selectedOption[finalTypes[i]];
   }
-  selectedOption[type] = option;
+  selectedOption[type] = String(option).trim();
+
 
   renderProductModal(currentProduct);
 
@@ -517,7 +518,7 @@ function renderProductModal(product) {
           '<div class="flex gap-2 scroll-carousel pb-1">' +
             availableOptions[type]
               .map(option => {
-                const isSelected = selectedOption[type] === option;
+                const isSelected = String(selectedOption[type]).trim() === String(option).trim();
                 return (
                   '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
                     (isSelected ? ' selected' : '') +
