@@ -511,44 +511,51 @@ function renderProductModal(product) {
   const order = finalTypes;
 
   body.innerHTML =
-    order.map((type, index) => {
-      const isLocked = index > getCurrentSectionIndex();
-      return (
-        '<div class="option-section ' +
-          (isLocked ? 'locked' : 'unlocked') +
-          '" data-section="' + type + '">' +
-          '<label class="text-sm font-semibold text-gray-700 capitalize mb-2 block">' +
-            getLabel(type) +
-          '</label>' +
-          '<div class="flex gap-2 scroll-carousel pb-1">' +
-            availableOptions[type]
-              .map(option => {
-                const isSelected = selectedOption[type] === option;
-                return (
-                  '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full border scroll-item ' +
-                    (isSelected
-                      ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'
-                      : 'bg-gray-100 border-gray-300') +
-                    ' "' +
-                    ' data-type="' + type + '"' +
-                    ' data-option="' + escapeHtml(option) + '"' +
-                    ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
-                    escapeHtml(option) +
-                  '</button>'
-                );
-              })
-              .join('') +
-              (selectedOption[type]
-                ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 hover:bg-red-50 scroll-item w-12"' +
-                    ' data-type="' + type + '">✕</button>'
-                : '') +
-          '</div>' +
-          (!availableOptions[type].length
-            ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
+  order.map((type, index) => {
+    const isLocked = index > getCurrentSectionIndex();
+    return (
+      '<div class="option-section ' +
+        (isLocked ? 'locked' : 'unlocked') +
+        '" data-section="' + type + '">' +
+        '<label class="text-sm font-semibold text-gray-700 capitalize mb-2 block">' +
+          getLabel(type) +
+        '</label>' +
+        '<div class="flex gap-2 scroll-carousel pb-1">' +
+
+          // КНОПКИ ОПЦИЙ
+          availableOptions[type]
+            .map(option => {
+              const isSelected = selectedOption[type] === option;
+              return (
+                '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full border scroll-item ' +
+                  (isSelected
+                    ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'   // выбрана → синяя
+                    : 'bg-gray-100 border-gray-300'                                   // не выбрана → серая
+                  ) +
+                '"' +
+                ' data-type="' + type + '"' +
+                ' data-option="' + escapeHtml(option) + '"' +
+                ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
+                  escapeHtml(option) +
+                '</button>'
+              );
+            })
+            .join('') +
+
+          // КРЕСТИК ДЛЯ СБРОСА СЕКЦИИ
+          (selectedOption[type]
+            ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
+                ' data-type="' + type + '">✕</button>'
             : '') +
-        '</div>'
-      );
-    }).join('') +
+
+        '</div>' +
+        (!availableOptions[type].length
+          ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
+          : '') +
+      '</div>'
+    );
+  }).join('') +
+  // дальше твой блок количества и нижний текст...
 
     '<div class="quantity-section">' +
       '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
