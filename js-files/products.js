@@ -2,13 +2,32 @@ function getFilterOrderForProduct(productCat) {
   return FILTER_ORDER_BY_CAT[productCat] || [];
 }
 
-// Какие типы реально используются у товара (есть непустое значение хотя бы у одного варианта)
 function getActiveTypesForProduct(product, variants) {
   const order = getFilterOrderForProduct(product.cat);
   return order.filter(type =>
     variants.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
   );
 }
+
+function getFilteredVariants(variants) {
+  if (!variants.length) return [];
+  const order = getFilterOrderForProduct(variants[0].cat);
+  return variants.filter(variant =>
+    order.every(type => {
+      const selectedValue = selectedOption[type];
+      if (!selectedValue) return true;
+      const v = variant[type];
+      return String(v) === String(selectedValue);
+    })
+  );
+}
+
+function getAvailableOptions(type, variants) {
+  const filteredVariants = getFilteredVariants(variants);
+  const options = [...new Set(filteredVariants.map(v => v[type]).filter(Boolean))];
+  return options.sort();
+}
+
 
 function normalizeProducts(products) {
   if (!Array.isArray(products)) {
@@ -122,29 +141,8 @@ function getFilteredProductImages(variants) {
 
 // все варианты по имени товара
 function getProductVariants(productName) {
-  return productsData ? productsData.filter(p => p.name === productName) : [];
+  return productsData ? productsData.filter(p => p['Название'] === productName) : [];
 }
-
-// текущие варианты по выбранным опциям
-function getFilteredVariants(variants) {
-  if (!variants.length) return [];
-  const order = getFilterOrderForProduct(variants[0].cat);
-  return variants.filter(variant =>
-    order.every(type => {
-      const selectedValue = selectedOption[type]; // type = 'Память', 'Розетка', ...
-      if (!selectedValue) return true;
-      const v = variant[type];
-      return String(v) === String(selectedValue);
-    })
-  );
-}
-
-function getAvailableOptions(type, variants) {
-  const filteredVariants = getFilteredVariants(variants);
-  const options = [...new Set(filteredVariants.map(v => v[type]).filter(Boolean))];
-  return options.sort();
-}
-
 
 function isCompleteSelection() {
   if (!currentProduct) return false;
@@ -249,8 +247,9 @@ function getVisibleProducts() {
 
   const groupedByName = {};
   productsData.forEach(p => {
-    if (!groupedByName[p.name]) groupedByName[p.name] = [];
-    groupedByName[p.name].push(p);
+    const title = p['Название'];
+    if (!groupedByName[title]) groupedByName[title] = [];
+    groupedByName[title].push(p);
   });
 
   let groupedVisible = Object.values(groupedByName)
@@ -258,7 +257,7 @@ function getVisibleProducts() {
     .map(arr => {
       const inStockVariants = arr.filter(v => v.inStock);
       return inStockVariants.reduce(
-        (min, p) => (p.price < min.price ? p : min),
+        (min, p) => (p['Цена'] < min['Цена'] ? p : min),
         inStockVariants[0]
       );
     });
@@ -270,19 +269,19 @@ function getVisibleProducts() {
   if (query.trim()) {
     const q = query.trim().toLowerCase();
     groupedVisible = groupedVisible.filter(p =>
-      (p.name && p.name.toLowerCase().includes(q)) ||
-      (p.cat && p.cat.toLowerCase().includes(q))
+      (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
+      (p.cat && String(p.cat).toLowerCase().includes(q))
     );
   }
 
   groupedVisible.sort((a, b) => {
-    const na = getMaxNumberFromName(a.name);
-    const nb = getMaxNumberFromName(b.name);
+    const na = getMaxNumberFromName(a['Название']);
+    const nb = getMaxNumberFromName(b['Название']);
 
     if (na !== nb) {
-      return nb - na; // большее число — выше в списке
+      return nb - na;
     }
-    return a.name.localeCompare(b.name);
+    return String(a['Название']).localeCompare(String(b['Название']));
   });
 
   return groupedVisible;
@@ -438,66 +437,58 @@ function handleProductImageError(img, imageSrc) {
 }
 
 function productCard(product) {
-  const allVariants = getProductVariants(product.name);
+  const allVariants = getProductVariants(product['Название']);
   const variants = allVariants.filter(v => v.inStock);
   if (!variants.length) return '';
 
   const cheapestVariant = variants.reduce(
-    (min, p) => (p.price < min.price ? p : min),
+    (min, p) => (p['Цена'] < min['Цена'] ? p : min),
     variants[0]
   );
 
-  const commonImage = product.commonImage || variants[0]?.commonImage || '';
+  const commonImage =
+    product['Общая картинка'] ||
+    variants[0]?.['Общая картинка'] ||
+    '';
   const hasImage = !!commonImage;
   const safeMainImage = hasImage ? commonImage.replace(/'/g, "\\'") : '';
   const carouselId = 'carousel_' + Math.random().toString(36).substr(2, 9);
 
-  // ключ для persistent‑кэша
   const cacheKey = hasImage ? getImageCacheKey(product, safeMainImage) : '';
 
   const isLoadedPersistently =
-  hasImage &&
-  cacheKey &&
-  typeof loadedImageCacheKeys !== 'undefined' &&
-  loadedImageCacheKeys.has(cacheKey);
+    hasImage &&
+    cacheKey &&
+    typeof loadedImageCacheKeys !== 'undefined' &&
+    loadedImageCacheKeys.has(cacheKey);
 
-// сколько раз за эту сессию уже приходил onload для этого cacheKey
-const sessionCount = cacheKey ? (sessionImageLoads.get(cacheKey) || 0) : 0;
-
-// instant — только если картинка уже была persist и хотя бы раз загружалась в эту сессию
-const isInstant = isLoadedPersistently && sessionCount > 0;
+  const sessionCount = cacheKey ? (sessionImageLoads.get(cacheKey) || 0) : 0;
+  const isInstant = isLoadedPersistently && sessionCount > 0;
 
   const isFailed =
     hasImage &&
     typeof failedImageUrls !== 'undefined' &&
     failedImageUrls.has(safeMainImage);
 
-
   console.log('[persist-debug]', {
-    name: product.name,
+    name: product['Название'],
     hasImage,
     cacheKey,
     cacheSetDefined: typeof loadedImageCacheKeys !== 'undefined',
-    inSet: typeof loadedImageCacheKeys !== 'undefined' ? loadedImageCacheKeys.has(cacheKey): null,
+    inSet: typeof loadedImageCacheKeys !== 'undefined'
+      ? loadedImageCacheKeys.has(cacheKey)
+      : null,
     isLoadedPersistently
   });
 
   return (
-'<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full"' +
-      ' data-product-name="' + escapeHtml(product.name) + '"' +
+    '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full"' +
+      ' data-product-name="' + escapeHtml(product['Название']) + '"' +
       ' data-carousel-id="' + carouselId + '">' +
 
-      // контейнер изображения
       '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative">' +
-
-        // общий контейнер для SVG и img
         '<div class="image-placeholder-container relative w-full h-full">' +
 
-          // SVG-слой:
-          // 1) нет URL → всегда SVG
-          // 2) есть URL и:
-          //    - не instant → SVG для фейда
-          //    - ИЛИ уже помечен как failed → SVG как единственный слой
           (
             !hasImage
               ? '<div class="image-placeholder-svg absolute inset-0">' +
@@ -512,7 +503,6 @@ const isInstant = isLoadedPersistently && sessionCount > 0;
               )
           ) +
 
-          // IMG-слой (только если есть URL и он не помечен как упавший)
           (
             !hasImage || isFailed
               ? ''
@@ -523,12 +513,10 @@ const isInstant = isLoadedPersistently && sessionCount > 0;
                   '" ' +
                   'alt="Product" ' +
                   'data-src="' + safeMainImage + '" ' +
-                  // onload только когда НЕ instant (нужна анимация)
                   (isInstant
                     ? ''
                     : 'onload="handleProductImageSequentialLoad(this, \'' + safeMainImage + '\', \'' + cacheKey + '\')" '
                   ) +
-                  // onerror всегда, чтобы вернуть SVG даже для битого кеша
                   'onerror="handleProductImageError(this, \'' + safeMainImage + '\')" ' +
                 '/>'
               )
@@ -536,18 +524,17 @@ const isInstant = isLoadedPersistently && sessionCount > 0;
 
         '</div>' +
 
-        // внутренняя обёртка карусели (пока пустая)
         '<div class="image-carousel-inner relative w-full h-full" data-carousel="' +
           carouselId + '" data-current="0">' +
         '</div>' +
 
       '</div>' +
 
-'<div class="font-bold text-base mb-1 product-title">' +
-  escapeHtml(product.name) +
-'</div>' +
+      '<div class="font-bold text-base mb-1 product-title">' +
+        escapeHtml(product['Название']) +
+      '</div>' +
       '<div class="text-blue-600 font-black text-xl mb-1">RUB ' +
-        cheapestVariant.price +
+        cheapestVariant['Цена'] +
       '</div>' +
       '<div class="text-xs text-gray-500 mb-4">' +
         variants.length + ' вариантов</div>' +
@@ -730,8 +717,8 @@ function setupHandlers() {
               if (active && active.blur) active.blur();   // закрыть клавиатуру
           
               const productName = card.dataset.productName;
-              const product = productsData.find(p => p.name === productName);
-              if (!product) return;
+              const product = productsData.find(p => p['Название'] === productName);
+              if (!product) return;              
           
               selectedOption = {};
               selectedQuantity = 1;
@@ -774,9 +761,9 @@ function setupHandlers() {
       if (active && active.blur) active.blur();   // закрыть клавиатуру
   
       const productName = card.dataset.productName;
-      const product = productsData.find(p => p.name === productName);
+      const product = productsData.find(p => p['Название'] === productName);
       if (!product) return;
-  
+
       selectedOption = {};
       selectedQuantity = 1;
   

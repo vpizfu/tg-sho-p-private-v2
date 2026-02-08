@@ -8,7 +8,7 @@ try {
 }
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbz-qrPhsSIybxgLNfTC7FWryqLDxCANUi2SBCekfmVJpBjduz9oPrO1Ortzz57DLzXJNQ/exec';
+  'https://script.google.com/macros/s/AKfycbydfslzdPL0OG3G5K8cCjOk1Erl_JTT99ONKtct1jA0kgm0YpNevHRPX6fMaQbRBOCtQQ/exec';
 const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
 const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
 
@@ -542,24 +542,25 @@ async function fetchAndUpdateProducts(showLoader = false) {
     const response = await fetch(API_URL);
     logStage('products fetch', t0);
     console.log('[core] products response status', response.status);
-  
+
     if (!response.ok) throw new Error('HTTP ' + response.status);
-  
+
     const products = await response.json();
-logStage('products json parse', t0);
-console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
+    logStage('products json parse', t0);
+    console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
 
-productsData = Array.isArray(products) ? products : [];
+    // БЕЗ normalizeProducts: работаем напрямую с данными из doGet
+    productsData = Array.isArray(products) ? products : [];
 
-FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
-console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
+    FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
+    console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
 
-const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
-CATEGORIES = ['Все', ...cats];
-console.log('[core] CATEGORIES', CATEGORIES);
+    const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
+    CATEGORIES = ['Все', ...cats];
+    console.log('[core] CATEGORIES', CATEGORIES);
 
-syncProductsAndCart();
-logStage('update productsData + sync', t0);
+    syncProductsAndCart();
+    logStage('update productsData + sync', t0);
   } catch (error) {  
     console.error('[core] products API error:', error);
     if (showLoader && currentTab === 'shop') {
