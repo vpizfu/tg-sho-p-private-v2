@@ -8,7 +8,7 @@ try {
 }
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbylAAf51zsIazSnlhi9GNZR2Ll_O4hQo15ogLX0ap-qiRvBrEOg0Psqgu2hajC7MeK_CQ/exec';
+  'https://script.google.com/macros/s/AKfycbyk_ZLsm2j8pfFLlwJ3jCGsv4Wh6XiaaMyQE9fXdxPO_EgUGh_nC6mSCuB9BXDteGAxKQ/exec';
 const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
 const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
 
@@ -22,7 +22,6 @@ const isMobileDevice =
 
 let CATEGORIES = ['Все'];
 let isOrdersLoading = false;
-let SHEET_HEADERS = {};
 
 let FILTER_ORDER_BY_CAT = {}; // динамический порядок фильтров по категориям
 
@@ -184,10 +183,8 @@ function buildFilterOrderByCat(products) {
 
   const result = {};
   Object.keys(map).forEach(cat => {
-    // при желании можно отсортировать по алфавиту
     result[cat] = Array.from(map[cat]);
   });
-
   return result;
 }
 
@@ -543,39 +540,28 @@ async function fetchAndUpdateProducts(showLoader = false) {
     const response = await fetch(API_URL);
     logStage('products fetch', t0);
     console.log('[core] products response status', response.status);
-
+  
     if (!response.ok) throw new Error('HTTP ' + response.status);
-
-    const payload = await response.json();
-logStage('products json parse', t0);
-
-console.log('[core] payload', payload);
-
-const products = Array.isArray(payload)
-  ? payload                        // старый формат: просто массив
-  : (payload && Array.isArray(payload.products) ? payload.products : []);
-
-console.log('[core] products count', products.length);
-
-const normalized = normalizeProducts(products);
-logStage('normalizeProducts', t0);
-
-SHEET_HEADERS = payload && payload.headers ? payload.headers : {};
-console.log('[core] SHEET_HEADERS', SHEET_HEADERS);
-
-productsData = normalized;
-
-// строим динамический порядок фильтров по категориям на основе данных
-FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
-console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
-
-const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
-CATEGORIES = ['Все', ...cats];
-console.log('[core] CATEGORIES', CATEGORIES);
-
-syncProductsAndCart();
-logStage('update productsData + sync', t0);
-  } catch (error) {
+  
+    const products = await response.json();
+    logStage('products json parse', t0);
+    console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
+  
+    const normalized = normalizeProducts(products);
+    logStage('normalizeProducts', t0);
+  
+    productsData = normalized;
+  
+    FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
+    console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
+  
+    const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
+    CATEGORIES = ['Все', ...cats];
+    console.log('[core] CATEGORIES', CATEGORIES);
+  
+    syncProductsAndCart();
+    logStage('update productsData + sync', t0);
+  } catch (error) {  
     console.error('[core] products API error:', error);
     if (showLoader && currentTab === 'shop') {
       isRefreshingProducts = false;
