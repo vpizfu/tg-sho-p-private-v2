@@ -522,24 +522,24 @@ function renderProductModal(product) {
         '</label>' +
         '<div class="flex gap-2 scroll-carousel pb-1">' +
 
-          // КНОПКИ ОПЦИЙ
           availableOptions[type]
             .map(option => {
               const isSelected = selectedOption[type] === option;
-              '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full border scroll-item ' +
-                (isSelected
-                  ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'
-                  : 'bg-gray-100 border-gray-300') +
-                '"' +                                    // БЕЗ ПРОБЕЛА И ЛИШНЕЙ КАВЫЧКИ
+              return (
+                '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full border scroll-item ' +
+                  (isSelected
+                    ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'
+                    : 'bg-gray-100 border-gray-300') +
+                '"' +
                 ' data-type="' + type + '"' +
                 ' data-option="' + escapeHtml(option) + '"' +
                 ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
-                escapeHtml(option) +
-              '</button>'          
-            })        
+                  escapeHtml(option) +
+                '</button>'
+              );
+            })
             .join('') +
 
-          // КРЕСТИК ДЛЯ СБРОСА СЕКЦИИ
           (selectedOption[type]
             ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
                 ' data-type="' + type + '">✕</button>'
@@ -552,36 +552,33 @@ function renderProductModal(product) {
       '</div>'
     );
   }).join('') +
-  // дальше твой блок количества и нижний текст...
-
-    '<div class="quantity-section">' +
-      '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
-      '<div class="flex items-center gap-3">' +
-        '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
-        ' onclick="changeQuantity(-1); return false;">-</button>' +
-        '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
-          selectedQuantity +
-        '</span>' +
-        '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
-        ' onclick="changeQuantity(1); return false;">+</button>' +
-      '</div>' +
-      '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
+  '<div class="quantity-section">' +
+    '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
+    '<div class="flex items-center gap-3">' +
+      '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+      ' onclick="changeQuantity(-1); return false;">-</button>' +
+      '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
+        selectedQuantity +
+      '</span>' +
+      '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+      ' onclick="changeQuantity(1); return false;">+</button>' +
     '</div>' +
+    '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
+  '</div>' +
 
-    '<div class="pt-4 border-t">' +
-      '<div class="text-center text-sm text-gray-500 mb-3">' +
-        'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
-          getVariantCountText(availableVariants.length) +
-        '</span>' +
-        (complete && availableVariants.length === 1
-          ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
-              '✅ Спецификация выбрана' +
-            '</div>'
-          : '') +        
-      '</div>' +
-    '</div>';
+  '<div class="pt-4 border-t">' +
+    '<div class="text-center text-sm text-gray-500 mb-3">' +
+      'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
+        getVariantCountText(availableVariants.length) +
+      '</span>' +
+      (complete && availableVariants.length === 1
+        ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
+            '✅ Спецификация выбрана' +
+          '</div>'
+        : '') +
+    '</div>' +
+  '</div>';
 
-  // после body.innerHTML = ...
 // повесим безопасные хендлеры на крестики
 document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(btn => {
   if (btn.dataset.bound === '1') return;
