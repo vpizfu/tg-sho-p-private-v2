@@ -1,5 +1,5 @@
 body {
-  font-family: system-ui, -apple-system;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Глобальный дефолтный курсор */
