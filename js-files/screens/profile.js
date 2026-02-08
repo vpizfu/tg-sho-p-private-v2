@@ -186,7 +186,7 @@ function showProfileTab() {
           '<input id="profilePhone" type="tel"' +
             ' class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm focus:outline-none mt-2"' +
             ' placeholder="Телефон для связи">' +
-          '<button class="w-full mt-3 bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-2xl shadow-lg transition-all text-sm"' +
+          '<button class="w-full mt-3 bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-2xl shadow-lg text-sm"' +
             ' onclick="saveProfileContacts()">' +
             'Сохранить контакты' +
           '</button>' +
@@ -202,7 +202,7 @@ function showProfileTab() {
         '<div class="space-y-2 bg-white border border-gray-200 rounded-2xl p-3">' +
           '<textarea id="newAddress" class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm resize-none"' +
             ' rows="2" placeholder="Новый адрес..."></textarea>' +
-          '<button class="w-full bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-2xl shadow-lg transition-all text-sm"' +
+          '<button class="w-full bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-2xl shadow-lg  text-sm"' +
             ' onclick="addAddress()">' +
             'Сохранить адрес' +
           '</button>' +

@@ -49,7 +49,7 @@
           escapeHtml(message) +
         '</p>' +
         '<button onclick="location.reload()"' +
-          ' class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg transition-all">' +
+          ' class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
           'Попробовать снова' +
         '</button>' +
       '</div>';

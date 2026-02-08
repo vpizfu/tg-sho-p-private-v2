@@ -299,7 +299,7 @@ function renderProductModal(product) {
 
         '<div class="modal-footer border-t bg-white">' +
           '<button id="modalAddButton"' +
-          ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-lg transition-all" onclick="addToCartFromModal(); return false;"></button>' +
+          ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-lg " onclick="addToCartFromModal(); return false;"></button>' +
         '</div>' +
 
       '</div>';
@@ -529,7 +529,7 @@ function renderProductModal(product) {
                     (isSelected
                       ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'
                       : 'bg-gray-100 border-gray-300 hover:bg-gray-200') +
-                    ' transition-all"' +
+                    ' "' +
                     ' data-type="' + type + '"' +
                     ' data-option="' + escapeHtml(option) + '"' +
                     ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
@@ -582,7 +582,7 @@ function renderProductModal(product) {
   if (isAddingToCart) {
     btn.innerHTML = '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
     btn.className =
-      'w-full flex itemscenter justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg transition-all cursor-not-allowed';
+      'w-full flex itemscenter justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
     btn.disabled = true;
   } else if (complete && availableVariants.length > 0) {
     const sum = availableVariants[0].price
@@ -590,12 +590,12 @@ function renderProductModal(product) {
       : '';
     btn.innerHTML = '✅ В корзину RUB ' + sum;
     btn.className =
-      'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg transition-all';
+      'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
     btn.disabled = false;
   } else {
     btn.innerHTML = 'Выберите все опции';
     btn.className =
-      'w-full flex items-center justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg transition-all cursor-not-allowed';
+      'w-full flex items-center justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
     btn.disabled = true;
   }
 }

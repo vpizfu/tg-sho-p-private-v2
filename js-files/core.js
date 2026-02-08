@@ -537,7 +537,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
             'Проверьте соединение и попробуйте обновить список товаров.' +
           '</p>' +
           '<button onclick="refreshProducts()"' +
-            ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg transition-all text-sm">' +
+            ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +
             '<span class="loader-circle"></span>' +
             '<span>Обновить товары</span>' +
           '</button>' +

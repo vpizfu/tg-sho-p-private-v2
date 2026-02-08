@@ -395,7 +395,7 @@ function showCartTab() {
           'Добавьте устройство в корзину, чтобы оформить заказ.' +
         '</p>' +
         '<button onclick="switchTab(\'shop\')"' +
-          ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg transition-all">' +
+          ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
           'В магазин' +
         '</button>' +
       '</div>';
@@ -412,7 +412,7 @@ function showCartTab() {
         '<h2 class="text-2xl font-bold text-gray-800">Корзина</h2>' +
         '<button onclick="refreshCartPricesAndCleanup()"' +
           ' class="inline-flex items-center justify-center text-[11px] font-semibold px-2.5 h-8 rounded-full ' +
-            'bg-purple-500 hover:bg-purple-600 text-white shadow-md transition-all active:scale-[0.97] max-w-[180px] whitespace-nowrap"' +
+            'bg-purple-500 hover:bg-purple-600 text-white shadow-md active:scale-[0.97] max-w-[180px] whitespace-nowrap"' +
           ' id="refreshCartButton">' +
           '<span class="loader-circle hidden mr-1" id="refreshCartLoader"></span>' +
           '<span class="leading-tight">Актуализировать корзину</span>' +
@@ -595,7 +595,7 @@ function showCartTab() {
               (!cartItems.some(i => !i.available) && !isPlacingOrder
                 ? 'bg-blue-500 hover:bg-blue-600'
                 : 'bg-gray-400 cursor-not-allowed') +
-              ' text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg transition-all text-sm"' +
+              ' text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg text-sm"' +
             (cartItems.some(i => !i.available) || isPlacingOrder ? ' disabled' : '') +
           '>' +
             (cartItems.some(i => !i.available)
