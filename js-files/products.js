@@ -650,37 +650,63 @@ function resolveCategoryForVariants(variants) {
   variants.forEach(v => {
     let raw = v.cat != null ? String(v.cat).trim() : '';
 
-    // "Без категории" приравниваем к пустой
+    // "Без категории" считаем пустой
     if (raw === 'Без категории') {
       raw = '';
     }
 
     if (!raw) {
-      return; // пустые не считаем в голосовании
+      return;
     }
 
     hasNonEmptyCategory = true;
     counts.set(raw, (counts.get(raw) || 0) + 1);
   });
 
-  // если нет ни одной нормальной (не пустой и не "Без категории") категории
-  // значит у товара реально только "без категории" → возвращаем "Без категории"
+  // если нет ни одной нормальной категории — всё реально без категории
   if (!hasNonEmptyCategory) {
     return 'Без категории';
   }
 
-  // есть хотя бы одна нормальная категория → выбираем ту, у которой вариантов больше
-  let bestCat = '';
+  // есть нормальные категории → выбираем по максимальному количеству
   let bestCount = 0;
+  let candidates = [];
 
   counts.forEach((cnt, cat) => {
     if (cnt > bestCount) {
       bestCount = cnt;
-      bestCat = cat;
+      candidates = [cat];
+    } else if (cnt === bestCount) {
+      candidates.push(cat);
     }
   });
 
-  return bestCat;
+  // если всего один кандидат — всё просто
+  if (candidates.length === 1) {
+    return candidates[0];
+  }
+
+  // равенство: используем название товара для выбора
+  // берём любое ненулевое название (у всех вариантов оно одинаковое)
+  const productName = variants[0] && variants[0]['Название']
+    ? String(variants[0]['Название'])
+    : '';
+
+  const nameLower = productName.toLowerCase();
+
+  // ищем категорию, которая входит в название (без учёта регистра)
+  for (let i = 0; i < candidates.length; i++) {
+    const cat = candidates[i];
+    if (!cat) continue;
+    if (nameLower.includes(String(cat).toLowerCase())) {
+      return cat;
+    }
+  }
+
+  // если ни одна не входит в название — берём самую верхнюю по данным
+  // counts хранил категории в порядке первого появления, а candidates
+  // формировались в этом же порядке, поэтому достаточно взять первую
+  return candidates[0];
 }
 
 function renderShop() {
