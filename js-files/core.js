@@ -22,6 +22,7 @@ const isMobileDevice =
 
 let CATEGORIES = ['Все'];
 let isOrdersLoading = false;
+let SHEET_HEADERS = {};
 
 let FILTER_ORDER_BY_CAT = {}; // динамический порядок фильтров по категориям
 
@@ -545,12 +546,22 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     if (!response.ok) throw new Error('HTTP ' + response.status);
 
-    const products = await response.json();
+    const payload = await response.json();
 logStage('products json parse', t0);
-console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
+
+console.log('[core] payload', payload);
+
+const products = Array.isArray(payload)
+  ? payload                        // старый формат: просто массив
+  : (payload && Array.isArray(payload.products) ? payload.products : []);
+
+console.log('[core] products count', products.length);
 
 const normalized = normalizeProducts(products);
 logStage('normalizeProducts', t0);
+
+SHEET_HEADERS = payload && payload.headers ? payload.headers : {};
+console.log('[core] SHEET_HEADERS', SHEET_HEADERS);
 
 productsData = normalized;
 
