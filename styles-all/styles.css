@@ -166,12 +166,12 @@ img,
 }
 
 /* оптическая правка, если нужно */
-.nav-prev .nav-icon { transform: translateX(1px); }
-.nav-next .nav-icon { transform: translateX(-1px); }
+.nav-prev .nav-icon { transform: translateX(0px); }
+.nav-next .nav-icon { transform: translateX(0px); }
 
 #modalCarousel .nav-icon {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   color: #020617; /* тёмный почти чёрный */
 }
 
