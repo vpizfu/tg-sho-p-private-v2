@@ -266,12 +266,13 @@ img,
 }
 
 /* никакого изменения цвета при hover/active/focus */
+/* никакого изменения цвета при hover/active/focus */
 .option-btn:hover,
 .option-btn:active,
 .option-btn:focus {
-  background-color: inherit;
-  border-color: inherit;
-  color: inherit;
+  background-color: #f3f4f6;   /* тот же серый, что у базовой кнопки */
+  border-color: #d1d5db;
+  color: #111827;
   outline: none;
   box-shadow: none;
 }
