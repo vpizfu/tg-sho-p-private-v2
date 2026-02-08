@@ -17,20 +17,19 @@ function makeVariantUserKeyWithoutPrice(variant) {
 
 function getCategoriesFromProducts() {
   if (!productsData || !productsData.length) {
-    // fallback, если ещё ничего не загрузилось
     return ['Все'];
   }
 
   const set = new Set();
 
-  productsData.forEach(p => {
+  const visible = getVisibleProducts(); // уже агрегированные товары
+  visible.forEach(p => {
     if (!p || !p.cat) return;
     set.add(String(p.cat));
   });
 
   const cats = Array.from(set).sort((a, b) => a.localeCompare(b, 'ru'));
 
-  // "Все" всегда первой
   return ['Все', ...cats];
 }
 
@@ -311,6 +310,8 @@ function getVisibleProducts() {
   if (!productsData) return [];
 
   const groupedByName = {};
+
+  // группируем все варианты по Названию
   productsData.forEach(p => {
     const title = p['Название'];
     if (!groupedByName[title]) groupedByName[title] = [];
@@ -318,19 +319,33 @@ function getVisibleProducts() {
   });
 
   let groupedVisible = Object.values(groupedByName)
+    // только товары, у которых есть хотя бы один вариант в наличии
     .filter(arr => arr.some(v => v.inStock))
     .map(arr => {
       const inStockVariants = arr.filter(v => v.inStock);
-      return inStockVariants.reduce(
+
+      // минимальная цена среди inStock-вариантов
+      const cheapestVariant = inStockVariants.reduce(
         (min, p) => (p['Цена'] < min['Цена'] ? p : min),
         inStockVariants[0]
       );
+
+      // итоговая категория для всего товара
+      const resolvedCat = resolveCategoryForVariants(arr);
+
+      // витринный объект
+      return {
+        ...cheapestVariant,
+        cat: resolvedCat
+      };
     });
 
+  // фильтр по выбранной категории
   if (selectedCategory !== 'Все') {
     groupedVisible = groupedVisible.filter(p => p.cat === selectedCategory);
   }
 
+  // фильтр по поиску
   if (query.trim()) {
     const q = query.trim().toLowerCase();
     groupedVisible = groupedVisible.filter(p =>
@@ -339,6 +354,7 @@ function getVisibleProducts() {
     );
   }
 
+  // сортировка по числу в названии, затем по алфавиту
   groupedVisible.sort((a, b) => {
     const na = getMaxNumberFromName(a['Название']);
     const nb = getMaxNumberFromName(b['Название']);
@@ -351,7 +367,6 @@ function getVisibleProducts() {
 
   return groupedVisible;
 }
-
 
 // предзагрузка картинок
 function preloadAllImages(products) {
@@ -627,6 +642,34 @@ function getImageCacheKey(product, url) {
   return url + '|' + version;
 }
 
+// Вычислить итоговую категорию для всех вариантов одного товара
+function resolveCategoryForVariants(variants) {
+  const counts = new Map();
+
+  variants.forEach(v => {
+    const raw = v.cat != null ? String(v.cat).trim() : '';
+    if (!raw) return; // пустые не считаем вообще
+    counts.set(raw, (counts.get(raw) || 0) + 1);
+  });
+
+  // если нет ни одной непустой категории — считаем, что категория не задана
+  if (counts.size === 0) {
+    return '';
+  }
+
+  // выбираем категорию с максимальным числом вариантов
+  let bestCat = '';
+  let bestCount = 0;
+
+  counts.forEach((cnt, cat) => {
+    if (cnt > bestCount) {
+      bestCount = cnt;
+      bestCat = cat;
+    }
+  });
+
+  return bestCat;
+}
 
 function renderShop() {
   const categories = getCategoriesFromProducts();
