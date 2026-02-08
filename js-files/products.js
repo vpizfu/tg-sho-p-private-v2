@@ -239,6 +239,17 @@ function getCurrentSectionIndex() {
   return finalTypes.length;
 }
 
+// универсальное склонение "вариант"
+function getVariantCountText(count) {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return count + ' вариант';
+  if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) {
+    return count + ' варианта';
+  }
+  return count + ' вариантов';
+}
 
 function getRequiredTypesForProduct(product) {
   const variants = getProductVariants(product['Название']).filter(v => v.inStock);
@@ -575,8 +586,9 @@ function productCard(product) {
       '<div class="text-blue-600 font-black text-xl mb-1">RUB ' +
         cheapestVariant['Цена'] +
       '</div>' +
-      '<div class="text-xs text-gray-500 mb-4">' +
-        uniqueVariants.length + ' вариантов</div>' +
+'<div class="text-xs text-gray-500 mb-4">' +
+  getVariantCountText(uniqueVariants.length) +
+'</div>' +
     '</div>'
   );
 }
