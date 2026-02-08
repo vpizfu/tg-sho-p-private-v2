@@ -234,7 +234,7 @@ img,
   pointer-events: auto;
 }
 
-
+/* базовая опция (НЕ выбрана) */
 .option-btn {
   min-width: 80px;
   max-width: 200px;
@@ -244,8 +244,8 @@ img,
   padding: 0.75rem 0.75rem;
   border-radius: 9999px;
 
-  background-color: #f3f4f6;      /* серый фон */
-  border: 1px solid #d1d5db;      /* серый бордер */
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
   color: #111827;
 
   outline: none;
@@ -254,10 +254,10 @@ img,
   -moz-appearance: none;
   appearance: none;
   -webkit-tap-highlight-color: transparent;
-  cursor: default !important;     /* не провоцируем hover‑глюки Safari */
+  cursor: default !important;
 }
 
-/* выбранная опция — только модификатор */
+/* выбранная опция */
 .option-btn.selected {
   background-color: #3b82f6;
   border-color: #3b82f6;
@@ -265,19 +265,27 @@ img,
   font-weight: 600;
 }
 
-/* никакого изменения цвета при hover/active/focus */
-/* никакого изменения цвета при hover/active/focus */
-.option-btn:hover,
-.option-btn:active,
-.option-btn:focus {
-  background-color: #f3f4f6;   /* тот же серый, что у базовой кнопки */
+/* НЕвыбранные при hover/active/focus остаются серыми */
+.option-btn:not(.selected):hover,
+.option-btn:not(.selected):active,
+.option-btn:not(.selected):focus {
+  background-color: #f3f4f6;
   border-color: #d1d5db;
   color: #111827;
   outline: none;
   box-shadow: none;
 }
 
-
+/* выбранные при hover/active/focus остаются синими */
+.option-btn.selected:hover,
+.option-btn.selected:active,
+.option-btn.selected:focus {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: #ffffff;
+  outline: none;
+  box-shadow: none;
+}
 
 /* Горизонтальный скролл опций */
 .scroll-carousel {
