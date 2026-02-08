@@ -254,14 +254,6 @@ img,
   background-color: #f3f4f6;
 }
 
-.option-btn:hover,
-.option-btn:active,
-.option-btn:focus {
-  outline: none;
-  box-shadow: none;
-  background-color: #f3f4f6;    /* тот же цвет, что и обычный */
-}
-
 /* Горизонтальный скролл опций */
 .scroll-carousel {
   overflow-x: auto;
