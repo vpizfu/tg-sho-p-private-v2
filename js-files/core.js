@@ -329,6 +329,12 @@ const tabScrollTops = {
 };
 
 function saveCurrentTabScroll() {
+  // не трогаем сохранённый скролл магазина,
+  // если модалка была открыта на shop и мы в процессе этих туда‑сюда switchTab
+  if (currentTab === 'shop' && modalWasOpenOnShop) {
+    return;
+  }
+
   const y = window.scrollY || document.documentElement.scrollTop || 0;
   if (tabScrollTops.hasOwnProperty(currentTab)) {
     tabScrollTops[currentTab] = y;
