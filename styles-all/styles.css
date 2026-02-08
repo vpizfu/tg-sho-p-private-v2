@@ -243,9 +243,10 @@ img,
   text-overflow: ellipsis;
   padding: 0.75rem 0.75rem;
   border-radius: 9999px;
+  cursor: default !important;
 
-  background-color: #f3f4f6;   /* серый фон */
-  border: 1px solid #d1d5db;   /* серый бордер */
+  background-color: #f3f4f6;      /* базовый серый */
+  border: 1px solid #d1d5db;
   color: #111827;
 
   outline: none;
@@ -253,18 +254,10 @@ img,
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* выбранная опция — только один модификатор */
-.option-btn.selected {
-  background-color: #3b82f6;   /* синий фон */
-  border-color: #3b82f6;
-  color: #ffffff;
-  font-weight: 600;
-  box-shadow: 0 0 0 1px rgba(59,130,246,0.3);
-}
-
-/* никаких hover/focus/active-эффектов по цвету */
+/* никаких цветовых эффектов из :hover/:active/:focus */
 .option-btn:hover,
 .option-btn:active,
 .option-btn:focus {

@@ -79,12 +79,17 @@ function clearOptionNoFocus(type) {
     document.activeElement.blur();
   }
 
+  // гасим фокус у кнопки этого типа, если он есть
+  const focused = document.querySelector(
+    '.option-section[data-section="' + type + '"] .option-btn:focus'
+  );
+  if (focused && focused.blur) focused.blur();
+
   const scrollContainer = document.querySelector('#modalContent .flex-1');
   const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
 
   const finalTypes = getFinalTypesForCurrentProduct();
   const typeIndex = finalTypes.indexOf(type);
-
   if (typeIndex === -1) return;
 
   for (let i = typeIndex; i < finalTypes.length; i++) {
@@ -770,3 +775,9 @@ window.closeModal = function () {
 
   tg?.HapticFeedback?.impactOccurred('light');
 };
+
+document.addEventListener('touchstart', function (e) {
+  const target = e.target.closest('.option-btn');
+  if (!target) return;
+  // пустой хендлер, просто чтобы Safari не переводил первый тап в :hover-only
+}, { passive: true });
