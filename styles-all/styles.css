@@ -269,8 +269,8 @@ img,
 .option-btn:not(.selected):hover,
 .option-btn:not(.selected):active,
 .option-btn:not(.selected):focus {
-  background-color: #f3f4f6;
-  border-color: #d1d5db;
+  background-color: #ffffff;
+  border-color: #ffffff;
   color: #111827;
   outline: none;
   box-shadow: none;
