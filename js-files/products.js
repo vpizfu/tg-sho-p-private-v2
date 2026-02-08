@@ -15,6 +15,25 @@ function makeVariantUserKeyWithoutPrice(variant) {
   return JSON.stringify(entries);
 }
 
+function getCategoriesFromProducts() {
+  if (!productsData || !productsData.length) {
+    // fallback, если ещё ничего не загрузилось
+    return ['Все'];
+  }
+
+  const set = new Set();
+
+  productsData.forEach(p => {
+    if (!p || !p.cat) return;
+    set.add(String(p.cat));
+  });
+
+  const cats = Array.from(set).sort((a, b) => a.localeCompare(b, 'ru'));
+
+  // "Все" всегда первой
+  return ['Все', ...cats];
+}
+
 // считаем дублями варианты, одинаковые по всем полям, кроме цены;
 // оставляем вариант с максимальной ценой
 function dedupeIdenticalVariants(variants) {
@@ -380,9 +399,11 @@ function getLabel(type) {
 
 
 function renderShopHeader(list, showCount) {
+  const categories = getCategoriesFromProducts();   
+
   let optionsHtml = '';
-  for (let i = 0; i < CATEGORIES.length; i++) {
-    const c = CATEGORIES[i];
+  for (let i = 0; i < categories.length; i++) {
+    const c = categories[i];
     optionsHtml +=
       '<option value="' +
       c +
@@ -608,6 +629,7 @@ function getImageCacheKey(product, url) {
 
 
 function renderShop() {
+  const categories = getCategoriesFromProducts();
   if (!productsData || productsData.length === 0) {
     root.innerHTML =
       '<div class="flex flex-col items-center justify-center min-h-[70vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
@@ -678,7 +700,7 @@ function renderShop() {
               '</button>' +
               '<div id="categorySelectDropdown"' +
                    ' class="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-lg z-30 max-h-64 overflow-y-auto hidden">' +
-                CATEGORIES.map(c => (
+                categories.map(c => (
                   '<button type="button"' +
                     ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100' +
                       (c === selectedCategory ? ' text-blue-600 font-semibold' : ' text-gray-800') +
