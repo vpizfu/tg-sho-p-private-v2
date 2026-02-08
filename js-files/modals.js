@@ -577,6 +577,28 @@ function renderProductModal(product) {
       '</div>' +
     '</div>';
 
+  // после body.innerHTML = ...
+// повесим безопасные хендлеры на крестики
+document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(btn => {
+  if (btn.dataset.bound === '1') return;
+  btn.dataset.bound = '1';
+
+  btn.addEventListener('touchend', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const type = btn.getAttribute('data-type');
+    clearOptionNoFocus(type);
+  }, { passive: false });
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const type = btn.getAttribute('data-type');
+    clearOptionNoFocus(type);
+  });
+});
+
+
   const btn = document.getElementById('modalAddButton');
 
   if (isAddingToCart) {
