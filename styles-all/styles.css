@@ -149,7 +149,6 @@ img,
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
-  border: none;
   font-size: 14px;
   color: #111827;
   display: flex;
