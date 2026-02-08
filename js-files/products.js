@@ -1,12 +1,5 @@
-// порядок выбора опций в модалке
-const FILTER_ORDER_BY_CAT = {
-  iPhone: ['simType', 'storage', 'color', 'region'],
-  'Apple Watch': ['diameter', 'caseColor', 'bandType', 'bandColor', 'bandSize'],
-  MacBook: ['diagonal', 'cpu', 'gpu', 'ram', 'ssd', 'color', 'keyboard']
-};
-
 function getFilterOrderForProduct(productCat) {
-  return FILTER_ORDER_BY_CAT[productCat] || ['storage', 'color', 'region'];
+  return FILTER_ORDER_BY_CAT[productCat] || [];
 }
 
 // Какие типы реально используются у товара (есть непустое значение хотя бы у одного варианта)

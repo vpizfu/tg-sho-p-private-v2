@@ -8,7 +8,7 @@ try {
 }
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbw56PZQ2Dpovv8X0LtGOz-wnrKBkeaCI0HgicmYn8hRcE52Akqrd7tsmHjouu0EXI0c/exec';
+  'https://script.google.com/macros/s/AKfycbylAAf51zsIazSnlhi9GNZR2Ll_O4hQo15ogLX0ap-qiRvBrEOg0Psqgu2hajC7MeK_CQ/exec';
 const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
 const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
 
@@ -22,6 +22,20 @@ const isMobileDevice =
 
 let CATEGORIES = ['Все'];
 let isOrdersLoading = false;
+
+let FILTER_ORDER_BY_CAT = {}; // динамический порядок фильтров по категориям
+
+// поля, которые не должны участвовать в фильтрах/модалке
+const EXCLUDE_FILTER_FIELDS = new Set([
+  'id',
+  'code',
+  'name',
+  'price',
+  'cat',
+  'inStock',
+  'commonImage',
+  'images'
+]);
 
 let selectedCategory = 'Все',
   query = '',
@@ -148,6 +162,32 @@ function saveProfileToStorage() {
   } catch (e) {
     console.log('[core] saveProfileToStorage error', e);
   }
+}
+
+function buildFilterOrderByCat(products) {
+  const map = {};
+
+  products.forEach(p => {
+    const cat = p.cat || 'default';
+    if (!map[cat]) map[cat] = new Set();
+
+    Object.keys(p).forEach(key => {
+      if (EXCLUDE_FILTER_FIELDS.has(key)) return;
+
+      const value = p[key];
+      if (value === undefined || value === null || value === '') return;
+
+      map[cat].add(key);
+    });
+  });
+
+  const result = {};
+  Object.keys(map).forEach(cat => {
+    // при желании можно отсортировать по алфавиту
+    result[cat] = Array.from(map[cat]);
+  });
+
+  return result;
 }
 
 const DELIVERY_PREFS_KEY = 'deliveryPrefs_v1';
@@ -506,20 +546,24 @@ async function fetchAndUpdateProducts(showLoader = false) {
     if (!response.ok) throw new Error('HTTP ' + response.status);
 
     const products = await response.json();
-    logStage('products json parse', t0);
-    console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
+logStage('products json parse', t0);
+console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
 
-    const normalized = normalizeProducts(products);
-    logStage('normalizeProducts', t0);
+const normalized = normalizeProducts(products);
+logStage('normalizeProducts', t0);
 
-    productsData = normalized;
+productsData = normalized;
 
-    const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
-    CATEGORIES = ['Все', ...cats];
-    console.log('[core] CATEGORIES', CATEGORIES);
+// строим динамический порядок фильтров по категориям на основе данных
+FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
+console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
 
-    syncProductsAndCart();
-    logStage('update productsData + sync', t0);
+const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
+CATEGORIES = ['Все', ...cats];
+console.log('[core] CATEGORIES', CATEGORIES);
+
+syncProductsAndCart();
+logStage('update productsData + sync', t0);
   } catch (error) {
     console.error('[core] products API error:', error);
     if (showLoader && currentTab === 'shop') {
