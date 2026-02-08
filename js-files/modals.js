@@ -204,7 +204,7 @@ function renderProductModal(product) {
   }
 
   const filteredVariants = getFilteredVariants(variants);
-  const availableVariants = filteredVariants;
+  const availableVariants = dedupeIdenticalVariants(filteredVariants);  
 
   const activeTypes = getActiveTypesForProduct(product, variants);
 
@@ -560,11 +560,11 @@ function renderProductModal(product) {
         'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
           getVariantCountText(availableVariants.length) +
         '</span>' +
-        (complete && availableVariants.length === 1
+        (complete && availableVariants.length > 0
           ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
               '✅ Спецификация выбрана' +
             '</div>'
-          : '') +
+          : '') +        
       '</div>' +
     '</div>';
 

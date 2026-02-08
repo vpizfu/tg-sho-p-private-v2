@@ -1,3 +1,43 @@
+// поля, которые игнорируем при сравнении (служебные)
+const VARIANT_TECH_FIELDS = ['Артикул', 'id', 'SKU'];
+
+// ключ «для пользователя» — все поля, кроме служебных И КРОМЕ цены
+function makeVariantUserKeyWithoutPrice(variant) {
+  const entries = Object.entries(variant)
+    .filter(([key]) => 
+      !VARIANT_TECH_FIELDS.includes(key) &&
+      key !== 'Цена'
+    )
+    .sort(([a], [b]) => a.localeCompare(b));
+
+  return JSON.stringify(entries);
+}
+
+// дедупликация: считаем дублями варианты, у которых всё совпадает, кроме цены,
+// и оставляем тот, у которого 'Цена' максимальная
+function dedupeIdenticalVariantsKeepMaxPrice(variants) {
+  const map = new Map(); // key -> variant
+
+  variants.forEach(v => {
+    const key = makeVariantUserKeyWithoutPrice(v);
+    const existing = map.get(key);
+
+    if (!existing) {
+      map.set(key, v);
+      return;
+    }
+
+    const prevPrice = Number(existing['Цена'] || 0);
+    const nextPrice = Number(v['Цена'] || 0);
+
+    if (nextPrice > prevPrice) {
+      map.set(key, v);
+    }
+  });
+
+  return Array.from(map.values());
+}
+
 function getFilterOrderForProduct(productCat) {
   return FILTER_ORDER_BY_CAT[productCat] || [];
 }
