@@ -138,8 +138,11 @@ img,
 
 /* точная вертикальная центровка относительно изображения */
 #modalCarousel .nav-btn {
-  border: 1px solid rgba(15,23,42,0.12); /* slate‑900 ~12% */
-  box-shadow: none;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.02),
+              0 4px 10px rgba(0,0,0,0.18);
+  /* обводка вокруг кнопки */
+  /* border: 1px solid rgba(15,23,42,0.12); 
+  box-shadow: none; */
   position: absolute;
   top: calc(50% - 17px);
   transform: translateY(-50%);
