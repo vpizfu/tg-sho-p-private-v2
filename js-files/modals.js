@@ -538,10 +538,12 @@ function renderProductModal(product) {
                 );
               })
               .join('') +
-            (selectedOption[type]
-              ? '<button onclick="clearOptionNoFocus(\'' + type + '\'); return false;"' +
-                ' class="px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 hover:bg-red-50 scroll-item w-12">✕</button>'
-              : '') +
+              (selectedOption[type]
+                ? '<button onclick="(function(e){ e.stopPropagation(); e.preventDefault(); clearOptionNoFocus(\'' +
+                    type +
+                    '\'); })(event);"' +
+                  ' class="px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 hover:bg-red-50 scroll-item w-12">✕</button>'
+                : '') +
           '</div>' +
           (!availableOptions[type].length
             ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
