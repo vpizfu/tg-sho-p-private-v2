@@ -476,14 +476,18 @@ function productCard(product) {
   const variants = allVariants.filter(v => v.inStock);
   if (!variants.length) return '';
 
-  const cheapestVariant = variants.reduce(
+  // схлопываем одинаковые варианты (одинаковые по всем полям, кроме служебных и цены)
+  const uniqueVariants = dedupeIdenticalVariants(variants);
+
+  // минимальная цена среди уникальных вариантов
+  const cheapestVariant = uniqueVariants.reduce(
     (min, p) => (p['Цена'] < min['Цена'] ? p : min),
-    variants[0]
+    uniqueVariants[0]
   );
 
   const commonImage =
     product['Общая картинка'] ||
-    variants[0]?.['Общая картинка'] ||
+    uniqueVariants[0]?.['Общая картинка'] ||
     '';
   const hasImage = !!commonImage;
   const safeMainImage = hasImage ? commonImage.replace(/'/g, "\\'") : '';
@@ -572,11 +576,10 @@ function productCard(product) {
         cheapestVariant['Цена'] +
       '</div>' +
       '<div class="text-xs text-gray-500 mb-4">' +
-        variants.length + ' вариантов</div>' +
+        uniqueVariants.length + ' вариантов</div>' +
     '</div>'
   );
 }
-
 
 function renderShopList(list, showCount) {
   return list.slice(0, showCount).map(productCard).join('');
