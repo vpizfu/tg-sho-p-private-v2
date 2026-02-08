@@ -832,7 +832,7 @@ function setupInfiniteScroll() {
               return;
             }
             const productName = card.dataset.productName;
-            const product = productsData.find(p => p.name === productName);
+            const product = productsData.find(p => p['Название'] === productName);
             if (product) {
               selectedOption = {};
               selectedQuantity = 1;
@@ -840,7 +840,7 @@ function setupInfiniteScroll() {
               tg?.HapticFeedback?.impactOccurred('medium');
             }
           };
-        }
+        }      
       });
 
       const counterSpan = document.querySelector(
