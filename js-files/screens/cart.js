@@ -50,16 +50,13 @@ function addToCart(variant, quantity) {
   } else {
     const base = {
       id: freshVariant.id,
-      // сохраняем читабельное имя и цену отдельно,
-      // чтобы корзина не зависела от названий колонок
       name: freshVariant['Название'],
       price: freshVariant['Цена'],
       cat: freshVariant.cat,
       quantity,
       available: true,
-      // плюс целиком сырые поля варианта, если потом пригодятся
       raw: freshVariant
-    };
+    };    
 
     cartItems.push(base);
   }
@@ -339,9 +336,7 @@ function getCartItemSubtitle(item) {
   const raw = item.raw;
 
   const parts = Object.keys(raw)
-    // не показываем служебные поля
     .filter(key => !EXCLUDE_FILTER_FIELDS.has(key))
-    // берём только непустые значения
     .map(key => raw[key])
     .filter(v => v !== undefined && v !== null && String(v).trim() !== '');
 

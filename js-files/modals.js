@@ -137,7 +137,7 @@ window.addToCartFromModal = async function () {
     }
 
     const variants = getFilteredVariants(
-      getProductVariants(currentProduct.name).filter(v => v.inStock)
+      getProductVariants(currentProduct['Название']).filter(v => v.inStock)
     );
 
     if (!variants.length) {
@@ -146,19 +146,19 @@ window.addToCartFromModal = async function () {
     }
 
     const selectedVariant = variants[0];
-addToCart(selectedVariant, selectedQuantity);
+    addToCart(selectedVariant, selectedQuantity);
 
-const subtitle = getCartItemSubtitle(selectedVariant);
-const price = selectedVariant['Цена'] || 0;
-tg?.showAlert?.(
-  '✅ ' +
-    (selectedVariant['Название'] || currentProduct['Название']) +
-    (subtitle ? '\n' + subtitle : '') +
-    '\nКоличество: ' +
-    selectedQuantity +
-    '\nRUB ' +
-    price * selectedQuantity
-);
+    const subtitle = getCartItemSubtitle(selectedVariant);
+    const price = selectedVariant['Цена'] || 0;
+    tg?.showAlert?.(
+      '✅ ' +
+        (selectedVariant['Название'] || currentProduct['Название']) +
+        (subtitle ? '\n' + subtitle : '') +
+        '\nКоличество: ' +
+        selectedQuantity +
+        '\nRUB ' +
+        price * selectedQuantity
+    );
     closeModal();
   } finally {
     isAddingToCart = false;
@@ -189,7 +189,7 @@ function renderProductModal(product) {
       '<div class="flex flex-col h-full">' +
         '<div class="p-6 pb-4 border-b border-gray-200">' +
           '<div class="flex items-center justify-between mb-2">' +
-            '<h2 class="text-2xl font-bold">' + escapeHtml(product.name) + '</h2>' +
+            '<h2 class="text-2xl font-bold">' + escapeHtml(product['Название']) + '</h2>' +
             '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
               '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                 '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
@@ -220,8 +220,8 @@ function renderProductModal(product) {
   const complete = isCompleteSelection();
 
   const currentMinPrice = availableVariants.length
-  ? Math.min.apply(null, availableVariants.map(v => v['Цена']))
-  : Math.min.apply(null, variants.map(v => v['Цена']));
+    ? Math.min.apply(null, availableVariants.map(v => v['Цена']))
+    : Math.min.apply(null, variants.map(v => v['Цена']));
 
   let headerPriceText;
   let headerSuffix = '';
@@ -240,8 +240,8 @@ function renderProductModal(product) {
   let filteredImages = [];
   if (complete && availableVariants.length > 0) {
     filteredImages = getFilteredProductImages(availableVariants);
-    if (!filteredImages.length && variants[0].commonImage) {
-      filteredImages = [variants[0].commonImage];
+    if (!filteredImages.length && variants[0]['Общая картинка']) {
+      filteredImages = [variants[0]['Общая картинка']];
     }
   }
 
@@ -252,7 +252,6 @@ function renderProductModal(product) {
 
     modalRoot.innerHTML =
       '<div class="flex flex-col h-full">' +
-
         '<div class="p-6 pb-4 border-b border-gray-200">' +
           '<div class="flex items-center justify-between mb-2">' +
             '<h2 class="text-2xl font-bold" id="modalTitle"></h2>' +
@@ -267,41 +266,36 @@ function renderProductModal(product) {
             '<span>• <span id="modalVariantCount"></span></span>' +
           '</div>' +
         '</div>' +
-
         '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
-
-'<div class="modal-image-section">' +
-  '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
-    '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
-      // стартовый плейсхолдер на полный размер
-      '<div class="w-full h-full flex items-center justify-center">' +
-        getPlainSvgPlaceholder() +
-      '</div>' +
-    '</div>' +
-    '<div class="modal-carousel-footer">' +
-      '<div class="carousel-dots" id="modalDots"></div>' +
-      '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
-    '</div>' +
-    '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
-  '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
-    '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
-  '</svg>' +
-'</button>' +
-'<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
-  '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
-    '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
-  '</svg>' +
-'</button>' +
-  '</div>' +
-'</div>' +
+          '<div class="modal-image-section">' +
+            '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+              '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
+                '<div class="w-full h-full flex items-center justify-center">' +
+                  getPlainSvgPlaceholder() +
+                '</div>' +
+              '</div>' +
+              '<div class="modal-carousel-footer">' +
+                '<div class="carousel-dots" id="modalDots"></div>' +
+                '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
+              '</div>' +
+              '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
+                '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+                  '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+                '</svg>' +
+              '</button>' +
+              '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
+                '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+                  '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+                '</svg>' +
+              '</button>' +
+            '</div>' +
+          '</div>' +
           '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
         '</div>' +
-
         '<div class="modal-footer border-t bg-white">' +
           '<button id="modalAddButton"' +
           ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-lg " onclick="addToCartFromModal(); return false;"></button>' +
         '</div>' +
-
       '</div>';
 
     initModalSwipe();
@@ -334,7 +328,7 @@ function renderProductModal(product) {
   });
 
   const INITIAL_FADE_MS = 1000; // первое открытие
-  const SWAP_FADE_MS = 500;    // смена опций (совпадает с CSS 0.5s)
+  const SWAP_FADE_MS = 500;    // смена опций
 
   function applyFadeIn(el, durationMs) {
     if (!el) return;
@@ -479,15 +473,15 @@ function renderProductModal(product) {
     } else {
       imageHintEl.textContent = '';
       imageHintEl.classList.add('modal-image-hint-hidden');
-    }    
+    }
   }
 
   if (modalCurrentImageKey === null) {
-    // первое открытие: fade-in 1500ms
+    // первое открытие
     buildSlides();
     modalCurrentImageKey = nextKey;
   } else if (modalCurrentImageKey !== nextKey) {
-    // смена опций: 500ms fade-out старого + 500ms fade-in нового
+    // смена опций
     const slidesWrapperOld = document.getElementById('modalSlidesWrapper');
     if (slidesWrapperOld) {
       const activeLayers = slidesWrapperOld.querySelectorAll(
@@ -498,110 +492,100 @@ function renderProductModal(product) {
         el.classList.add('modal-photo-hidden');
       });
     }
-  
+
     modalCurrentImageKey = nextKey;
-  
+
     setTimeout(() => {
       buildSlides();
     }, SWAP_FADE_MS);
   }
 
   // === ТЕЛО МОДАЛКИ (опции, количество) ===
-  // === ТЕЛО МОДАЛКИ (опции, количество) ===
-const body = document.getElementById('modalBodyDynamic');
-const order = finalTypes;
+  const body = document.getElementById('modalBodyDynamic');
+  const order = finalTypes;
 
-body.innerHTML =
-  order.map((type, index) => {
-    const isLocked = index > getCurrentSectionIndex();
-    return (
-      '<div class="option-section ' +
-        (isLocked ? 'locked' : 'unlocked') +
-        '" data-section="' + type + '">' +
-        '<label class="text-sm font-semibold text-gray-700 capitalize mb-2 block">' +
-          getLabel(type) +
-        '</label>' +
-        '<div class="flex gap-2 scroll-carousel pb-1">' +
-
-          // КНОПКИ ОПЦИЙ
-          availableOptions[type]
-          .map(option => {
-            const isSelected = selectedOption[type] === option;
-            return (
-              '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
-                (isSelected ? ' selected' : '') +
-              '"' +
-              ' data-type="' + type + '"' +
-              ' data-option="' + escapeHtml(option) + '"' +
-              ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
-                escapeHtml(option) +
-              '</button>'
-            );
-          })
-          .join('') +  
-
-          // КРЕСТИК ДЛЯ СБРОСА СЕКЦИИ
-          (selectedOption[type]
-            ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
-                ' data-type="' + type + '">✕</button>'
+  body.innerHTML =
+    order.map((type, index) => {
+      const isLocked = index > getCurrentSectionIndex();
+      return (
+        '<div class="option-section ' +
+          (isLocked ? 'locked' : 'unlocked') +
+          '" data-section="' + type + '">' +
+          '<label class="text-sm font-semibold text-gray-700 capitalize mb-2 block">' +
+            getLabel(type) +
+          '</label>' +
+          '<div class="flex gap-2 scroll-carousel pb-1">' +
+            availableOptions[type]
+              .map(option => {
+                const isSelected = selectedOption[type] === option;
+                return (
+                  '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
+                    (isSelected ? ' selected' : '') +
+                  '"' +
+                  ' data-type="' + type + '"' +
+                  ' data-option="' + escapeHtml(option) + '"' +
+                  ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
+                    escapeHtml(option) +
+                  '</button>'
+                );
+              })
+              .join('') +
+            (selectedOption[type]
+              ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
+                  ' data-type="' + type + '">✕</button>'
+              : '') +
+          '</div>' +
+          (!availableOptions[type].length
+            ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
             : '') +
-
-        '</div>' +
-        (!availableOptions[type].length
-          ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
+        '</div>'
+      );
+    }).join('') +
+    '<div class="quantity-section">' +
+      '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
+      '<div class="flex items-center gap-3">' +
+        '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+        ' onclick="changeQuantity(-1); return false;">-</button>' +
+        '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
+          selectedQuantity +
+        '</span>' +
+        '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+        ' onclick="changeQuantity(1); return false;">+</button>' +
+      '</div>' +
+      '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
+    '</div>' +
+    '<div class="pt-4 border-t">' +
+      '<div class="text-center text-sm text-gray-500 mb-3">' +
+        'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
+          getVariantCountText(availableVariants.length) +
+        '</span>' +
+        (complete && availableVariants.length === 1
+          ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
+              '✅ Спецификация выбрана' +
+            '</div>'
           : '') +
-      '</div>'
-    );
-  }).join('') +
+      '</div>' +
+    '</div>';
 
-  // количество
-  '<div class="quantity-section">' +
-    '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
-    '<div class="flex items-center gap-3">' +
-      '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
-      ' onclick="changeQuantity(-1); return false;">-</button>' +
-      '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
-        selectedQuantity +
-      '</span>' +
-      '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
-      ' onclick="changeQuantity(1); return false;">+</button>' +
-    '</div>' +
-    '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
-  '</div>' +
+  // повесим безопасные хендлеры на крестики
+  document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(btn => {
+    if (btn.dataset.bound === '1') return;
+    btn.dataset.bound = '1';
 
-  '<div class="pt-4 border-t">' +
-    '<div class="text-center text-sm text-gray-500 mb-3">' +
-      'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
-        getVariantCountText(availableVariants.length) +
-      '</span>' +
-      (complete && availableVariants.length === 1
-        ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
-            '✅ Спецификация выбрана' +
-          '</div>'
-        : '') +
-    '</div>' +
-  '</div>';
+    btn.addEventListener('touchend', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const type = btn.getAttribute('data-type');
+      clearOptionNoFocus(type);
+    }, { passive: false });
 
-// повесим безопасные хендлеры на крестики
-document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(btn => {
-  if (btn.dataset.bound === '1') return;
-  btn.dataset.bound = '1';
-
-  btn.addEventListener('touchend', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const type = btn.getAttribute('data-type');
-    clearOptionNoFocus(type);
-  }, { passive: false });
-
-  btn.addEventListener('click', function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    const type = btn.getAttribute('data-type');
-    clearOptionNoFocus(type);
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const type = btn.getAttribute('data-type');
+      clearOptionNoFocus(type);
+    });
   });
-});
-
 
   const btn = document.getElementById('modalAddButton');
 
@@ -775,5 +759,4 @@ window.closeModal = function () {
 document.addEventListener('touchstart', function (e) {
   const target = e.target.closest('.option-btn');
   if (!target) return;
-  // пустой хендлер, просто чтобы Safari не переводил первый тап в :hover-only
 }, { passive: true });
