@@ -359,7 +359,7 @@ function renderShopHeader(list, showCount) {
 
   return (
     '<div class="mb-5">' +
-      '<h1 class="text-3xl font-bold text-center mb-4">🛒 TechnoZone</h1>' +
+      '<h1 class="text-3xl font-bold text-center mb-4">🛒 TEChBex</h1>' +
       '<div class="flex items-center gap-3">' +
         '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
           '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
@@ -635,7 +635,7 @@ function renderShop() {
   root.innerHTML =
     '<div class="pb-[65px]">' +
       '<div class="mb-5">' +
-        '<h1 class="text-3xl font-bold text-center mb-4">🛒 TechnoZone</h1>' +
+        '<h1 class="text-3xl font-bold text-center mb-4">🛒 TEChBex</h1>' +
         '<div class="flex items-center gap-3">' +
           '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
             '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
