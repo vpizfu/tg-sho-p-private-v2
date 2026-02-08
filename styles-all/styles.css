@@ -241,6 +241,16 @@ img,
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0.75rem 0.75rem;
+  background-color: #f3f4f6;
+  border-color: #d1d5db;  
+}
+
+.option-btn:hover,
+.option-btn:active,
+.option-btn:focus {
+  outline: none;
+  box-shadow: none;
+  background-color: #f3f4f6;    /* тот же цвет, что и обычный */
 }
 
 /* Горизонтальный скролл опций */
