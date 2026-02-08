@@ -527,11 +527,10 @@ function renderProductModal(product) {
             .map(option => {
               const isSelected = selectedOption[type] === option;
               return (
-                '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full border scroll-item ' +
+                '<button class="option-btn px-3 py-1.5 text-xs font-medium rounded-full scroll-item ' +
                   (isSelected
-                    ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'   // выбрана → синяя
-                    : 'bg-gray-100 border-gray-300'                                   // не выбрана → серая
-                  ) +
+                    ? 'bg-blue-500 text-white border-blue-500 shadow-md font-bold'   // выбрана
+                    : '') +                                                          // НЕ добавляем серый сюда
                 '"' +
                 ' data-type="' + type + '"' +
                 ' data-option="' + escapeHtml(option) + '"' +
@@ -539,7 +538,7 @@ function renderProductModal(product) {
                   escapeHtml(option) +
                 '</button>'
               );
-            })
+            })        
             .join('') +
 
           // КРЕСТИК ДЛЯ СБРОСА СЕКЦИИ

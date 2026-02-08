@@ -241,17 +241,29 @@ img,
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0.75rem 0.75rem;
-  background-color: #f3f4f6;   /* серый фон по умолчанию */
-  border-color: #d1d5db;       /* серый бордер */
+
+  /* базовый серый вид */
+  background-color: #f3f4f6;   /* bg-gray-100 */
+  border: 1px solid #d1d5db;   /* border-gray-300 */
+  color: #111827;
+
+  /* гасим системные эффекты */
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* без любых hover/active-подсветок */
 .option-btn:hover,
 .option-btn:active,
 .option-btn:focus {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  color: #111827;
   outline: none;
   box-shadow: none;
-  background-color: #f3f4f6;
 }
 
 /* Горизонтальный скролл опций */
