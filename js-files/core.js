@@ -36,7 +36,8 @@ const EXCLUDE_FILTER_FIELDS = new Set([
   'Артикул',
   'Статус',
   'Общая картинка',
-  'Изображения'
+  'Изображения',
+  'Images'
 ]);
 
 let selectedCategory = 'Все',
