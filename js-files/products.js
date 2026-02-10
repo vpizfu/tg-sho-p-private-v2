@@ -20,10 +20,46 @@ function getCategoriesFromProducts() {
     return ['Все'];
   }
 
-  const set = new Set();
+  const groupedByName = {};
 
-  // БЕРЁМ ВСЕ ТОВАРЫ, а не getVisibleProducts()
+  // группируем все варианты по Названию
   productsData.forEach(p => {
+    const title = p['Название'];
+    if (!groupedByName[title]) groupedByName[title] = [];
+    groupedByName[title].push(p);
+  });
+
+  // строим «витринные» товары (как в getVisibleProducts)
+  let groupedVisible = Object.values(groupedByName)
+    .filter(arr => arr.some(v => v.inStock))
+    .map(arr => {
+      const inStockVariants = arr.filter(v => v.inStock);
+
+      const cheapestVariant = inStockVariants.reduce(
+        (min, p) => (p['Цена'] < min['Цена'] ? p : min),
+        inStockVariants[0]
+      );
+
+      const resolvedCat = resolveCategoryForVariants(arr);
+
+      return {
+        ...cheapestVariant,
+        cat: resolvedCat
+      };
+    });
+
+  // применяем текущий поиск (но НЕ фильтр по selectedCategory)
+  if (query.trim()) {
+    const q = query.trim().toLowerCase();
+    groupedVisible = groupedVisible.filter(p =>
+      (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
+      (p.cat && String(p.cat).toLowerCase().includes(q))
+    );
+  }
+
+  // собираем только категории, у которых сейчас есть товары
+  const set = new Set();
+  groupedVisible.forEach(p => {
     if (!p || !p.cat) return;
     set.add(String(p.cat));
   });

@@ -214,7 +214,12 @@ function loadDeliveryPrefs() {
 
     paymentType = deliveryPrefs.paymentType;
     pickupMode = deliveryPrefs.pickupMode;
-    pickupLocation = deliveryPrefs.pickupLocation;
+
+    // используем только валидный пункт самовывоза
+    pickupLocation = PICKUP_LOCATIONS.includes(deliveryPrefs.pickupLocation)
+      ? deliveryPrefs.pickupLocation
+      : '';
+
     cartFormState.savedAddressValue = deliveryPrefs.savedAddressValue;
   } catch (e) {
     console.log('[core] loadDeliveryPrefs error', e);

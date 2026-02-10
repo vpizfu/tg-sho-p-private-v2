@@ -140,17 +140,33 @@ window.refreshCartPricesAndCleanup = async function () {
 
     cartItems = cartItems.map(item => {
       const fresh = productsData.find(p => p.id === item.id && p.inStock);
-      if (fresh['Цена'] !== item.price) {
-        changedCount++;
-        changedItems.push({ ...item });
-        return { ...item, available: false, newPrice: fresh['Цена'] };
+
+      // нет такого товара → считаем недоступным и удаляем
+      if (!fresh) {
+        removedCount++;
+        removedItems.push({ ...item });
+        return { ...item, available: false, deleted: true };
       }
-      if (fresh.price !== item.price) {
-        changedCount++;
-        changedItems.push({ ...item });
-        return { ...item, available: false, newPrice: fresh.price };
+
+      const freshPrice = Number(fresh['Цена']);
+      const oldPrice = Number(item.price);
+
+      // цена стала некорректной/нулевой → тоже недоступен
+      if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
+        removedCount++;
+        removedItems.push({ ...item });
+        return { ...item, available: false, deleted: true };
       }
-      return { ...item, available: true, newPrice: undefined };
+
+      // нормальная цена изменилась
+      if (freshPrice !== oldPrice) {
+        changedCount++;
+        changedItems.push({ ...item, newPrice: freshPrice });
+        return { ...item, available: false, newPrice: freshPrice, deleted: false };
+      }
+
+      // всё ок
+      return { ...item, available: true, newPrice: undefined, deleted: false };
     });
 
     cartItems = cartItems.filter(i => !i.deleted);
@@ -576,68 +592,77 @@ function showCartTab() {
       '</div>' +
     '</div>';
 
-  const contactNameEl = document.getElementById('contactName');
-  const contactPhoneEl = document.getElementById('contactPhone');
-  const contactConfirmedEl = document.getElementById('contactConfirmed');
-
-  restoreCartFormState();
-
-  if (savedProfile && savedProfile.confirmed && !cartFormState.contactEditedManually) {
-    if (contactNameEl && savedProfile.name) {
-      contactNameEl.value = savedProfile.name;
-    }
-    if (contactPhoneEl && savedProfile.phone) {
-      contactPhoneEl.value = savedProfile.phone;
-    }
-  }
-
-  if (contactConfirmedEl) {
-    contactConfirmedEl.checked = !!cartFormState.contactConfirmed;
-  }
-
-  if (contactPhoneEl) {
-    contactPhoneEl.addEventListener('focus', () => {
-      hideTabBar();
-      if (!contactPhoneEl.value.trim()) {
-        contactPhoneEl.value = '+7 ';
+    const contactNameEl = document.getElementById('contactName');
+    const contactPhoneEl = document.getElementById('contactPhone');
+    const contactConfirmedEl = document.getElementById('contactConfirmed');
+  
+    restoreCartFormState();
+  
+    if (savedProfile && savedProfile.confirmed && !cartFormState.contactEditedManually) {
+      if (contactNameEl && savedProfile.name) {
+        contactNameEl.value = savedProfile.name;
       }
+      if (contactPhoneEl && savedProfile.phone) {
+        contactPhoneEl.value = savedProfile.phone;
+      }
+    }
+  
+    if (contactConfirmedEl) {
+      contactConfirmedEl.checked = !!cartFormState.contactConfirmed;
+    }
+  
+    if (contactPhoneEl) {
+      contactPhoneEl.addEventListener('focus', () => {
+        hideTabBar();
+        if (!contactPhoneEl.value.trim()) {
+          contactPhoneEl.value = '+7 ';
+        }
+      });
+      contactPhoneEl.addEventListener('blur', showTabBar);
+      contactPhoneEl.addEventListener('input', () => {
+        cartFormState.contactEditedManually = true;
+      });
+    }
+  
+    if (contactNameEl) {
+      contactNameEl.addEventListener('focus', hideTabBar);
+      contactNameEl.addEventListener('blur', showTabBar);
+      contactNameEl.addEventListener('input', () => {
+        cartFormState.contactEditedManually = true;
+      });
+    }
+  
+    ['deliveryAddress', 'deliveryComment'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('focus', hideTabBar);
+      el.addEventListener('blur', showTabBar);
     });
-    contactPhoneEl.addEventListener('blur', showTabBar);
-    contactPhoneEl.addEventListener('input', () => {
-      cartFormState.contactEditedManually = true;
-    });
-  }
-
-  if (contactNameEl) {
-    contactNameEl.addEventListener('focus', hideTabBar);
-    contactNameEl.addEventListener('blur', showTabBar);
-    contactNameEl.addEventListener('input', () => {
-      cartFormState.contactEditedManually = true;
-    });
-  }
-
-  ['deliveryAddress', 'deliveryComment'].forEach(id => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('focus', hideTabBar);
-    el.addEventListener('blur', showTabBar);
-  });
-
-  const pickupSelect = document.getElementById('pickupLocation');
-  if (pickupSelect) {
-    pickupSelect.addEventListener('focus', () => {});
-    pickupSelect.addEventListener('blur', showTabBar);
-  }
-
-  const savedSelect = document.getElementById('savedAddress');
-  if (savedSelect) {
-    onSavedAddressChange();
-  }
-
-  if (currentTab === 'cart') {
-    showTabBar();
-  }
-}
+  
+    // ОДИН общий блок для pickupSelect: и фокус, и предзаполнение
+    const pickupSelect = document.getElementById('pickupLocation');
+    if (pickupSelect) {
+      // предзаполнение по состоянию
+      if (pickupLocation && PICKUP_LOCATIONS.includes(pickupLocation)) {
+        pickupSelect.value = pickupLocation;
+      } else {
+        pickupSelect.value = '';
+        pickupLocation = '';
+      }
+  
+      pickupSelect.addEventListener('focus', () => {});
+      pickupSelect.addEventListener('blur', showTabBar);
+    }
+  
+    const savedSelect = document.getElementById('savedAddress');
+    if (savedSelect) {
+      onSavedAddressChange();
+    }
+  
+    if (currentTab === 'cart') {
+      showTabBar();
+    }
+  }  
 
 function setPlaceOrderLoading(loading) {
   const btn = document.getElementById('placeOrderButton');
@@ -786,15 +811,27 @@ window.placeOrder = async function () {
 
     cartItems = cartItems.map(item => {
       const fresh = productsData.find(p => p.id === item.id && p.inStock);
+
       if (!fresh) {
         hasUnavailable = true;
         return { ...item, available: false };
       }
-      if (fresh['Цена'] !== item.price) {
-        hasPriceChanged = true;
-        return { ...item, available: false, newPrice: fresh['Цена'] };
+
+      const freshPrice = Number(fresh['Цена']);
+      const oldPrice = Number(item.price);
+
+      // цена исчезла или стала 0 → считаем недоступным
+      if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
+        hasUnavailable = true;
+        return { ...item, available: false };
       }
-      return { ...item, available: true, newPrice: undefined };      
+
+      if (freshPrice !== oldPrice) {
+        hasPriceChanged = true;
+        return { ...item, available: false, newPrice: freshPrice };
+      }
+
+      return { ...item, available: true, newPrice: undefined };
     });
 
     console.log(

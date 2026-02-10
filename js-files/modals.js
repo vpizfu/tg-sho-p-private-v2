@@ -137,7 +137,7 @@ window.addToCartFromModal = async function () {
 
     const selectedVariant = variants[0];
 
-    // --- проверка цены ---
+    // --- КРИТИЧНО: проверка цены варианта ---
     const rawPrice = selectedVariant['Цена'];
     const priceNum = Number(rawPrice);
 
@@ -145,7 +145,7 @@ window.addToCartFromModal = async function () {
       tg?.showAlert?.('❌ Товар недоступен');
       return;
     }
-    // --- конец проверки цены ---
+    // ---------------------------------------
 
     addToCart(selectedVariant, selectedQuantity);
 
