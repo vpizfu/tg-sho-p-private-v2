@@ -329,13 +329,9 @@ function initTabBar() {
 
   const tabs = Array.from(document.querySelectorAll('#tabBar .tab-item'));
 
-  const handler = e => {
-    e.preventDefault();
-    e.stopPropagation();
-
+  function handleTabActivate(tab) {
     if (isTabChanging) return;
 
-    const tab = e.currentTarget;
     const tabName = tab.dataset.tab;
     if (!tabName || tabName === currentTab) return;
 
@@ -346,13 +342,57 @@ function initTabBar() {
     setTabBarDisabled(true);
 
     switchTab(tabName);
-  };
+  }
 
   tabs.forEach(tab => {
-    tab.addEventListener('pointerdown', handler);
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchMoved = false;
+
+    // запоминаем координаты начала
+    tab.addEventListener(
+      'touchstart',
+      e => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        touchStartY = t.clientY;
+        touchStartX = t.clientX;
+        touchMoved = false;
+      },
+      { passive: true }
+    );
+
+    // если сильно сдвинулись — это свайп, а не тап
+    tab.addEventListener(
+      'touchmove',
+      e => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        const dy = Math.abs(t.clientY - touchStartY);
+        const dx = Math.abs(t.clientX - touchStartX);
+        if (dy > 20 || dx > 20) {
+          touchMoved = true;
+        }
+      },
+      { passive: true }
+    );
+
+    tab.addEventListener(
+      'touchend',
+      e => {
+        if (touchMoved) return; // свайп — игнорируем
+        e.preventDefault();
+        e.stopPropagation();
+        handleTabActivate(tab);
+      },
+      { passive: false }
+    );
+
+    // обычный click для мыши/десктопа
     tab.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
+      handleTabActivate(tab);
     });
   });
 

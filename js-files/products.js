@@ -22,8 +22,8 @@ function getCategoriesFromProducts() {
 
   const set = new Set();
 
-  const visible = getVisibleProducts(); // уже агрегированные товары
-  visible.forEach(p => {
+  // БЕРЁМ ВСЕ ТОВАРЫ, а не getVisibleProducts()
+  productsData.forEach(p => {
     if (!p || !p.cat) return;
     set.add(String(p.cat));
   });

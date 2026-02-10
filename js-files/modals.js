@@ -12,17 +12,6 @@ let modalCurrentImageKey = null;
 // Запоминаем: для каких URL был onerror (чтобы сразу ставить заглушку)
 const brokenImageMap = new Map();
 
-function getVariantCountText(count) {
-  const mod10 = count % 10;
-  const mod100 = count % 100;
-
-  if (mod10 === 1 && mod100 !== 11) return count + ' вариант';
-  if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) {
-    return count + ' варианта';
-  }
-  return count + ' вариантов';
-}
-
 // вспомогалка: получить finalTypes для текущего продукта/выбора
 function getFinalTypesForCurrentProduct() {
   if (!currentProduct || !productsData) return [];
@@ -147,10 +136,22 @@ window.addToCartFromModal = async function () {
     }
 
     const selectedVariant = variants[0];
+
+    // --- проверка цены ---
+    const rawPrice = selectedVariant['Цена'];
+    const priceNum = Number(rawPrice);
+
+    if (!Number.isFinite(priceNum) || priceNum <= 0) {
+      tg?.showAlert?.('❌ Товар недоступен');
+      return;
+    }
+    // --- конец проверки цены ---
+
     addToCart(selectedVariant, selectedQuantity);
 
     const subtitle = getCartItemSubtitle(selectedVariant);
-    const price = selectedVariant['Цена'] || 0;
+    const sum = priceNum * selectedQuantity;
+
     tg?.showAlert?.(
       '✅ ' +
         (selectedVariant['Название'] || currentProduct['Название']) +
@@ -158,7 +159,7 @@ window.addToCartFromModal = async function () {
         '\nКоличество: ' +
         selectedQuantity +
         '\nRUB ' +
-        price * selectedQuantity
+        sum
     );
     closeModal();
   } finally {
@@ -596,19 +597,23 @@ function renderProductModal(product) {
       'w-full flex itemscenter justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
     btn.disabled = true;
   } else if (complete && availableVariants.length > 0) {
-    const price = availableVariants[0]['Цена'] || 0;
-    const sum = price * selectedQuantity;
-    btn.innerHTML = '✅ В корзину RUB ' + sum;
-    btn.className =
-      'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
-    btn.disabled = false;
-  } else {
-    btn.innerHTML = 'Выберите все опции';
-    btn.className =
-      'w-full flex items-center justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
-    btn.disabled = true;
+    const rawPrice = availableVariants[0]['Цена'];
+    const priceNum = Number(rawPrice);
+  
+    if (!Number.isFinite(priceNum) || priceNum <= 0) {
+      btn.innerHTML = 'Товар недоступен';
+      btn.className =
+        'w-full flex items-center justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg cursor-not-allowed';
+      btn.disabled = true;
+    } else {
+      const sum = priceNum * selectedQuantity;
+      btn.innerHTML = '✅ В корзину RUB ' + sum;
+      btn.className =
+        'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
+      btn.disabled = false;
+    }
   }
-}
+}  
 
 // Карусель
 function initModalCarousel(imageCount) {
