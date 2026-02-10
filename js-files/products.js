@@ -885,7 +885,7 @@ function setupHandlers() {
   const categoryLabel = document.getElementById('categorySelectLabel');
   const searchEl = document.getElementById('search');
 
-  // клик по категории → открыть/закрыть дропдаун
+  // --- КАТЕГОРИИ (кастомный селект) ---
   if (categoryButton && categoryDropdown) {
     categoryButton.onclick = function (e) {
       e.stopPropagation();
@@ -897,32 +897,26 @@ function setupHandlers() {
       }
     };
 
-    // выбор значения
     categoryDropdown.querySelectorAll('button[data-value]').forEach(btn => {
       btn.onclick = function (e) {
         e.stopPropagation();
         const value = btn.getAttribute('data-value') || 'Все';
 
-        // обновляем глобальное состояние
         selectedCategory = value;
         loadedCount = 10;
 
-        // обновляем видимый лейбл
         if (categoryLabel) {
           categoryLabel.textContent = value;
         }
 
-        // закрываем дропдаун
         categoryDropdown.classList.add('hidden');
 
-        // перерендер магазина
         if (currentTab === 'shop') {
           renderShop();
         }
       };
     });
 
-    // закрытие по клику вне
     document.addEventListener('click', function (e) {
       if (!categoryDropdown) return;
       const root = document.getElementById('categorySelect');
@@ -933,15 +927,43 @@ function setupHandlers() {
     });
   }
 
-  // остальной код setupHandlers — как у тебя был
-  // (поиск, клики по карточкам, blur по клику вне поиска и т.п.)
-
+  // --- ПОИСК ---
   if (searchEl) {
+    // при фокусе/блюре прячем/показываем таббар
     searchEl.onfocus = () => hideTabBar();
-    searchEl.onblur  = () => showTabBar();
-    // ... остальной твой код для searchEl ...
+    searchEl.onblur = () => showTabBar();
+
+    // дебаунс поиска
+    searchEl.oninput = function () {
+      const value = searchEl.value || '';
+      if (searchTimeout) clearTimeout(searchTimeout);
+
+      searchTimeout = setTimeout(() => {
+        query = value;
+        loadedCount = 10;
+
+        if (currentTab === 'shop') {
+          renderShop();
+        }
+      }, 250);
+    };
+
+    // по Enter тоже фиксируем значение и рендерим
+    searchEl.onkeydown = function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const value = searchEl.value || '';
+        if (searchTimeout) clearTimeout(searchTimeout);
+        query = value;
+        loadedCount = 10;
+        if (currentTab === 'shop') {
+          renderShop();
+        }
+      }
+    };
   }
 
+  // --- КЛИК ПО КАРТОЧКЕ ТОВАРА ---
   document.querySelectorAll('[data-product-name]').forEach(card => {
     card.onclick = function (e) {
       if (e.target.closest('button') || e.target.closest('.dot')) return;
