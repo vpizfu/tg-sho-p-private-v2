@@ -49,13 +49,14 @@ function getCategoriesFromProducts() {
     });
 
   // применяем текущий поиск (но НЕ фильтр по selectedCategory)
-  if (query.trim()) {
-    const q = query.trim().toLowerCase();
-    groupedVisible = groupedVisible.filter(p =>
-      (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
-      (p.cat && String(p.cat).toLowerCase().includes(q))
-    );
-  }
+// применяем текущий поиск (но НЕ фильтр по selectedCategory)
+if (query.trim()) {
+  const q = query.trim().toLowerCase();
+  groupedVisible = groupedVisible.filter(p =>
+    (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
+    (p.cat && String(p.cat).toLowerCase().includes(q))
+  );
+}
 
   // собираем только категории, у которых сейчас есть товары
   const set = new Set();
