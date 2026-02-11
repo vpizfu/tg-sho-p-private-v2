@@ -745,6 +745,23 @@ function resolveCategoryForVariants(variants) {
   return candidates[0];
 }
 
+function rerenderShopPreserveSearchFocus() {
+  const prevValue = document.getElementById('search')?.value || query || '';
+  const hadFocus = document.activeElement && document.activeElement.id === 'search';
+
+  renderShop();
+
+  const newSearch = document.getElementById('search');
+  if (newSearch) {
+    newSearch.value = prevValue;
+    if (hadFocus) {
+      newSearch.focus();
+      const len = newSearch.value.length;
+      newSearch.setSelectionRange(len, len);
+    }
+  }
+}
+
 function renderShop() {
   const categories = getCategoriesFromProducts();
   if (!productsData || productsData.length === 0) {
@@ -933,22 +950,20 @@ function setupHandlers() {
     searchEl.onfocus = () => hideTabBar();
     searchEl.onblur = () => showTabBar();
 
-    // дебаунс поиска
     searchEl.oninput = function () {
       const value = searchEl.value || '';
       if (searchTimeout) clearTimeout(searchTimeout);
-
+    
       searchTimeout = setTimeout(() => {
         query = value;
         loadedCount = 10;
-
+    
         if (currentTab === 'shop') {
-          renderShop();
+          rerenderShopPreserveSearchFocus();
         }
       }, 250);
     };
-
-    // по Enter тоже фиксируем значение и рендерим
+    
     searchEl.onkeydown = function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
@@ -957,10 +972,10 @@ function setupHandlers() {
         query = value;
         loadedCount = 10;
         if (currentTab === 'shop') {
-          renderShop();
+          rerenderShopPreserveSearchFocus();
         }
       }
-    };
+    };    
   }
 
   // --- КЛИК ПО КАРТОЧКЕ ТОВАРА ---
