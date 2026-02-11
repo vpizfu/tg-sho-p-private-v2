@@ -790,17 +790,20 @@ function renderShop() {
 
   const activeEl = document.activeElement;
   const isSearchFocused = activeEl && activeEl.id === 'search';
-
+  
   if (isSearchFocused && document.getElementById('productGrid')) {
     const grid = document.getElementById('productGrid');
     const sentinelEl = document.getElementById('scrollSentinel');
-
+  
     if (grid) {
       grid.innerHTML = renderShopList(list, showCount);
+  
+      // ВАЖНО: перевесить обработчики на новые карточки
+      setupHandlers();
       setupImageCarousels();
       setupInfiniteScroll();
     }
-
+  
     if (sentinelEl) {
       sentinelEl.innerHTML =
         showCount < list.length
@@ -810,9 +813,9 @@ function renderShop() {
             '</div>'
           : '';
     }
-
+  
     return;
-  }
+  }  
 
   root.innerHTML =
     '<div class="pb-[65px]">' +
