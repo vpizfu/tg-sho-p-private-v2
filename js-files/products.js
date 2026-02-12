@@ -841,36 +841,42 @@ function renderShop() {
   );
 
   const activeEl = document.activeElement;
-  const isSearchFocused = activeEl && activeEl.id === 'search';
+const isSearchFocused = activeEl && activeEl.id === 'search';
 
-  if (isSearchFocused && document.getElementById('productGrid')) {
-    console.log('[renderShop] branch: preserve search focus');
-    const grid = document.getElementById('productGrid');
-    const sentinelEl = document.getElementById('scrollSentinel');
+if (isSearchFocused && document.getElementById('productGrid')) {
+  const grid = document.getElementById('productGrid');
+  const sentinelEl = document.getElementById('scrollSentinel');
 
-    if (grid) {
-      grid.innerHTML = renderShopList(list, showCount);
-      console.log(
-        '[renderShop] grid updated (preserve focus), rendered items =',
-        showCount
-      );
-      setupHandlers();
-      setupImageCarousels();
-      setupInfiniteScroll();
+  if (grid) {
+    grid.innerHTML = renderShopList(list, showCount);
+
+    // ОБНОВЛЯЕМ СЧЁТЧИК "Показано"
+    const counterEl = document.querySelector('.mt-3.text-xs.text-gray-500');
+    if (counterEl) {
+      counterEl.innerHTML =
+        'Показано: <span class="font-semibold">' +
+        showCount +
+        '</span> из ' +
+        list.length;
     }
 
-    if (sentinelEl) {
-      sentinelEl.innerHTML =
-        showCount < list.length
-          ? '<div class="w-full">' +
-              '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
-            '</div>'
-          : '';
-    }
-
-    return;
+    setupHandlers();
+    setupImageCarousels();
+    setupInfiniteScroll();
   }
+
+  if (sentinelEl) {
+    sentinelEl.innerHTML =
+      showCount < list.length
+        ? '<div class="w-full">' +
+            '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
+          '</div>'
+        : '';
+  }
+
+  return;
+}
 
   console.log('[renderShop] branch: full rerender');
 
