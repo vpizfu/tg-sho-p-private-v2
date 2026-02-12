@@ -343,12 +343,24 @@ function getMaxNumberFromName(name) {
 
 
 // список товаров для отображения в магазине
+// список товаров для отображения в магазине
 function getVisibleProducts() {
-  if (!productsData) return [];
+  if (!productsData) {
+    console.log('[getVisibleProducts] productsData is null, query =', query);
+    return [];
+  }
+
+  console.log(
+    '[getVisibleProducts] START, query =',
+    JSON.stringify(query),
+    ', selectedCategory =',
+    selectedCategory,
+    ', total variants =',
+    productsData.length
+  );
 
   const groupedByName = {};
 
-  // группируем все варианты по Названию
   productsData.forEach(p => {
     const title = p['Название'];
     if (!groupedByName[title]) groupedByName[title] = [];
@@ -356,51 +368,64 @@ function getVisibleProducts() {
   });
 
   let groupedVisible = Object.values(groupedByName)
-    // только товары, у которых есть хотя бы один вариант в наличии
     .filter(arr => arr.some(v => v.inStock))
     .map(arr => {
       const inStockVariants = arr.filter(v => v.inStock);
-
-      // минимальная цена среди inStock-вариантов
       const cheapestVariant = inStockVariants.reduce(
         (min, p) => (p['Цена'] < min['Цена'] ? p : min),
         inStockVariants[0]
       );
-
-      // итоговая категория для всего товара
       const resolvedCat = resolveCategoryForVariants(arr);
-
-      // витринный объект
       return {
         ...cheapestVariant,
         cat: resolvedCat
       };
     });
 
-  // фильтр по выбранной категории
+  console.log(
+    '[getVisibleProducts] after inStock & grouping, count =',
+    groupedVisible.length
+  );
+
   if (selectedCategory !== 'Все') {
     groupedVisible = groupedVisible.filter(p => p.cat === selectedCategory);
+    console.log(
+      '[getVisibleProducts] after category filter, category =',
+      selectedCategory,
+      ', count =',
+      groupedVisible.length
+    );
   }
 
-  // фильтр по поиску
   if (query.trim()) {
     const q = query.trim().toLowerCase();
     groupedVisible = groupedVisible.filter(p =>
       (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
       (p.cat && String(p.cat).toLowerCase().includes(q))
     );
+    console.log(
+      '[getVisibleProducts] after SEARCH filter, q =',
+      q,
+      ', count =',
+      groupedVisible.length
+    );
+  } else {
+    console.log('[getVisibleProducts] search is empty, no search filter applied');
   }
 
-  // сортировка по числу в названии, затем по алфавиту
   groupedVisible.sort((a, b) => {
     const na = getMaxNumberFromName(a['Название']);
     const nb = getMaxNumberFromName(b['Название']);
-
     if (na !== nb) {
       return nb - na;
     }
     return String(a['Название']).localeCompare(String(b['Название']));
   });
+
+  console.log(
+    '[getVisibleProducts] END, result count =',
+    groupedVisible.length
+  );
 
   return groupedVisible;
 }
@@ -764,6 +789,15 @@ function rerenderShopPreserveSearchFocus() {
 }
 
 function renderShop() {
+  console.log('---------------- [renderShop] ----------------');
+  console.log(
+    '[renderShop] BEFORE getVisibleProducts, query =',
+    JSON.stringify(query),
+    ', selectedCategory =',
+    selectedCategory,
+    ', loadedCount =',
+    loadedCount
+  );
   const categories = getCategoriesFromProducts();
   if (!productsData || productsData.length === 0) {
     root.innerHTML =
@@ -790,29 +824,41 @@ function renderShop() {
 
   let showCount;
   if (query.trim()) {
-    // при активном поиске показываем все найденные товары
     showCount = list.length;
   } else {
     showCount = Math.min(loadedCount, list.length);
   }
-  
+
+  console.log(
+    '[renderShop] AFTER getVisibleProducts, query =',
+    JSON.stringify(query),
+    ', list.length =',
+    list.length,
+    ', loadedCount =',
+    loadedCount,
+    ', showCount =',
+    showCount
+  );
 
   const activeEl = document.activeElement;
   const isSearchFocused = activeEl && activeEl.id === 'search';
-  
+
   if (isSearchFocused && document.getElementById('productGrid')) {
+    console.log('[renderShop] branch: preserve search focus');
     const grid = document.getElementById('productGrid');
     const sentinelEl = document.getElementById('scrollSentinel');
-  
+
     if (grid) {
       grid.innerHTML = renderShopList(list, showCount);
-  
-      // ВАЖНО: перевесить обработчики на новые карточки
+      console.log(
+        '[renderShop] grid updated (preserve focus), rendered items =',
+        showCount
+      );
       setupHandlers();
       setupImageCarousels();
       setupInfiniteScroll();
     }
-  
+
     if (sentinelEl) {
       sentinelEl.innerHTML =
         showCount < list.length
@@ -822,17 +868,18 @@ function renderShop() {
             '</div>'
           : '';
     }
-  
+
     return;
-  }  
+  }
+
+  console.log('[renderShop] branch: full rerender');
 
   root.innerHTML =
     '<div class="pb-[65px]">' +
       '<div class="mb-5">' +
         '<h1 class="text-3xl font-bold text-center mb-4">🛒 TEChBex</h1>' +
         '<div class="flex items-center gap-3">' +
-
-          // КАСТОМНЫЙ SELECT КАТЕГОРИИ
+          // КАТЕГОРИЯ
           '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2 relative">' +
             '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
             '<div id="categorySelect" class="relative">' +
@@ -861,7 +908,6 @@ function renderShop() {
               '</div>' +
             '</div>' +
           '</div>' +
-
           // ПОИСК
           '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
             '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
@@ -874,7 +920,6 @@ function renderShop() {
                      ' class="w-full bg-transparent outline-none text-sm text-gray-900" />' +
             '</div>' +
           '</div>' +
-
         '</div>' +
         '<div class="mt-3 text-xs text-gray-500">' +
           'Показано: <span class="font-semibold">' + showCount + '</span> из ' + list.length +
@@ -895,6 +940,12 @@ function renderShop() {
   const grid = document.getElementById('productGrid');
   if (grid) {
     grid.innerHTML = renderShopList(list, showCount);
+    console.log(
+      '[renderShop] grid updated (full rerender), rendered items =',
+      showCount
+    );
+  } else {
+    console.log('[renderShop] grid element NOT FOUND');
   }
 
   setupHandlers();
@@ -902,6 +953,7 @@ function renderShop() {
   setupInfiniteScroll();
 
   isFirstShopRender = false;
+  console.log('---------------- [/renderShop] ----------------');
 }
 
 
@@ -958,36 +1010,63 @@ function setupHandlers() {
 
   // --- ПОИСК ---
 // products.js, внутри setupHandlers, обработчик поиска
-  if (searchEl) {
-    searchEl.onfocus = () => hideTabBar();
-    searchEl.onblur = () => showTabBar();
+if (searchEl) {
+  searchEl.onfocus = () => hideTabBar();
+  searchEl.onblur = () => showTabBar();
 
-    searchEl.oninput = function () {
+  searchEl.oninput = function () {
+    const value = searchEl.value || '';
+    console.log(
+      '[search.oninput] raw value =',
+      JSON.stringify(value),
+      ', old query =',
+      JSON.stringify(query)
+    );
+
+    query = value;
+    loadedCount = 10;
+
+    console.log(
+      '[search.oninput] NEW query =',
+      JSON.stringify(query),
+      ', loadedCount reset to',
+      loadedCount
+    );
+
+    if (currentTab === 'shop') {
+      console.log('[search.oninput] calling rerenderShopPreserveSearchFocus');
+      rerenderShopPreserveSearchFocus();
+    }
+  };
+
+  searchEl.onkeydown = function (e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
       const value = searchEl.value || '';
+      console.log(
+        '[search.onkeydown] ENTER, value =',
+        JSON.stringify(value),
+        ', old query =',
+        JSON.stringify(query)
+      );
 
-      // УБИРАЕМ setTimeout и searchTimeout
       query = value;
       loadedCount = 10;
 
+      console.log(
+        '[search.onkeydown] NEW query =',
+        JSON.stringify(query),
+        ', loadedCount reset to',
+        loadedCount
+      );
+
       if (currentTab === 'shop') {
+        console.log('[search.onkeydown] calling rerenderShopPreserveSearchFocus');
         rerenderShopPreserveSearchFocus();
       }
-    };
-
-    searchEl.onkeydown = function (e) {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const value = searchEl.value || '';
-
-        query = value;
-        loadedCount = 10;
-
-        if (currentTab === 'shop') {
-          rerenderShopPreserveSearchFocus();
-        }
-      }
-    };
-  }
+    }
+  };
+}
 
   // --- КЛИК ПО КАРТОЧКЕ ТОВАРА ---
   document.querySelectorAll('[data-product-name]').forEach(card => {
