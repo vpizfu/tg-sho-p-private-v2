@@ -20,15 +20,17 @@ function getCategoriesFromProducts() {
     return ['Все'];
   }
 
-  // Берём категории из всех товаров с inStock, без учёта поиска и selectedCategory
+  // категории только из исходных данных, без поиска и выбранной категории
   const categoriesSet = new Set();
 
   productsData.forEach(p => {
-    if (!p || !p.inStock) return;
+    if (!p) return;
+
+    // учитываем только товары, которые вообще бывают в наличии
+    if (!p.inStock) return;
 
     let cat = p.cat != null ? String(p.cat).trim() : '';
 
-    // "Без категории" считаем отдельной категорией
     if (!cat) {
       cat = 'Без категории';
     }
@@ -371,21 +373,14 @@ function getVisibleProducts() {
     );
   }
 
-  if (query.trim()) {
-    const q = query.trim().toLowerCase();
-    groupedVisible = groupedVisible.filter(p =>
-      (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
-      (p.cat && String(p.cat).toLowerCase().includes(q))
-    );
-    console.log(
-      '[getVisibleProducts] after SEARCH filter, q =',
-      q,
-      ', count =',
-      groupedVisible.length
-    );
-  } else {
-    console.log('[getVisibleProducts] search is empty, no search filter applied');
-  }
+// фильтр по поиску
+if (query.trim()) {
+  const q = query.trim().toLowerCase();
+  groupedVisible = groupedVisible.filter(p =>
+    (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
+    (p.cat && String(p.cat).toLowerCase().includes(q))
+  );
+}
 
   groupedVisible.sort((a, b) => {
     const na = getMaxNumberFromName(a['Название']);
