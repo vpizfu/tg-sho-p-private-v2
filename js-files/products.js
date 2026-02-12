@@ -20,55 +20,29 @@ function getCategoriesFromProducts() {
     return ['Все'];
   }
 
-  const groupedByName = {};
+  // Берём категории из всех товаров с inStock, без учёта поиска и selectedCategory
+  const categoriesSet = new Set();
 
-  // группируем все варианты по Названию
   productsData.forEach(p => {
-    const title = p['Название'];
-    if (!groupedByName[title]) groupedByName[title] = [];
-    groupedByName[title].push(p);
+    if (!p || !p.inStock) return;
+
+    let cat = p.cat != null ? String(p.cat).trim() : '';
+
+    // "Без категории" считаем отдельной категорией
+    if (!cat) {
+      cat = 'Без категории';
+    }
+
+    categoriesSet.add(cat);
   });
 
-  // строим «витринные» товары (как в getVisibleProducts)
-  let groupedVisible = Object.values(groupedByName)
-    .filter(arr => arr.some(v => v.inStock))
-    .map(arr => {
-      const inStockVariants = arr.filter(v => v.inStock);
-
-      const cheapestVariant = inStockVariants.reduce(
-        (min, p) => (p['Цена'] < min['Цена'] ? p : min),
-        inStockVariants[0]
-      );
-
-      const resolvedCat = resolveCategoryForVariants(arr);
-
-      return {
-        ...cheapestVariant,
-        cat: resolvedCat
-      };
-    });
-
-  // применяем текущий поиск (но НЕ фильтр по selectedCategory)
-// применяем текущий поиск (но НЕ фильтр по selectedCategory)
-if (query.trim()) {
-  const q = query.trim().toLowerCase();
-  groupedVisible = groupedVisible.filter(p =>
-    (p['Название'] && String(p['Название']).toLowerCase().includes(q)) ||
-    (p.cat && String(p.cat).toLowerCase().includes(q))
+  const cats = Array.from(categoriesSet).sort((a, b) =>
+    a.localeCompare(b, 'ru')
   );
-}
-
-  // собираем только категории, у которых сейчас есть товары
-  const set = new Set();
-  groupedVisible.forEach(p => {
-    if (!p || !p.cat) return;
-    set.add(String(p.cat));
-  });
-
-  const cats = Array.from(set).sort((a, b) => a.localeCompare(b, 'ru'));
 
   return ['Все', ...cats];
 }
+
 
 // считаем дублями варианты, одинаковые по всем полям, кроме цены;
 // оставляем вариант с максимальной ценой
