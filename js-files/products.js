@@ -957,34 +957,36 @@ function setupHandlers() {
   }
 
   // --- ПОИСК ---
+// products.js, внутри setupHandlers, обработчик поиска
   if (searchEl) {
-    // при фокусе/блюре прячем/показываем таббар
     searchEl.onfocus = () => hideTabBar();
     searchEl.onblur = () => showTabBar();
 
     searchEl.oninput = function () {
       const value = searchEl.value || '';
-    
-      // без таймера — сразу обновляем query
+
+      // УБИРАЕМ setTimeout и searchTimeout
       query = value;
       loadedCount = 10;
-    
+
       if (currentTab === 'shop') {
         rerenderShopPreserveSearchFocus();
       }
-    };    
-    
+    };
+
     searchEl.onkeydown = function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         const value = searchEl.value || '';
+
         query = value;
         loadedCount = 10;
+
         if (currentTab === 'shop') {
           rerenderShopPreserveSearchFocus();
         }
       }
-    };       
+    };
   }
 
   // --- КЛИК ПО КАРТОЧКЕ ТОВАРА ---
