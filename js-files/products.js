@@ -787,7 +787,15 @@ function renderShop() {
   }
 
   const list = getVisibleProducts();
-  const showCount = Math.min(loadedCount, list.length);
+
+  let showCount;
+  if (query.trim()) {
+    // при активном поиске показываем все найденные товары
+    showCount = list.length;
+  } else {
+    showCount = Math.min(loadedCount, list.length);
+  }
+  
 
   const activeEl = document.activeElement;
   const isSearchFocused = activeEl && activeEl.id === 'search';
