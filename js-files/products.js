@@ -964,30 +964,27 @@ function setupHandlers() {
 
     searchEl.oninput = function () {
       const value = searchEl.value || '';
-      if (searchTimeout) clearTimeout(searchTimeout);
     
-      searchTimeout = setTimeout(() => {
-        query = value;
-        loadedCount = 10;
+      // без таймера — сразу обновляем query
+      query = value;
+      loadedCount = 10;
     
-        if (currentTab === 'shop') {
-          rerenderShopPreserveSearchFocus();
-        }
-      }, 250);
-    };
+      if (currentTab === 'shop') {
+        rerenderShopPreserveSearchFocus();
+      }
+    };    
     
     searchEl.onkeydown = function (e) {
       if (e.key === 'Enter') {
         e.preventDefault();
         const value = searchEl.value || '';
-        if (searchTimeout) clearTimeout(searchTimeout);
         query = value;
         loadedCount = 10;
         if (currentTab === 'shop') {
           rerenderShopPreserveSearchFocus();
         }
       }
-    };    
+    };       
   }
 
   // --- КЛИК ПО КАРТОЧКЕ ТОВАРА ---

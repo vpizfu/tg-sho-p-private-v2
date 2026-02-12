@@ -840,8 +840,10 @@ function setupInfiniteScroll() {
     scrollObserver = null;
   }
 
-  // если есть активный поиск — не включаем infinite scroll
-  if (query.trim()) return;
+  // если есть текст в поиске — infinite scroll не нужен
+  if (query.trim()) {
+    return;
+  }
 
   const sentinel = document.getElementById('scrollSentinel');
   if (!sentinel) return;
