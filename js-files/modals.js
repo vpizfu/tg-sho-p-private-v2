@@ -153,7 +153,7 @@ window.addToCartFromModal = async function () {
     const price = Number(rawPrice);
 
     // Если цена не число или <= 0 — считаем, что это ошибка в данных и не даём добавить
-    if (!Number.isFinite(price) || price <= 0) { [web:21][web:24]
+    if (!Number.isFinite(price) || price <= 0) {
       tg?.showAlert?.('❌ Цена для этого товара не задана, попробуйте позже');
       return;
     }
