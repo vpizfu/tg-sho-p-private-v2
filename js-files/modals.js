@@ -147,10 +147,22 @@ window.addToCartFromModal = async function () {
     }
 
     const selectedVariant = variants[0];
+
+    // НОРМАЛЬНО разбираем цену
+    const rawPrice = selectedVariant['Цена'];
+    const price = Number(rawPrice);
+
+    // Если цена не число или <= 0 — считаем, что это ошибка в данных и не даём добавить
+    if (!Number.isFinite(price) || price <= 0) { [web:21][web:24]
+      tg?.showAlert?.('❌ Цена для этого товара не задана, попробуйте позже');
+      return;
+    }
+
     addToCart(selectedVariant, selectedQuantity);
 
     const subtitle = getCartItemSubtitle(selectedVariant);
-    const price = selectedVariant['Цена'] || 0;
+    const sum = price * selectedQuantity;
+
     tg?.showAlert?.(
       '✅ ' +
         (selectedVariant['Название'] || currentProduct['Название']) +
@@ -158,7 +170,7 @@ window.addToCartFromModal = async function () {
         '\nКоличество: ' +
         selectedQuantity +
         '\nRUB ' +
-        price * selectedQuantity
+        sum
     );
     closeModal();
   } finally {
