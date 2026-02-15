@@ -369,16 +369,21 @@ async function runModalWarmupLoop() {
 
   try {
     while (modalState !== 'closed') {
-      // будет крутиться, пока модалка открыта;
-      // внутри сам runModalWarmupLoopOnce решает, что сейчас греть (product/all)
       await runModalWarmupLoopOnce();
-      // небольшая пауза, чтобы не забивать CPU
+
+      // если после очередного шага у модалки вообще нечего грузить —
+      // пробуем разморозить глобальный прогрев
+      if (isModalWarmupFinished()) {
+        finishModalWarmupAndResumeGlobal();
+      }
+
       await new Promise(r => setTimeout(r, 50));
     }
   } finally {
     modalWarmupRunning = false;
   }
 }
+
 
 // вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
 function finishModalWarmupAndResumeGlobal() {
@@ -391,6 +396,7 @@ function finishModalWarmupAndResumeGlobal() {
     return;
   }
 
+  // Очереди модалки уже пусты — можно их просто обнулить
   modalAllQueue = [];
   modalProductQueue = [];
   modalAllIndex = 0;
