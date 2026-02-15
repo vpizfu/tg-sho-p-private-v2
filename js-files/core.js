@@ -96,22 +96,56 @@ let cartFormState = {
 const root = document.getElementById('root');
 const modal = document.getElementById('productModal');
 
-// ------- ФОНОВЫЙ PRELOAD ВИТРИНЫ -------
+// ------- СТЕЙТЫ ПРОГРЕВА -------
 
-let preloadQueue = [];
-let preloadIndex = 0;
-let preloadPaused = false;
+/**
+ * globalWarmupState:
+ *  - 'idle'   — не начинали
+ *  - 'main'   — греем main (общие картинки карточек)
+ *  - 'other'  — греем остальные картинки товаров
+ *  - 'paused' — остановлен из-за модалки
+ *  - 'done'   — всё прогрето
+ */
+let globalWarmupState = 'idle';
+
+/**
+ * modalState:
+ *  - 'closed'        — модалки нет
+ *  - 'warmingModal'  — греем все картинки модалки (modal-all)
+ *  - 'warmingProduct'— греем картинки выбранного продукта (modal-product)
+ */
+let modalState = 'closed';
+
+/**
+ * Какая фаза глобального прогрева была до паузы
+ * ('main' или 'other') — чтобы вернуться в неё после модалки.
+ */
+let globalPhaseBeforePause = 'main';
+
+// Очереди для глобального прогрева
+let globalMainQueue = [];   // только main-картинки
+let globalOtherQueue = [];  // остальные (галереи и т.п.)
+let globalMainIndex = 0;
+let globalOtherIndex = 0;
+
+// Очереди для модалки
+let modalAllQueue = [];      // modal-all
+let modalAllIndex = 0;
+let modalProductQueue = [];  // modal-product
+let modalProductIndex = 0;
+
+// флаг выполнения общего цикла загрузки
 let preloadRunning = false;
 
 // чтобы не грузить то, что уже когда-то успешно загружалось
 const preloadedOnce = new Set();
 
-// запуск одной картинки
+// ---------- УНИВЕРСАЛЬНЫЙ ПРЕЛОАДЕР ОДНОЙ КАРТИНКИ ----------
+
 function preloadOneImage(url) {
   return new Promise(resolve => {
     if (!url) return resolve();
 
-    // если уже кеширована твоим imageCacheMeta / loadedImageUrls — можно скипать
     if (preloadedOnce.has(url)) {
       return resolve();
     }
@@ -131,7 +165,6 @@ function preloadOneImage(url) {
       resolve();
     };
 
-    // лёгкий safeguard на всякий
     setTimeout(() => {
       if (done) return;
       done = true;
@@ -142,53 +175,193 @@ function preloadOneImage(url) {
   });
 }
 
-// основной цикл preloading
+// ---------- ОСНОВНОЙ ЦИКЛ ПРОГРЕВА (СТЕЙТ-МАШИНА) ----------
+
 async function runPreloadLoop() {
   if (preloadRunning) return;
   preloadRunning = true;
 
   try {
-    while (preloadIndex < preloadQueue.length) {
-      if (preloadPaused) {
-        // ждём, пока не отпустят
-        await new Promise(r => setTimeout(r, 500));
+    // крутимся, пока есть что греть
+    while (true) {
+      // если модалка активна, глобал не трогаем
+      if (modalState !== 'closed') {
+        await new Promise(r => setTimeout(r, 200));
         continue;
       }
 
-      const url = preloadQueue[preloadIndex];
-      preloadIndex += 1;
-
-      try {
-        await preloadOneImage(url);
-      } catch (_) {
-        // игнорим, задача preloading — best-effort
+      // если global в paused — ждём (до смены state снаружи)
+      if (globalWarmupState === 'paused') {
+        await new Promise(r => setTimeout(r, 200));
+        continue;
       }
 
-      // маленькая пауза, чтобы не забивать сеть/CPU
-      await new Promise(r => setTimeout(r, 100));
+      // стадия main
+      if (globalWarmupState === 'main') {
+        if (!globalMainQueue.length || globalMainIndex >= globalMainQueue.length) {
+          // main закончен, переходим к other
+          globalWarmupState = 'other';
+          continue;
+        }
+
+        const url = globalMainQueue[globalMainIndex++];
+        try {
+          await preloadOneImage(url);
+        } catch (_) {}
+        continue;
+      }
+
+      // стадия other
+      if (globalWarmupState === 'other') {
+        if (!globalOtherQueue.length || globalOtherIndex >= globalOtherQueue.length) {
+          globalWarmupState = 'done';
+          continue;
+        }
+
+        const url = globalOtherQueue[globalOtherIndex++];
+        try {
+          await preloadOneImage(url);
+        } catch (_) {}
+        continue;
+      }
+
+      // done или idle — нечего делать
+      if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
+        await new Promise(r => setTimeout(r, 500));
+      }
     }
   } finally {
     preloadRunning = false;
   }
 }
 
-// публичная функция для старта фонового preloading
+// ---------- ПОДГОТОВКА ОЧЕРЕДЕЙ ДЛЯ ГЛОБАЛЬНОГО ПРОГРЕВА ----------
+
+// функции getMainProductImage и buildPreloadQueues определены в products.js,
+// но глобальные очереди/стейты — здесь, поэтому только обёртки.
+
+function initGlobalWarmupQueues() {
+  if (!productsData || !productsData.length) {
+    globalMainQueue = [];
+    globalOtherQueue = [];
+    globalMainIndex = 0;
+    globalOtherIndex = 0;
+    globalWarmupState = 'idle';
+    return;
+  }
+
+  const queues = buildSeparatedPreloadQueues(productsData);
+  globalMainQueue = queues.mainQueue;
+  globalOtherQueue = queues.otherQueue;
+  globalMainIndex = 0;
+  globalOtherIndex = 0;
+
+  if (globalMainQueue.length || globalOtherQueue.length) {
+    globalWarmupState = 'main';
+  } else {
+    globalWarmupState = 'done';
+  }
+}
+
+// публичный старт прогрева после загрузки товаров
 function startBackgroundPreload() {
   try {
-    // собираем очередь только один раз/или при обновлении productsData
-    preloadQueue = buildPreloadImageQueue();
-    preloadIndex = 0;
-    preloadPaused = false;
+    initGlobalWarmupQueues();
 
-    if (!preloadQueue.length) {
+    if (globalWarmupState === 'done') {
       console.log('[preload] nothing to preload');
       return;
     }
 
-    console.log('[preload] queue size =', preloadQueue.length);
-    runPreloadLoop();
+    console.log(
+      '[preload] mainQueue =',
+      globalMainQueue.length,
+      'otherQueue =',
+      globalOtherQueue.length
+    );
+
+    if (!preloadRunning) {
+      runPreloadLoop();
+    }
   } catch (e) {
     console.error('[preload] startBackgroundPreload error', e);
+  }
+}
+
+// ---------- ХЕЛПЕРЫ ДЛЯ МОДАЛЬНОГО ПРОГРЕВА ----------
+
+function startModalWarmupAll(urls) {
+  modalAllQueue = Array.from(new Set(urls || [])).filter(Boolean);
+  modalAllIndex = 0;
+  modalProductQueue = [];
+  modalProductIndex = 0;
+  modalState = 'warmingModal';
+}
+
+function startModalWarmupProduct(urls) {
+  modalProductQueue = Array.from(new Set(urls || [])).filter(Boolean);
+  modalProductIndex = 0;
+  if (modalProductQueue.length) {
+    modalState = 'warmingProduct';
+  }
+}
+
+function isModalWarmupFinished() {
+  // считаем, что модалка прогрета, когда обе очереди пусты/пройдены
+  const allDone =
+    (!modalAllQueue.length || modalAllIndex >= modalAllQueue.length) &&
+    (!modalProductQueue.length || modalProductIndex >= modalProductQueue.length);
+  return allDone;
+}
+
+// этот цикл вызывается из modals.js, когда модалка активна,
+// чтобы приоритетно греть modal-product, затем modal-all
+async function runModalWarmupLoopOnce() {
+  // если нечего греть — ничего не делаем
+  if (modalState === 'closed') return;
+
+  // сначала product
+  if (
+    modalState === 'warmingProduct' &&
+    modalProductQueue.length &&
+    modalProductIndex < modalProductQueue.length
+  ) {
+    const url = modalProductQueue[modalProductIndex++];
+    try {
+      await preloadOneImage(url);
+    } catch (_) {}
+
+    // если product закончился — возвращаемся к warmingModal
+    if (modalProductIndex >= modalProductQueue.length) {
+      modalState = 'warmingModal';
+    }
+    return;
+  }
+
+  // затем modal-all
+  if (
+    (modalState === 'warmingModal' || modalState === 'warmingProduct') &&
+    modalAllQueue.length &&
+    modalAllIndex < modalAllQueue.length
+  ) {
+    const url = modalAllQueue[modalAllIndex++];
+    try {
+      await preloadOneImage(url);
+    } catch (_) {}
+    return;
+  }
+}
+
+// вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
+function finishModalWarmupAndResumeGlobal() {
+  modalState = 'closed';
+  modalAllQueue = [];
+  modalProductQueue = [];
+  modalAllIndex = 0;
+  modalProductIndex = 0;
+
+  if (globalWarmupState === 'paused') {
+    globalWarmupState = globalPhaseBeforePause || 'main';
   }
 }
 
@@ -197,20 +370,14 @@ function startBackgroundPreload() {
 window.onerror = function (message, source, lineno, colno, error) {
   try {
     console.error('Global error:', message, source, lineno, colno, error);
-  } catch (_) {
-    // на всякий случай
-  }
+  } catch (_) {}
 
   try {
-    // без несуществующего showError
     tg?.showAlert?.(
       'Произошла ошибка в приложении. Попробуйте обновить Mini App.'
     );
-  } catch (_) {
-    // глушим любые падения внутри onerror
-  }
+  } catch (_) {}
 
-  // true = не пускать ошибку дальше
   return true;
 };
 
@@ -311,7 +478,6 @@ function loadDeliveryPrefs() {
     paymentType = deliveryPrefs.paymentType;
     pickupMode = deliveryPrefs.pickupMode;
 
-    // используем только валидный пункт самовывоза
     pickupLocation = PICKUP_LOCATIONS.includes(deliveryPrefs.pickupLocation)
       ? deliveryPrefs.pickupLocation
       : '';
@@ -450,7 +616,6 @@ function initTabBar() {
     let touchStartX = 0;
     let touchMoved = false;
 
-    // запоминаем координаты начала
     tab.addEventListener(
       'touchstart',
       e => {
@@ -463,7 +628,6 @@ function initTabBar() {
       { passive: true }
     );
 
-    // если сильно сдвинулись — это свайп, а не тап
     tab.addEventListener(
       'touchmove',
       e => {
@@ -481,7 +645,7 @@ function initTabBar() {
     tab.addEventListener(
       'touchend',
       e => {
-        if (touchMoved) return; // свайп — игнорируем
+        if (touchMoved) return;
         e.preventDefault();
         e.stopPropagation();
         handleTabActivate(tab);
@@ -489,7 +653,6 @@ function initTabBar() {
       { passive: false }
     );
 
-    // обычный click для мыши/десктопа
     tab.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
@@ -511,8 +674,6 @@ const tabScrollTops = {
 };
 
 function saveCurrentTabScroll() {
-  // не трогаем сохранённый скролл магазина,
-  // если модалка была открыта на shop и мы в процессе этих туда‑сюда switchTab
   if (currentTab === 'shop' && modalWasOpenOnShop) {
     return;
   }
@@ -539,7 +700,6 @@ function switchTab(tabName) {
     return;
   }
 
-  // перед уходом с корзины — сохранить форму
   if (currentTab === 'cart') {
     try {
       saveCartFormState();
@@ -551,39 +711,44 @@ function switchTab(tabName) {
   const prevTab = currentTab;
   saveCurrentTabScroll();
 
-  // спец‑логика выхода из shop (модалка)
-// спец‑логика выхода из shop (модалка)
-if (currentTab === 'shop' && tabName !== 'shop') {
-  if (modal && !modal.classList.contains('hidden')) {
-    const scrollContainer = document.querySelector('#modalContent .flex-1');
-    modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-    modalWasOpenOnShop = true;
-    modal.classList.add('hidden'); // только скрыть
-    console.log('[modal] hide on tab switch, saved modal scroll =', modalSavedScrollTop);
-  } else {
-    modalWasOpenOnShop = false;
-    modalSavedScrollTop = 0;
-    console.log('[modal] no open modal on leaving shop');
+  if (currentTab === 'shop' && tabName !== 'shop') {
+    if (modal && !modal.classList.contains('hidden')) {
+      const scrollContainer = document.querySelector('#modalContent .flex-1');
+      modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+      modalWasOpenOnShop = true;
+      modal.classList.add('hidden');
+      console.log(
+        '[modal] hide on tab switch, saved modal scroll =',
+        modalSavedScrollTop
+      );
+    } else {
+      modalWasOpenOnShop = false;
+      modalSavedScrollTop = 0;
+      console.log('[modal] no open modal on leaving shop');
+    }
   }
-}
 
   Promise.resolve()
     .then(() => {
       if (tabName === 'shop') {
         if (modalWasOpenOnShop && currentProduct && modal) {
-          console.log('[modal] return to shop with open modal, restore modal scroll =', modalSavedScrollTop);
+          console.log(
+            '[modal] return to shop with open modal, restore modal scroll =',
+            modalSavedScrollTop
+          );
           modal.classList.remove('hidden');
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
         } else {
-          console.log('[modal] return to shop without modal, rerender shop');
+          console.log(
+            '[modal] return to shop without modal, rerender shop'
+          );
           modalWasOpenOnShop = false;
           modalSavedScrollTop = 0;
           renderShop();
           restoreTabScroll('shop');
         }
-      }           
-       else if (tabName === 'cart') {
+      } else if (tabName === 'cart') {
         showCartTab();
         restoreTabScroll('cart');
       } else if (tabName === 'sale') {
@@ -608,7 +773,6 @@ if (currentTab === 'shop' && tabName !== 'shop') {
     .finally(() => {
       isTabChanging = false;
       setTabBarDisabled(false);
-      // при смене таба всегда гарантированно показываем таббар
       showTabBar();
     });
 }
@@ -647,36 +811,44 @@ function logStage(label, startTime) {
 
 async function fetchAndUpdateProducts(showLoader = false) {
   const t0 = performance.now();
-  console.log('[core] fetchAndUpdateProducts start, showLoader =', showLoader, 'tab=', currentTab);
+  console.log(
+    '[core] fetchAndUpdateProducts start, showLoader =',
+    showLoader,
+    'tab=',
+    currentTab
+  );
 
   if (showLoader && currentTab === 'shop') {
     root.innerHTML =
       '<div class="pb-[65px] max-w-md mx-auto">' +
-        '<div class="mb-5">' +
-          '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
-          '<div class="flex items-center gap-3">' +
-            '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
-              '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-            '</div>' +
-            '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
-              '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-            '</div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="product-grid">' +
-          Array.from({ length: 6 }).map(() =>
+      '<div class="mb-5">' +
+      '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
+      '<div class="flex items-center gap-3">' +
+      '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
+      '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
+      '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+      '</div>' +
+      '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
+      '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
+      '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '<div class="product-grid">' +
+      Array.from({ length: 6 })
+        .map(
+          () =>
             '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
-              '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
-                '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
-              '</div>' +
-              '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
+            '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
+            '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
+            '</div>' +
+            '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
             '</div>'
-          ).join('') +
-        '</div>' +
+        )
+        .join('') +
+      '</div>' +
       '</div>';
   }
 
@@ -689,41 +861,45 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     const products = await response.json();
     logStage('products json parse', t0);
-    console.log('[core] products count', Array.isArray(products) ? products.length : 'not array');
+    console.log(
+      '[core] products count',
+      Array.isArray(products) ? products.length : 'not array'
+    );
 
-    // БЕЗ normalizeProducts: работаем напрямую с данными из doGet
     productsData = Array.isArray(products) ? products : [];
 
     FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
     console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
 
-    const cats = Array.from(new Set(productsData.map(p => p.cat).filter(Boolean)));
+    const cats = Array.from(
+      new Set(productsData.map(p => p.cat).filter(Boolean))
+    );
     CATEGORIES = ['Все', ...cats];
     console.log('[core] CATEGORIES', CATEGORIES);
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
-  } catch (error) {  
+  } catch (error) {
     console.error('[core] products API error:', error);
     if (showLoader && currentTab === 'shop') {
       isRefreshingProducts = false;
       root.innerHTML =
         '<div class="flex flex-col items-center justify-center min-h-[70vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
-          '<div class="w-24 h-24 bg-red-50 rounded-3xl flex items-center justify-center mb-4">' +
-            '<svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-              ' d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
-            '</svg>' +
-          '</div>' +
-          '<h2 class="text-xl font-bold text-gray-800 mb-2">Не удалось загрузить товары</h2>' +
-          '<p class="text-sm text-gray-500 mb-4 max-w-xs">' +
-            'Проверьте соединение и попробуйте обновить список товаров.' +
-          '</p>' +
-          '<button onclick="refreshProducts()"' +
-            ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +
-            '<span class="loader-circle"></span>' +
-            '<span>Обновить товары</span>' +
-          '</button>' +
+        '<div class="w-24 h-24 bg-red-50 rounded-3xl flex items-center justify-center mb-4">' +
+        '<svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+        ' d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
+        '</svg>' +
+        '</div>' +
+        '<h2 class="text-xl font-bold text-gray-800 mb-2">Не удалось загрузить товары</h2>' +
+        '<p class="text-sm text-gray-500 mb-4 max-w-xs">' +
+        'Проверьте соединение и попробуйте обновить список товаров.' +
+        '</p>' +
+        '<button onclick="refreshProducts()"' +
+        ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +
+        '<span class="loader-circle"></span>' +
+        '<span>Обновить товары</span>' +
+        '</button>' +
         '</div>';
     }
   }
@@ -737,10 +913,10 @@ let failedImageUrls = new Set();
 function getPlainSvgPlaceholder() {
   return (
     '<div class="placeholder-wrapper bg-gray-100 w-full h-full flex items-center justify-center">' +
-      '<svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-        ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
-        '</svg>' +
+    '<svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+    ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
+    '</svg>' +
     '</div>'
   );
 }
@@ -752,7 +928,9 @@ function attachImageTimeout(img) {
     if (loadedImageUrls.has(url) || failedImageUrls.has(url)) {
       img.style.opacity = '1';
       const wrapper = img.closest('.image-carousel');
-      const skeleton = wrapper ? wrapper.querySelector('[data-skeleton="image"]') : null;
+      const skeleton = wrapper
+        ? wrapper.querySelector('[data-skeleton="image"]')
+        : null;
       if (skeleton) skeleton.remove();
       return;
     }
@@ -764,7 +942,9 @@ function attachImageTimeout(img) {
       if (loadedImageUrls.has(url) || failedImageUrls.has(url)) return;
 
       const wrapper = img.closest('.image-carousel');
-      const skeleton = wrapper ? wrapper.querySelector('[data-skeleton="image"]') : null;
+      const skeleton = wrapper
+        ? wrapper.querySelector('[data-skeleton="image"]')
+        : null;
 
       if (wrapper) {
         const inner = wrapper.querySelector('.image-carousel-inner');
@@ -788,15 +968,19 @@ function attachImageTimeout(img) {
 }
 
 function setupImageTimeoutsForGrid() {
-  document.querySelectorAll('.product-grid img.product-image').forEach(img => {
-    attachImageTimeout(img);
-  });
+  document
+    .querySelectorAll('.product-grid img.product-image')
+    .forEach(img => {
+      attachImageTimeout(img);
+    });
 }
 
 window.handleProductImageError = function (img, url) {
   try {
     const wrapper = img.closest('.image-carousel');
-    const skeleton = wrapper ? wrapper.querySelector('[data-skeleton="image"]') : null;
+    const skeleton = wrapper
+      ? wrapper.querySelector('[data-skeleton="image"]')
+      : null;
 
     if (wrapper) {
       const inner = wrapper.querySelector('.image-carousel-inner');
@@ -822,7 +1006,9 @@ window.handleProductImageError = function (img, url) {
 window.handleProductImageLoad = function (img, url) {
   try {
     const wrapper = img.closest('.image-carousel');
-    const skeleton = wrapper ? wrapper.querySelector('[data-skeleton="image"]') : null;
+    const skeleton = wrapper
+      ? wrapper.querySelector('[data-skeleton="image"]')
+      : null;
 
     const alreadyLoaded = loadedImageUrls.has(url);
     loadedImageUrls.add(url);
@@ -863,16 +1049,19 @@ window.refreshProducts = async function () {
 
   root.innerHTML =
     '<div class="pb-[65px] max-w-md mx-auto">' +
-      '<div class="product-grid">' +
-        Array.from({ length: 6 }).map(() =>
+    '<div class="product-grid">' +
+    Array.from({ length: 6 })
+      .map(
+        () =>
           '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
-            '<div class="h-32 mb-3 rounded-xl placeholder-shimmer"></div>' +
-            '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
-            '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
-            '<div class="h-3 w-1/3 mb-2 rounded placeholder-shimmer"></div>' +
+          '<div class="h-32 mb-3 rounded-xl placeholder-shimmer"></div>' +
+          '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+          '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+          '<div class="h-3 w-1/3 mb-2 rounded placeholder-shimmer"></div>' +
           '</div>'
-        ).join('') +
-      '</div>' +
+      )
+      .join('') +
+    '</div>' +
     '</div>';
 
   try {
@@ -936,7 +1125,6 @@ function setupInfiniteScroll() {
     scrollObserver = null;
   }
 
-  // если есть текст в поиске — infinite scroll не нужен
   if (query.trim()) {
     return;
   }
@@ -967,8 +1155,10 @@ function setupInfiniteScroll() {
       const showCount = loadedCount;
 
       const newSlice = all.slice(prevCount, showCount);
-      grid.insertAdjacentHTML('beforeend', newSlice.map(productCard).join(''));
-      // preloadAllImages(newSlice);
+      grid.insertAdjacentHTML(
+        'beforeend',
+        newSlice.map(productCard).join('')
+      );
       setupImageCarousels();
 
       document.querySelectorAll('[data-product-name]').forEach(card => {
@@ -979,7 +1169,9 @@ function setupInfiniteScroll() {
               return;
             }
             const productName = card.dataset.productName;
-            const product = productsData.find(p => p['Название'] === productName);
+            const product = productsData.find(
+              p => p['Название'] === productName
+            );
             if (product) {
               selectedOption = {};
               selectedQuantity = 1;
@@ -987,7 +1179,7 @@ function setupInfiniteScroll() {
               tg?.HapticFeedback?.impactOccurred('medium');
             }
           };
-        }      
+        }
       });
 
       const counterSpan = document.querySelector(
@@ -1002,8 +1194,8 @@ function setupInfiniteScroll() {
         sentinelEl.innerHTML =
           showCount < all.length
             ? '<div class="w-full">' +
-                '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
-                '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
+              '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
+              '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
               '</div>'
             : '';
       }
@@ -1090,8 +1282,14 @@ async function initApp() {
     console.log('[core] initApp start');
     console.log('tg object:', window.Telegram?.WebApp);
     console.log('initData string:', window.Telegram?.WebApp?.initData);
-    console.log('initDataUnsafe object:', window.Telegram?.WebApp?.initDataUnsafe);
-    console.log('initDataUnsafe.user:', window.Telegram?.WebApp?.initDataUnsafe?.user);
+    console.log(
+      'initDataUnsafe object:',
+      window.Telegram?.WebApp?.initDataUnsafe
+    );
+    console.log(
+      'initDataUnsafe.user:',
+      window.Telegram?.WebApp?.initDataUnsafe?.user
+    );
 
     initTabBar();
     logStage('after initTabBar', t0);
@@ -1108,7 +1306,9 @@ async function initApp() {
     await fetchAndUpdateProducts(true);
     logStage('after fetchAndUpdateProducts', t0);
 
-    fetchUserOrders().catch(e => console.error('[orders] init fetch error', e));
+    fetchUserOrders().catch(e =>
+      console.error('[orders] init fetch error', e)
+    );
 
     if (currentTab === 'shop') {
       renderShop();

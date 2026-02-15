@@ -9,7 +9,6 @@ let modalTouchStartY = 0;
 
 let modalCurrentImageKey = null;
 
-// Запоминаем: для каких URL был onerror (чтобы сразу ставить заглушку)
 const brokenImageMap = new Map();
 
 let modalPendingImages = 0;
@@ -26,18 +25,27 @@ function getVariantCountText(count) {
   return count + ' вариантов';
 }
 
-// вспомогалка: получить finalTypes для текущего продукта/выбора
 function getFinalTypesForCurrentProduct() {
   if (!currentProduct || !productsData) return [];
 
-  const variantsAll = getProductVariants(currentProduct['Название']).filter(v => v.inStock);
+  const variantsAll = getProductVariants(
+    currentProduct['Название']
+  ).filter(v => v.inStock);
   if (!variantsAll.length) return [];
 
   const filtered = getFilteredVariants(variantsAll);
-  const activeTypes = getActiveTypesForProduct(currentProduct, variantsAll);
+  const activeTypes = getActiveTypesForProduct(
+    currentProduct,
+    variantsAll
+  );
 
   const finalTypes = activeTypes.filter(type =>
-    filtered.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
+    filtered.some(
+      v =>
+        v[type] !== undefined &&
+        v[type] !== null &&
+        v[type] !== ''
+    )
   );
 
   return finalTypes;
@@ -48,24 +56,29 @@ function selectOptionNoFocus(type, option) {
     document.activeElement.blur();
   }
 
-  const scrollContainer = document.querySelector('#modalContent .flex-1');
-  const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
 
   const finalTypes = getFinalTypesForCurrentProduct();
   const typeIndex = finalTypes.indexOf(type);
   if (typeIndex === -1) return;
 
-  // всегда ставим выбранное значение и чистим только следующие типы
   for (let i = typeIndex + 1; i < finalTypes.length; i++) {
     delete selectedOption[finalTypes[i]];
   }
   selectedOption[type] = String(option).trim();
 
-
   renderProductModal(currentProduct);
 
-  const newScrollContainer = document.querySelector('#modalContent .flex-1');
-  if (newScrollContainer) newScrollContainer.scrollTop = prevScrollTop;
+  const newScrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (newScrollContainer)
+    newScrollContainer.scrollTop = prevScrollTop;
 
   tg?.HapticFeedback?.impactOccurred('light');
 }
@@ -75,8 +88,12 @@ function clearOptionNoFocus(type) {
     document.activeElement.blur();
   }
 
-  const scrollContainer = document.querySelector('#modalContent .flex-1');
-  const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
 
   const finalTypes = getFinalTypesForCurrentProduct();
   const typeIndex = finalTypes.indexOf(type);
@@ -88,8 +105,11 @@ function clearOptionNoFocus(type) {
 
   renderProductModal(currentProduct);
 
-  const newScrollContainer = document.querySelector('#modalContent .flex-1');
-  if (newScrollContainer) newScrollContainer.scrollTop = prevScrollTop;
+  const newScrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (newScrollContainer)
+    newScrollContainer.scrollTop = prevScrollTop;
 
   tg?.HapticFeedback?.impactOccurred('light');
 }
@@ -98,8 +118,12 @@ window.selectOptionNoFocus = selectOptionNoFocus;
 window.clearOptionNoFocus = clearOptionNoFocus;
 
 window.changeQuantity = function (delta) {
-  const scrollContainer = document.querySelector('#modalContent .flex-1');
-  const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
 
   let q = selectedQuantity + delta;
   if (q < 1) q = 1;
@@ -113,21 +137,29 @@ window.changeQuantity = function (delta) {
     renderProductModal(currentProduct);
   }
 
-  const newScrollContainer = document.querySelector('#modalContent .flex-1');
-  if (newScrollContainer) newScrollContainer.scrollTop = prevScrollTop;
+  const newScrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (newScrollContainer)
+    newScrollContainer.scrollTop = prevScrollTop;
 };
 
-// без дополнительного запроса за таблицей
 window.addToCartFromModal = async function () {
   if (isAddingToCart) return;
 
-  const scrollContainer = document.querySelector('#modalContent .flex-1');
-  const prevScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
 
   try {
     isAddingToCart = true;
     renderProductModal(currentProduct);
-    const sc2 = document.querySelector('#modalContent .flex-1');
+    const sc2 = document.querySelector(
+      '#modalContent .flex-1'
+    );
     if (sc2) sc2.scrollTop = prevScrollTop;
 
     if (!isCompleteSelection()) {
@@ -141,7 +173,9 @@ window.addToCartFromModal = async function () {
     }
 
     const variants = getFilteredVariants(
-      getProductVariants(currentProduct['Название']).filter(v => v.inStock)
+      getProductVariants(currentProduct['Название']).filter(
+        v => v.inStock
+      )
     );
 
     if (!variants.length) {
@@ -151,13 +185,13 @@ window.addToCartFromModal = async function () {
 
     const selectedVariant = variants[0];
 
-    // НОРМАЛЬНО разбираем цену
     const rawPrice = selectedVariant['Цена'];
     const price = Number(rawPrice);
 
-    // Если цена не число или <= 0 — считаем, что это ошибка в данных и не даём добавить
     if (!Number.isFinite(price) || price <= 0) {
-      tg?.showAlert?.('❌ Цена для этого товара не задана, попробуйте позже');
+      tg?.showAlert?.(
+        '❌ Цена для этого товара не задана, попробуйте позже'
+      );
       return;
     }
 
@@ -168,7 +202,8 @@ window.addToCartFromModal = async function () {
 
     tg?.showAlert?.(
       '✅ ' +
-        (selectedVariant['Название'] || currentProduct['Название']) +
+        (selectedVariant['Название'] ||
+          currentProduct['Название']) +
         (subtitle ? '\n' + subtitle : '') +
         '\nКоличество: ' +
         selectedQuantity +
@@ -182,7 +217,9 @@ window.addToCartFromModal = async function () {
     const prevA = scA ? scA.scrollTop : 0;
     if (currentProduct) {
       renderProductModal(currentProduct);
-      const scB = document.querySelector('#modalContent .flex-1');
+      const scB = document.querySelector(
+        '#modalContent .flex-1'
+      );
       if (scB) scB.scrollTop = prevA;
     }
   }
@@ -193,7 +230,6 @@ function renderProductModal(product) {
 
   const modalRoot = document.getElementById('modalContent');
 
-  // жёсткий сброс скролла при каждом новом продукте
   const scrollContainer = modalRoot.querySelector('.flex-1');
   if (scrollContainer) scrollContainer.scrollTop = 0;
 
@@ -203,29 +239,37 @@ function renderProductModal(product) {
   if (!variants.length) {
     modalRoot.innerHTML =
       '<div class="flex flex-col h-full">' +
-        '<div class="p-6 pb-4 border-b border-gray-200">' +
-          '<div class="flex items-center justify-between mb-2">' +
-            '<h2 class="text-2xl font-bold">' + escapeHtml(product['Название']) + '</h2>' +
-            '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
-              '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
-              '</svg>' +
-            '</button>' +
-          '</div>' +
-          '<div class="text-sm text-red-500">Нет доступных вариантов</div>' +
-        '</div>' +
+      '<div class="p-6 pb-4 border-b border-gray-200">' +
+      '<div class="flex items-center justify-between mb-2">' +
+      '<h2 class="text-2xl font-bold">' +
+      escapeHtml(product['Название']) +
+      '</h2>' +
+      '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
+      '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+      '</svg>' +
+      '</button>' +
+      '</div>' +
+      '<div class="text-sm text-red-500">Нет доступных вариантов</div>' +
+      '</div>' +
       '</div>';
     return;
   }
 
   const filteredVariants = getFilteredVariants(variants);
-  const availableVariants = dedupeIdenticalVariants(filteredVariants);  
+  const availableVariants = dedupeIdenticalVariants(
+    filteredVariants
+  );
 
   const activeTypes = getActiveTypesForProduct(product, variants);
 
-  // типы, которые показываем: по текущим вариантам поле должно быть где‑то непустым
   const finalTypes = activeTypes.filter(type =>
-    availableVariants.some(v => v[type] !== undefined && v[type] !== null && v[type] !== '')
+    availableVariants.some(
+      v =>
+        v[type] !== undefined &&
+        v[type] !== null &&
+        v[type] !== ''
+    )
   );
 
   const availableOptions = {};
@@ -236,7 +280,10 @@ function renderProductModal(product) {
   const complete = isCompleteSelection();
 
   const currentMinPrice = availableVariants.length
-    ? Math.min.apply(null, availableVariants.map(v => v['Цена']))
+    ? Math.min.apply(
+        null,
+        availableVariants.map(v => v['Цена'])
+      )
     : Math.min.apply(null, variants.map(v => v['Цена']));
 
   let headerPriceText;
@@ -268,62 +315,64 @@ function renderProductModal(product) {
 
     modalRoot.innerHTML =
       '<div class="flex flex-col h-full">' +
-        '<div class="p-6 pb-4 border-b border-gray-200">' +
-          '<div class="flex items-center justify-between mb-2">' +
-            '<h2 class="text-2xl font-bold" id="modalTitle"></h2>' +
-            '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
-              '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
-              '</svg>' +
-            '</button>' +
-          '</div>' +
-          '<div class="flex items-center gap-2 text-sm text-gray-500">' +
-            '<span id="modalPrice"></span>' +
-            '<span>• <span id="modalVariantCount"></span></span>' +
-          '</div>' +
-        '</div>' +
-        '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
-          '<div class="modal-image-section">' +
-            '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
-              '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
-                '<div class="w-full h-full flex items-center justify-center">' +
-                  getPlainSvgPlaceholder() +
-                '</div>' +
-              '</div>' +
-              '<div class="modal-carousel-footer">' +
-                '<div class="carousel-dots" id="modalDots"></div>' +
-                '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
-              '</div>' +
-              '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
-                '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
-                  '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
-                '</svg>' +
-              '</button>' +
-              '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
-                '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
-                  '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
-                '</svg>' +
-              '</button>' +
-            '</div>' +
-          '</div>' +
-          '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
-        '</div>' +
-        '<div class="modal-footer border-t bg-white">' +
-          '<button id="modalAddButton"' +
-          ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-lg " onclick="addToCartFromModal(); return false;"></button>' +
-        '</div>' +
+      '<div class="p-6 pb-4 border-b border-gray-200">' +
+      '<div class="flex items-center justify-between mb-2">' +
+      '<h2 class="text-2xl font-bold" id="modalTitle"></h2>' +
+      '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
+      '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+      '</svg>' +
+      '</button>' +
+      '</div>' +
+      '<div class="flex items-center gap-2 text-sm text-gray-500">' +
+      '<span id="modalPrice"></span>' +
+      '<span>• <span id="modalVariantCount"></span></span>' +
+      '</div>' +
+      '</div>' +
+      '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
+      '<div class="modal-image-section">' +
+      '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+      '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
+      '<div class="w-full h-full flex items-center justify-center">' +
+      getPlainSvgPlaceholder() +
+      '</div>' +
+      '</div>' +
+      '<div class="modal-carousel-footer">' +
+      '<div class="carousel-dots" id="modalDots"></div>' +
+      '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
+      '</div>' +
+      '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
+      '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+      '</svg>' +
+      '</button>' +
+      '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
+      '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+      '</svg>' +
+      '</button>' +
+      '</div>' +
+      '</div>' +
+      '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
+      '</div>' +
+      '<div class="modal-footer border-t bg-white">' +
+      '<button id="modalAddButton"' +
+      ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-lg " onclick="addToCartFromModal(); return false;"></button>' +
+      '</div>' +
       '</div>';
 
     initModalSwipe();
   }
 
-  document.getElementById('modalTitle').textContent = product['Название'];
+  document.getElementById('modalTitle').textContent =
+    product['Название'];
   document.getElementById('modalPrice').textContent =
-    headerPriceText + (headerSuffix ? ' ' + headerSuffix : '');
-  document.getElementById('modalVariantCount').textContent =
-    getVariantCountText(availableVariants.length);
+    headerPriceText +
+    (headerSuffix ? ' ' + headerSuffix : '');
+  document.getElementById(
+    'modalVariantCount'
+  ).textContent = getVariantCountText(availableVariants.length);
 
-  // === БЛОК КАРУСЕЛИ / ПЛЕЙСХОЛДЕР ===
   const carouselInner = document.getElementById('modalCarouselInner');
   const dotsRoot = document.getElementById('modalDots');
   const imageHintEl = document.getElementById('modalImageHint');
@@ -343,15 +392,16 @@ function renderProductModal(product) {
     common: productCommonImage
   });
 
-  const INITIAL_FADE_MS = 1000; // первое открытие
-  const SWAP_FADE_MS = 500;    // смена опций
+  const INITIAL_FADE_MS = 1000;
+  const SWAP_FADE_MS = 500;
 
   function applyFadeIn(el, durationMs) {
     if (!el) return;
     const prevTransition = el.style.transition;
 
     if (durationMs !== SWAP_FADE_MS) {
-      el.style.transition = 'opacity ' + durationMs + 'ms ease';
+      el.style.transition =
+        'opacity ' + durationMs + 'ms ease';
     }
 
     el.classList.remove('modal-photo-visible');
@@ -366,7 +416,6 @@ function renderProductModal(product) {
     });
   }
 
-
   function buildSlides() {
     carouselInner.innerHTML =
       '<div class="flex w-full h-full" id="modalSlidesWrapper"></div>';
@@ -377,13 +426,14 @@ function renderProductModal(product) {
     const currentSessionId = modalSessionId;
     modalPendingImages = 0;
 
-    const slidesWrapper = document.getElementById('modalSlidesWrapper');
+    const slidesWrapper =
+      document.getElementById('modalSlidesWrapper');
 
     const svgPlaceholder =
       '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"' +
       ' class="w-12 h-12 text-gray-400">' +
-        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-        ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+      ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
       '</svg>';
 
     function makeSlideContent(url, mode) {
@@ -392,7 +442,9 @@ function renderProductModal(product) {
 
       if (hasPhoto) {
         return (
-          '<img src="' + url + '"' +
+          '<img src="' +
+          url +
+          '"' +
           ' class="carousel-img w-full h-64 object-contain modal-photo modal-photo-hidden"' +
           ' alt="Product image" loading="lazy" />'
         );
@@ -400,7 +452,7 @@ function renderProductModal(product) {
       if (showPlaceholder) {
         return (
           '<div class="modal-photo modal-photo-hidden flex items-center justify-center">' +
-            svgPlaceholder +
+          svgPlaceholder +
           '</div>'
         );
       }
@@ -410,13 +462,15 @@ function renderProductModal(product) {
     function makeSlide(url, mode) {
       return (
         '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-          makeSlideContent(url, mode) +
+        makeSlideContent(url, mode) +
         '</div>'
       );
     }
 
     const durationForThisBuild =
-      modalCurrentImageKey === null ? INITIAL_FADE_MS : SWAP_FADE_MS;
+      modalCurrentImageKey === null
+        ? INITIAL_FADE_MS
+        : SWAP_FADE_MS;
 
     if (!imagesToShow.length) {
       slidesWrapper.innerHTML = makeSlide('', 'placeholder');
@@ -439,7 +493,10 @@ function renderProductModal(product) {
         const slide = slideEls[idx];
 
         if (!url || brokenImageMap.get(url)) {
-          slide.innerHTML = makeSlideContent('', 'placeholder');
+          slide.innerHTML = makeSlideContent(
+            '',
+            'placeholder'
+          );
           const ph = slide.querySelector('.modal-photo');
           requestAnimationFrame(() => {
             applyFadeIn(ph, durationForThisBuild);
@@ -452,14 +509,12 @@ function renderProductModal(product) {
 
         modalPendingImages += 1;
 
-        function maybeResumePreload() {
+        function maybeResumeGlobalAfterModal() {
           if (modalSessionId !== currentSessionId) return;
           if (modalPendingImages > 0) return;
 
-          // все картинки модалки прогружены или упали
-          preloadPaused = false;
-          if (!preloadRunning && preloadQueue && preloadIndex < preloadQueue.length) {
-            runPreloadLoop();
+          if (isModalWarmupFinished()) {
+            finishModalWarmupAndResumeGlobal();
           }
         }
 
@@ -469,23 +524,32 @@ function renderProductModal(product) {
 
         img.addEventListener('load', () => {
           if (modalSessionId !== currentSessionId) return;
-          modalPendingImages = Math.max(0, modalPendingImages - 1);
-          maybeResumePreload();
+          modalPendingImages = Math.max(
+            0,
+            modalPendingImages - 1
+          );
+          maybeResumeGlobalAfterModal();
         });
 
         img.addEventListener('error', () => {
           brokenImageMap.set(url, true);
           if (modalSessionId !== currentSessionId) return;
 
-          modalPendingImages = Math.max(0, modalPendingImages - 1);
+          modalPendingImages = Math.max(
+            0,
+            modalPendingImages - 1
+          );
 
-          slide.innerHTML = makeSlideContent('', 'placeholder');
+          slide.innerHTML = makeSlideContent(
+            '',
+            'placeholder'
+          );
           const ph = slide.querySelector('.modal-photo');
           requestAnimationFrame(() => {
             applyFadeIn(ph, durationForThisBuild);
           });
 
-          maybeResumePreload();
+          maybeResumeGlobalAfterModal();
         });
       });
 
@@ -496,7 +560,9 @@ function renderProductModal(product) {
           .map(
             (_, idx) =>
               '<div class="dot' +
-              (idx === modalCurrentIndex ? ' active' : '') +
+              (idx === modalCurrentIndex
+                ? ' active'
+                : '') +
               '" onclick="modalGoTo(' +
               idx +
               '); event.stopPropagation()"></div>'
@@ -520,19 +586,27 @@ function renderProductModal(product) {
       imageHintEl.textContent = '';
       imageHintEl.classList.add('modal-image-hint-hidden');
     }
+
+    // запуск отдельного цикла модального прогрева
+    // (product- и all-очереди формируются в showModal / selectOptionNoFocus)
+    if (modalState !== 'closed') {
+      runModalWarmupLoopOnce().catch(e =>
+        console.log('[modal] warmup loop error', e)
+      );
+    }
   }
 
   if (modalCurrentImageKey === null) {
-    // первое открытие
     buildSlides();
     modalCurrentImageKey = nextKey;
   } else if (modalCurrentImageKey !== nextKey) {
-    // смена опций
-    const slidesWrapperOld = document.getElementById('modalSlidesWrapper');
+    const slidesWrapperOld =
+      document.getElementById('modalSlidesWrapper');
     if (slidesWrapperOld) {
-      const activeLayers = slidesWrapperOld.querySelectorAll(
-        '.modal-photo-visible, .modal-photo-hidden'
-      );
+      const activeLayers =
+        slidesWrapperOld.querySelectorAll(
+          '.modal-photo-visible, .modal-photo-hidden'
+        );
       activeLayers.forEach(el => {
         el.classList.remove('modal-photo-visible');
         el.classList.add('modal-photo-hidden');
@@ -546,97 +620,118 @@ function renderProductModal(product) {
     }, SWAP_FADE_MS);
   }
 
-  // === ТЕЛО МОДАЛКИ (опции, количество) ===
   const body = document.getElementById('modalBodyDynamic');
   const order = finalTypes;
 
   body.innerHTML =
-    order.map((type, index) => {
-      const isLocked = index > getCurrentSectionIndex();
-      return (
-        '<div class="option-section ' +
+    order
+      .map((type, index) => {
+        const isLocked = index > getCurrentSectionIndex();
+        return (
+          '<div class="option-section ' +
           (isLocked ? 'locked' : 'unlocked') +
-          '" data-section="' + type + '">' +
+          '" data-section="' +
+          type +
+          '">' +
           '<label class="text-sm font-semibold text-gray-700 capitalize mb-2 block">' +
-            getLabel(type) +
+          getLabel(type) +
           '</label>' +
           '<div class="flex gap-2 scroll-carousel pb-1">' +
-            availableOptions[type]
-              .map(option => {
-                const isSelected = String(selectedOption[type]).trim() === String(option).trim();
-                return (
-                  '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
-                    (isSelected ? ' selected' : '') +
-                  '"' +
-                  ' data-type="' + type + '"' +
-                  ' data-option="' + escapeHtml(option) + '"' +
-                  ' onclick="selectOptionNoFocus(\'' + type + '\', \'' + escapeHtml(option) + '\'); return false;">' +
-                    escapeHtml(option) +
-                  '</button>'
-                );
-              })
-              .join('') +
-            (selectedOption[type]
-              ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
-                  ' data-type="' + type + '">✕</button>'
-              : '') +
+          availableOptions[type]
+            .map(option => {
+              const isSelected =
+                String(selectedOption[type]).trim() ===
+                String(option).trim();
+              return (
+                '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
+                (isSelected ? ' selected' : '') +
+                '"' +
+                ' data-type="' +
+                type +
+                '"' +
+                ' data-option="' +
+                escapeHtml(option) +
+                '"' +
+                ' onclick="selectOptionNoFocus(\'' +
+                type +
+                '\', \'' +
+                escapeHtml(option) +
+                '\'); return false;">' +
+                escapeHtml(option) +
+                '</button>'
+              );
+            })
+            .join('') +
+          (selectedOption[type]
+            ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
+              ' data-type="' +
+              type +
+              '">✕</button>'
+            : '') +
           '</div>' +
           (!availableOptions[type].length
             ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
             : '') +
-        '</div>'
-      );
-    }).join('') +
+          '</div>'
+        );
+      })
+      .join('') +
     '<div class="quantity-section">' +
-      '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
-      '<div class="flex items-center gap-3">' +
-        '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
-        ' onclick="changeQuantity(-1); return false;">-</button>' +
-        '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
-          selectedQuantity +
-        '</span>' +
-        '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
-        ' onclick="changeQuantity(1); return false;">+</button>' +
-      '</div>' +
-      '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
+    '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
+    '<div class="flex items-center gap-3">' +
+    '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+    ' onclick="changeQuantity(-1); return false;">-</button>' +
+    '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
+    selectedQuantity +
+    '</span>' +
+    '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+    ' onclick="changeQuantity(1); return false;">+</button>' +
+    '</div>' +
+    '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
     '</div>' +
     '<div class="pt-4 border-t">' +
-      '<div class="text-center text-sm text-gray-500 mb-3">' +
-        'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
-          getVariantCountText(availableVariants.length) +
-        '</span>' +
-        (complete && availableVariants.length > 0
-          ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
-              '✅ Спецификация выбрана' +
-            '</div>'
-          : '') +        
-      '</div>' +
+    '<div class="text-center text-sm text-gray-500 mb-3">' +
+    'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
+    getVariantCountText(availableVariants.length) +
+    '</span>' +
+    (complete && availableVariants.length > 0
+      ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
+        '✅ Спецификация выбрана' +
+        '</div>'
+      : '') +
+    '</div>' +
     '</div>';
 
-  // повесим безопасные хендлеры на крестики
-  document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(btn => {
-    if (btn.dataset.bound === '1') return;
-    btn.dataset.bound = '1';
+  document
+    .querySelectorAll('#modalBodyDynamic .option-clear')
+    .forEach(btn => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
 
-    btn.addEventListener('touchend', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const type = btn.getAttribute('data-type');
-      clearOptionNoFocus(type);
-    }, { passive: false });
+      btn.addEventListener(
+        'touchend',
+        function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const type = btn.getAttribute('data-type');
+          clearOptionNoFocus(type);
+        },
+        { passive: false }
+      );
 
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      const type = btn.getAttribute('data-type');
-      clearOptionNoFocus(type);
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const type = btn.getAttribute('data-type');
+        clearOptionNoFocus(type);
+      });
     });
-  });
 
   const btn = document.getElementById('modalAddButton');
 
   if (isAddingToCart) {
-    btn.innerHTML = '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
+    btn.innerHTML =
+      '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
     btn.className =
       'w-full flex itemscenter justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
     btn.disabled = true;
@@ -655,7 +750,6 @@ function renderProductModal(product) {
   }
 }
 
-// Карусель
 function initModalCarousel(imageCount) {
   if (imageCount <= 1) return;
   modalImageCount = imageCount;
@@ -665,22 +759,28 @@ function initModalCarousel(imageCount) {
   if (!inner) return;
 
   function updateModalCarousel() {
-    inner.style.transform = 'translateX(-' + modalCurrentIndex * 100 + '%)';
-    const dots = document.querySelectorAll('#modalDots .dot');
+    inner.style.transform =
+      'translateX(-' + modalCurrentIndex * 100 + '%)';
+    const dots = document.querySelectorAll(
+      '#modalDots .dot'
+    );
     dots.forEach((dot, idx) => {
       dot.classList.toggle('active', idx === modalCurrentIndex);
     });
   }
 
   window.modalNext = function () {
-    modalCurrentIndex = (modalCurrentIndex + 1) % modalImageCount;
+    modalCurrentIndex =
+      (modalCurrentIndex + 1) % modalImageCount;
     updateModalCarousel();
     tg?.HapticFeedback?.selectionChanged();
   };
 
   window.modalPrev = function () {
     modalCurrentIndex =
-      modalCurrentIndex === 0 ? modalImageCount - 1 : modalCurrentIndex - 1;
+      modalCurrentIndex === 0
+        ? modalImageCount - 1
+        : modalCurrentIndex - 1;
     updateModalCarousel();
     tg?.HapticFeedback?.selectionChanged();
   };
@@ -713,7 +813,9 @@ function initModalSwipe() {
     function (e) {
       const touch = e.changedTouches[0];
       const dx = touch.clientX - modalTouchStartX;
-      const dy = Math.abs(touch.clientY - modalTouchStartY);
+      const dy = Math.abs(
+        touch.clientY - modalTouchStartY
+      );
 
       if (Math.abs(dx) < 40 || dy > 50) return;
 
@@ -727,60 +829,115 @@ function initModalSwipe() {
   );
 }
 
-function preloadProductVariantImages(product) {
-  const variants = getProductVariants(product['Название']).filter(v => v.inStock);
-  if (!variants.length) return;
+// *** Новый сценарий прогрева для модалки ***
 
+// собрать все картинки для модалки (modal-all)
+function buildModalAllImages(product) {
+  const urls = new Set();
+
+  const common = product['Общая картинка'] || '';
+  if (common) urls.add(String(common).trim());
+
+  const variants = getProductVariants(product['Название']).filter(
+    v => v.inStock
+  );
   const allImages = getFilteredProductImages(variants);
-
-  allImages.forEach(imgSrc => {
-    if (!imgSrc) return;
-    if (imageCache && imageCache.has && imageCache.has(imgSrc)) return;
-
-    const img = new Image();
-    img.onload = () => {
-      if (imageCache && imageCache.set) imageCache.set(imgSrc, true);
-    };
-    img.onerror = () => {
-      if (imageCache && imageCache.set) imageCache.set(imgSrc, false);
-    };
-    img.src = imgSrc;
+  allImages.forEach(u => {
+    if (u) urls.add(String(u).trim());
   });
+
+  return Array.from(urls);
 }
 
+// собрать картинки для выбранного продукта (modal-product)
+function buildModalProductImages(product) {
+  const urls = new Set();
+  const allVariants = getProductVariants(
+    product['Название']
+  ).filter(v => v.inStock);
+  const filtered = getFilteredVariants(allVariants);
+  if (!filtered.length) return [];
+  const productImages = getFilteredProductImages(filtered);
+  productImages.forEach(u => {
+    if (u) urls.add(String(u).trim());
+  });
+  return Array.from(urls);
+}
+
+function preloadProductVariantImages(product) {
+  // заменён новой схемой — теперь используем группы modal-all/modal-product
+  // оставляем пустым, чтобы не ломать вызовы
+}
+
+// открыть модалку
 function showModal(product) {
   if (currentTab === 'shop') {
-    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    const y =
+      window.scrollY || document.documentElement.scrollTop || 0;
     tabScrollTops.shop = y;
-    console.log('[modal] showModal, saved shop scrollY =', y);
+    console.log(
+      '[modal] showModal, saved shop scrollY =',
+      y
+    );
   }
 
-  console.log('[modal] renderProductModal for', product?.['Название']);
+  console.log(
+    '[modal] renderProductModal for',
+    product?.['Название']
+  );
   renderProductModal(product);
 
   modal.classList.remove('hidden');
 
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
-      const scrollContainer = document.querySelector('#modalContent .flex-1');
+      const scrollContainer = document.querySelector(
+        '#modalContent .flex-1'
+      );
       if (scrollContainer) scrollContainer.scrollTop = 0;
     });
   });
 
-  // ПРИОРИТЕТ МОДАЛКИ: ставим фоновой preload на паузу
-  preloadPaused = true;
+  // Останавливаем глобальный прогрев
+  globalPhaseBeforePause = globalWarmupState === 'other'
+    ? 'other'
+    : 'main';
+  globalWarmupState = 'paused';
+
+  // Стартуем прогрев модалки: modal-all
+  const modalAllUrls = buildModalAllImages(product);
+  startModalWarmupAll(modalAllUrls);
 
   tg?.expand();
-  preloadProductVariantImages(product);
 }
+
+// выбор опций: при полном выборе продукта запускаем modal-product прогрев
+(function patchSelectForModalWarmup() {
+  const originalSelectOptionNoFocus = window.selectOptionNoFocus;
+  window.selectOptionNoFocus = function (type, option) {
+    originalSelectOptionNoFocus(type, option);
+
+    if (!currentProduct) return;
+
+    if (isCompleteSelection()) {
+      const productUrls = buildModalProductImages(currentProduct);
+      startModalWarmupProduct(productUrls);
+    }
+  };
+})();
 
 window.closeModal = function () {
   if (modalWasOpenOnShop) {
-    console.log('[modal] closeModal after tab return: renderShop + restoreTabScroll(shop), scrollY =', tabScrollTops.shop);
+    console.log(
+      '[modal] closeModal after tab return: renderShop + restoreTabScroll(shop), scrollY =',
+      tabScrollTops.shop
+    );
     renderShop();
     restoreTabScroll('shop');
   } else {
-    console.log('[modal] closeModal from shop (no tab switch), no renderShop');
+    console.log(
+      '[modal] closeModal from shop (no tab switch), no renderShop'
+    );
   }
 
   modal.classList.add('hidden');
@@ -793,7 +950,9 @@ window.closeModal = function () {
   modalWasOpenOnShop = false;
   modalSavedScrollTop = 0;
 
-  const scrollContainer = document.querySelector('#modalContent .flex-1');
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
   if (scrollContainer) scrollContainer.scrollTop = 0;
 
   const modalRoot = document.getElementById('modalContent');
@@ -802,16 +961,21 @@ window.closeModal = function () {
     modalRoot.innerHTML = '';
   }
 
-  // снимаем паузу: фон снова может подгружать остальное
-  preloadPaused = false;
-  if (!preloadRunning && preloadQueue && preloadIndex < preloadQueue.length) {
+  // Завершаем модальный прогрев и возвращаем глобальный
+  finishModalWarmupAndResumeGlobal();
+
+  if (!preloadRunning) {
     runPreloadLoop();
   }
 
   tg?.HapticFeedback?.impactOccurred('light');
 };
 
-document.addEventListener('touchstart', function (e) {
-  const target = e.target.closest('.option-btn');
-  if (!target) return;
-}, { passive: true });
+document.addEventListener(
+  'touchstart',
+  function (e) {
+    const target = e.target.closest('.option-btn');
+    if (!target) return;
+  },
+  { passive: true }
+);
