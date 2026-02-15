@@ -907,6 +907,7 @@ function showModal(product) {
   // Стартуем прогрев модалки: modal-all
   const modalAllUrls = buildModalAllImages(product);
   startModalWarmupAll(modalAllUrls);
+  runModalWarmupLoop().catch(e => console.log('[modal] warmup loop error', e));
 
   tg?.expand();
 }
