@@ -12,6 +12,9 @@ let modalCurrentImageKey = null;
 // Запоминаем: для каких URL был onerror (чтобы сразу ставить заглушку)
 const brokenImageMap = new Map();
 
+let modalPendingImages = 0;
+let modalSessionId = 0;
+
 function getVariantCountText(count) {
   const mod10 = count % 10;
   const mod100 = count % 100;
@@ -363,11 +366,16 @@ function renderProductModal(product) {
     });
   }
 
+
   function buildSlides() {
     carouselInner.innerHTML =
       '<div class="flex w-full h-full" id="modalSlidesWrapper"></div>';
     dotsRoot.innerHTML = '';
     modalImageCount = imagesToShow.length;
+
+    modalSessionId += 1;
+    const currentSessionId = modalSessionId;
+    modalPendingImages = 0;
 
     const slidesWrapper = document.getElementById('modalSlidesWrapper');
 
@@ -442,17 +450,42 @@ function renderProductModal(product) {
         slide.innerHTML = makeSlideContent(url, 'photo');
         const img = slide.querySelector('img');
 
+        modalPendingImages += 1;
+
+        function maybeResumePreload() {
+          if (modalSessionId !== currentSessionId) return;
+          if (modalPendingImages > 0) return;
+
+          // все картинки модалки прогружены или упали
+          preloadPaused = false;
+          if (!preloadRunning && preloadQueue && preloadIndex < preloadQueue.length) {
+            runPreloadLoop();
+          }
+        }
+
         requestAnimationFrame(() => {
           applyFadeIn(img, durationForThisBuild);
         });
 
+        img.addEventListener('load', () => {
+          if (modalSessionId !== currentSessionId) return;
+          modalPendingImages = Math.max(0, modalPendingImages - 1);
+          maybeResumePreload();
+        });
+
         img.addEventListener('error', () => {
           brokenImageMap.set(url, true);
+          if (modalSessionId !== currentSessionId) return;
+
+          modalPendingImages = Math.max(0, modalPendingImages - 1);
+
           slide.innerHTML = makeSlideContent('', 'placeholder');
           const ph = slide.querySelector('.modal-photo');
           requestAnimationFrame(() => {
             applyFadeIn(ph, durationForThisBuild);
           });
+
+          maybeResumePreload();
         });
       });
 
