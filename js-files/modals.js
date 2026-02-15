@@ -586,14 +586,6 @@ function renderProductModal(product) {
       imageHintEl.textContent = '';
       imageHintEl.classList.add('modal-image-hint-hidden');
     }
-
-    // запуск отдельного цикла модального прогрева
-    // (product- и all-очереди формируются в showModal / selectOptionNoFocus)
-    if (modalState !== 'closed') {
-      runModalWarmupLoopOnce().catch(e =>
-        console.log('[modal] warmup loop error', e)
-      );
-    }
   }
 
   if (modalCurrentImageKey === null) {

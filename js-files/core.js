@@ -373,7 +373,12 @@ async function runModalWarmupLoop() {
 
 // вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
 function finishModalWarmupAndResumeGlobal() {
-  modalState = 'closed';
+  // НИЧЕГО не трогаем в модалке, только глобальный прогрев
+  if (!isModalWarmupFinished()) {
+    // если ещё есть незавершённые задачи модалки, выходим
+    return;
+  }
+
   modalAllQueue = [];
   modalProductQueue = [];
   modalAllIndex = 0;
