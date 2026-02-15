@@ -954,7 +954,13 @@ window.closeModal = function () {
     modalRoot.innerHTML = '';
   }
 
-  // Завершаем модальный прогрев и возвращаем глобальный
+  modalState = 'closed';
+  modalAllQueue = [];
+  modalProductQueue = [];
+  modalAllIndex = 0;
+  modalProductIndex = 0;
+
+  // Пытаемся разморозить глобальный прогрев, только если модальные задачи уже были завершены
   finishModalWarmupAndResumeGlobal();
 
   if (!preloadRunning) {

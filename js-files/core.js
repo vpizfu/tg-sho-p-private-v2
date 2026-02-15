@@ -184,6 +184,7 @@ async function runPreloadLoop() {
   try {
     // крутимся, пока есть что греть
     while (true) {
+      console.log('[global-preload] loop tick, state =', globalWarmupState, 'modalState =', modalState);
       // если модалка активна, глобал не трогаем
       if (modalState !== 'closed') {
         await new Promise(r => setTimeout(r, 200));
@@ -317,8 +318,10 @@ function isModalWarmupFinished() {
 // этот цикл вызывается из modals.js, когда модалка активна,
 // чтобы приоритетно греть modal-product, затем modal-all
 async function runModalWarmupLoopOnce() {
-  // если нечего греть — ничего не делаем
-  if (modalState === 'closed') return;
+  if (modalState === 'closed') {
+    console.log('[modal-preload] skip, modalState closed');
+    return;
+  }
 
   // сначала product
   if (
@@ -327,12 +330,13 @@ async function runModalWarmupLoopOnce() {
     modalProductIndex < modalProductQueue.length
   ) {
     const url = modalProductQueue[modalProductIndex++];
+    console.log('[modal-preload] product image', modalProductIndex, '/', modalProductQueue.length, url);
     try {
       await preloadOneImage(url);
     } catch (_) {}
 
-    // если product закончился — возвращаемся к warmingModal
     if (modalProductIndex >= modalProductQueue.length) {
+      console.log('[modal-preload] product queue done, switch to warmingModal');
       modalState = 'warmingModal';
     }
     return;
@@ -345,11 +349,16 @@ async function runModalWarmupLoopOnce() {
     modalAllIndex < modalAllQueue.length
   ) {
     const url = modalAllQueue[modalAllIndex++];
+    console.log('[modal-preload] all image', modalAllIndex, '/', modalAllQueue.length, url);
     try {
       await preloadOneImage(url);
     } catch (_) {}
     return;
   }
+
+  console.log('[modal-preload] nothing to preload, modalState =', modalState,
+    'allIndex=', modalAllIndex, '/', modalAllQueue.length,
+    'prodIndex=', modalProductIndex, '/', modalProductQueue.length);
 }
 
 let modalWarmupRunning = false;
@@ -373,9 +382,12 @@ async function runModalWarmupLoop() {
 
 // вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
 function finishModalWarmupAndResumeGlobal() {
-  // НИЧЕГО не трогаем в модалке, только глобальный прогрев
-  if (!isModalWarmupFinished()) {
-    // если ещё есть незавершённые задачи модалки, выходим
+  const finished = isModalWarmupFinished();
+  console.log('[finishModalWarmupAndResumeGlobal] called, finished =', finished,
+    'modalState =', modalState,
+    'globalWarmupState =', globalWarmupState);
+
+  if (!finished) {
     return;
   }
 
@@ -386,6 +398,7 @@ function finishModalWarmupAndResumeGlobal() {
 
   if (globalWarmupState === 'paused') {
     globalWarmupState = globalPhaseBeforePause || 'main';
+    console.log('[finishModalWarmupAndResumeGlobal] resume global, new state =', globalWarmupState);
   }
 }
 
