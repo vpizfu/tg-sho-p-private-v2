@@ -177,12 +177,20 @@ function preloadOneImage(url) {
 
 // ---------- ОСНОВНОЙ ЦИКЛ ПРОГРЕВА (СТЕЙТ-МАШИНА) ----------
 
+let globalPreloadStop = false;
+
 async function runPreloadLoop() {
   if (preloadRunning) return;
   preloadRunning = true;
+  globalPreloadStop = false;
 
   try {
     while (true) {
+      if (globalPreloadStop) {
+        console.warn('[global-preload] forced stop flag, break loop');
+        break;
+      }
+
       console.log(
         '[global-preload] loop tick, state =',
         globalWarmupState,
@@ -190,50 +198,64 @@ async function runPreloadLoop() {
         modalState
       );
 
-      // Если глобальный прогрев в паузе и модальные очереди еще НЕ закончились — ждём.
+      // базовая пауза каждый тик — защита от горячего цикла
+      await new Promise(r => setTimeout(r, 0));
+
+      // если глобальный прогрев на паузе и у модалки ещё есть что грузить — ждём
       if (globalWarmupState === 'paused' && !isModalWarmupFinished()) {
         await new Promise(r => setTimeout(r, 200));
         continue;
       }
 
-      // стадия main
       if (globalWarmupState === 'main') {
         if (!globalMainQueue.length || globalMainIndex >= globalMainQueue.length) {
-          // main закончен, переключаемся на other
+          console.log('[global-preload] main finished, switch to other');
           globalWarmupState = 'other';
           continue;
         }
 
         const url = globalMainQueue[globalMainIndex++];
+        console.log('[global-preload] main image', globalMainIndex, '/', globalMainQueue.length, url);
+
         try {
           await preloadOneImage(url);
-        } catch (_) {}
+        } catch (e) {
+          console.warn('[global-preload] error in preloadOneImage (main)', e);
+          await new Promise(r => setTimeout(r, 50));
+        }
         continue;
       }
 
-      // стадия other
       if (globalWarmupState === 'other') {
         if (!globalOtherQueue.length || globalOtherIndex >= globalOtherQueue.length) {
+          console.log('[global-preload] other finished, set done');
           globalWarmupState = 'done';
           continue;
         }
 
         const url = globalOtherQueue[globalOtherIndex++];
+        console.log('[global-preload] other image', globalOtherIndex, '/', globalOtherQueue.length, url);
+
         try {
           await preloadOneImage(url);
-        } catch (_) {}
+        } catch (e) {
+          console.warn('[global-preload] error in preloadOneImage (other)', e);
+          await new Promise(r => setTimeout(r, 50));
+        }
         continue;
       }
 
-      // done или idle — нечего делать, просто спим
       if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
         await new Promise(r => setTimeout(r, 500));
       }
     }
+  } catch (e) {
+    console.error('[global-preload] fatal error in runPreloadLoop', e);
   } finally {
     preloadRunning = false;
   }
 }
+
 
 // ---------- ПОДГОТОВКА ОЧЕРЕДЕЙ ДЛЯ ГЛОБАЛЬНОГО ПРОГРЕВА ----------
 
