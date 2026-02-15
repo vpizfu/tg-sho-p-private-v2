@@ -108,6 +108,9 @@ const modal = document.getElementById('productModal');
  */
 let globalWarmupState = 'idle';
 
+const GLOBAL_MAX_PARALLEL = 2;
+let globalActiveLoads = 0;
+
 /**
  * modalState:
  *  - 'closed'        — модалки нет
@@ -216,6 +219,21 @@ async function runPreloadLoop() {
 
         const url = globalMainQueue[globalMainIndex++];
         console.log('[global-preload] main image', globalMainIndex, '/', globalMainQueue.length, url);
+
+        if (globalActiveLoads >= GLOBAL_MAX_PARALLEL) {
+          // уже есть достаточное кол-во активных глобальных загрузок — подождём
+          await new Promise(r => setTimeout(r, 50));
+          continue;
+        }
+        
+        globalActiveLoads++;
+        try {
+          await preloadOneImage(url);
+        } catch (e) {
+          console.warn('[global-preload] error in preloadOneImage', e);
+        } finally {
+          globalActiveLoads = Math.max(0, globalActiveLoads - 1);
+        }
 
         try {
           await preloadOneImage(url);
