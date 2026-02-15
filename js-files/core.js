@@ -182,17 +182,16 @@ async function runPreloadLoop() {
   preloadRunning = true;
 
   try {
-    // крутимся, пока есть что греть
     while (true) {
-      console.log('[global-preload] loop tick, state =', globalWarmupState, 'modalState =', modalState);
-      // если модалка активна, глобал не трогаем
-      if (modalState !== 'closed') {
-        await new Promise(r => setTimeout(r, 200));
-        continue;
-      }
+      console.log(
+        '[global-preload] loop tick, state =',
+        globalWarmupState,
+        'modalState =',
+        modalState
+      );
 
-      // если global в paused — ждём (до смены state снаружи)
-      if (globalWarmupState === 'paused') {
+      // Если глобальный прогрев в паузе и модальные очереди еще НЕ закончились — ждём.
+      if (globalWarmupState === 'paused' && !isModalWarmupFinished()) {
         await new Promise(r => setTimeout(r, 200));
         continue;
       }
@@ -200,7 +199,7 @@ async function runPreloadLoop() {
       // стадия main
       if (globalWarmupState === 'main') {
         if (!globalMainQueue.length || globalMainIndex >= globalMainQueue.length) {
-          // main закончен, переходим к other
+          // main закончен, переключаемся на other
           globalWarmupState = 'other';
           continue;
         }
@@ -226,7 +225,7 @@ async function runPreloadLoop() {
         continue;
       }
 
-      // done или idle — нечего делать
+      // done или idle — нечего делать, просто спим
       if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
         await new Promise(r => setTimeout(r, 500));
       }
