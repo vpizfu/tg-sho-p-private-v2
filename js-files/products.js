@@ -757,6 +757,68 @@ function rerenderShopPreserveSearchFocus() {
   }
 }
 
+// ------- ФОНОВЫЙ PRELOAD КАРТИНОК -------
+
+// вспомогалка: получить все картинки товара (main + галерея)
+// ожидается, что в "Изображения" у тебя строка "urlMain,url2,url3..." или массив строк
+function getAllProductImages(product) {
+  const urls = new Set();
+
+  // поле "Общая картинка"
+  if (product['Общая картинка']) {
+    urls.add(String(product['Общая картинка']).trim());
+  }
+
+  // поле "Изображения"
+  const rawImages = product['Изображения'] || product.images;
+  if (Array.isArray(rawImages)) {
+    rawImages.forEach(u => {
+      if (u) urls.add(String(u).trim());
+    });
+  } else if (typeof rawImages === 'string') {
+    rawImages.split(',').forEach(u => {
+      const s = u.trim();
+      if (s) urls.add(s);
+    });
+  }
+
+  return Array.from(urls);
+}
+
+// собрать список URL для preloading с приоритизацией категории "iPhone"
+function buildPreloadImageQueue() {
+  if (!productsData || !productsData.length) return [];
+
+  const iphoneUrls = [];
+  const otherUrls = [];
+
+  productsData.forEach(p => {
+    if (!p || !p.inStock) return;
+    const urls = getAllProductImages(p);
+    if (!urls.length) return;
+
+    const cat = (p.cat || p['Категория'] || '').toString().toLowerCase();
+    const targetArr = cat.includes('iphone') ? iphoneUrls : otherUrls;
+
+    urls.forEach(u => {
+      targetArr.push(u);
+    });
+  });
+
+  // уберём дубли и сохраним порядок: сначала все iPhone, потом остальные
+  const seen = new Set();
+  const result = [];
+
+  [...iphoneUrls, ...otherUrls].forEach(u => {
+    if (!u) return;
+    if (seen.has(u)) return;
+    seen.add(u);
+    result.push(u);
+  });
+
+  return result;
+}
+
 function renderShop() {
   console.log('---------------- [renderShop] ----------------');
   console.log(

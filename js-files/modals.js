@@ -734,6 +734,9 @@ function showModal(product) {
     });
   });
 
+  // ПРИОРИТЕТ МОДАЛКИ: ставим фоновой preload на паузу
+  preloadPaused = true;
+
   tg?.expand();
   preloadProductVariantImages(product);
 }
@@ -764,6 +767,12 @@ window.closeModal = function () {
   if (modalRoot && modalRoot.dataset.initialized) {
     delete modalRoot.dataset.initialized;
     modalRoot.innerHTML = '';
+  }
+
+  // снимаем паузу: фон снова может подгружать остальное
+  preloadPaused = false;
+  if (!preloadRunning && preloadQueue && preloadIndex < preloadQueue.length) {
+    runPreloadLoop();
   }
 
   tg?.HapticFeedback?.impactOccurred('light');

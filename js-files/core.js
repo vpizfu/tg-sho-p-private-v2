@@ -96,6 +96,102 @@ let cartFormState = {
 const root = document.getElementById('root');
 const modal = document.getElementById('productModal');
 
+// ------- ФОНОВЫЙ PRELOAD ВИТРИНЫ -------
+
+let preloadQueue = [];
+let preloadIndex = 0;
+let preloadPaused = false;
+let preloadRunning = false;
+
+// чтобы не грузить то, что уже когда-то успешно загружалось
+const preloadedOnce = new Set();
+
+// запуск одной картинки
+function preloadOneImage(url) {
+  return new Promise(resolve => {
+    if (!url) return resolve();
+
+    // если уже кеширована твоим imageCacheMeta / loadedImageUrls — можно скипать
+    if (preloadedOnce.has(url)) {
+      return resolve();
+    }
+
+    const img = new Image();
+    let done = false;
+
+    img.onload = () => {
+      if (done) return;
+      done = true;
+      preloadedOnce.add(url);
+      resolve();
+    };
+    img.onerror = () => {
+      if (done) return;
+      done = true;
+      resolve();
+    };
+
+    // лёгкий safeguard на всякий
+    setTimeout(() => {
+      if (done) return;
+      done = true;
+      resolve();
+    }, 8000);
+
+    img.src = url;
+  });
+}
+
+// основной цикл preloading
+async function runPreloadLoop() {
+  if (preloadRunning) return;
+  preloadRunning = true;
+
+  try {
+    while (preloadIndex < preloadQueue.length) {
+      if (preloadPaused) {
+        // ждём, пока не отпустят
+        await new Promise(r => setTimeout(r, 500));
+        continue;
+      }
+
+      const url = preloadQueue[preloadIndex];
+      preloadIndex += 1;
+
+      try {
+        await preloadOneImage(url);
+      } catch (_) {
+        // игнорим, задача preloading — best-effort
+      }
+
+      // маленькая пауза, чтобы не забивать сеть/CPU
+      await new Promise(r => setTimeout(r, 100));
+    }
+  } finally {
+    preloadRunning = false;
+  }
+}
+
+// публичная функция для старта фонового preloading
+function startBackgroundPreload() {
+  try {
+    // собираем очередь только один раз/или при обновлении productsData
+    preloadQueue = buildPreloadImageQueue();
+    preloadIndex = 0;
+    preloadPaused = false;
+
+    if (!preloadQueue.length) {
+      console.log('[preload] nothing to preload');
+      return;
+    }
+
+    console.log('[preload] queue size =', preloadQueue.length);
+    runPreloadLoop();
+  } catch (e) {
+    console.error('[preload] startBackgroundPreload error', e);
+  }
+}
+
 // ---------- Глобальная обработка ошибок ----------
 
 window.onerror = function (message, source, lineno, colno, error) {
@@ -1016,6 +1112,14 @@ async function initApp() {
 
     if (currentTab === 'shop') {
       renderShop();
+
+      setTimeout(() => {
+        try {
+          startBackgroundPreload();
+        } catch (e) {
+          console.error('[preload] init error', e);
+        }
+      }, 1000);
     } else if (currentTab === 'cart') {
       showCartTab();
     } else if (currentTab === 'sale') {
