@@ -190,15 +190,19 @@ async function runPreloadLoop() {
       await new Promise(r => setTimeout(r, 0));
 
       // если глобальный прогрев на паузе и у модалки ещё есть что грузить — ждём
-      if (globalWarmupState === 'paused') {
-        if (isModalWarmupFinished()) {
-          console.log('[global-preload] modal finished, resuming global');
-          globalWarmupState = globalPhaseBeforePause || 'main';
-        } else {
-          await new Promise(r => setTimeout(r, 200));
-          continue;
-        }
-      }
+// Глобалка ПАУЗИТСЯ ТОЛЬКО при активном прогреве модалки
+if (globalWarmupState === 'paused' && 
+  (modalState === 'warmingModal' || modalState === 'warmingProduct')) {
+await new Promise(r => setTimeout(r, 200));
+continue;
+}
+
+// 'warmed' = модалка открыта, но прогрев завершён → РАЗМОРАЖИВАЕМ
+if (globalWarmupState === 'paused' && modalState === 'warmed') {
+globalWarmupState = globalPhaseBeforePause || 'main';
+console.log('[global-preload] modal warmed → resume global');
+continue;
+}
 
       if (globalWarmupState === 'main') {
         // очередь закончилась — переключаемся на other
@@ -343,28 +347,34 @@ function startBackgroundPreload() {
 
 // ---------- ХЕЛПЕРЫ ДЛЯ МОДАЛЬНОГО ПРОГРЕВА ----------
 
+// 3. Фиксим startModalWarmupAll() аналогично
 function startModalWarmupAll(urls) {
-  modalAllQueue = Array.from(new Set(urls || [])).filter(Boolean);
+  const newUrls = urls.filter(url => !preloadedOnce.has(url));
+  modalAllQueue = Array.from(new Set(newUrls)).filter(Boolean);
   modalAllIndex = 0;
-  modalProductQueue = [];
-  modalProductIndex = 0;
+  modalProductQueue = []; modalProductIndex = 0;
   
-  // 🔥 ФИКС: проверяем длину перед установкой состояния
   if (modalAllQueue.length > 0) {
     modalState = 'warmingModal';
-    console.log('[modal-preload] start warmingModal, urls=', modalAllQueue.length);
   } else {
-    modalState = 'closed';  // 🛑 пустая очередь = закрыто
-    console.log('[modal-preload] empty queue, stay closed');
+    modalState = 'warmed';  // ✅ УЖЕ ПРОГРЕТО!
   }
+  console.log('[modal-preload] modalAll state=', modalState);
 }
 
-
+// 2. Фиксим startModalWarmupProduct()
 function startModalWarmupProduct(urls) {
-  modalProductQueue = Array.from(new Set(urls || [])).filter(Boolean);
+  // 🔥 ФИЛЬТРУЕМ ТОЛЬКО НОВЫЕ URL
+  const newUrls = urls.filter(url => !preloadedOnce.has(url));
+  modalProductQueue = Array.from(new Set(newUrls)).filter(Boolean);
   modalProductIndex = 0;
-  if (modalProductQueue.length) {
+  
+  if (modalProductQueue.length > 0) {
     modalState = 'warmingProduct';
+    console.log('[modal-preload] warmingProduct NEW:', modalProductQueue.length);
+  } else {
+    modalState = 'warmed';  // ✅ УЖЕ ПРОГРЕТО!
+    console.log('[modal-preload] product ALREADY WARMED');
   }
 }
 
