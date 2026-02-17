@@ -364,8 +364,17 @@ function startModalWarmupAll(urls) {
   modalAllIndex = 0;
   modalProductQueue = [];
   modalProductIndex = 0;
-  modalState = 'warmingModal';
+  
+  // 🔥 ФИКС: проверяем длину перед установкой состояния
+  if (modalAllQueue.length > 0) {
+    modalState = 'warmingModal';
+    console.log('[modal-preload] start warmingModal, urls=', modalAllQueue.length);
+  } else {
+    modalState = 'closed';  // 🛑 пустая очередь = закрыто
+    console.log('[modal-preload] empty queue, stay closed');
+  }
 }
+
 
 function startModalWarmupProduct(urls) {
   modalProductQueue = Array.from(new Set(urls || [])).filter(Boolean);
@@ -387,8 +396,8 @@ function isModalWarmupFinished() {
 // чтобы приоритетно греть modal-product, затем modal-all
 async function runModalWarmupLoopOnce() {
   if (modalState === 'closed') {
-    console.log('[modal-preload] skip, modalState closed');
-    return;
+    console.log('[modal-preload] ALREADY CLOSED, exit');
+    return;  // 🛑 РАННИЙ ВЫХОД
   }
 
   // сначала product
@@ -466,30 +475,23 @@ async function runModalWarmupLoop() {
 // вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
 function finishModalWarmupAndResumeGlobal() {
   const finished = isModalWarmupFinished();
-  console.log(
-    '[finishModalWarmupAndResumeGlobal] called, finished =',
-    finished,
-    'modalState =',
-    modalState,
-    'globalWarmupState =',
-    globalWarmupState
-  );
-
-  if (!finished) {
-    return;
-  }
-
-  // Очереди модалки уже пусты — можно их просто обнулить
+  
+  if (!finished) return;
+  
+  // 🔥 ФИКС: ЯВНО закрываем модалку
+  modalState = 'closed';
   modalAllQueue = [];
   modalProductQueue = [];
   modalAllIndex = 0;
   modalProductIndex = 0;
-
+  
+  console.log('[finishModalWarmupAndResumeGlobal] MODAL CLOSED, global resumed');
+  
   if (globalWarmupState === 'paused') {
     globalWarmupState = globalPhaseBeforePause || 'main';
-    console.log('[finishModalWarmupAndResumeGlobal] resume global, new state =', globalWarmupState);
   }
 }
+
 
 // ---------- Глобальная обработка ошибок ----------
 
