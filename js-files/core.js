@@ -206,9 +206,14 @@ async function runPreloadLoop() {
       await new Promise(r => setTimeout(r, 0));
 
       // если глобальный прогрев на паузе и у модалки ещё есть что грузить — ждём
-      if (globalWarmupState === 'paused' && !isModalWarmupFinished()) {
-        await new Promise(r => setTimeout(r, 200));
-        continue;
+      if (globalWarmupState === 'paused') {
+        if (isModalWarmupFinished()) {
+          console.log('[global-preload] modal finished, resuming global');
+          globalWarmupState = globalPhaseBeforePause || 'main';
+        } else {
+          await new Promise(r => setTimeout(r, 200));
+          continue;
+        }
       }
 
       if (globalWarmupState === 'main') {
@@ -280,9 +285,13 @@ async function runPreloadLoop() {
       }
 
       // done или idle — нечего делать, просто спим подольше
-      if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
-        await new Promise(r => setTimeout(r, 500));
-      }
+// В runPreloadLoop(), блок "done/idle":
+if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
+  console.log('[global-preload] ALL DONE, stopping loop');  // ✅ ЛОГ ОДИН РАЗ
+  preloadRunning = false;  // 🛑 ВЫХОД ИЗ ЦИКЛА
+  return;  // 🔥 ПОЛНАЯ ОСТАНОВКА
+}
+
     }
   } catch (e) {
     console.error('[global-preload] fatal error in runPreloadLoop', e);
@@ -449,6 +458,8 @@ async function runModalWarmupLoop() {
     }
   } finally {
     modalWarmupRunning = false;
+    modalState = 'closed';  // ✅ ЯВНО ЗАКРЫВАЕМ
+    console.log('[modal-preload] loop STOPPED, modalState=closed');
   }
 }
 
