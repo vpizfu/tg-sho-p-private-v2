@@ -98,32 +98,16 @@ const modal = document.getElementById('productModal');
 
 // ------- СТЕЙТЫ ПРОГРЕВА -------
 
-/**
- * globalWarmupState:
- *  - 'idle'   — не начинали
- *  - 'main'   — греем main (общие картинки карточек)
- *  - 'other'  — греем остальные картинки товаров
- *  - 'paused' — остановлен из-за модалки
- *  - 'done'   — всё прогрето
- */
 let globalWarmupState = 'idle';
 
 // Максимум параллельных фоновых загрузок для глобального прогрева
 const GLOBAL_MAX_PARALLEL = 2;
 let globalActiveLoads = 0;
 
-/**
- * modalState:
- *  - 'closed'        — модалки нет
- *  - 'warmingModal'  — греем все картинки модалки (modal-all)
- *  - 'warmingProduct'— греем картинки выбранного продукта (modal-product)
- */
+
 let modalState = 'closed';
 
-/**
- * Какая фаза глобального прогрева была до паузы
- * ('main' или 'other') — чтобы вернуться в неё после модалки.
- */
+
 let globalPhaseBeforePause = 'main';
 
 // Очереди для глобального прогрева
@@ -286,10 +270,10 @@ async function runPreloadLoop() {
 
       // done или idle — нечего делать, просто спим подольше
 // В runPreloadLoop(), блок "done/idle":
+// ✅ ПРАВИЛЬНО: break вместо return
 if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
-  console.log('[global-preload] ALL DONE, stopping loop');  // ✅ ЛОГ ОДИН РАЗ
-  preloadRunning = false;  // 🛑 ВЫХОД ИЗ ЦИКЛА
-  return;  // 🔥 ПОЛНАЯ ОСТАНОВКА
+  console.log('[global-preload] COMPLETELY DONE, stopping loop');
+  break;  // 🛑 ВЫХОД ИЗ WHILE
 }
 
     }
@@ -454,42 +438,32 @@ async function runModalWarmupLoop() {
   modalWarmupRunning = true;
 
   try {
-    while (modalState !== 'closed') {
+    while (modalState === 'warmingModal' || modalState === 'warmingProduct') {
       await runModalWarmupLoopOnce();
-
-      // если после очередного шага у модалки вообще нечего грузить —
-      // пробуем разморозить глобальный прогрев
       if (isModalWarmupFinished()) {
         finishModalWarmupAndResumeGlobal();
+        break;  // ✅ ВЫХОД ПРИ ЗАВЕРШЕНИИ
       }
-
       await new Promise(r => setTimeout(r, 50));
     }
   } finally {
     modalWarmupRunning = false;
-    modalState = 'closed';  // ✅ ЯВНО ЗАКРЫВАЕМ
-    console.log('[modal-preload] loop STOPPED, modalState=closed');
+    console.log('[modal-preload] loop COMPLETED');
+    // ✅ НЕ трогаем modalState!
   }
 }
 
-// вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
 function finishModalWarmupAndResumeGlobal() {
-  const finished = isModalWarmupFinished();
+  if (!isModalWarmupFinished()) return;
   
-  if (!finished) return;
-  
-  // 🔥 ФИКС: ЯВНО закрываем модалку
-  modalState = 'closed';
-  modalAllQueue = [];
-  modalProductQueue = [];
-  modalAllIndex = 0;
-  modalProductIndex = 0;
-  
-  console.log('[finishModalWarmupAndResumeGlobal] MODAL CLOSED, global resumed');
+  modalState = 'warmed';  // ✅ ПРОГРЕТО, НО МОДАЛКА ОТКРЫТА
+  modalAllQueue = []; modalProductQueue = []; 
+  modalAllIndex = 0; modalProductIndex = 0;
   
   if (globalWarmupState === 'paused') {
     globalWarmupState = globalPhaseBeforePause || 'main';
   }
+  console.log('[modal] → warmed, global resumed');
 }
 
 
