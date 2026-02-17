@@ -108,6 +108,7 @@ const modal = document.getElementById('productModal');
  */
 let globalWarmupState = 'idle';
 
+// Максимум параллельных фоновых загрузок для глобального прогрева
 const GLOBAL_MAX_PARALLEL = 2;
 let globalActiveLoads = 0;
 
@@ -211,36 +212,37 @@ async function runPreloadLoop() {
       }
 
       if (globalWarmupState === 'main') {
+        // очередь закончилась — переключаемся на other
         if (!globalMainQueue.length || globalMainIndex >= globalMainQueue.length) {
           console.log('[global-preload] main finished, switch to other');
           globalWarmupState = 'other';
           continue;
         }
 
-        const url = globalMainQueue[globalMainIndex++];
-        console.log('[global-preload] main image', globalMainIndex, '/', globalMainQueue.length, url);
-
+        // если параллельных загрузок уже достаточно — ждём, НЕ двигая индекс
         if (globalActiveLoads >= GLOBAL_MAX_PARALLEL) {
-          // уже есть достаточное кол-во активных глобальных загрузок — подождём
           await new Promise(r => setTimeout(r, 50));
           continue;
         }
-        
+
+        const url = globalMainQueue[globalMainIndex++];
+        console.log(
+          '[global-preload] main image',
+          globalMainIndex,
+          '/',
+          globalMainQueue.length,
+          url
+        );
+
         globalActiveLoads++;
         try {
           await preloadOneImage(url);
         } catch (e) {
-          console.warn('[global-preload] error in preloadOneImage', e);
+          console.warn('[global-preload] error in preloadOneImage (main)', e);
         } finally {
           globalActiveLoads = Math.max(0, globalActiveLoads - 1);
         }
 
-        try {
-          await preloadOneImage(url);
-        } catch (e) {
-          console.warn('[global-preload] error in preloadOneImage (main)', e);
-          await new Promise(r => setTimeout(r, 50));
-        }
         continue;
       }
 
@@ -251,18 +253,33 @@ async function runPreloadLoop() {
           continue;
         }
 
-        const url = globalOtherQueue[globalOtherIndex++];
-        console.log('[global-preload] other image', globalOtherIndex, '/', globalOtherQueue.length, url);
+        if (globalActiveLoads >= GLOBAL_MAX_PARALLEL) {
+          await new Promise(r => setTimeout(r, 50));
+          continue;
+        }
 
+        const url = globalOtherQueue[globalOtherIndex++];
+        console.log(
+          '[global-preload] other image',
+          globalOtherIndex,
+          '/',
+          globalOtherQueue.length,
+          url
+        );
+
+        globalActiveLoads++;
         try {
           await preloadOneImage(url);
         } catch (e) {
           console.warn('[global-preload] error in preloadOneImage (other)', e);
-          await new Promise(r => setTimeout(r, 50));
+        } finally {
+          globalActiveLoads = Math.max(0, globalActiveLoads - 1);
         }
+
         continue;
       }
 
+      // done или idle — нечего делать, просто спим подольше
       if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
         await new Promise(r => setTimeout(r, 500));
       }
@@ -274,6 +291,9 @@ async function runPreloadLoop() {
   }
 }
 
+function stopGlobalPreload() {
+  globalPreloadStop = true;
+}
 
 // ---------- ПОДГОТОВКА ОЧЕРЕДЕЙ ДЛЯ ГЛОБАЛЬНОГО ПРОГРЕВА ----------
 
@@ -395,9 +415,18 @@ async function runModalWarmupLoopOnce() {
     return;
   }
 
-  console.log('[modal-preload] nothing to preload, modalState =', modalState,
-    'allIndex=', modalAllIndex, '/', modalAllQueue.length,
-    'prodIndex=', modalProductIndex, '/', modalProductQueue.length);
+  console.log(
+    '[modal-preload] nothing to preload, modalState =',
+    modalState,
+    'allIndex=',
+    modalAllIndex,
+    '/',
+    modalAllQueue.length,
+    'prodIndex=',
+    modalProductIndex,
+    '/',
+    modalProductQueue.length
+  );
 }
 
 let modalWarmupRunning = false;
@@ -423,13 +452,17 @@ async function runModalWarmupLoop() {
   }
 }
 
-
 // вызывается модалкой, чтобы завершить модальный прогрев и вернуть глобальный
 function finishModalWarmupAndResumeGlobal() {
   const finished = isModalWarmupFinished();
-  console.log('[finishModalWarmupAndResumeGlobal] called, finished =', finished,
-    'modalState =', modalState,
-    'globalWarmupState =', globalWarmupState);
+  console.log(
+    '[finishModalWarmupAndResumeGlobal] called, finished =',
+    finished,
+    'modalState =',
+    modalState,
+    'globalWarmupState =',
+    globalWarmupState
+  );
 
   if (!finished) {
     return;
@@ -822,9 +855,7 @@ function switchTab(tabName) {
           const scrollContainer = document.querySelector('#modalContent .flex-1');
           if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
         } else {
-          console.log(
-            '[modal] return to shop without modal, rerender shop'
-          );
+          console.log('[modal] return to shop without modal, rerender shop');
           modalWasOpenOnShop = false;
           modalSavedScrollTop = 0;
           renderShop();
