@@ -954,7 +954,6 @@ window.closeModal = function () {
     modalRoot.innerHTML = '';
   }
 
-  modalState = 'closed';
   modalAllQueue = [];
   modalProductQueue = [];
   modalAllIndex = 0;
@@ -962,6 +961,8 @@ window.closeModal = function () {
 
   // Пытаемся разморозить глобальный прогрев, только если модальные задачи уже были завершены
   finishModalWarmupAndResumeGlobal();
+
+  modalState = 'closed';
 
   if (!preloadRunning) {
     runPreloadLoop();
