@@ -7,10 +7,31 @@ try {
   console.log('[core] tg init error', e);
 }
 
-const API_URL =
-  'https://script.google.com/macros/s/AKfycbwfRw08FCPtLlcCUOdRCMKnK9lOZZ3pqoz-bXIcix8xOEUf15lbikeey6vGkobw3FCdIw/exec';
-const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
-const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
+const BACKEND_BASE_URL  = 'https://tg-shop-test-backend.onrender.com';
+const ORDERS_API_URL    = BACKEND_BASE_URL + '/orders';
+const BACKEND_ORDER_URL = BACKEND_BASE_URL + '/order';
+
+let APP_CONFIG = {
+  products_api_url: '',
+};
+
+async function loadAppConfig() {
+  try {
+    const resp = await fetch(BACKEND_BASE_URL + '/config');
+    if (!resp.ok) throw new Error('config status ' + resp.status);
+    const data = await resp.json();
+    if (data && typeof data === 'object') {
+      Object.assign(APP_CONFIG, data);
+    }
+    console.log('[config] loaded', APP_CONFIG);
+  } catch (e) {
+    console.warn('[config] failed, using defaults', e);
+  }
+}
+
+function getApiUrl() {
+  return APP_CONFIG.products_api_url;
+}
 
 const isMobileDevice =
   (navigator.userAgentData && navigator.userAgentData.mobile) ||
@@ -997,7 +1018,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
   }
 
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch(getApiUrl());
     logStage('products fetch', t0);
     console.log('[core] products response status', response.status);
 
@@ -1447,6 +1468,8 @@ async function initApp() {
 
     loadPersistentImageCache();
 
+    await loadAppConfig();
+    logStage('after load config', t0);
     await fetchAndUpdateProducts(true);
     logStage('after fetchAndUpdateProducts', t0);
 
