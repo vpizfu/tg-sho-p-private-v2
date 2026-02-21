@@ -37,6 +37,7 @@ const EXCLUDE_FILTER_FIELDS = new Set([
   'Статус',
   'Общая картинка',
   'Изображения',
+  'Входная цена',
   'images'
 ]);
 
