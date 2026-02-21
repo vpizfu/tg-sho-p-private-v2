@@ -1215,6 +1215,14 @@ function setupHandlers() {
 // ---------- карусели на карточках ----------
 
 function setupImageCarousels() {
+  Object.keys(window)
+  .filter(k =>
+    k.startsWith('carouselNext_') ||
+    k.startsWith('carouselPrev_') ||
+    k.startsWith('carouselGoTo_')
+  )
+  .forEach(k => delete window[k]);
+  
   document
     .querySelectorAll('.image-carousel-inner[data-carousel]')
     .forEach(inner => {

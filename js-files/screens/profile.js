@@ -141,9 +141,7 @@ function showProfileTab() {
               '<span class="flex-1 text-xs text-gray-700 break-words">' +
                 escapeHtml(addr) +
               '</span>' +
-              '<button class="text-xs text-red-500 shrink-0" onclick="removeAddress(' +
-                idx +
-              ')">Удалить</button>' +
+              '<button class="text-xs text-red-500 shrink-0" onclick="removeAddress(\'' + escapeHtml(addr) + '\')">Удалить</button>' +
             '</div>'
         )
         .join('')
@@ -255,6 +253,10 @@ window.addAddress = function () {
     tg?.showAlert?.('Введите адрес');
     return;
   }
+  if (savedAddresses.includes(val)) {
+    tg?.showAlert?.('Этот адрес уже сохранён');
+    return;
+  }
   savedAddresses.push(val);
   saveAddressesToStorage();
   ta.value = '';
@@ -263,12 +265,10 @@ window.addAddress = function () {
   }
 };
 
-window.removeAddress = function (index) {
-  savedAddresses.splice(index, 1);
+window.removeAddress = function (addr) {
+  savedAddresses = savedAddresses.filter(a => a !== String(addr));
   saveAddressesToStorage();
-  if (currentTab === 'profile') {
-    showProfileTab();
-  }
+  if (currentTab === 'profile') showProfileTab();
 };
 
 window.saveProfileContacts = function () {

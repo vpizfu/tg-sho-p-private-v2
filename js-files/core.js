@@ -123,8 +123,7 @@ const modal = document.getElementById('productModal');
 let globalWarmupState = 'idle';
 
 // Максимум параллельных фоновых загрузок для глобального прогрева
-const GLOBAL_MAX_PARALLEL = 2;
-let globalActiveLoads = 0;
+const GLOBAL_MAX_PARALLEL = 3;
 
 
 let modalState = 'closed';
@@ -195,119 +194,98 @@ async function runPreloadLoop() {
   globalPreloadStop = false;
 
   try {
-    while (true) {
-      if (globalPreloadStop) {
-        console.warn('[global-preload] forced stop flag, break loop');
-        break;
-      }
-
-      console.log(
-        '[global-preload] loop tick, state =',
-        globalWarmupState,
-        'modalState =',
-        modalState
+    // фаза main
+    if (globalWarmupState === 'main' && globalMainQueue.length) {
+      await runParallelPreload(
+        globalMainQueue,
+        GLOBAL_MAX_PARALLEL,
+        'main',
+        () => globalPreloadStop || globalWarmupState === 'paused'
       );
 
-      // базовая пауза каждый тик — защита от горячего цикла
-      await new Promise(r => setTimeout(r, 0));
+      if (globalPreloadStop) return;
 
-      // если глобальный прогрев на паузе и у модалки ещё есть что грузить — ждём
-// Глобалка ПАУЗИТСЯ ТОЛЬКО при активном прогреве модалки
-if (globalWarmupState === 'paused' && 
-  (modalState === 'warmingModal' || modalState === 'warmingProduct')) {
-await new Promise(r => setTimeout(r, 200));
-continue;
-}
-
-// 'warmed' = модалка открыта, но прогрев завершён → РАЗМОРАЖИВАЕМ
-if (globalWarmupState === 'paused' && modalState === 'warmed') {
-globalWarmupState = globalPhaseBeforePause || 'main';
-console.log('[global-preload] modal warmed → resume global');
-continue;
-}
-
-      if (globalWarmupState === 'main') {
-        // очередь закончилась — переключаемся на other
-        if (!globalMainQueue.length || globalMainIndex >= globalMainQueue.length) {
-          console.log('[global-preload] main finished, switch to other');
-          globalWarmupState = 'other';
-          continue;
-        }
-
-        // если параллельных загрузок уже достаточно — ждём, НЕ двигая индекс
-        if (globalActiveLoads >= GLOBAL_MAX_PARALLEL) {
-          await new Promise(r => setTimeout(r, 50));
-          continue;
-        }
-
-        const url = globalMainQueue[globalMainIndex++];
-        console.log(
-          '[global-preload] main image',
-          globalMainIndex,
-          '/',
-          globalMainQueue.length,
-          url
-        );
-
-        globalActiveLoads++;
-        try {
-          await preloadOneImage(url);
-        } catch (e) {
-          console.warn('[global-preload] error in preloadOneImage (main)', e);
-        } finally {
-          globalActiveLoads = Math.max(0, globalActiveLoads - 1);
-        }
-
-        continue;
+      // ждём если глобалка на паузе (открыта модалка)
+      while (globalWarmupState === 'paused') {
+        await new Promise(r => setTimeout(r, 200));
+        if (globalPreloadStop) return;
       }
 
-      if (globalWarmupState === 'other') {
-        if (!globalOtherQueue.length || globalOtherIndex >= globalOtherQueue.length) {
-          console.log('[global-preload] other finished, set done');
-          globalWarmupState = 'done';
-          continue;
-        }
-
-        if (globalActiveLoads >= GLOBAL_MAX_PARALLEL) {
-          await new Promise(r => setTimeout(r, 50));
-          continue;
-        }
-
-        const url = globalOtherQueue[globalOtherIndex++];
-        console.log(
-          '[global-preload] other image',
-          globalOtherIndex,
-          '/',
-          globalOtherQueue.length,
-          url
-        );
-
-        globalActiveLoads++;
-        try {
-          await preloadOneImage(url);
-        } catch (e) {
-          console.warn('[global-preload] error in preloadOneImage (other)', e);
-        } finally {
-          globalActiveLoads = Math.max(0, globalActiveLoads - 1);
-        }
-
-        continue;
-      }
-
-      // done или idle — нечего делать, просто спим подольше
-// В runPreloadLoop(), блок "done/idle":
-// ✅ ПРАВИЛЬНО: break вместо return
-if (globalWarmupState === 'done' || globalWarmupState === 'idle') {
-  console.log('[global-preload] COMPLETELY DONE, stopping loop');
-  break;  // 🛑 ВЫХОД ИЗ WHILE
-}
-
+      globalWarmupState = 'other';
     }
+
+    // ждём снятия паузы если вошли уже в паузе
+    while (globalWarmupState === 'paused') {
+      await new Promise(r => setTimeout(r, 200));
+      if (globalPreloadStop) return;
+    }
+
+    // фаза other
+    if (globalWarmupState === 'other' && globalOtherQueue.length) {
+      await runParallelPreload(
+        globalOtherQueue,
+        GLOBAL_MAX_PARALLEL,
+        'other',
+        () => globalPreloadStop || globalWarmupState === 'paused'
+      );
+
+      if (globalPreloadStop) return;
+
+      // ждём снятия паузы если модалка открылась во время other
+      while (globalWarmupState === 'paused') {
+        await new Promise(r => setTimeout(r, 200));
+        if (globalPreloadStop) return;
+      }
+    }
+
+    globalWarmupState = 'done';
+    console.log('[global-preload] COMPLETELY DONE');
+
   } catch (e) {
     console.error('[global-preload] fatal error in runPreloadLoop', e);
   } finally {
     preloadRunning = false;
   }
+}
+
+async function runParallelPreload(queue, maxParallel, label, shouldPause) {
+  let index = 0;
+
+  async function worker(workerId) {
+    while (index < queue.length) {
+      // пауза — ждём снятия
+      while (shouldPause()) {
+        await new Promise(r => setTimeout(r, 200));
+      }
+
+      // перепроверяем после паузы — вдруг очередь уже прошли
+      if (index >= queue.length) break;
+
+      const url = queue[index++];
+
+      if (!url) continue;
+
+      console.log(
+        '[global-preload]', label,
+        'worker', workerId,
+        'loading', index, '/', queue.length, url
+      );
+
+      try {
+        await preloadOneImage(url);
+      } catch (e) {
+        console.warn('[global-preload] error', label, url, e);
+      }
+    }
+  }
+
+  // запускаем maxParallel воркеров одновременно
+  const workers = Array.from(
+    { length: Math.min(maxParallel, queue.length) },
+    (_, i) => worker(i)
+  );
+
+  await Promise.all(workers);
 }
 
 function stopGlobalPreload() {
@@ -340,6 +318,38 @@ function initGlobalWarmupQueues() {
   } else {
     globalWarmupState = 'done';
   }
+}
+
+function buildShimmerHTML() {
+  return (
+    '<div class="pb-[65px] max-w-md mx-auto">' +
+    '<div class="mb-5">' +
+    '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
+    '<div class="flex items-center gap-3">' +
+    '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
+    '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
+    '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+    '</div>' +
+    '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
+    '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
+    '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '<div class="product-grid">' +
+    Array.from({ length: 6 }).map(() =>
+      '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
+      '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
+      '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
+      '</div>' +
+      '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+      '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+      '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
+      '</div>'
+    ).join('') +
+    '</div>' +
+    '</div>'
+  );
 }
 
 // публичный старт прогрева после загрузки товаров
@@ -888,34 +898,7 @@ function switchTab(tabName) {
         
           if (!productsData) {
             // товары ещё не загружены — показываем шиммер
-            root.innerHTML =
-              '<div class="pb-[65px] max-w-md mx-auto">' +
-              '<div class="mb-5">' +
-              '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
-              '<div class="flex items-center gap-3">' +
-              '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
-              '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-              '</div>' +
-              '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
-              '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
-              '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-              '</div>' +
-              '</div>' +
-              '</div>' +
-              '<div class="product-grid">' +
-              Array.from({ length: 6 }).map(() =>
-                '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
-                '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
-                '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
-                '</div>' +
-                '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
-                '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
-                '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
-                '</div>'
-              ).join('') +
-              '</div>' +
-              '</div>';
+            root.innerHTML = buildShimmerHTML();
           } else {
             renderShop();
             restoreTabScroll('shop');
@@ -1023,37 +1006,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
   );
 
   if (showLoader && currentTab === 'shop') {
-    root.innerHTML =
-      '<div class="pb-[65px] max-w-md mx-auto">' +
-      '<div class="mb-5">' +
-      '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
-      '<div class="flex items-center gap-3">' +
-      '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
-      '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
-      '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-      '</div>' +
-      '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
-      '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
-      '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '<div class="product-grid">' +
-      Array.from({ length: 6 })
-        .map(
-          () =>
-            '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
-            '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
-            '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
-            '</div>' +
-            '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
-            '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
-            '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
-            '</div>'
-        )
-        .join('') +
-      '</div>' +
-      '</div>';
+    root.innerHTML = buildShimmerHTML();
   }
 
   try {
@@ -1501,34 +1454,7 @@ async function initApp() {
     logStage('after initTabBar', t0);
 
     if (currentTab === 'shop') {
-      root.innerHTML =
-        '<div class="pb-[65px] max-w-md mx-auto">' +
-        '<div class="mb-5">' +
-        '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
-        '<div class="flex items-center gap-3">' +
-        '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
-        '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
-        '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-        '</div>' +
-        '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
-        '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
-        '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-        '</div>' +
-        '</div>' +
-        '</div>' +
-        '<div class="product-grid">' +
-        Array.from({ length: 6 }).map(() =>
-          '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
-          '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
-          '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
-          '</div>' +
-          '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
-          '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
-          '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
-          '</div>'
-        ).join('') +
-        '</div>' +
-        '</div>';
+      root.innerHTML = buildShimmerHTML();
     }
 
     loadOrdersFromStorage();
