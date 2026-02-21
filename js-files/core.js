@@ -969,7 +969,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
     console.log('[core] products response status', response.status);
 
     if (!response.ok) throw new Error('HTTP ' + response.status);
-    
+
     const products = await response.json();
     logStage('products json parse', t0);
     console.log(
@@ -1004,7 +1004,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
         '</div>' +
         '<h2 class="text-xl font-bold text-gray-800 mb-2">Не удалось загрузить товары</h2>' +
         '<p class="text-sm text-gray-500 mb-4 max-w-xs">' +
-        'Проверьте соединение и попробуйте обновить список товаров.' +
+        'Попробуйте обновить список товаров, возможно проблема с интернет соединением или первая загрузка' +
         '</p>' +
         '<button onclick="refreshProducts()"' +
         ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +
