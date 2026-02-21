@@ -13,6 +13,30 @@ function updateCartBadge() {
   console.log('[cart] updateCartBadge count =', count);
 }
 
+// Поля исключённые из ключа корзины — нестабильные или служебные
+const CART_KEY_EXCLUDE = new Set([
+  'id', 'Артикул', 'Цена', 'Входная цена',
+  'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
+  'cat', 'Категория'
+]);
+
+function buildCartKey(product) {
+  const entries = Object.keys(product)
+    .filter(k => !CART_KEY_EXCLUDE.has(k))
+    .sort()
+    .map(k => k + '=' + String(product[k] ?? '').trim().toLowerCase());
+
+  const raw = entries.join('||');
+
+  // djb2 хэш — работает без crypto API
+  let hash = 5381;
+  for (let i = 0; i < raw.length; i++) {
+    hash = ((hash << 5) + hash) ^ raw.charCodeAt(i);
+    hash = hash >>> 0;
+  }
+  return 'ck_' + hash.toString(36);
+}
+
 function resetCartStateAfterOrder() {
   cartItems = [];
   saveCartToStorage();
@@ -43,22 +67,25 @@ function addToCart(variant, quantity) {
   }
 
   const freshVariant = productsData.find(p => p.id === variant.id) || variant;
+  const cartKey = buildCartKey(freshVariant);
 
-  const existing = cartItems.find(item => item.id === freshVariant.id);
+  const existing = cartItems.find(item => item.cartKey === cartKey);
   if (existing) {
     existing.quantity = Math.min(existing.quantity + quantity, 100);
   } else {
-    const base = {
-      id: freshVariant.id,
-      name: freshVariant['Название'],
-      price: freshVariant['Цена'],
-      cat: freshVariant.cat,
+    cartItems.push({
+      cartKey,
+      name:     freshVariant['Название'],
+      price:    freshVariant['Цена'],
+      cat:      freshVariant.cat || '',
       quantity,
       available: true,
-      raw: freshVariant
-    };    
-
-    cartItems.push(base);
+      options: Object.fromEntries(
+        Object.keys(freshVariant)
+          .filter(k => !CART_KEY_EXCLUDE.has(k))
+          .map(k => [k, freshVariant[k]])
+      )
+    });
   }
 
   saveCartToStorage();
@@ -66,14 +93,14 @@ function addToCart(variant, quantity) {
   tg?.HapticFeedback?.notificationOccurred('success');
 }
 
-window.changeCartItemQuantity = function (index, delta) {
-  const item = cartItems[index];
+window.changeCartItemQuantity = function (cartKey, delta) {
+  const item = cartItems.find(i => i.cartKey === cartKey);
   if (!item) return;
   let q = item.quantity + delta;
   if (q < 1) q = 1;
   if (q > 100) q = 100;
   item.quantity = q;
-  console.log('[cart] changeCartItemQuantity index=', index, 'quantity=', q);
+  console.log('[cart] changeCartItemQuantity cartKey=', cartKey, 'quantity=', q);
   saveCartToStorage();
   updateCartBadge();
   if (currentTab === 'cart') {
@@ -81,9 +108,9 @@ window.changeCartItemQuantity = function (index, delta) {
   }
 };
 
-window.removeCartItem = function (index) {
-  console.log('[cart] removeCartItem index=', index);
-  cartItems.splice(index, 1);
+window.removeCartItem = function (cartKey) {
+  console.log('[cart] removeCartItem cartKey=', cartKey);
+  cartItems = cartItems.filter(i => i.cartKey !== cartKey);
   saveCartToStorage();
   updateCartBadge();
   if (currentTab === 'cart') {
@@ -92,10 +119,10 @@ window.removeCartItem = function (index) {
 };
 
 // обновление цены одной позиции
-window.updateCartItemPrice = function (index) {
-  const item = cartItems[index];
+window.updateCartItemPrice = function (cartKey) {
+  const item = cartItems.find(i => i.cartKey === cartKey);
   if (!item || !item.newPrice) return;
-  console.log('[cart] updateCartItemPrice index=', index, 'old=', item.price, 'new=', item.newPrice);
+  console.log('[cart] updateCartItemPrice cartKey=', cartKey, 'old=', item.price, 'new=', item.newPrice);
   item.price = item.newPrice;
   item.available = true;
   delete item.newPrice;
@@ -138,36 +165,36 @@ window.refreshCartPricesAndCleanup = async function () {
     const removedItems = [];
     const changedItems = [];
 
+    const productByKey = new Map(
+      productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
+    );
+    
     cartItems = cartItems.map(item => {
-      const fresh = productsData.find(p => p.id === item.id && p.inStock);
-
-      // нет такого товара → считаем недоступным и удаляем
+      const fresh = productByKey.get(item.cartKey);
+    
       if (!fresh) {
         removedCount++;
         removedItems.push({ ...item });
         return { ...item, available: false, deleted: true };
       }
-
+    
       const freshPrice = Number(fresh['Цена']);
-      const oldPrice = Number(item.price);
-
-      // цена стала некорректной/нулевой → тоже недоступен
+      const oldPrice   = Number(item.price);
+    
       if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
         removedCount++;
         removedItems.push({ ...item });
         return { ...item, available: false, deleted: true };
       }
-
-      // нормальная цена изменилась
+    
       if (freshPrice !== oldPrice) {
         changedCount++;
         changedItems.push({ ...item, newPrice: freshPrice });
         return { ...item, available: false, newPrice: freshPrice, deleted: false };
       }
-
-      // всё ок
+    
       return { ...item, available: true, newPrice: undefined, deleted: false };
-    });
+    });    
 
     cartItems = cartItems.filter(i => !i.deleted);
 
@@ -347,16 +374,10 @@ window.onSavedAddressChange = function () {
 };
 
 function getCartItemSubtitle(item) {
-  if (!item.raw || typeof item.raw !== 'object') return '';
-
-  const raw = item.raw;
-
-  const parts = Object.keys(raw)
-    .filter(key => !EXCLUDE_FILTER_FIELDS.has(key))
-    .map(key => raw[key])
-    .filter(v => v !== undefined && v !== null && String(v).trim() !== '');
-
-  return parts.join(' | ');
+  if (!item.options || typeof item.options !== 'object') return '';
+  return Object.values(item.options)
+    .filter(v => v !== undefined && v !== null && String(v).trim() !== '')
+    .join(' | ');
 }
 
 function showCartTab() {
@@ -434,14 +455,14 @@ function showCartTab() {
                   '<div class="flex items-center justify-end gap-2">' +
                     '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
                       ' onclick="changeCartItemQuantity(' +
-                      idx +
+                      item.cartKey +
                       ', -1)">-</button>' +
                     '<span class="min-w-[24px] text-center text-sm font-semibold">' +
                       item.quantity +
                     '</span>' +
                     '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
                       ' onclick="changeCartItemQuantity(' +
-                      idx +
+                      item.cartKey +
                       ', 1)">+</button>' +
                   '</div>' +
                   '<div class="text-sm font-bold text-blue-600">RUB ' +
@@ -449,11 +470,11 @@ function showCartTab() {
                   '</div>' +
                   (item.newPrice
                     ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(' +
-                      idx +
+                    item.cartKey +
                       ')">Обновить цену</button>'
                     : '') +
                   '<button class="text-xs text-red-500" onclick="removeCartItem(' +
-                    idx +
+                    iditem.cartKeyx +
                     ')">Удалить</button>' +
                 '</div>' +
               '</div>'
@@ -809,8 +830,12 @@ window.placeOrder = async function () {
     let hasUnavailable = false;
     let hasPriceChanged = false;
 
+    const productByKeyForOrder = new Map(
+      productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
+    );
+    
     cartItems = cartItems.map(item => {
-      const fresh = productsData.find(p => p.id === item.id && p.inStock);
+      const fresh = productByKeyForOrder.get(item.cartKey);
 
       if (!fresh) {
         hasUnavailable = true;

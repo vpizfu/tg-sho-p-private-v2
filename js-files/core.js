@@ -529,6 +529,14 @@ function loadCartFromStorage() {
   try {
     const raw = localStorage.getItem('cartItems');
     cartItems = raw ? JSON.parse(raw) : [];
+
+    // миграция: старые записи без cartKey восстановить невозможно — дропаем
+    const before = cartItems.length;
+    cartItems = cartItems.filter(item => !!item.cartKey);
+    if (cartItems.length !== before) {
+      console.log('[cart] migration: dropped', before - cartItems.length, 'legacy items without cartKey');
+      saveCartToStorage();
+    }
   } catch (e) {
     console.log('[core] loadCartFromStorage error', e);
     cartItems = [];
@@ -946,11 +954,32 @@ function switchTab(tabName) {
 
 function syncCartWithProducts() {
   if (!productsData) return;
+
+  const productByKey = new Map(
+    productsData.map(p => [buildCartKey(p), p])
+  );
+
   cartItems = cartItems.map(item => {
-    const exists = productsData.some(p => p.id === item.id && p.inStock);
-    return { ...item, available: exists };
+    const product = productByKey.get(item.cartKey);
+
+    if (!product || !product.inStock) {
+      return { ...item, available: false };
+    }
+
+    const freshPrice = Number(product['Цена']);
+    if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
+      return { ...item, available: false };
+    }
+
+    return {
+      ...item,
+      available:  true,
+      name:       product['Название'],
+      price:      freshPrice,
+      newPrice:   undefined
+    };
   });
-  console.log('[core] syncCartWithProducts result', cartItems);
+
   saveCartToStorage();
   updateCartBadge();
 }
