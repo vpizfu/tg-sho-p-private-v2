@@ -970,6 +970,8 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     if (!response.ok) throw new Error('HTTP ' + response.status);
 
+    const response_json = await response.json();
+    console.log(response_json)
     const products = await response.json();
     logStage('products json parse', t0);
     console.log(
