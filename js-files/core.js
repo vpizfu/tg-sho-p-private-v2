@@ -1461,15 +1461,6 @@ async function initApp() {
     initTabBar();
     logStage('after initTabBar', t0);
 
-    loadOrdersFromStorage();
-    loadAddressesFromStorage();
-    loadProfileFromStorage();
-    loadCartFromStorage();
-    loadDeliveryPrefs();
-    logStage('after localStorage', t0);
-
-    loadPersistentImageCache();
-
     if (currentTab === 'shop') {
       root.innerHTML =
         '<div class="pb-[65px] max-w-md mx-auto">' +
@@ -1500,6 +1491,15 @@ async function initApp() {
         '</div>' +
         '</div>';
     }
+
+    loadOrdersFromStorage();
+    loadAddressesFromStorage();
+    loadProfileFromStorage();
+    loadCartFromStorage();
+    loadDeliveryPrefs();
+    logStage('after localStorage', t0);
+
+    loadPersistentImageCache();
 
     await loadAppConfig();
     logStage('after load config', t0);
