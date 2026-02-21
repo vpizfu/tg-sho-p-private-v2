@@ -453,29 +453,25 @@ function showCartTab() {
                 '</div>' +
                 '<div class="text-right flex flex-col items-end gap-1">' +
                   '<div class="flex items-center justify-end gap-2">' +
-                    '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
-                      ' onclick="changeCartItemQuantity(' +
-                      item.cartKey +
-                      ', -1)">-</button>' +
-                    '<span class="min-w-[24px] text-center text-sm font-semibold">' +
-                      item.quantity +
-                    '</span>' +
-                    '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
-                      ' onclick="changeCartItemQuantity(' +
-                      item.cartKey +
-                      ', 1)">+</button>' +
-                  '</div>' +
-                  '<div class="text-sm font-bold text-blue-600">RUB ' +
-                    item.price * item.quantity +
-                  '</div>' +
-                  (item.newPrice
-                    ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(' +
-                    item.cartKey +
-                      ')">Обновить цену</button>'
-                    : '') +
-                  '<button class="text-xs text-red-500" onclick="removeCartItem(' +
-                    item.cartKeyx +
-                    ')">Удалить</button>' +
+  '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
+    ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', -1)">-</button>' +
+  '<span class="min-w-[24px] text-center text-sm font-semibold">' +
+    item.quantity +
+  '</span>' +
+  '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
+    ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
+'</div>' +
+'<div class="text-sm font-bold text-blue-600">RUB ' +
+  item.price * item.quantity +
+'</div>' +
+(item.newPrice
+  ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(\'' +
+      item.cartKey +
+    '\')">Обновить цену</button>'
+  : '') +
+'<button class="text-xs text-red-500" onclick="removeCartItem(\'' +
+  item.cartKey +
+'\')">Удалить</button>' +
                 '</div>' +
               '</div>'
           )

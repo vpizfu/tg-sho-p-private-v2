@@ -971,12 +971,22 @@ function syncCartWithProducts() {
       return { ...item, available: false };
     }
 
+    // цена изменилась → помечаем как недоступный с newPrice
+    if (freshPrice !== Number(item.price)) {
+      return {
+        ...item,
+        available: false,
+        newPrice:  freshPrice,
+        name:      product['Название']
+      };
+    }
+
+    // всё ок
     return {
       ...item,
-      available:  true,
-      name:       product['Название'],
-      price:      freshPrice,
-      newPrice:   undefined
+      available: true,
+      newPrice:  undefined,
+      name:      product['Название']
     };
   });
 
