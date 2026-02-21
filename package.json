@@ -1,5 +1,10 @@
 {
-    "scripts": {
-      "bump": "node bump-version.mjs && node build-version.mjs"
-    }
+  "scripts": {
+    "bump": "node bump-version.mjs && node build-version.mjs",
+    "build": "node bump-version.mjs && node build-version.mjs && node obfuscate.js"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^5.3.0"
   }
+}
+
