@@ -8,7 +8,7 @@ try {
 }
 
 const API_URL =
-  'https://script.google.com/macros/s/AKfycbxnVkmDa22Hhsl6nYX6y-UhIspfiZOomxOzJUIG4joUkpedGCXxoRgqVbBg_sXp86QBpA/exec';
+  'https://script.google.com/macros/s/AKfycbwfRw08FCPtLlcCUOdRCMKnK9lOZZ3pqoz-bXIcix8xOEUf15lbikeey6vGkobw3FCdIw/exec';
 const ORDERS_API_URL = 'https://tg-shop-test-backend.onrender.com/orders';
 const BACKEND_ORDER_URL = 'https://tg-shop-test-backend.onrender.com/order';
 
@@ -969,10 +969,8 @@ async function fetchAndUpdateProducts(showLoader = false) {
     console.log('[core] products response status', response.status);
 
     if (!response.ok) throw new Error('HTTP ' + response.status);
-
-    const response_json = await response.json();
-    console.log(response_json)
-    const products = response_json
+    
+    const products = await response.json();
     logStage('products json parse', t0);
     console.log(
       '[core] products count',
