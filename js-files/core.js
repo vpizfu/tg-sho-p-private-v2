@@ -972,7 +972,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     const response_json = await response.json();
     console.log(response_json)
-    const products = await response.json();
+    const products = response_json
     logStage('products json parse', t0);
     console.log(
       '[core] products count',
