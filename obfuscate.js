@@ -10,26 +10,25 @@ const OPTIONS = {
   shuffleStringArray: true,
 };
 
-const FILES = [
-  'js-files/core.js',
-  'js-files/products.js',
-  'js-files/modals.js',
-  'js-files/ui_common.js',
-  'js-files/screens/cart.js',
-  'js-files/screens/sale.js',
-  'js-files/screens/profile.js',
-  'js-files/screens/about.js',
-];
+function getJsFiles(dir) {
+  const results = [];
+  fs.readdirSync(dir).forEach(file => {
+    const fullPath = path.join(dir, file);
+    if (fs.statSync(fullPath).isDirectory()) {
+      results.push(...getJsFiles(fullPath));
+    } else if (file.endsWith('.js')) {
+      results.push(fullPath);
+    }
+  });
+  return results;
+}
+
+const FILES = getJsFiles('js-files');
 
 FILES.forEach(filePath => {
-  const fullPath = path.resolve(filePath);
-  if (!fs.existsSync(fullPath)) {
-    console.warn('[obfuscate] not found:', filePath);
-    return;
-  }
-  const source = fs.readFileSync(fullPath, 'utf8');
+  const source = fs.readFileSync(filePath, 'utf8');
   const result = JavaScriptObfuscator.obfuscate(source, OPTIONS);
-  fs.writeFileSync(fullPath, result.getObfuscatedCode(), 'utf8');
+  fs.writeFileSync(filePath, result.getObfuscatedCode(), 'utf8');
   console.log('[obfuscate] done:', filePath);
 });
 
