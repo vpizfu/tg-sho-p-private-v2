@@ -892,7 +892,7 @@ function renderShop() {
   const categories = getCategoriesFromProducts();
   if (!productsData || productsData.length === 0) {
     root.innerHTML =
-      '<div class="flex flex-col items-center justify-center min-h-[70vh] text_center p-8 pb-[65px] max-w-md mx-auto">' +
+      '<div class="flex flex-col items-center justify-center min-h-[70vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
       '<div class="w-24 h-24 bg-gray-100 rounded-3xl flex items-center justify-center mb-4">' +
       '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
       '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
@@ -902,7 +902,7 @@ function renderShop() {
       '</svg>' +
       '</div>' +
       '<h2 class="text-xl font-bold text-gray-800 mb-2">Нет товаров</h2>' +
-      '<p class="text-sm text-gray-500 mb-4 max-w-xs">Попробуйте обновить список товаров, возможно проблема с интернет соединением или первая загрузка</p>' +
+      '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">Проверьте соединение и попробуйте обновить список товаров.</p>' +
       '<button onclick="refreshProducts()"' +
       ' class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg  text-sm">' +
       'Обновить товары' +
