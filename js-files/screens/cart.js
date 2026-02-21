@@ -474,7 +474,7 @@ function showCartTab() {
                       ')">Обновить цену</button>'
                     : '') +
                   '<button class="text-xs text-red-500" onclick="removeCartItem(' +
-                    iditem.cartKeyx +
+                    item.cartKeyx +
                     ')">Удалить</button>' +
                 '</div>' +
               '</div>'
