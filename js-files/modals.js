@@ -3,6 +3,7 @@
 let modalCurrentIndex = 0;
 let modalImageCount = 0;
 let modalImageIndexBeforeFullscreen = 0;
+let modalWarmupPaused = false;
 
 let modalTouchStartX = 0;
 let modalTouchStartY = 0;
@@ -426,6 +427,9 @@ function renderProductModal(product) {
     const currentSessionId = modalSessionId;
     modalPendingImages = 0;
 
+    modalWarmupPaused = true;
+    console.log('[modal-preload] buildSlides: pausing warmup, session=', currentSessionId);
+
     const slidesWrapper =
       document.getElementById('modalSlidesWrapper');
 
@@ -472,17 +476,20 @@ function renderProductModal(product) {
         ? INITIAL_FADE_MS
         : SWAP_FADE_MS;
 
-    if (!imagesToShow.length) {
-      slidesWrapper.innerHTML = makeSlide('', 'placeholder');
-      prevBtn.style.display = 'none';
-      nextBtn.style.display = 'none';
-
-      requestAnimationFrame(() => {
-        const slide = slidesWrapper.firstElementChild;
-        const layer = slide?.querySelector('.modal-photo');
-        applyFadeIn(layer, durationForThisBuild);
-      });
-    } else {
+        if (!imagesToShow.length) {
+          slidesWrapper.innerHTML = makeSlide('', 'placeholder');
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+        
+          modalWarmupPaused = false;
+          console.log('[modal-preload] no images to show, resuming warmup immediately, session=', currentSessionId);
+        
+          requestAnimationFrame(() => {
+            const slide = slidesWrapper.firstElementChild;
+            const layer = slide?.querySelector('.modal-photo');
+            applyFadeIn(layer, durationForThisBuild);
+          });
+        } else {
       slidesWrapper.innerHTML = imagesToShow
         .map(url => makeSlide(url, 'empty'))
         .join('');
@@ -504,19 +511,13 @@ function renderProductModal(product) {
           return;
         }
 
+        preloadedOnce.add(url);
+        console.log('[modal-preload] buildSlides: idx=', idx, 'loading url=', url);
+
         slide.innerHTML = makeSlideContent(url, 'photo');
         const img = slide.querySelector('img');
 
         modalPendingImages += 1;
-
-        function maybeResumeGlobalAfterModal() {
-          if (modalSessionId !== currentSessionId) return;
-          if (modalPendingImages > 0) return;
-
-          if (isModalWarmupFinished()) {
-            finishModalWarmupAndResumeGlobal();
-          }
-        }
 
         requestAnimationFrame(() => {
           applyFadeIn(img, durationForThisBuild);
@@ -524,34 +525,42 @@ function renderProductModal(product) {
 
         img.addEventListener('load', () => {
           if (modalSessionId !== currentSessionId) return;
-          modalPendingImages = Math.max(
-            0,
-            modalPendingImages - 1
-          );
-          maybeResumeGlobalAfterModal();
-        });
-
+          modalPendingImages = Math.max(0, modalPendingImages - 1);
+          console.log('[modal-preload] img loaded:', url, 'pending=', modalPendingImages);
+          if (modalPendingImages <= 0) {
+            console.log('[modal-preload] all product images loaded, resuming warmup, session=', currentSessionId);
+            modalWarmupPaused = false;
+            if (isModalWarmupFinished()) {
+              finishModalWarmupAndResumeGlobal();
+            }
+          }
+        });        
         img.addEventListener('error', () => {
           brokenImageMap.set(url, true);
           if (modalSessionId !== currentSessionId) return;
-
-          modalPendingImages = Math.max(
-            0,
-            modalPendingImages - 1
-          );
-
-          slide.innerHTML = makeSlideContent(
-            '',
-            'placeholder'
-          );
+          modalPendingImages = Math.max(0, modalPendingImages - 1);
+          console.log('[modal-preload] img error:', url, 'pending=', modalPendingImages);
+        
+          slide.innerHTML = makeSlideContent('', 'placeholder');
           const ph = slide.querySelector('.modal-photo');
           requestAnimationFrame(() => {
             applyFadeIn(ph, durationForThisBuild);
           });
-
-          maybeResumeGlobalAfterModal();
-        });
+        
+          if (modalPendingImages <= 0) {
+            console.log('[modal-preload] all product images settled (with errors), resuming warmup, session=', currentSessionId);
+            modalWarmupPaused = false;
+            if (isModalWarmupFinished()) {
+              finishModalWarmupAndResumeGlobal();
+            }
+          }
+        });        
       });
+
+      if (modalPendingImages === 0) {
+        console.log('[modal-preload] all images already cached or broken, resuming warmup immediately, session=', currentSessionId);
+        modalWarmupPaused = false;
+      }      
 
       modalCurrentIndex = 0;
 
@@ -913,8 +922,7 @@ function showModal(product) {
     if (!currentProduct) return;
 
     if (isCompleteSelection()) {
-      const productUrls = buildModalProductImages(currentProduct);
-      startModalWarmupProduct(productUrls);
+      console.log('[modal] all options selected, browser loads product images via <img src>');
     }
   };
 })();
@@ -958,6 +966,10 @@ window.closeModal = function () {
   modalProductQueue = [];
   modalAllIndex = 0;
   modalProductIndex = 0;
+
+  modalWarmupPaused = false;
+  console.log('[modal] closeModal: warmup paused flag reset');
+  
 
   // Пытаемся разморозить глобальный прогрев, только если модальные задачи уже были завершены
   finishModalWarmupAndResumeGlobal();

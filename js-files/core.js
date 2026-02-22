@@ -423,31 +423,19 @@ function isModalWarmupFinished() {
 async function runModalWarmupLoopOnce() {
   if (modalState === 'closed') {
     console.log('[modal-preload] ALREADY CLOSED, exit');
-    return;  // 🛑 РАННИЙ ВЫХОД
-  }
-
-  // сначала product
-  if (
-    modalState === 'warmingProduct' &&
-    modalProductQueue.length &&
-    modalProductIndex < modalProductQueue.length
-  ) {
-    const url = modalProductQueue[modalProductIndex++];
-    console.log('[modal-preload] product image', modalProductIndex, '/', modalProductQueue.length, url);
-    try {
-      await preloadOneImage(url);
-    } catch (_) {}
-
-    if (modalProductIndex >= modalProductQueue.length) {
-      console.log('[modal-preload] product queue done, switch to warmingModal');
-      modalState = 'warmingModal';
-    }
     return;
   }
 
-  // затем modal-all
+  // пауза пока грузятся картинки текущего товара
+  if (modalWarmupPaused) {
+    console.log('[modal-preload] PAUSED, waiting for product images...');
+    return;
+  }
+
+  // убрали warmingProduct — браузер сам грузит через <img src>
+  // сразу идём в modal-all
+
   if (
-    (modalState === 'warmingModal' || modalState === 'warmingProduct') &&
     modalAllQueue.length &&
     modalAllIndex < modalAllQueue.length
   ) {
@@ -455,21 +443,15 @@ async function runModalWarmupLoopOnce() {
     console.log('[modal-preload] all image', modalAllIndex, '/', modalAllQueue.length, url);
     try {
       await preloadOneImage(url);
-    } catch (_) {}
+    } catch (_) {
+      console.warn('[modal-preload] error loading', url);
+    }
     return;
   }
 
   console.log(
-    '[modal-preload] nothing to preload, modalState =',
-    modalState,
-    'allIndex=',
-    modalAllIndex,
-    '/',
-    modalAllQueue.length,
-    'prodIndex=',
-    modalProductIndex,
-    '/',
-    modalProductQueue.length
+    '[modal-preload] nothing to preload, modalState =', modalState,
+    'allIndex=', modalAllIndex, '/', modalAllQueue.length
   );
 }
 
@@ -1479,14 +1461,6 @@ async function initApp() {
 
     if (currentTab === 'shop') {
       renderShop();
-
-      setTimeout(() => {
-        try {
-          startBackgroundPreload();
-        } catch (e) {
-          console.error('[preload] init error', e);
-        }
-      }, 1000);
     } else if (currentTab === 'cart') {
       showCartTab();
     } else if (currentTab === 'sale') {
@@ -1496,6 +1470,15 @@ async function initApp() {
     } else if (currentTab === 'about') {
       showAboutTab();
     }
+    
+    // прогрев стартует всегда, независимо от таба
+    setTimeout(() => {
+      try {
+        startBackgroundPreload();
+      } catch (e) {
+        console.error('[preload] init error', e);
+      }
+    }, 1000);
     logStage('after initial tab render', t0);
 
     setInterval(() => {
