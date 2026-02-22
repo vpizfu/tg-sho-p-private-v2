@@ -499,10 +499,9 @@ function renderShopHeader(list, showCount) {
 
   return (
     '<div class="mb-5">' +
-      '<div class="flex items-center justify-center mb-4 gap-2">' +
-        '<span class="text-2xl">🛒</span>' +
-        '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-      '</div>' +
+'<div class="flex items-center justify-center mb-4 gap-2">' +
+  '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
+'</div>' +
       '<div class="flex items-center gap-3">' +
       /* дальше без изменений */
       '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
@@ -980,10 +979,9 @@ function renderShop() {
   root.innerHTML =
     '<div class="pb-[65px]">' +
     '<div class="mb-5">' +
-  '<div class="flex items-center justify-center mb-4 gap-2">' +
-    '<span class="text-2xl">🛒</span>' +
-    '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-  '</div>' +
+'<div class="flex items-center justify-center mb-4 gap-2">' +
+  '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
+'</div>' +
   '<div class="flex items-center gap-3">' +
   /* дальше текущий код с categorySelect + search */
     '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2 relative">' +
