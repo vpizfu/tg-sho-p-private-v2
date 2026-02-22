@@ -1448,6 +1448,24 @@ async function initApp() {
     loadDeliveryPrefs();
     logStage('after localStorage', t0);
 
+        // 🔥 ВАЛИДАЦИЯ ВЫБРАННОГО АДРЕСА
+        try {
+          const savedSet = new Set((savedAddresses || []).map(String));
+          if (!savedSet.has(deliveryPrefs.savedAddressValue)) {
+            if (deliveryPrefs.savedAddressValue) {
+              console.log(
+                '[deliveryPrefs] drop invalid savedAddressValue =',
+                deliveryPrefs.savedAddressValue
+              );
+            }
+            deliveryPrefs.savedAddressValue = '';
+            cartFormState.savedAddressValue = '';
+            saveDeliveryPrefs();
+          }
+        } catch (e) {
+          console.log('[deliveryPrefs] validate savedAddressValue error', e);
+        }
+
     loadPersistentImageCache();
 
     await loadAppConfig();

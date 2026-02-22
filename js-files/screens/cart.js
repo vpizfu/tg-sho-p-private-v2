@@ -309,7 +309,9 @@ function restoreCartFormState() {
     contactPhoneEl.value = cartFormState.contactPhone || '';
   }
   if (savedAddress) {
-    savedAddress.value = cartFormState.savedAddressValue || '';
+    const opts = Array.from(savedAddress.options).map(o => o.value);
+    const candidate = cartFormState.savedAddressValue || '';
+    savedAddress.value = opts.includes(candidate) ? candidate : '';
   }
   if (pickupLocationEl) {
     pickupLocationEl.value = cartFormState.pickupLocationValue || '';

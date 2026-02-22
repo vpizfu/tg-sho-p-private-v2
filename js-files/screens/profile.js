@@ -266,8 +266,19 @@ window.addAddress = function () {
 };
 
 window.removeAddress = function (addr) {
-  savedAddresses = savedAddresses.filter(a => a !== String(addr));
+  const addrStr = String(addr);
+  savedAddresses = savedAddresses.filter(a => a !== addrStr);
   saveAddressesToStorage();
+
+  // 🔥 Если выбранный адрес совпадает с удалённым — сбрасываем
+  if (deliveryPrefs && deliveryPrefs.savedAddressValue === addrStr) {
+    deliveryPrefs.savedAddressValue = '';
+  }
+  if (cartFormState && cartFormState.savedAddressValue === addrStr) {
+    cartFormState.savedAddressValue = '';
+  }
+  saveDeliveryPrefs();
+
   if (currentTab === 'profile') showProfileTab();
 };
 
