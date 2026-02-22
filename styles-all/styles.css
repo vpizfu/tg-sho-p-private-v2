@@ -1,5 +1,8 @@
-body {
+/* body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
+} */
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 /* Глобальный дефолтный курсор */
@@ -604,14 +607,15 @@ img,
 }
 
 .nav-logo {
-  font-size: 1.3rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-  color: #000000;      /* Tech — чёрный */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  color: #000000;      /* Tech */
   text-decoration: none;
   white-space: nowrap;
 }
 
 .nav-logo span {
-  color: #0071e3;      /* Bex — ровно как на сайте */
+  color: #0071e3;      /* Bex */
 }
