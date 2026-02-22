@@ -607,24 +607,11 @@ img,
   font-size: 1.3rem;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: #000000;           /* Tech — чёрный */
+  color: #000000;      /* Tech — чёрный */
   text-decoration: none;
   white-space: nowrap;
 }
 
 .nav-logo span {
-  color: #1d9bf0;           /* Bex — синий */
-}
-
-:root {
-  --text:   #000000;  /* чёрный */
-  --accent: #1d9bf0;  /* синий */
-}
-
-.nav-logo {
-  color: var(--text);
-}
-
-.nav-logo span {
-  color: var(--accent);
+  color: #0071e3;      /* Bex — ровно как на сайте */
 }
