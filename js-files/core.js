@@ -1157,6 +1157,7 @@ window.handleProductImageError = function (img, url) {
     delete img.dataset.loadTimeoutAttached;
 
     failedImageUrls.add(url);
+    preloadedOnce.add(url);
   } catch (e) {
     console.log('[images] handleProductImageError error', e);
   }
@@ -1172,6 +1173,7 @@ window.handleProductImageLoad = function (img, url) {
     const alreadyLoaded = loadedImageUrls.has(url);
     loadedImageUrls.add(url);
     failedImageUrls.delete(url);
+    preloadedOnce.add(url);
 
     if (img.dataset.loadTimeoutId) {
       clearTimeout(Number(img.dataset.loadTimeoutId));
