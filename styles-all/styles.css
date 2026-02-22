@@ -1,9 +1,9 @@
-/* body {
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
-} */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
+/* body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+} */
 
 /* Глобальный дефолтный курсор */
 * {
