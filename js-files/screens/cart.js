@@ -62,7 +62,7 @@ function resetCartStateAfterOrder() {
 function addToCart(variant, quantity) {
   console.log('[cart] addToCart', variant, quantity);
   if (!productsData) {
-    tg?.showAlert?.('Товары ещё не загружены, попробуйте позже');
+    tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
     return;
   }
 
@@ -156,7 +156,7 @@ window.refreshCartPricesAndCleanup = async function () {
     }
 
     if (!productsData) {
-      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже');
+      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
       return;
     }
 
@@ -729,7 +729,7 @@ window.placeOrder = async function () {
   console.log('[placeOrder] start at', orderClickTs, 'items=', cartItems.length);
 
   if (cartItems.length === 0) {
-    tg?.showAlert?.('Корзина пуста');
+    tg?.showAlert?.('Корзина пуста.\nДля заказа через менеджера напишите @TechBex.');
     return;
   }
 
@@ -805,7 +805,7 @@ window.placeOrder = async function () {
       showCartTab();
     }
     tg?.showAlert?.(
-      'Превышено время ожидания ответа сервера. Возможно большая нагрузка и заказ появится в профиле в течении 3 минут. Если не появился проверьте интернет и попробуйте ещё раз (либо сразу можете попробовать повторно оформить заказ)'
+      'Превышено время ожидания ответа сервера.\nДля заказа через менеджера напишите @TechBex.\nВозможно большая нагрузка и заказ появится в профиле в течении 3 минут. Если не появился проверьте интернет и попробуйте ещё раз (либо сразу можете попробовать повторно оформить заказ)'
     );
 
     scheduleDelayedOrdersSync('timeout');
@@ -819,7 +819,7 @@ window.placeOrder = async function () {
     }
 
     if (!productsData) {
-      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже');
+      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
       isPlacingOrder = false;
       setPlaceOrderLoading(false);
       return;
@@ -938,7 +938,7 @@ window.placeOrder = async function () {
       console.log('[placeOrder] BACKEND_ORDER_URL body:', text);
     } catch (e) {
       console.error('[placeOrder] backend order network error', e);
-      tg?.showAlert?.('Ошибка сети. Заказ не сохранён, попробуйте ещё раз.');
+      tg?.showAlert?.('Ошибка сети. Заказ не сохранён, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
 
       scheduleDelayedOrdersSync('network-error');
 
@@ -956,7 +956,7 @@ window.placeOrder = async function () {
 
     if (!resp.ok || !json || json.ok !== true) {
       console.log('[placeOrder] backend responded with error status:', resp.status, json);
-      tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.');
+      tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
 
       scheduleDelayedOrdersSync('server-error');
 
@@ -976,7 +976,7 @@ window.placeOrder = async function () {
     const durationMs = now - orderClickTs;
     console.log('[perf] placeOrder duration:', durationMs, 'ms');
 
-    tg?.showAlert?.('✅ Заказ оформлен!');
+    tg?.showAlert?.('✅ Заказ оформлен! Ожидайте подтверждение заказа от менеджера.');
 resetCartStateAfterOrder();
 
 isPlacingOrder = false;

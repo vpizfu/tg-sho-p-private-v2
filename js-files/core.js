@@ -500,7 +500,7 @@ window.onerror = function (message, source, lineno, colno, error) {
 
   try {
     tg?.showAlert?.(
-      'Произошла ошибка в приложении. Попробуйте обновить Mini App.'
+      'Произошла ошибка в приложении. Попробуйте обновить Mini App.\nДля заказа через менеджера напишите @TechBex.'
     );
   } catch (_) {}
 
@@ -1034,7 +1034,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
         '</div>' +
         '<h2 class="text-xl font-bold text-gray-800 mb-2">Не удалось загрузить товары</h2>' +
         '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">' +
-        'Проверьте соединение и попробуйте обновить список товаров.' +
+        'Проверьте соединение и попробуйте обновить список товаров.\nДля заказа через менеджера напишите @TechBex.' +
         '</p>' +
         '<button onclick="refreshProducts()"' +
         ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +

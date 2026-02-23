@@ -905,7 +905,7 @@ function renderShop() {
       '</svg>' +
       '</div>' +
       '<h2 class="text-xl font-bold text-gray-800 mb-2">Нет товаров</h2>' +
-      '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">Проверьте соединение и попробуйте обновить список товаров.</p>' +
+      '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">Проверьте соединение и попробуйте обновить список товаров.\nДля заказа через менеджера напишите @TechBex.</p>' +
       '<button onclick="refreshProducts()"' +
       ' class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg  text-sm">' +
       'Обновить товары' +

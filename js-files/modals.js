@@ -164,12 +164,12 @@ window.addToCartFromModal = async function () {
     if (sc2) sc2.scrollTop = prevScrollTop;
 
     if (!isCompleteSelection()) {
-      tg?.showAlert?.('❌ Выберите все опции');
+      tg?.showAlert?.('❌ Выберите все опции. Для заказа через менеджера напишите @TechBex.');
       return;
     }
 
     if (!productsData) {
-      tg?.showAlert?.('Товары не загрузились, попробуйте позже');
+      tg?.showAlert?.('Товары не загрузились, попробуйте позже. Для заказа через менеджера напишите @TechBex.');
       return;
     }
 
@@ -180,7 +180,7 @@ window.addToCartFromModal = async function () {
     );
 
     if (!variants.length) {
-      tg?.showAlert?.('❌ Нет доступных вариантов');
+      tg?.showAlert?.('❌ Нет доступных вариантов. Для заказа через менеджера напишите @TechBex.');
       return;
     }
 
@@ -191,7 +191,7 @@ window.addToCartFromModal = async function () {
 
     if (!Number.isFinite(price) || price <= 0) {
       tg?.showAlert?.(
-        '❌ Цена для этого товара не задана, попробуйте позже'
+        '❌ Цена для этого товара не задана, попробуйте позже. Для заказа через менеджера напишите @TechBex.'
       );
       return;
     }

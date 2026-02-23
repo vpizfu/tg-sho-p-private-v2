@@ -54,7 +54,7 @@
         '</button>' +
       '</div>';
   
-    tg?.showAlert?.('❌ ' + message);
+    tg?.showAlert?.('❌ ' + message + '\nДля заказа через менеджера напишите @TechBex.');
   }  
   
   // Бэкдроп модалки
