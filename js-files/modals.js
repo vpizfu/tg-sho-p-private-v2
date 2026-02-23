@@ -164,12 +164,12 @@ window.addToCartFromModal = async function () {
     if (sc2) sc2.scrollTop = prevScrollTop;
 
     if (!isCompleteSelection()) {
-      tg?.showAlert?.('❌ Выберите все опции. Для заказа через менеджера напишите @TechBex.');
+      tg?.showAlert?.('❌ Выберите все опции');
       return;
     }
 
     if (!productsData) {
-      tg?.showAlert?.('Товары не загрузились, попробуйте позже. Для заказа через менеджера напишите @TechBex.');
+      tg?.showAlert?.('Товары не загрузились, попробуйте позже');
       return;
     }
 
@@ -180,7 +180,7 @@ window.addToCartFromModal = async function () {
     );
 
     if (!variants.length) {
-      tg?.showAlert?.('❌ Нет доступных вариантов. Для заказа через менеджера напишите @TechBex.');
+      tg?.showAlert?.('❌ Нет доступных вариантов');
       return;
     }
 
@@ -191,7 +191,7 @@ window.addToCartFromModal = async function () {
 
     if (!Number.isFinite(price) || price <= 0) {
       tg?.showAlert?.(
-        '❌ Цена для этого товара не задана, попробуйте позже. Для заказа через менеджера напишите @TechBex.'
+        '❌ Цена для этого товара не задана, попробуйте позже'
       );
       return;
     }
@@ -379,6 +379,11 @@ function renderProductModal(product) {
   const imageHintEl = document.getElementById('modalImageHint');
   const prevBtn = document.getElementById('modalPrevBtn');
   const nextBtn = document.getElementById('modalNextBtn');
+
+  if (!carouselInner || !dotsRoot || !imageHintEl || !prevBtn || !nextBtn) {
+    console.warn('[modal] carousel elements not found, skip slides build');
+    return;
+  }  
 
   let imagesToShow = [];
   if (complete && filteredImages.length > 0) {
