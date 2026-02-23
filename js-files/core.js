@@ -1,23 +1,31 @@
 (function patchTelegramAlertFallback() {
-  if (!window.Telegram || !window.Telegram.WebApp) {
-    window.Telegram = {
-      WebApp: {
-        showAlert(message) {
-          window.alert(String(message));
-        }
-      }
+  // считаем, что это настоящий Mini App, только если есть initData
+  const isRealMiniApp =
+    !!window.Telegram &&
+    !!window.Telegram.WebApp &&
+    !!window.Telegram.WebApp.initData;
+
+  if (!isRealMiniApp) {
+    // Обычный браузер или тестовый стенд — всегда перезаписываем showAlert
+    if (!window.Telegram) window.Telegram = {};
+    if (!window.Telegram.WebApp) window.Telegram.WebApp = {};
+
+    window.Telegram.WebApp.showAlert = function (message) {
+      window.alert(String(message));
     };
     return;
   }
 
+  // Внутри настоящего Mini App — только подстраховка
   if (typeof window.Telegram.WebApp.showAlert !== 'function') {
     window.Telegram.WebApp.showAlert = function (message) {
       window.alert(String(message));
     };
   }
-})();  
+})();
 
 const tg = window.Telegram?.WebApp;
+
 try {
   tg?.ready();
   tg?.expand();
