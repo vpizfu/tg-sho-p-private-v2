@@ -16,33 +16,20 @@
   }
 
   const tgRaw = window.Telegram?.WebApp;
-  const isRealMiniApp = !!tgRaw && !!tgRaw.initData;
+  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
 
   if (!isRealMiniApp) {
+    // Браузер: создаём/гарантируем объект и показываем ТОЛЬКО box
     if (!window.Telegram) window.Telegram = {};
     if (!window.Telegram.WebApp) window.Telegram.WebApp = {};
 
     window.Telegram.WebApp.showAlert = function (message) {
-      const text = String(message);
-
-      try {
-        // если alert существует и не переопределён в пустую функцию — используем только его
-        if (typeof window.alert === 'function' &&
-            window.alert !== Function.prototype &&
-            window.alert.toString().indexOf('[native code]') !== -1) {
-          window.alert(text);
-          return;
-        }
-      } catch (_) {
-        // если при попытке вызвать alert что-то пошло не так — упадём в box
-      }
-
-      // сюда попадаем, если alert отключён/переписан/сломался
-      showInBox(text);
+      showInBox(message); // без window.alert
     };
     return;
   }
 
+  // Внутри Mini App — нативный showAlert не трогаем, только fallback если метода нет
   if (typeof window.Telegram.WebApp.showAlert !== 'function') {
     window.Telegram.WebApp.showAlert = function (message) {
       showInBox(message);
@@ -51,6 +38,7 @@
 })();
 
 const tg = window.Telegram?.WebApp;
+
 
 try {
   tg?.ready();
