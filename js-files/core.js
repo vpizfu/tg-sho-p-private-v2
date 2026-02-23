@@ -1034,12 +1034,12 @@ async function fetchAndUpdateProducts(showLoader = false) {
         '</div>' +
         '<h2 class="text-xl font-bold text-gray-800 mb-2">Не удалось загрузить товары</h2>' +
         '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">' +
-        'Проверьте соединение и попробуйте обновить список товаров.\nДля заказа через менеджера напишите @TechBex.' +
+        'Проверьте соединение и попробуйте обновить список товаров. Для заказа через менеджера напишите @TechBex.' +
         '</p>' +
         '<button onclick="refreshProducts()"' +
         ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +
-        '<span class="loader-circle"></span>' +
-        '<span>Обновить товары</span>' +
+        '<span class="loader-circle hidden" id="refreshSpinner"></span>' +
+        '<span id="refreshText">Обновить товары</span>' +
         '</button>' +
         '</div>';
     }
@@ -1185,10 +1185,27 @@ window.handleProductImageLoad = function (img, url) {
 
 // ---------- Обновление товаров вручную ----------
 
+function setRefreshButtonLoading(loading) {
+  const spinner = document.getElementById('refreshSpinner');
+  const text = document.getElementById('refreshText');
+  if (!spinner || !text) return;
+
+  if (loading) {
+    spinner.classList.remove('hidden');
+    text.textContent = 'Обновляем...';
+  } else {
+    spinner.classList.add('hidden');
+    text.textContent = 'Обновить товары';
+  }
+}
+
 window.refreshProducts = async function () {
   if (isRefreshingProducts) return;
   isRefreshingProducts = true;
   console.log('[core] refreshProducts clicked');
+
+  // показать лоадер на кнопке, если она сейчас есть в DOM
+  setRefreshButtonLoading(true);
 
   root.innerHTML =
     '<div class="pb-[65px] max-w-md mx-auto">' +
@@ -1211,6 +1228,8 @@ window.refreshProducts = async function () {
     await fetchAndUpdateProducts(true);
   } finally {
     isRefreshingProducts = false;
+    // на всякий случай выключаем лоадер, если кнопка ещё существует
+    setRefreshButtonLoading(false);
   }
 };
 

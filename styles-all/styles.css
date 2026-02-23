@@ -619,3 +619,7 @@ img,
 .nav-logo span {
   color: #0071e3;      /* Bex */
 }
+
+.hidden {
+  display: none;
+}
