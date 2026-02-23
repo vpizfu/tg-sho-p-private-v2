@@ -388,11 +388,9 @@ img,
 #modalContent {
   display: flex;
   flex-direction: column;
-  max-height: calc(100vh - var(--tabbar-height) - 8px);
   min-height: 0;
 }
 
-/* Скролл‑область внутри (flex-1) – ключевые две строки */
 #modalContent .flex-1 {
   min-height: 0;
   overflow-y: auto;
