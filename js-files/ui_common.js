@@ -48,6 +48,7 @@
         '<p class="text-lg text-red-600 mb-2">' +
           escapeHtml(message) +
         '</p>' +
+        '<p class="text-lg text-500-blue mb-2">' + "Для заказа через менеджера напишите @TechBex." + '</p>' +
         '<button onclick="location.reload()"' +
           ' class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
           'Попробовать снова' +
@@ -72,4 +73,3 @@
       }
     }
   });
-  
