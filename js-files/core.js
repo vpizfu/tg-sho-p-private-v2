@@ -1,6 +1,5 @@
-// Патч Telegram.WebApp.showAlert + вывод в глобальный errorBox
 (function patchTelegramAlertFallback() {
-  function showInErrorBox(message) {
+  function showInBox(message) {
     try {
       const box = document.getElementById('globalErrorBox');
       const textEl = document.getElementById('globalErrorText');
@@ -9,38 +8,40 @@
       textEl.textContent = String(message);
       box.style.display = 'block';
 
-      // автоскрытие через 5 секунд
       clearTimeout(window.__globalErrorBoxTimer);
       window.__globalErrorBoxTimer = setTimeout(() => {
         box.style.display = 'none';
-      }, 5000);
+      }, 5000); // автоскрытие через 5 секунд
     } catch (_) {}
   }
 
   const tgRaw = window.Telegram?.WebApp;
-  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // в Телеге есть initData
+  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → реальный Telegram
 
   if (!isRealMiniApp) {
-    // Браузер: всегда перезаписываем showAlert
+    // Браузер: гарантируем объект и переопределяем showAlert
     if (!window.Telegram) window.Telegram = {};
     if (!window.Telegram.WebApp) window.Telegram.WebApp = {};
 
     window.Telegram.WebApp.showAlert = function (message) {
-      showInErrorBox(message);
+      const text = String(message);
       try {
-        window.alert(String(message)); // если алерты заблокированы, хотя бы box останется
-      } catch (_) {}
+        window.alert(text);        // если alert показался, этого достаточно
+      } catch (e) {
+        showInBox(text);           // если alert упал/заблокирован
+      }
     };
     return;
   }
 
-  // Внутри Mini App логику Telegram не трогаем, только подстраховка
+  // Внутри Mini App — штатный showAlert не трогаем, только fallback если метода нет
   if (typeof window.Telegram.WebApp.showAlert !== 'function') {
     window.Telegram.WebApp.showAlert = function (message) {
-      showInErrorBox(message);
+      showInBox(message);
     };
   }
 })();
+
 const tg = window.Telegram?.WebApp;
 
 try {
