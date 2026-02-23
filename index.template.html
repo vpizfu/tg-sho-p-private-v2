@@ -42,50 +42,57 @@
 <body class="bg-gray-100 min-h-screen">
   <div id="root" class="main-content max-w-md mx-auto"></div>
 
-  <div id="globalErrorBox"
-  style="display:none;
-         position:fixed;
-         top:12px;
-         left:50%;
-         transform:translateX(-50%);
-         max-width:480px;
-         width:calc(100% - 24px);
-         z-index:1100;
-         background:#f9fafb;
-         color:#111827;
-         border:1px solid #e5e7eb;
-         border-radius:14px;
-         padding:10px 14px 10px 14px;
-         font-size:13px;
-         line-height:1.35;
-         box-shadow:0 10px 25px rgba(15,23,42,0.16);
-         box-sizing:border-box;">
-<div style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:999px; background:#3b82f6;"></div>
-
-<button type="button"
-       id="globalErrorClose"
-       style="position:absolute;
-              top:6px;
-              right:8px;
-              border:none;
-              background:transparent;
-              color:#9ca3af;
-              cursor:pointer;
-              padding:2px;
+<!-- Глобальный алерт -->
+<div id="globalErrorBox"
+     style="display:none;
+            position:fixed;
+            top:12px;
+            left:50%;
+            transform:translateX(-50%);
+            max-width:480px;
+            width:calc(100% - 24px);
+            z-index:850;
+            background:#f9fafb;
+            color:#111827;
+            border:1px solid #e5e7eb;
+            border-radius:14px;
+            padding:10px 14px;
+            font-size:13px;
+            line-height:1.35;
+            box-shadow:0 10px 25px rgba(15,23,42,0.16);
+            box-sizing:border-box;">
+  <div style="position:absolute;
+              left:0;
+              top:8px;
+              bottom:8px;
+              width:3px;
               border-radius:999px;
-              display:flex;
-              align-items:center;
-              justify-content:center;">
- <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-   <path d="M6 6l12 12M18 6L6 18"
-         stroke-width="2"
-         stroke-linecap="round"
-         stroke-linejoin="round" />
- </svg>
-</button>
+              background:#3b82f6;"></div>
 
-<div id="globalErrorText"
-    style="margin-right:22px; margin-left:6px; white-space:pre-line;"></div>
+  <button type="button"
+          id="globalErrorClose"
+          style="position:absolute;
+                 top:6px;
+                 right:8px;
+                 border:none;
+                 background:transparent;
+                 color:#9ca3af;
+                 cursor:pointer;
+                 padding:2px;
+                 border-radius:999px;
+                 display:flex;
+                 align-items:center;
+                 justify-content:center;">
+    <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <path d="M6 6l12 12M18 6L6 18"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div id="globalErrorText"
+       style="margin-right:22px; margin-left:6px; white-space:pre-line;"></div>
 </div>
 
   <!-- Таббар -->
@@ -140,11 +147,11 @@
     </div>
   </div>
 
-  <!-- Продуктовая модалка -->
+<!-- Продуктовая модалка -->
   <div id="productModal"
-       class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center">
+      class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[900] hidden flex items-center justify-center">
     <div id="modalContent"
-         class="bg-white rounded-3xl shadow-2xl w-full max-w-md h-[85vh] flex flex-col overflow-hidden"></div>
+        class="bg-white rounded-3xl shadow-2xl w-full max-w-md h-[85vh] flex flex-col overflow-hidden"></div>
   </div>
 
   <script src="js-files/products.js?v=__APP_VERSION__"></script>
