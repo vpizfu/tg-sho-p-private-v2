@@ -120,23 +120,17 @@
   <!-- Подпись версий на табах + алерт при запуске -->
   <script>
     (function () {
-      const appVer = window.APP_VERSIONS?.app || '1';
+  const tg = window.Telegram?.WebApp;
+  const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
 
-      // если хочешь реально видеть версию в табах — раскомментируй:
-      /*
-      document.querySelectorAll('.tab-label').forEach(label => {
-        const base = label.textContent.trim();
-        label.textContent = `?v=${appVer} ${base}`;
-      });
-      */
+  if (!isRealMiniApp) return; // в браузере вообще не показываем стартовый алерт
 
-      const tg = window.Telegram?.WebApp;
-      if (tg && tg.showAlert) {
-        const version = window.APP_VERSIONS.app || {};
-
-        tg.showAlert('Версия: ' + version + "\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.");
-      }
-    })();
+  const version = window.APP_VERSIONS.app || {};
+  tg.showAlert(
+    'Версия: ' + version +
+    '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
+  );
+})();
   </script>
 </body>
 </html>

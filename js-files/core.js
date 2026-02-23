@@ -1045,6 +1045,21 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
+
+    try {
+      const isRealMiniApp = !!tg && !!tg.initData;
+      if (!isRealMiniApp && !window.__productsLoadedAlertShown) {
+        window.__productsLoadedAlertShown = true;
+        const version = window.APP_VERSIONS.app || {};
+        tg?.showAlert?.(
+          'Версия: ' + version +
+          '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
+        );
+        // в браузере это всё равно вызовет window.alert через твой патч
+      }
+    } catch (e) {
+      console.log('[core] browser products-loaded alert error', e);
+    }
   } catch (error) {
     console.error('[core] products API error:', error);
     // ← было: if (showLoader && currentTab === 'shop')
