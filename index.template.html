@@ -52,15 +52,31 @@
          max-width:480px;
          width:calc(100% - 24px);
          z-index:1100;
-         background:#f3f4f6;        /* серый фон */
-         color:#111827;             /* тёмный текст */
-         border:1px solid #e5e7eb;  /* светлая рамка */
+         background:#f3f4f6;
+         color:#111827;
+         border:1px solid #e5e7eb;
          border-radius:12px;
-         padding:10px 12px;
+         padding:8px 10px;
          font-size:13px;
-         box-shadow:0 10px 30px rgba(0,0,0,0.15);">
-<span id="globalErrorText"></span>
+         box-shadow:0 10px 30px rgba(0,0,0,0.15);
+         display:flex;
+         align-items:flex-start;
+         gap:8px;">
+<div style="flex:1; line-height:1.4;" id="globalErrorText"></div>
+<button type="button"
+       id="globalErrorClose"
+       style="flex-shrink:0;
+              border:none;
+              background:transparent;
+              color:#6b7280;
+              cursor:pointer;
+              padding:2px 4px;
+              font-size:14px;
+              line-height:1;">
+ ✕
+</button>
 </div>
+
 
   <!-- Таббар -->
   <div id="tabBar">

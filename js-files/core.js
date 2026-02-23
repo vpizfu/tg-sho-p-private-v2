@@ -15,6 +15,17 @@
     } catch (_) {}
   }
 
+  (function initGlobalErrorBoxClose() {
+    try {
+      const box = document.getElementById('globalErrorBox');
+      const btn = document.getElementById('globalErrorClose');
+      if (!box || !btn) return;
+      btn.addEventListener('click', () => {
+        box.style.display = 'none';
+      });
+    } catch (_) {}
+  })();
+
   const tgRaw = window.Telegram?.WebApp;
   const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
 

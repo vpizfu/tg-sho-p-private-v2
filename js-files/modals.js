@@ -428,15 +428,21 @@ function renderProductModal(product) {
     dotsRoot.innerHTML = '';
     modalImageCount = imagesToShow.length;
 
+    const slidesWrapper =
+    document.getElementById('modalSlidesWrapper');
+
+  if (!slidesWrapper) {
+    console.warn('[modal] slidesWrapper not found, skip buildSlides');
+    modalWarmupPaused = false;
+    return;
+  }
+
     modalSessionId += 1;
     const currentSessionId = modalSessionId;
     modalPendingImages = 0;
 
     modalWarmupPaused = true;
     console.log('[modal-preload] buildSlides: pausing warmup, session=', currentSessionId);
-
-    const slidesWrapper =
-      document.getElementById('modalSlidesWrapper');
 
     const svgPlaceholder =
       '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"' +
