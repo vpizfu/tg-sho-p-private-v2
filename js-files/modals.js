@@ -1,5 +1,3 @@
-// modal_v2.js
-
 let modalCurrentIndex = 0;
 let modalImageCount = 0;
 let modalImageIndexBeforeFullscreen = 0;
@@ -990,6 +988,14 @@ window.closeModal = function () {
   if (!preloadRunning) {
     runPreloadLoop();
   }
+
+  (function resetAlertZIndexAfterModalClose() {
+    const box = document.getElementById('globalErrorBox');
+    if (!box) return;
+    if (box.style.display !== 'block') return;
+    // базовый уровень для работы «alert под новой модалкой»
+    box.style.zIndex = '850';
+  })();
 
   tg?.HapticFeedback?.impactOccurred('light');
 };
