@@ -1,3 +1,9 @@
+try {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+} catch (_) {}
+
 (function patchTelegramAlertFallback() {
   const tgRaw = window.Telegram?.WebApp;
   const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
@@ -53,7 +59,7 @@
       }, 5000);
     } catch (_) {}
   }  
-  
+
   // проверяем, открыта ли продуктовая модалка (hidden нет)
   function isProductModalOpen() {
     const modal = document.getElementById('productModal');
@@ -1550,6 +1556,7 @@ function markImageAsLoaded(cacheKey) {
 // ---------- Инициализация ----------
 
 async function initApp() {
+  window.scrollTo(0, 0);
   const t0 = performance.now();
   try {
     console.log('[core] initApp start');
