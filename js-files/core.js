@@ -1206,7 +1206,7 @@ window.refreshProducts = async function () {
 
   // показать лоадер на кнопке, если она сейчас есть в DOM
   setRefreshButtonLoading(true);
-
+  roota.test
   root.innerHTML =
     '<div class="pb-[65px] max-w-md mx-auto">' +
     '<div class="product-grid">' +
