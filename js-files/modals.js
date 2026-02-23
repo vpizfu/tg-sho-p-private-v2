@@ -431,11 +431,11 @@ function renderProductModal(product) {
     const slidesWrapper =
     document.getElementById('modalSlidesWrapper');
 
-  if (!slidesWrapper) {
-    console.warn('[modal] slidesWrapper not found, skip buildSlides');
-    modalWarmupPaused = false;
-    return;
-  }
+    if (!slidesWrapper || document.getElementById('productModal')?.classList.contains('hidden')) {
+      console.warn('[modal] slidesWrapper not found or modal closed, skip buildSlides');
+      modalWarmupPaused = false;
+      return;
+    }    
 
     modalSessionId += 1;
     const currentSessionId = modalSessionId;

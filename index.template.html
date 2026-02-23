@@ -52,29 +52,41 @@
          max-width:480px;
          width:calc(100% - 24px);
          z-index:1100;
-         background:#f3f4f6;
-         color:#111827;
-         border:1px solid #e5e7eb;
-         border-radius:12px;
-         padding:8px 10px;
+         background:#f9fafb;              /* bg-gray-50 */
+         color:#111827;                   /* text-gray-900 */
+         border:1px solid #e5e7eb;        /* border-gray-200 */
+         border-radius:16px;
+         padding:10px 12px 10px 14px;
          font-size:13px;
-         box-shadow:0 10px 30px rgba(0,0,0,0.15);
-         display:flex;
-         align-items:flex-start;
-         gap:8px;">
-<div style="flex:1; line-height:1.4;" id="globalErrorText"></div>
+         box-shadow:0 12px 30px rgba(15,23,42,0.18);
+         box-sizing:border-box;">
+<!-- крестик -->
 <button type="button"
        id="globalErrorClose"
-       style="flex-shrink:0;
+       style="position:absolute;
+              top:6px;
+              right:8px;
               border:none;
               background:transparent;
-              color:#6b7280;
+              color:#9ca3af;
               cursor:pointer;
-              padding:2px 4px;
-              font-size:14px;
-              line-height:1;">
- ✕
+              padding:2px;
+              border-radius:999px;
+              line-height:1;
+              display:flex;
+              align-items:center;
+              justify-content:center;">
+ <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+   <path d="M6 6l12 12M18 6L6 18"
+         stroke-width="2"
+         stroke-linecap="round"
+         stroke-linejoin="round" />
+ </svg>
 </button>
+
+<!-- текст -->
+<div id="globalErrorText"
+    style="margin-right:20px; line-height:1.4;"></div>
 </div>
 
 
@@ -159,9 +171,15 @@
       const tg = window.Telegram?.WebApp;
       const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
 
-      if (!isRealMiniApp) return; // в браузере стартовый алерт не показываем
-
       const version = window.APP_VERSIONS.app || {};
+      if (!isRealMiniApp) {
+        tg?.showAlert?.(
+          'Версия: ' + version +
+          '\nПриложение разработано для использования через Telegram‑мини‑приложение @techbex_bot - рекомендуем открывать его в Telegram.\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
+        );
+        return
+      }
+
       tg.showAlert(
         'Версия: ' + version +
         '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'

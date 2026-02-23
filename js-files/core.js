@@ -22,9 +22,10 @@
       if (!box || !btn) return;
       btn.addEventListener('click', () => {
         box.style.display = 'none';
+        clearTimeout(window.__globalErrorBoxTimer);
       });
     } catch (_) {}
-  })();
+  })();  
 
   const tgRaw = window.Telegram?.WebApp;
   const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
@@ -1070,21 +1071,6 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
-
-    try {
-      const isRealMiniApp = !!tg && !!tg.initData;
-      if (!isRealMiniApp && !window.__productsLoadedAlertShown) {
-        window.__productsLoadedAlertShown = true;
-        const version = window.APP_VERSIONS.app || {};
-        tg?.showAlert?.(
-          'Версия: ' + version +
-          '\nПриложение разработано для использования через Telegram‑мини‑приложение @techbex_bot - рекомендуем открывать его в Telegram.\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
-        );
-        // в браузере это всё равно вызовет window.alert через твой патч
-      }
-    } catch (e) {
-      console.log('[core] browser products-loaded alert error', e);
-    }
   } catch (error) {
     console.error('[core] products API error:', error);
     // ← было: if (showLoader && currentTab === 'shop')
