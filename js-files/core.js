@@ -3,29 +3,48 @@
   const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
 
   // общая функция показа globalErrorBox
+  function updateAlertTextSmooth(textEl, message) {
+    // быстрый "миг" текста
+    textEl.style.transition = 'opacity 90ms ease-out';
+    textEl.style.opacity = '0';
+    setTimeout(() => {
+      textEl.textContent = String(message);
+      textEl.style.opacity = '1';
+    }, 90);
+  }
+  
   function showGlobalBox(message, forceOnTop) {
     try {
       const box = document.getElementById('globalErrorBox');
       const textEl = document.getElementById('globalErrorText');
       if (!box || !textEl) return;
   
-      textEl.textContent = String(message);
+      const wasHidden =
+        box.style.display === 'none' ||
+        box.style.display === '' ||
+        box.style.opacity === '0';
   
       let z = 850;
       if (forceOnTop) z = 950;
       box.style.zIndex = String(z);
   
-      // показываем и даём opacity анимироваться
       box.style.display = 'block';
-      requestAnimationFrame(() => {
+  
+      if (wasHidden) {
+        // первый показ: без мигания текста, просто fade-in всего бокса
+        textEl.textContent = String(message);
+        requestAnimationFrame(() => {
+          box.style.opacity = '1';
+        });
+      } else {
+        // бокс уже виден: мягко меняем текст без исчезновения карточки
+        updateAlertTextSmooth(textEl, message);
         box.style.opacity = '1';
-      });
+      }
   
       clearTimeout(window.__globalErrorBoxTimer);
       window.__globalErrorBoxTimer = setTimeout(() => {
-        // плавный fade-out
         box.style.opacity = '0';
-        // после окончания анимации прячем display
         setTimeout(() => {
           if (box.style.opacity === '0') {
             box.style.display = 'none';
@@ -34,7 +53,7 @@
       }, 5000);
     } catch (_) {}
   }  
-
+  
   // проверяем, открыта ли продуктовая модалка (hidden нет)
   function isProductModalOpen() {
     const modal = document.getElementById('productModal');
