@@ -73,3 +73,22 @@
       }
     }
   });
+
+  (function patchTelegramAlertFallback() {
+    if (!window.Telegram || !window.Telegram.WebApp) {
+      window.Telegram = {
+        WebApp: {
+          showAlert(message) {
+            window.alert(String(message));
+          }
+        }
+      };
+      return;
+    }
+  
+    if (typeof window.Telegram.WebApp.showAlert !== 'function') {
+      window.Telegram.WebApp.showAlert = function (message) {
+        window.alert(String(message));
+      };
+    }
+  })();  
