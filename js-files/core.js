@@ -8,26 +8,32 @@
       const box = document.getElementById('globalErrorBox');
       const textEl = document.getElementById('globalErrorText');
       if (!box || !textEl) return;
-
+  
       textEl.textContent = String(message);
-
-      // базовый уровень под модалкой
+  
       let z = 850;
-
-      // если нужно поверх уже открытой модалки — поднимаем
-      if (forceOnTop) {
-        z = 950; // выше modals z-[900]
-      }
+      if (forceOnTop) z = 950;
       box.style.zIndex = String(z);
-
+  
+      // показываем и даём opacity анимироваться
       box.style.display = 'block';
-
+      requestAnimationFrame(() => {
+        box.style.opacity = '1';
+      });
+  
       clearTimeout(window.__globalErrorBoxTimer);
       window.__globalErrorBoxTimer = setTimeout(() => {
-        box.style.display = 'none';
+        // плавный fade-out
+        box.style.opacity = '0';
+        // после окончания анимации прячем display
+        setTimeout(() => {
+          if (box.style.opacity === '0') {
+            box.style.display = 'none';
+          }
+        }, 200);
       }, 5000);
     } catch (_) {}
-  }
+  }  
 
   // проверяем, открыта ли продуктовая модалка (hidden нет)
   function isProductModalOpen() {
@@ -43,9 +49,14 @@
       const btn = document.getElementById('globalErrorClose');
       if (!box || !btn) return;
       btn.addEventListener('click', () => {
-        box.style.display = 'none';
         clearTimeout(window.__globalErrorBoxTimer);
-      });
+        box.style.opacity = '0';
+        setTimeout(() => {
+          if (box.style.opacity === '0') {
+            box.style.display = 'none';
+          }
+        }, 200);
+      });      
     } catch (_) {}
   })();
 
