@@ -229,11 +229,6 @@ function renderProductModal(product) {
 
   const modalRoot = document.getElementById('modalContent');
 
-  if (modalRoot && !modalRoot.dataset.heightPatched) {
-    modalRoot.style.minHeight = 'calc(100dvh - 24px)';
-    modalRoot.dataset.heightPatched = '1';
-  }  
-
   const scrollContainer = modalRoot.querySelector('.flex-1');
   if (scrollContainer) scrollContainer.scrollTop = 0;
 

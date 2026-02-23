@@ -1,20 +1,3 @@
-// определяем, где мы — браузер или настоящий Mini App
-const tgRaw = window.Telegram?.WebApp;
-const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → Telegram Mini App
-
-// только в браузере: управляем скроллом и «пинаем» адресную строку
-if (!isRealMiniApp) {
-  try {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual';
-    }
-  } catch (_) {}
-
-  window.addEventListener('load', () => {
-    // небольшой скролл, который часто прячет нижнюю панель в мобильных браузерах
-    window.scrollTo(0, 1);
-  });
-}
 
 (function patchTelegramAlertFallback() {
   const tgRaw = window.Telegram?.WebApp;
