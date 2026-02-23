@@ -976,7 +976,7 @@ window.placeOrder = async function () {
     const durationMs = now - orderClickTs;
     console.log('[perf] placeOrder duration:', durationMs, 'ms');
 
-    tg?.showAlert?.('✅ Заказ оформлен! Ожидайте подтверждение заказа от менеджера.');
+    tg?.showAlert?.('✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.');
 resetCartStateAfterOrder();
 
 isPlacingOrder = false;

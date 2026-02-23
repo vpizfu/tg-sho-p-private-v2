@@ -1453,7 +1453,7 @@ async function initApp() {
       window.Telegram?.WebApp?.initDataUnsafe?.user
     );
 
-    initTabBara();
+    initTabBar();
     logStage('after initTabBar', t0);
 
     if (currentTab === 'shop') {
