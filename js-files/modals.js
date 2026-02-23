@@ -230,7 +230,7 @@ function renderProductModal(product) {
   const modalRoot = document.getElementById('modalContent');
 
   if (modalRoot && !modalRoot.dataset.heightPatched) {
-    modalRoot.style.maxHeight = 'calc(100dvh - 24px)';
+    modalRoot.style.minHeight = 'calc(100dvh - 24px)';
     modalRoot.dataset.heightPatched = '1';
   }  
 
