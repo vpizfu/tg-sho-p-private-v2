@@ -313,53 +313,58 @@ function renderProductModal(product) {
     modalRoot.dataset.initialized = '1';
 
     modalRoot.innerHTML =
-      '<div class="flex flex-col h-full">' +
-      '<div class="p-6 pb-4 border-b border-gray-200">' +
+  '<div class="flex flex-col h-full">' +
+    // HEADER
+    '<div class="p-6 pb-4 border-b border-gray-200">' +
       '<div class="flex items-center justify-between mb-2">' +
-      '<h2 class="text-2xl font-bold" id="modalTitle"></h2>' +
-      '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
-      '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
-      '</svg>' +
-      '</button>' +
+        '<h2 class="text-2xl font-bold" id="modalTitle"></h2>' +
+        '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
+          '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+          '</svg>' +
+        '</button>' +
       '</div>' +
       '<div class="flex items-center gap-2 text-sm text-gray-500">' +
-      '<span id="modalPrice"></span>' +
-      '<span>• <span id="modalVariantCount"></span></span>' +
+        '<span id="modalPrice"></span>' +
+        '<span>• <span id="modalVariantCount"></span></span>' +
       '</div>' +
-      '</div>' +
-      '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
+    '</div>' +
+
+    // SCROLL-ОБЛАСТЬ (flex-1)
+    '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
       '<div class="modal-image-section">' +
-      '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
-      '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
-      '<div class="w-full h-full flex items-center justify-center">' +
-      getPlainSvgPlaceholder() +
-      '</div>' +
-      '</div>' +
-      '<div class="modal-carousel-footer">' +
-      '<div class="carousel-dots" id="modalDots"></div>' +
-      '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
-      '</div>' +
-      '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
-      '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
-      '</svg>' +
-      '</button>' +
-      '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
-      '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
-      '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
-      '</svg>' +
-      '</button>' +
-      '</div>' +
+        '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+          '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
+            '<div class="w-full h-full flex items-center justify-center">' +
+              getPlainSvgPlaceholder() +
+            '</div>' +
+          '</div>' +
+          '<div class="modal-carousel-footer">' +
+            '<div class="carousel-dots" id="modalDots"></div>' +
+            '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
+          '</div>' +
+          '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
+            '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+              '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+            '</svg>' +
+          '</button>' +
+          '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
+            '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+              '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+            '</svg>' +
+          '</button>' +
+        '</div>' +
       '</div>' +
       '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
-      '</div>' +
-'<div class="modal-footer border-t bg-white"' +
-'     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-  '<button id="modalAddButton"' +
-  ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-2xl " onclick="addToCartFromModal(); return false;"></button>' +
-'</div>' +
-'</div>';
+    '</div>' +
+
+    // FOOTER С КНОПКОЙ — ОТДЕЛЬНЫЙ БЛОК, НЕ ВНУТРИ flex-1
+    '<div class="modal-footer border-t bg-white"' +
+    '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
+      '<button id="modalAddButton"' +
+      ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-2xl " onclick="addToCartFromModal(); return false;"></button>' +
+    '</div>' +
+  '</div>';
 
     initModalSwipe();
   }

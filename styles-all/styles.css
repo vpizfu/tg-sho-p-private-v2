@@ -386,9 +386,10 @@ img,
 
 /* Высота модалки задаётся в HTML через h-[85vh] */
 #modalContent {
-  min-height: 0;
+  display: flex;
+  flex-direction: column;
   max-height: calc(100vh - var(--tabbar-height) - 8px);
-  overflow: hidden; /* можно вообще убрать, если не нужен */
+  min-height: 0;
 }
 
 /* Скролл‑область внутри (flex-1) – ключевые две строки */
