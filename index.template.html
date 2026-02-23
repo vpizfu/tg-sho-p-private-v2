@@ -44,50 +44,51 @@
 
   <!-- Глобальный блок ошибок для браузера -->
   <div id="globalErrorBox"
-  style="display:none;
-         position:fixed;
-         top:12px;
-         left:50%;
-         transform:translateX(-50%);
-         max-width:480px;
-         width:calc(100% - 24px);
-         z-index:1100;
-         background:#f9fafb;              /* bg-gray-50 */
-         color:#111827;                   /* text-gray-900 */
-         border:1px solid #e5e7eb;        /* border-gray-200 */
-         border-radius:16px;
-         padding:10px 12px 10px 14px;
-         font-size:13px;
-         box-shadow:0 12px 30px rgba(15,23,42,0.18);
-         box-sizing:border-box;">
-<!-- крестик -->
-<button type="button"
-       id="globalErrorClose"
-       style="position:absolute;
-              top:6px;
-              right:8px;
-              border:none;
-              background:transparent;
-              color:#9ca3af;
-              cursor:pointer;
-              padding:2px;
-              border-radius:999px;
-              line-height:1;
-              display:flex;
-              align-items:center;
-              justify-content:center;">
- <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
-   <path d="M6 6l12 12M18 6L6 18"
-         stroke-width="2"
-         stroke-linecap="round"
-         stroke-linejoin="round" />
- </svg>
-</button>
+     style="display:none;
+            position:fixed;
+            top:12px;
+            left:50%;
+            transform:translateX(-50%);
+            max-width:480px;
+            width:calc(100% - 24px);
+            z-index:1100;
+            background:#f9fafb;
+            color:#111827;
+            border:1px solid #e5e7eb;
+            border-radius:14px;
+            padding:10px 14px 10px 14px;
+            font-size:13px;
+            line-height:1.35;
+            box-shadow:0 10px 25px rgba(15,23,42,0.16);
+            box-sizing:border-box;
+            position:fixed;">
+  <div style="position:absolute; left:0; top:8px; bottom:8px; width:3px; border-radius:999px; background:#3b82f6;"></div>
 
-<!-- текст -->
-<div id="globalErrorText"
-    style="margin-right:20px; line-height:1.4;"></div>
-</div>
+  <button type="button"
+          id="globalErrorClose"
+          style="position:absolute;
+                 top:6px;
+                 right:8px;
+                 border:none;
+                 background:transparent;
+                 color:#9ca3af;
+                 cursor:pointer;
+                 padding:2px;
+                 border-radius:999px;
+                 display:flex;
+                 align-items:center;
+                 justify-content:center;">
+    <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" fill="none">
+      <path d="M6 6l12 12M18 6L6 18"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div id="globalErrorText"
+  style="margin-right:22px; margin-left:6px; white-space:pre-line;"></div>
+
 
 
   <!-- Таббар -->
