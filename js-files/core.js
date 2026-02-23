@@ -1,11 +1,25 @@
 (function patchTelegramAlertFallback() {
-  function showInBox(message) {
+  const tgRaw = window.Telegram?.WebApp;
+  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
+
+  // общая функция показа globalErrorBox
+  function showGlobalBox(message, forceOnTop) {
     try {
       const box = document.getElementById('globalErrorBox');
       const textEl = document.getElementById('globalErrorText');
       if (!box || !textEl) return;
 
       textEl.textContent = String(message);
+
+      // базовый уровень под модалкой
+      let z = 850;
+
+      // если нужно поверх уже открытой модалки — поднимаем
+      if (forceOnTop) {
+        z = 950; // выше modals z-[900]
+      }
+      box.style.zIndex = String(z);
+
       box.style.display = 'block';
 
       clearTimeout(window.__globalErrorBoxTimer);
@@ -15,6 +29,14 @@
     } catch (_) {}
   }
 
+  // проверяем, открыта ли продуктовая модалка (hidden нет)
+  function isProductModalOpen() {
+    const modal = document.getElementById('productModal');
+    if (!modal) return false;
+    return !modal.classList.contains('hidden');
+  }
+
+  // крестик у бокса
   (function initGlobalErrorBoxClose() {
     try {
       const box = document.getElementById('globalErrorBox');
@@ -25,32 +47,38 @@
         clearTimeout(window.__globalErrorBoxTimer);
       });
     } catch (_) {}
-  })();  
-
-  const tgRaw = window.Telegram?.WebApp;
-  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
+  })();
 
   if (!isRealMiniApp) {
-    // Браузер: создаём/гарантируем объект и показываем ТОЛЬКО box
+    // ---------- БРАУЗЕР ----------
     if (!window.Telegram) window.Telegram = {};
     if (!window.Telegram.WebApp) window.Telegram.WebApp = {};
 
     window.Telegram.WebApp.showAlert = function (message) {
-      showInBox(message); // без window.alert
+      const msg = String(message);
+
+      // если модалка уже открыта в момент вызова → показываем поверх неё
+      const forceOnTop = isProductModalOpen();
+      showGlobalBox(msg, forceOnTop);
     };
+
+    // удобный алиас
+    window.tg = window.Telegram.WebApp;
     return;
   }
 
-  // Внутри Mini App — нативный showAlert не трогаем, только fallback если метода нет
+  // ---------- НАСТОЯЩИЙ MINI APP ----------
+  // нативный showAlert оставляем, только если его вдруг нет — fallback в globalErrorBox
   if (typeof window.Telegram.WebApp.showAlert !== 'function') {
     window.Telegram.WebApp.showAlert = function (message) {
-      showInBox(message);
+      showGlobalBox(String(message), false);
     };
   }
+
+  window.tg = window.Telegram.WebApp;
 })();
 
 const tg = window.Telegram?.WebApp;
-
 
 try {
   tg?.ready();
