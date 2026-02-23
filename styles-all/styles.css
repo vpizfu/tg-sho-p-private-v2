@@ -387,11 +387,15 @@ img,
 /* Высота модалки задаётся в HTML через h-[85vh] */
 #modalContent {
   min-height: 0;
+  max-height: calc(100vh - var(--tabbar-height) - 8px);
+  overflow: hidden; /* можно вообще убрать, если не нужен */
 }
 
-/* Скролл внутри контентной части модалки (flex-1) */
+/* Скролл‑область внутри (flex-1) – ключевые две строки */
 #modalContent .flex-1 {
   min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Нижняя зона модалки с кнопкой */
