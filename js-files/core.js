@@ -1,29 +1,46 @@
+// Патч Telegram.WebApp.showAlert + вывод в глобальный errorBox
 (function patchTelegramAlertFallback() {
-  // считаем, что это настоящий Mini App, только если есть initData
-  const isRealMiniApp =
-    !!window.Telegram &&
-    !!window.Telegram.WebApp &&
-    !!window.Telegram.WebApp.initData;
+  function showInErrorBox(message) {
+    try {
+      const box = document.getElementById('globalErrorBox');
+      const textEl = document.getElementById('globalErrorText');
+      if (!box || !textEl) return;
+
+      textEl.textContent = String(message);
+      box.style.display = 'block';
+
+      // автоскрытие через 5 секунд
+      clearTimeout(window.__globalErrorBoxTimer);
+      window.__globalErrorBoxTimer = setTimeout(() => {
+        box.style.display = 'none';
+      }, 5000);
+    } catch (_) {}
+  }
+
+  const tgRaw = window.Telegram?.WebApp;
+  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // в Телеге есть initData
 
   if (!isRealMiniApp) {
-    // Обычный браузер или тестовый стенд — всегда перезаписываем showAlert
+    // Браузер: всегда перезаписываем showAlert
     if (!window.Telegram) window.Telegram = {};
     if (!window.Telegram.WebApp) window.Telegram.WebApp = {};
 
     window.Telegram.WebApp.showAlert = function (message) {
-      window.alert(String(message));
+      showInErrorBox(message);
+      try {
+        window.alert(String(message)); // если алерты заблокированы, хотя бы box останется
+      } catch (_) {}
     };
     return;
   }
 
-  // Внутри настоящего Mini App — только подстраховка
+  // Внутри Mini App логику Telegram не трогаем, только подстраховка
   if (typeof window.Telegram.WebApp.showAlert !== 'function') {
     window.Telegram.WebApp.showAlert = function (message) {
-      window.alert(String(message));
+      showInErrorBox(message);
     };
   }
 })();
-
 const tg = window.Telegram?.WebApp;
 
 try {
@@ -1053,7 +1070,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
         const version = window.APP_VERSIONS.app || {};
         tg?.showAlert?.(
           'Версия: ' + version +
-          '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
+          '\nПриложение разработано для использования через Telegram‑мини‑приложение @techbex_bot - рекомендуем открывать его в Telegram.\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
         );
         // в браузере это всё равно вызовет window.alert через твой патч
       }

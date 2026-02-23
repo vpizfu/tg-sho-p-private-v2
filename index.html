@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <link rel="icon" type="image/webp" href="/assets/logo/favicon.webp" /><title>TechBex - Приложение & Магазин техники</title>
+  <link rel="icon" type="image/webp" href="/assets/logo/favicon.webp" />
+  <title>TechBex - Приложение & Магазин техники</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <meta charset="UTF-8" />
   <meta name="viewport"
@@ -10,7 +11,7 @@
 
   <!-- Глобальная версия приложения -->
   <script>
-    const version = '335';
+    const version = '336';
     window.APP_VERSIONS = {
       app: version,
       products: version,
@@ -19,7 +20,7 @@
       core: version,
       ui_common: version,
       sale: version,
-      profile: version, 
+      profile: version,
       about: version
     };
   </script>
@@ -40,6 +41,26 @@
 
 <body class="bg-gray-100 min-h-screen">
   <div id="root" class="main-content max-w-md mx-auto"></div>
+
+  <!-- Глобальный блок ошибок для браузера -->
+  <div id="globalErrorBox"
+       style="display:none;
+              position:fixed;
+              top:12px;
+              left:50%;
+              transform:translateX(-50%);
+              max-width:480px;
+              width:calc(100% - 24px);
+              z-index:1100;
+              background:#fee2e2;
+              color:#991b1b;
+              border:1px solid #fecaca;
+              border-radius:12px;
+              padding:10px 12px;
+              font-size:13px;
+              box-shadow:0 10px 30px rgba(0,0,0,0.15);">
+    <span id="globalErrorText"></span>
+  </div>
 
   <!-- Таббар -->
   <div id="tabBar">
@@ -100,37 +121,36 @@
          class="bg-white rounded-3xl shadow-2xl w-full max-w-md h-[85vh] flex flex-col overflow-hidden"></div>
   </div>
 
-  <script src="js-files/products.js?v=335"></script>
-  <script src="js-files/core.js?v=335"></script>
-  <script src="js-files/modals.js?v=335"></script>
-  <script src="js-files/screens/cart.js?v=335"></script>
-  <script src="js-files/ui_common.js?v=335"></script>
-  <script src="js-files/screens/sale.js?v=335"></script>
-  <script src="js-files/screens/profile.js?v=335"></script>
-  <script src="js-files/screens/about.js?v=335"></script>
-  
+  <script src="js-files/products.js?v=336"></script>
+  <script src="js-files/core.js?v=336"></script>
+  <script src="js-files/modals.js?v=336"></script>
+  <script src="js-files/screens/cart.js?v=336"></script>
+  <script src="js-files/ui_common.js?v=336"></script>
+  <script src="js-files/screens/sale.js?v=336"></script>
+  <script src="js-files/screens/profile.js?v=336"></script>
+  <script src="js-files/screens/about.js?v=336"></script>
+
   <script>
     // запуск после загрузки всех модулей
     if (typeof initApp === 'function') {
       initApp();
     }
   </script>
-  
 
-  <!-- Подпись версий на табах + алерт при запуске -->
+  <!-- Подпись версий на табах + алерт при запуске (только в Mini App) -->
   <script>
     (function () {
-  const tg = window.Telegram?.WebApp;
-  const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
+      const tg = window.Telegram?.WebApp;
+      const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
 
-  if (!isRealMiniApp) return; // в браузере вообще не показываем стартовый алерт
+      if (!isRealMiniApp) return; // в браузере стартовый алерт не показываем
 
-  const version = window.APP_VERSIONS.app || {};
-  tg.showAlert(
-    'Версия: ' + version +
-    '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
-  );
-})();
+      const version = window.APP_VERSIONS.app || {};
+      tg.showAlert(
+        'Версия: ' + version +
+        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
+      );
+    })();
   </script>
 </body>
 </html>
