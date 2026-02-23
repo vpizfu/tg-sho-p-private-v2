@@ -833,6 +833,28 @@ function showTabBar() {
   tabBar.style.pointerEvents = 'auto';
 }
 
+function resetUiAfterOrderSuccessIfCart() {
+  if (currentTab !== 'cart') return;
+
+  try {
+    // Скрыть клавиатуру
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
+
+    // Сбросить скролл только на вкладке корзины
+    window.scrollTo(0, 0);
+
+    // Вернуть таббар
+    const tabBar = document.getElementById('tabBar');
+    if (tabBar) {
+      tabBar.style.opacity = '1';
+      tabBar.style.pointerEvents = 'auto';
+      tabBar.classList.remove('pointer-events-none');
+    }
+  } catch (_) {}
+}
+
 function updateTabBarActive() {
   document
     .querySelectorAll('#tabBar .tab-item')

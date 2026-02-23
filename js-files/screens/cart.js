@@ -203,9 +203,12 @@ window.refreshCartPricesAndCleanup = async function () {
     updateCartBadge();
 
     if (!removedCount && !changedCount) {
-      tg?.showAlert?.('Все товары актуальны');
+      // если прямо сейчас идёт оформление заказа — не спамим
+      if (!isPlacingOrder) {
+        tg?.showAlert?.('Все товары актуальны');
+      }
       return;
-    }
+    }    
 
     let msgLines = [];
 
@@ -976,13 +979,18 @@ window.placeOrder = async function () {
     const durationMs = now - orderClickTs;
     console.log('[perf] placeOrder duration:', durationMs, 'ms');
 
-    tg?.showAlert?.('✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.');
-resetCartStateAfterOrder();
-
-isPlacingOrder = false;
-if (currentTab === 'cart') {
-  showCartTab();
-}
+    tg?.showAlert?.(
+      '✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.'
+    );
+    
+    resetCartStateAfterOrder();
+    
+    isPlacingOrder = false;
+    
+    if (currentTab === 'cart') {
+      resetUiAfterOrderSuccessIfCart();
+      showCartTab();
+    }    
   } finally {
     clearTimeout(placeOrderTimeoutId);
     placeOrderTimeoutId = null;

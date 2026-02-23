@@ -229,6 +229,11 @@ function renderProductModal(product) {
 
   const modalRoot = document.getElementById('modalContent');
 
+  if (modalRoot && !modalRoot.dataset.heightPatched) {
+    modalRoot.style.maxHeight = 'calc(100dvh - 24px)';
+    modalRoot.dataset.heightPatched = '1';
+  }  
+
   const scrollContainer = modalRoot.querySelector('.flex-1');
   if (scrollContainer) scrollContainer.scrollTop = 0;
 
@@ -354,11 +359,12 @@ function renderProductModal(product) {
       '</div>' +
       '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
       '</div>' +
-      '<div class="modal-footer border-t bg-white">' +
-      '<button id="modalAddButton"' +
-      ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-lg " onclick="addToCartFromModal(); return false;"></button>' +
-      '</div>' +
-      '</div>';
+'<div class="modal-footer border-t bg-white"' +
+'     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
+  '<button id="modalAddButton"' +
+  ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-2xl " onclick="addToCartFromModal(); return false;"></button>' +
+'</div>' +
+'</div>';
 
     initModalSwipe();
   }
