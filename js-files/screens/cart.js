@@ -221,7 +221,7 @@ window.refreshCartPricesAndCleanup = async function () {
             i.name +
             (subtitle ? ' (' + subtitle + ')' : '') +
             ', цена была RUB ' +
-            i.price
+            formatPrice(i.price)
         );
       });
     }
@@ -236,9 +236,9 @@ window.refreshCartPricesAndCleanup = async function () {
             i.name +
             (subtitle ? ' (' + subtitle + ')' : '') +
             ': RUB ' +
-            i.price + // старая
+            formatPrice(i.price) + // старая
             ' → RUB ' +
-            i.newPrice
+            formatPrice(i.newPrice) // старая
         );
       });
       msgLines.push('');
@@ -452,7 +452,8 @@ function showCartTab() {
                     (item.available
                       ? 'В наличии'
                       : item.newPrice
-                      ? 'Цена обновилась: старая RUB ' + item.price + ', новая RUB ' + item.newPrice
+                      ? 'Цена обновилась: старая RUB ' + formatPrice(item.price) +
+                      ', новая RUB ' + formatPrice(item.newPrice)                    
                       : 'Товар недоступен, удалите из корзины') +
                   '</div>' +
                 '</div>' +
@@ -467,7 +468,7 @@ function showCartTab() {
     ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
 '</div>' +
 '<div class="text-sm font-bold text-blue-600">RUB ' +
-  item.price * item.quantity +
+  formatPrice(item.price * item.quantity) +
 '</div>' +
 (item.newPrice
   ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(\'' +
@@ -581,17 +582,17 @@ function showCartTab() {
         '<div class="space-y-1 text-sm text-gray-700">' +
           '<div class="flex items-center justify-between">' +
             '<span>Сумма товаров</span>' +
-            '<span>RUB ' + subtotal + '</span>' +
+            '<span>RUB ' + formatPrice(subtotal) + '</span>' +
           '</div>' +
           (paymentType === 'card'
             ? '<div class="flex items-center justify-between">' +
                 '<span>Сервисный сбор (карта)</span>' +
-                '<span>+RUB ' + commission + '</span>' +
+                '<span>+RUB ' + formatPrice(commission) + '</span>' +
               '</div>'
             : '') +
           '<div class="flex items-center justify-between font-semibold mt-1">' +
             '<span>Итого к оплате</span>' +
-            '<span>RUB ' + total + '</span>' +
+            '<span>RUB ' + formatPrice(total) + '</span>' +
           '</div>' +
         '</div>' +
         '<div class="pt-3">' +

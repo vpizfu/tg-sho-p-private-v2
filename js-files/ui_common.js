@@ -34,6 +34,13 @@
     // хотя бы одна буква
     return /[A-Za-zА-Яа-яЁё]/.test(v);
   }
+
+  function formatPrice(value) {
+    const num = Number(value) || 0;
+    return new Intl.NumberFormat('ru-RU', {
+      maximumFractionDigits: 0
+    }).format(num);
+  }  
   
   function showError(message) {
     root.innerHTML =

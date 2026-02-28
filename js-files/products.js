@@ -698,7 +698,7 @@ function productCard(product) {
     escapeHtml(product['Название']) +
     '</div>' +
     '<div class="text-blue-600 font-black text-xl mb-1">RUB ' +
-    cheapestVariant['Цена'] +
+    formatPrice(cheapestVariant['Цена']) +
     '</div>' +
     '<div class="text-xs text-gray-500 mb-4">' +
     getVariantCountText(uniqueVariants.length) +

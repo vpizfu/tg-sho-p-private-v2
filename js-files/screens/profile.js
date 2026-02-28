@@ -71,7 +71,7 @@ function renderOrdersSection() {
               '</span>' +
             '</div>' +
             '<span class="text-sm font-bold text-blue-600 whitespace-nowrap">RUB ' +
-              o.total +
+              formatPrice(o.total) +
             '</span>' +
           '</button>' +
           '<div class="px-3 pb-2 border-t border-gray-100 text-xs text-gray-600">' +
@@ -110,7 +110,7 @@ function renderOrdersSection() {
                   '</div>' +
                   '<div class="text-right text-[10px] whitespace-nowrap">' +
                     '<div>' + item.quantity + ' шт.</div>' +
-                    '<div>RUB ' + (item.price * item.quantity) + '</div>' +
+                    '<div>RUB ' + formatPrice(item.price * item.quantity) + '</div>' +
                   '</div>' +
                 '</div>'
             )
