@@ -226,40 +226,58 @@ function detectEntryPoint() {
 }
 
 function initAnalytics(initial) {
-  if (analyticsStarted) return;
-  analyticsStarted = true;
-  analyticsEnsureIds();
-
-  const entryPoint =
-    (initial && initial.entryPoint) || detectEntryPoint();
-  trackEvent('app_open', {
-    entry_point: entryPoint
-  });
-
-  if (typeof window !== 'undefined') {
-    window.addEventListener('beforeunload', () => {
-      // заглушки: не шлём онлайн-абандоны,
-      // но сохраняем вызовы для совместимости
-      analyticsHandlePossibleCheckoutAbandon(
-        'beforeunload'
-      );
-      analyticsHandlePossibleShopAbandon('beforeunload');
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'hidden') {
-        trackEvent('app_hide', {}, { sync: true });
-        analyticsHandlePossibleCheckoutAbandon('hidden');
-        analyticsHandlePossibleShopAbandon('hidden');
-      } else if (
-        document.visibilityState === 'visible'
+    if (analyticsStarted) return;
+    analyticsStarted = true;
+    analyticsEnsureIds();
+  
+    const entryPoint =
+      (initial && initial.entryPoint) || detectEntryPoint();
+  
+    // ГАРАНТИРОВАННЫЙ app_open
+    try {
+      const base = analyticsGetBaseContext();
+      const evt = {
+        id: analyticsGenerateId('evt'),
+        name: 'app_open',
+        ts: base.ts,
+        context: base,
+        payload: { entry_point: entryPoint }
+      };
+  
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.sendBeacon
       ) {
-        trackEvent('app_show', {}, {});
+        // максимально надёжно — sendBeacon
+        navigator.sendBeacon(
+          ANALYTICS_URL,
+          JSON.stringify({ events: [evt] })
+        );
+      } else {
+        // фолбэк — обычная очередь
+        analyticsEnqueue(evt);
       }
-    });
-  }
-}
-
+    } catch (e) {
+      console.error('[analytics] app_open send error', e);
+    }
+  
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeunload', () => {
+        analyticsHandlePossibleCheckoutAbandon('beforeunload');
+        analyticsHandlePossibleShopAbandon('beforeunload');
+      });
+  
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          trackEvent('app_hide', {}, { sync: true });
+          analyticsHandlePossibleCheckoutAbandon('hidden');
+          analyticsHandlePossibleShopAbandon('hidden');
+        } else if (document.visibilityState === 'visible') {
+          trackEvent('app_show', {}, {});
+        }
+      });
+    }
+  }  
 /**
  * options: { sync?: boolean }
  */
