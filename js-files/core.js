@@ -1052,6 +1052,12 @@ function switchTab(tabName) {
         restoreTabScroll('about');
       }
 
+      try {
+        if (typeof trackScreenView === 'function') {
+          trackScreenView(tabName);
+        }
+      } catch (e) {}
+
       currentTab = tabName;
       updateTabBarActive();
     })
@@ -1125,7 +1131,17 @@ function syncProductsAndCart() {
 
 function logStage(label, startTime) {
   const now = performance.now();
-  console.log(`[perf] ${label}: ${Math.round(now - startTime)} ms`);
+  const ms = Math.round(now - startTime);
+  console.log(`[perf] ${label}: ${ms} ms`);
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('perf_stage', {
+        label,
+        duration_ms: ms
+      });
+    }
+  } catch (e) {}
 }
 
 // ---------- Загрузка товаров с API ----------
@@ -1170,10 +1186,17 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
-  } catch (error) {
+  }  catch (error) {
     console.error('[core] products API error:', error);
-    // ← было: if (showLoader && currentTab === 'shop')
-    // ← стало: currentTab === 'shop' — показываем ошибку всегда на шопе
+
+    try {
+      if (typeof trackError === 'function') {
+        trackError('products_api_error', {
+          message: String(error),
+          tab: currentTab
+        });
+      }
+    } catch (e2) {}
     if (currentTab === 'shop') {
       isRefreshingProducts = false;
       root.innerHTML =
@@ -1595,6 +1618,13 @@ async function initApp() {
   const t0 = performance.now();
   try {
     console.log('[core] initApp start');
+    try {
+      if (typeof initAnalytics === 'function') {
+        initAnalytics();
+      }
+    } catch (e) {
+      console.error('[core] initAnalytics error', e);
+    }
     console.log('tg object:', window.Telegram?.WebApp);
     console.log('initData string:', window.Telegram?.WebApp?.initData);
     console.log(
@@ -1660,6 +1690,15 @@ async function initApp() {
     } else if (currentTab === 'about') {
       showAboutTab();
     }
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('perf_first_tab_render', {
+          tab: currentTab,
+          duration_ms: Math.round(performance.now() - t0)
+        });
+      }
+    } catch (e) {}
     
     // прогрев стартует всегда, независимо от таба
     setTimeout(() => {

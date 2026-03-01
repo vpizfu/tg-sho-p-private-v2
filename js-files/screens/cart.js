@@ -90,17 +90,35 @@ function addToCart(variant, quantity) {
 
   saveCartToStorage();
   updateCartBadge();
+
+  try {
+    if (typeof trackAddToCart === 'function') {
+      const cartItem = cartItems.find(i => i.cartKey === cartKey);
+      if (cartItem) {
+        trackAddToCart(cartItem);
+      }
+    }
+  } catch (e2) {}
+
   tg?.HapticFeedback?.notificationOccurred('success');
 }
 
 window.changeCartItemQuantity = function (cartKey, delta) {
   const item = cartItems.find(i => i.cartKey === cartKey);
   if (!item) return;
+  const oldQuantity = item.quantity;
   let q = item.quantity + delta;
   if (q < 1) q = 1;
   if (q > 100) q = 100;
   item.quantity = q;
   console.log('[cart] changeCartItemQuantity cartKey=', cartKey, 'quantity=', q);
+
+  try {
+    if (typeof trackCartQuantityChange === 'function') {
+      trackCartQuantityChange(item, q);
+    }
+  } catch (e2) {}
+
   saveCartToStorage();
   updateCartBadge();
   if (currentTab === 'cart') {
@@ -110,6 +128,12 @@ window.changeCartItemQuantity = function (cartKey, delta) {
 
 window.removeCartItem = function (cartKey) {
   console.log('[cart] removeCartItem cartKey=', cartKey);
+  const item = cartItems.find(i => i.cartKey === cartKey);
+  try {
+    if (item && typeof trackRemoveFromCart === 'function') {
+      trackRemoveFromCart(item);
+    }
+  } catch (e2) {}
   cartItems = cartItems.filter(i => i.cartKey !== cartKey);
   saveCartToStorage();
   updateCartBadge();
@@ -387,6 +411,12 @@ function getCartItemSubtitle(item) {
 
 function showCartTab() {
   console.log('[cart] showCartTab, items=', cartItems.length, 'isPlacingOrder=', isPlacingOrder);
+  try {
+    if (cartItems.length && typeof trackCartView === 'function') {
+      trackCartView(cartItems);
+    }
+  } catch (e2) {}
+
   saveCartFormState();
 
   if (!cartItems.length) {
@@ -732,6 +762,16 @@ window.placeOrder = async function () {
   const orderClickTs = Date.now();
   console.log('[placeOrder] start at', orderClickTs, 'items=', cartItems.length);
 
+  try {
+    if (cartItems.length && typeof trackCheckoutStart === 'function') {
+      trackCheckoutStart(cartItems, {
+        payment_type: paymentType,
+        pickup_mode: pickupMode
+      });
+    }
+  } catch (e2) {}
+
+
   if (cartItems.length === 0) {
     tg?.showAlert?.('Корзина пуста.\nДля заказа через менеджера напишите @TechBex.');
     return;
@@ -926,6 +966,26 @@ window.placeOrder = async function () {
       }
     };
 
+    const usedSavedProfile = !!(savedProfile && savedProfile.confirmed);
+    const usedSavedAddress =
+      !!deliveryPrefs &&
+      !!deliveryPrefs.savedAddressValue &&
+      !pickupMode;
+
+    try {
+      if (typeof trackCheckoutFormFilled === 'function') {
+        trackCheckoutFormFilled({
+          used_saved_profile: usedSavedProfile,
+          used_saved_address: usedSavedAddress,
+          pickup_mode: pickupMode,
+          payment_type: paymentType
+        });
+      }
+      if (typeof trackCheckoutSubmit === 'function') {
+        trackCheckoutSubmit(order);
+      }
+    } catch (e2) {}
+
     console.log('[placeOrder] order payload', order);
 
     let resp;
@@ -944,12 +1004,21 @@ window.placeOrder = async function () {
       console.error('[placeOrder] backend order network error', e);
       tg?.showAlert?.('Ошибка сети. Заказ не сохранён, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
 
+      try {
+        if (typeof trackCheckoutResult === 'function') {
+          trackCheckoutResult(order.id, false, {
+            reason: 'network_error'
+          });
+        }
+      } catch (e2) {}
+
       scheduleDelayedOrdersSync('network-error');
 
       isPlacingOrder = false;
       setPlaceOrderLoading(false);
       return;
     }
+
 
     let json = null;
     try {
@@ -961,6 +1030,15 @@ window.placeOrder = async function () {
     if (!resp.ok || !json || json.ok !== true) {
       console.log('[placeOrder] backend responded with error status:', resp.status, json);
       tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+
+      try {
+        if (typeof trackCheckoutResult === 'function') {
+          trackCheckoutResult(order.id, false, {
+            reason: 'server_error',
+            status: resp.status
+          });
+        }
+      } catch (e2) {}
 
       scheduleDelayedOrdersSync('server-error');
 
@@ -979,6 +1057,17 @@ window.placeOrder = async function () {
     const now = Date.now();
     const durationMs = now - orderClickTs;
     console.log('[perf] placeOrder duration:', durationMs, 'ms');
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('perf_checkout_total', {
+          duration_ms: durationMs
+        });
+      }
+      if (typeof trackCheckoutResult === 'function') {
+        trackCheckoutResult(order.id, true);
+      }
+    } catch (e2) {}
 
     tg?.showAlert?.(
       '✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.'

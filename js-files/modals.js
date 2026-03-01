@@ -129,6 +129,15 @@ window.changeQuantity = function (delta) {
   if (q > 100) q = 100;
   selectedQuantity = q;
 
+  try {
+    if (typeof trackEvent === 'function' && currentProduct) {
+      trackEvent('product_quantity_change', {
+        product_name: currentProduct['Название'] || null,
+        quantity: selectedQuantity
+      });
+    }
+  } catch (e2) {}
+
   const span = document.getElementById('quantityValue');
   if (span) span.textContent = selectedQuantity;
 
@@ -903,6 +912,15 @@ function showModal(product) {
   );
   renderProductModal(product);
 
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('product_modal_open', {
+        product_name: product?.['Название'] || null,
+        category: product?.cat || null
+      });
+    }
+  } catch (e) {}
+
   modal.classList.remove('hidden');
 
   requestAnimationFrame(() => {
@@ -934,6 +952,16 @@ function showModal(product) {
   window.selectOptionNoFocus = function (type, option) {
     originalSelectOptionNoFocus(type, option);
 
+    try {
+      if (typeof trackEvent === 'function' && currentProduct) {
+        trackEvent('product_option_select', {
+          product_name: currentProduct['Название'] || null,
+          option_type: type,
+          option_value: String(option)
+        });
+      }
+    } catch (e2) {}
+
     if (!currentProduct) return;
 
     if (isCompleteSelection()) {
@@ -944,6 +972,16 @@ function showModal(product) {
 
 window.closeModal = function () {
   if (modalWasOpenOnShop) {
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('product_modal_close', {
+          reason: 'user',
+          tab: currentTab
+        });
+      }
+    } catch (e2) {}
+  
     console.log(
       '[modal] closeModal after tab return: renderShop + restoreTabScroll(shop), scrollY =',
       tabScrollTops.shop

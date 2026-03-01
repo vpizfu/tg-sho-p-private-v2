@@ -259,6 +259,14 @@ window.addAddress = function () {
   }
   savedAddresses.push(val);
   saveAddressesToStorage();
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('profile_address_saved', {
+        length: val.length
+      });
+    }
+  } catch (e2) {}
   ta.value = '';
   if (currentTab === 'profile') {
     showProfileTab();
@@ -269,6 +277,14 @@ window.removeAddress = function (addr) {
   const addrStr = String(addr);
   savedAddresses = savedAddresses.filter(a => a !== addrStr);
   saveAddressesToStorage();
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('profile_address_removed', {
+        had_delivery_pref: !!(deliveryPrefs && deliveryPrefs.savedAddressValue)
+      });
+    }
+  } catch (e2) {}
 
   // 🔥 Если выбранный адрес совпадает с удалённым — сбрасываем
   if (deliveryPrefs && deliveryPrefs.savedAddressValue === addrStr) {
@@ -310,6 +326,14 @@ window.saveProfileContacts = function () {
   phoneEl.value = normalizedPhone;
 
   tg?.showAlert?.('Контакты сохранены');
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('profile_contacts_saved', {
+        has_name: !!name,
+        phone_country: normalizedPhone.slice(0, 2)
+      });
+    }
+  } catch (e2) {}
 };
 
 window.scrollToOrdersSection = function () {

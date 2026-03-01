@@ -1109,6 +1109,14 @@ function setupHandlers() {
           selectedCategory = value;
           loadedCount = 10;
 
+          try {
+            if (typeof trackEvent === 'function') {
+              trackEvent('category_change', {
+                category: value
+              });
+            }
+          } catch (e2) {}
+
           if (categoryLabel) {
             categoryLabel.textContent = value;
           }
@@ -1145,6 +1153,16 @@ function setupHandlers() {
       );
 
       query = value;
+
+      try {
+        if (typeof trackEvent === 'function') {
+          trackEvent('search_change', {
+            query: value,
+            has_text: !!value.trim()
+          });
+        }
+      } catch (e2) {}
+
       loadedCount = 10;
 
       console.log(
@@ -1174,6 +1192,16 @@ function setupHandlers() {
         );
 
         query = value;
+
+        try {
+          if (typeof trackEvent === 'function') {
+            trackEvent('search_submit', {
+              query: value.trim(),
+              length: value.trim().length
+            });
+          }
+        } catch (e2) {}
+
         loadedCount = 10;
 
         console.log(
@@ -1209,6 +1237,15 @@ function setupHandlers() {
 
       selectedOption = {};
       selectedQuantity = 1;
+
+      try {
+        if (typeof trackEvent === 'function') {
+          trackEvent('product_view', {
+            product_name: product['Название'] || null,
+            category: product.cat || null
+          });
+        }
+      } catch (e2) {}
 
       setTimeout(() => {
         showModal(product);
