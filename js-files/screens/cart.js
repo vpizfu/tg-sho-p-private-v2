@@ -149,6 +149,11 @@ window.updateCartItemPrice = function (cartKey) {
   const item = cartItems.find(i => i.cartKey === cartKey);
   if (!item || !item.newPrice) return;
   console.log('[cart] updateCartItemPrice cartKey=', cartKey, 'old=', item.price, 'new=', item.newPrice);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('updateCartItemPrice', {});
+    }
+  } catch (e) {}
   item.price = item.newPrice;
   item.available = true;
   delete item.newPrice;
@@ -163,6 +168,11 @@ window.updateCartItemPrice = function (cartKey) {
 // обновить цены всех и удалить неактуальные
 window.refreshCartPricesAndCleanup = async function () {
   console.log('[cart] refreshCartPricesAndCleanup start');
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('refreshCartPricesAndCleanup', {});
+    }
+  } catch (e) {}
   const btn = document.getElementById('refreshCartButton');
   const loader = document.getElementById('refreshCartLoader');
 
@@ -357,6 +367,11 @@ function restoreCartFormState() {
 window.setPaymentType = function (type) {
   paymentType = type;
   console.log('[cart] setPaymentType', type);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('setPaymentType', {});
+    }
+  } catch (e) {}
   saveDeliveryPrefs();
   if (currentTab === 'cart') {
     showCartTab();
@@ -366,6 +381,11 @@ window.setPaymentType = function (type) {
 window.setPickupMode = function (mode) {
   pickupMode = !!mode;
   console.log('[cart] setPickupMode', pickupMode);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('setPickupMode', {});
+    }
+  } catch (e) {}
   saveDeliveryPrefs();
   if (currentTab === 'cart') {
     showCartTab();
@@ -375,6 +395,11 @@ window.setPickupMode = function (mode) {
 window.setPickupLocation = function (addr) {
   pickupLocation = addr;
   console.log('[cart] setPickupLocation', pickupLocation);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('setPickupLocation', {});
+    }
+  } catch (e) {}
   saveDeliveryPrefs();
 };
 

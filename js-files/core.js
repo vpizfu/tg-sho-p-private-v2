@@ -635,6 +635,12 @@ window.onerror = function (message, source, lineno, colno, error) {
     );
   } catch (_) {}
 
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('global_error', {});
+    }
+  } catch (e) {}
+
   return true;
 };
 
@@ -982,9 +988,7 @@ function switchTab(tabName) {
   console.log('[core] switchTab from', currentTab, 'to', tabName);
   try {
     if (typeof trackEvent === 'function') {
-      trackEvent('tab_click', {
-        products_count: Array.isArray(productsData) ? productsData.length : 0
-      });
+      trackEvent('tab_click', {});
     }
   } catch (e) {}
 
@@ -1386,6 +1390,11 @@ window.refreshProducts = async function () {
   if (isRefreshingProducts) return;
   isRefreshingProducts = true;
   console.log('[core] refreshProducts clicked');
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('refresh_products_button_clicked', {});
+    }
+  } catch (e) {}
 
   // показать лоадер на кнопке, если она сейчас есть в DOM
   setRefreshButtonLoading(true);
@@ -1626,13 +1635,6 @@ async function initApp() {
   const t0 = performance.now();
   try {
     console.log('[core] initApp start');
-    try {
-      if (typeof initAnalytics === 'function') {
-        initAnalytics();
-      }
-    } catch (e) {
-      console.error('[core] initAnalytics error', e);
-    }
     console.log('tg object:', window.Telegram?.WebApp);
     console.log('initData string:', window.Telegram?.WebApp?.initData);
     console.log(

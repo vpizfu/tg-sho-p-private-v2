@@ -62,6 +62,11 @@
         '</button>' +
       '</div>';
   
+      try {
+        if (typeof trackEvent === 'function') {
+          trackEvent('showErrorFatal', {});
+        }
+      } catch (e) {}
     tg?.showAlert?.('❌ ' + message + '\nДля заказа через менеджера напишите @TechBex.');
   }  
   

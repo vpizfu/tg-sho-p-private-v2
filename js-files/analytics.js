@@ -471,6 +471,31 @@ function trackCheckoutFormFilled(params) {
   });
 }
 
+// analytics.js
+
+(function () {
+    // уже есть: trackEvent, analyticsEnsureIds, initAnalytics и т.п.
+  
+    function safeInitAnalyticsFromDom() {
+      try {
+        if (typeof initAnalytics === 'function') {
+          initAnalytics({ entryPoint: detectEntryPoint() });
+        }
+      } catch (e) {
+        console.error('[analytics] auto initAnalytics error', e);
+      }
+    }
+  
+    if (typeof document !== 'undefined') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', safeInitAnalyticsFromDom, { once: true });
+      } else {
+        // DOM уже готов
+        safeInitAnalyticsFromDom();
+      }
+    }
+  })();  
+
 // экспорт в window
 
 window.initAnalytics = initAnalytics;
