@@ -1,4 +1,6 @@
 // ---------- Корзина и бейдж ----------
+let currentOrderId = null;
+let hasCheckoutResultForCurrent = false;
 
 function updateCartBadge() {
   const badge = document.getElementById('cartBadge');
@@ -966,6 +968,9 @@ window.placeOrder = async function () {
       }
     };
 
+    currentOrderId = order.id;
+    hasCheckoutResultForCurrent = false;
+
     const usedSavedProfile = !!(savedProfile && savedProfile.confirmed);
     const usedSavedAddress =
       !!deliveryPrefs &&
@@ -1010,6 +1015,7 @@ window.placeOrder = async function () {
             reason: 'network_error'
           });
         }
+        hasCheckoutResultForCurrent = true;
       } catch (e2) {}
 
       scheduleDelayedOrdersSync('network-error');
@@ -1038,6 +1044,7 @@ window.placeOrder = async function () {
             status: resp.status
           });
         }
+        hasCheckoutResultForCurrent = true;
       } catch (e2) {}
 
       scheduleDelayedOrdersSync('server-error');
@@ -1067,6 +1074,7 @@ window.placeOrder = async function () {
       if (typeof trackCheckoutResult === 'function') {
         trackCheckoutResult(order.id, true);
       }
+      hasCheckoutResultForCurrent = true;
     } catch (e2) {}
 
     tg?.showAlert?.(

@@ -946,6 +946,47 @@ function showModal(product) {
   tg?.expand();
 }
 
+function trackModalImageStateOnCompleteSelection() {
+  if (!currentProduct || !Array.isArray(currentVariants) || !currentVariants.length) {
+    return;
+  }
+
+  try {
+    // находим текущий выбранный вариант
+    const allVariants = currentVariants.filter(v => v.inStock);
+    const filtered = getFilteredVariants(allVariants);
+    if (!filtered.length) return;
+    const v = filtered[0];
+
+    // есть ли вообще ссылки на картинки
+    const allImages = getAllProductImages(v);
+    const hasAnyImage = allImages && allImages.length > 0;
+
+    // есть ли реальный <img> в модалке (и не скрыт ли он)
+    const modalImg = document.querySelector('#modalCarousel .carousel-img');
+    const imgVisible =
+      modalImg &&
+      modalImg.offsetParent !== null &&
+      modalImg.naturalWidth > 0 &&
+      modalImg.naturalHeight > 0;
+
+    trackEvent('product_image_state_on_complete_selection', {
+      product_name: currentProduct['Название'] || null,
+      has_any_image: !!hasAnyImage,
+      img_visible: !!imgVisible
+    });
+
+    if (hasAnyImage && !imgVisible) {
+      trackEvent('product_image_missing_on_full_selection', {
+        product_name: currentProduct['Название'] || null
+      });
+    }
+  } catch (e) {
+    console.error('[analytics] modal image state error', e);
+  }
+}
+
+
 // выбор опций: при полном выборе продукта запускаем modal-product прогрев
 (function patchSelectForModalWarmup() {
   const originalSelectOptionNoFocus = window.selectOptionNoFocus;
@@ -966,7 +1007,8 @@ function showModal(product) {
 
     if (isCompleteSelection()) {
       console.log('[modal] all options selected, browser loads product images via <img src>');
-    }
+      trackModalImageStateOnCompleteSelection();
+    }    
   };
 })();
 

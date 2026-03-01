@@ -203,11 +203,15 @@ const ANALYTICS_URL = (typeof BACKEND_BASE_URL === 'string'
   
     if (typeof window !== 'undefined') {
       window.addEventListener('beforeunload', () => {
-        trackEvent('app_close', { reason: 'beforeunload' }, { sync: true });
+        analyticsHandlePossibleCheckoutAbandon('beforeunload');
+        analyticsHandlePossibleShopAbandon('beforeunload');
       });
+  
       document.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
           trackEvent('app_hide', {}, { sync: true });
+          analyticsHandlePossibleCheckoutAbandon('hidden');
+          analyticsHandlePossibleShopAbandon('hidden');
         } else if (document.visibilityState === 'visible') {
           trackEvent('app_show', {}, {});
         }
@@ -248,6 +252,43 @@ const ANALYTICS_URL = (typeof BACKEND_BASE_URL === 'string'
       analyticsEnqueue(evt);
     } catch (e) {
       console.error('[analytics] trackEvent error', e);
+    }
+  }
+  
+  function analyticsHandlePossibleCheckoutAbandon(reason) {
+    try {
+      if (
+        typeof currentOrderId === 'number' &&
+        currentOrderId &&
+        !hasCheckoutResultForCurrent &&
+        typeof trackCheckoutResult === 'function'
+      ) {
+        trackCheckoutResult(currentOrderId, false, {
+          reason: 'abandon_before_response',
+          trigger: reason
+        });
+        hasCheckoutResultForCurrent = true;
+      }
+    } catch (e) {
+      console.error('[analytics] abandon check error', e);
+    }
+  }
+  
+  function analyticsHandlePossibleShopAbandon(reason) {
+    try {
+      if (
+        typeof hasShopLoadedOnce !== 'undefined' &&
+        !hasShopLoadedOnce &&
+        typeof trackEvent === 'function'
+      ) {
+        trackEvent('abandon_before_shop_loaded', {
+          trigger: reason
+        });
+        // Один раз на сессию фиксируем
+        hasShopLoadedOnce = true;
+      }
+    } catch (e) {
+      console.error('[analytics] shop abandon check error', e);
     }
   }
   

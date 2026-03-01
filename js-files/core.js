@@ -1,6 +1,7 @@
 // определяем, где мы — браузер или настоящий Mini App
 const tgRaw = window.Telegram?.WebApp;
 const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → Telegram Mini App
+let hasShopLoadedOnce = false;
 
 // только в браузере: управляем скроллом и «пинаем» адресную строку
 if (!isRealMiniApp) {

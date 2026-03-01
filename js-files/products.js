@@ -1072,6 +1072,16 @@ function renderShop() {
 
   isFirstShopRender = false;
   console.log('---------------- [/renderShop] ----------------');
+  if (!hasShopLoadedOnce) {
+    hasShopLoadedOnce = true;
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('shop_loaded', {
+          products_count: Array.isArray(productsData) ? productsData.length : 0
+        });
+      }
+    } catch (e) {}
+  }  
 }
 
 // ---------- навешивание обработчиков ----------
