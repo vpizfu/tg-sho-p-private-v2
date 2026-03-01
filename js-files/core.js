@@ -980,6 +980,13 @@ function restoreTabScroll(tabName) {
 
 function switchTab(tabName) {
   console.log('[core] switchTab from', currentTab, 'to', tabName);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('tab_click', {
+        products_count: Array.isArray(productsData) ? productsData.length : 0
+      });
+    }
+  } catch (e) {}
 
   if (currentTab === tabName) {
     isTabChanging = false;
