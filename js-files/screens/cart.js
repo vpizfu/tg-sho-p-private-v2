@@ -624,7 +624,7 @@ function showCartTab() {
               '</div>') +
         '</div>' +
         '<div class="space-y-2">' +
-          '<label class="text-sm font-semibold text-gray-700 block">Контактные данные</label>' +
+          '<label class="text-sm font-semibold text-gray-700 block">Контактные данные*</label>' +
           '<input id="contactName" type="text"' +
             ' class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm mb-2 focus:outline-none"' +
             ' placeholder="Имя">' +
