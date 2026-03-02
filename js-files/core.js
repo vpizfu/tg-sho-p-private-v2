@@ -454,33 +454,51 @@ function initGlobalWarmupQueues() {
 function buildShimmerHTML() {
   return (
     '<div class="pb-[65px] max-w-md mx-auto">' +
-    '<div class="mb-5">' +
-    '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
-    '<div class="flex items-center gap-3">' +
-    '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
-    '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
-    '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-    '</div>' +
-    '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
-    '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
-    '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '<div class="product-grid">' +
-    Array.from({ length: 6 }).map(() =>
-      '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
-      '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
-      '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
+      '<div class="mb-5">' +
+        // Заголовок / логотип (скелетон)
+        '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
+        '<div class="flex items-center gap-3">' +
+          '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
+            '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+          '</div>' +
+          '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
+            '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+          '</div>' +
+        '</div>' +
+        // Статус загрузки
+        '<div id="loadingStatus" class="mt-3 text-xs text-gray-500 text-center leading-snug">' +
+          'Загружаем актуальный каталог…<br>' +
+          'Обычно это занимает до 15 секунд.' +
+        '</div>' +
       '</div>' +
-      '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
-      '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
-      '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
-      '</div>'
-    ).join('') +
-    '</div>' +
+      '<div class="product-grid">' +
+        Array.from({ length: 6 }).map(() =>
+          '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
+            '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
+              '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
+            '</div>' +
+            '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
+          '</div>'
+        ).join('') +
+      '</div>' +
     '</div>'
   );
+}
+
+
+// мягкое обновление текста статуса
+function setLoadingStatus(html) {
+  try {
+    const el = document.getElementById('loadingStatus');
+    if (!el) return;
+    el.innerHTML = String(html);
+  } catch (e) {
+    console.log('[core] setLoadingStatus error', e);
+  }
 }
 
 // публичный старт прогрева после загрузки товаров
@@ -1638,6 +1656,8 @@ function markImageAsLoaded(cacheKey) {
 async function initApp() {
   window.scrollTo(0, 0);
   const t0 = performance.now();
+  let longLoadTimer = null;
+
   try {
     console.log('[core] initApp start');
     console.log('tg object:', window.Telegram?.WebApp);
@@ -1656,8 +1676,20 @@ async function initApp() {
 
     if (currentTab === 'shop') {
       root.innerHTML = buildShimmerHTML();
+
+      // через 7 секунд — доп. подсказка, если всё ещё грузится
+      longLoadTimer = setTimeout(() => {
+        setLoadingStatus(
+          'Загружаем актуальный каталог…<br>' +
+          'Обычно это занимает до 15 секунд.<br>' +
+          '<span class="text-[11px] text-gray-400">' +
+          'Мы подгружаем свежие цены и наличие в реальном времени.' +
+          '</span>'
+        );
+      }, 7000);
     }
 
+    // локальное состояние
     loadOrdersFromStorage();
     loadAddressesFromStorage();
     loadProfileFromStorage();
@@ -1665,30 +1697,44 @@ async function initApp() {
     loadDeliveryPrefs();
     logStage('after localStorage', t0);
 
-        // 🔥 ВАЛИДАЦИЯ ВЫБРАННОГО АДРЕСА
-        try {
-          const savedSet = new Set((savedAddresses || []).map(String));
-          if (!savedSet.has(deliveryPrefs.savedAddressValue)) {
-            if (deliveryPrefs.savedAddressValue) {
-              console.log(
-                '[deliveryPrefs] drop invalid savedAddressValue =',
-                deliveryPrefs.savedAddressValue
-              );
-            }
-            deliveryPrefs.savedAddressValue = '';
-            cartFormState.savedAddressValue = '';
-            saveDeliveryPrefs();
-          }
-        } catch (e) {
-          console.log('[deliveryPrefs] validate savedAddressValue error', e);
+    // валидация сохранённого адреса
+    try {
+      const savedSet = new Set((savedAddresses || []).map(String));
+      if (!savedSet.has(deliveryPrefs.savedAddressValue)) {
+        if (deliveryPrefs.savedAddressValue) {
+          console.log(
+            '[deliveryPrefs] drop invalid savedAddressValue =',
+            deliveryPrefs.savedAddressValue
+          );
         }
+        deliveryPrefs.savedAddressValue = '';
+        cartFormState.savedAddressValue = '';
+        saveDeliveryPrefs();
+      }
+    } catch (e) {
+      console.log('[deliveryPrefs] validate savedAddressValue error', e);
+    }
 
     loadPersistentImageCache();
 
+    // шаг 1 — конфиг
+    setLoadingStatus(
+      'Получаем настройки магазина…<br>' +
+      'Обычно это занимает до 15 секунд.'
+    );
     await loadAppConfig();
     logStage('after load config', t0);
+
+    // шаг 2 — товары
+    setLoadingStatus(
+      'Загружаем актуальный каталог…<br>' +
+      'Проверяем свежие цены и наличие.'
+    );
     await fetchAndUpdateProducts();
     logStage('after fetchAndUpdateProducts', t0);
+
+    // шаг 3 — финализация
+    setLoadingStatus('Готовим витрину…');
 
     fetchUserOrders().catch(e =>
       console.error('[orders] init fetch error', e)
@@ -1714,8 +1760,11 @@ async function initApp() {
         });
       }
     } catch (e) {}
-    
-    // прогрев стартует всегда, независимо от таба
+
+    // после рендера статус можно очистить
+    setLoadingStatus('');
+
+    // прогрев картинок
     setTimeout(() => {
       try {
         startBackgroundPreload();
@@ -1725,6 +1774,7 @@ async function initApp() {
     }, 1000);
     logStage('after initial tab render', t0);
 
+    // авто-обновление товаров
     setInterval(() => {
       try {
         fetchAndUpdateProducts(false).catch(err =>
@@ -1737,5 +1787,10 @@ async function initApp() {
   } catch (e) {
     console.error('[core] Init error:', e);
     showError(e.message || 'Ошибка инициализации приложения');
+  } finally {
+    if (longLoadTimer) {
+      clearTimeout(longLoadTimer);
+      longLoadTimer = null;
+    }
   }
 }
