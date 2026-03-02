@@ -838,17 +838,20 @@ window.placeOrder = async function () {
 
   if (!isValidName(rawName)) {
     tg?.showAlert?.('Введите корректное имя (только буквы, 1–50 символов)');
+    trackEvent('need_type_name', {}, {});
     return;
   }
 
   const normalizedPhone = normalizePhone(rawPhone);
   if (!normalizedPhone) {
     tg?.showAlert?.('Введите корректный номер телефона в формате +7XXXXXXXXXX');
+    trackEvent('need_type_phone', {}, {});
     return;
   }
 
   if (!contactConfirmed) {
     tg?.showAlert?.('Подтвердите правильность введенных данных');
+    trackEvent('need_confirm_data', {}, {});
     return;
   }
 
@@ -875,6 +878,7 @@ window.placeOrder = async function () {
     if (currentTab === 'cart') {
       showCartTab();
     }
+    trackEvent('timeout_checkout_error', {}, {});
     tg?.showAlert?.(
       'Превышено время ожидания ответа сервера.\nДля заказа через менеджера напишите @TechBex.\nВозможно большая нагрузка и заказ появится в профиле в течении 3 минут. Если не появился проверьте интернет и попробуйте ещё раз (либо сразу можете попробовать повторно оформить заказ)'
     );
