@@ -40,7 +40,8 @@
     // обычная строка без разделителей
     const s = String(num);
     // регэксп: вставляем точку между каждыми 3 цифрами с конца
-    return s.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    // return s.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    return value
   }  
   
   function showError(message) {
