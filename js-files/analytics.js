@@ -93,68 +93,94 @@ function analyticsEnsureIds() {
 }
 
 function analyticsGetBaseContext() {
-  analyticsEnsureIds();
-
-  const now = Date.now();
-  let platform = 'web';
-  let source = 'web';
-  let tgUserId = null;
-  let tgUsername = null;
-
-  const tgLocal = window.Telegram && window.Telegram.WebApp;
-  if (tgLocal && tgLocal.initData) {
-    platform = 'telegram_webapp';
-    source = 'telegram';
-    const u =
-      tgLocal.initDataUnsafe &&
-      tgLocal.initDataUnsafe.user;
-    if (u) {
-      tgUserId = u.id ?? null;
-      tgUsername = u.username ?? null;
+    analyticsEnsureIds();
+  
+    const now = Date.now();
+    let platform = 'web';
+    let source = 'web';
+    let tgUserId = null;
+    let tgUsername = null;
+  
+    const tgLocal = window.Telegram && window.Telegram.WebApp;
+    if (tgLocal && tgLocal.initData) {
+      platform = 'telegram_webapp';
+      source = 'telegram';
+      const u =
+        tgLocal.initDataUnsafe &&
+        tgLocal.initDataUnsafe.user;
+      if (u) {
+        tgUserId = u.id ?? null;
+        tgUsername = u.username ?? null;
+      }
     }
-  }
-
-  const url =
-    typeof location !== 'undefined' ? location.href : '';
-  const referrer =
-    typeof document !== 'undefined'
-      ? document.referrer
-      : '';
-  const ua =
-    typeof navigator !== 'undefined'
-      ? navigator.userAgent || ''
-      : '';
-  const lang =
-    typeof navigator !== 'undefined'
-      ? navigator.language || ''
-      : '';
-  const screenW =
-    typeof screen !== 'undefined'
-      ? screen.width || null
-      : null;
-  const screenH =
-    typeof screen !== 'undefined'
-      ? screen.height || null
-      : null;
-  const tzOffset = new Date().getTimezoneOffset();
-
-  return {
-    ts: now,
-    client_id: analyticsClientId,
-    session_id: analyticsSessionId,
-    platform,
-    source,
-    url,
-    referrer,
-    ua,
-    lang,
-    screen_w: screenW,
-    screen_h: screenH,
-    tz_offset_min: tzOffset,
-    tg_user_id: tgUserId,
-    tg_username: tgUsername
-  };
-}
+  
+    let url = '';
+    let rawUrl = '';
+  
+    if (typeof location !== 'undefined' && location.href) {
+      rawUrl = location.href;
+  
+      try {
+        // Для мини‑аппа весь мусор идёт в hash, где внутри tgWebAppData.
+        // Нам достаточно домена + базового hash (если ты его используешь).
+        const origin = location.origin || '';
+        const pathname = location.pathname || '';
+        let hash = location.hash || '';
+  
+        // Обрезаем hash по tgWebAppData (и остальному служебному), оставляем только «свою» часть до этого.
+        if (hash.includes('tgWebAppData=')) {
+          hash = hash.split('tgWebAppData=')[0];
+          // уберём возможный хвост типа "?#" / "&" в конце
+          hash = hash.replace(/[?&]$/, '');
+        }
+  
+        url = origin + pathname + hash;
+      } catch (_) {
+        // на всякий случай фолбэк
+        url = location.href;
+      }
+    }
+  
+    const referrer =
+      typeof document !== 'undefined'
+        ? document.referrer
+        : '';
+    const ua =
+      typeof navigator !== 'undefined'
+        ? navigator.userAgent || ''
+        : '';
+    const lang =
+      typeof navigator !== 'undefined'
+        ? navigator.language || ''
+        : '';
+    const screenW =
+      typeof screen !== 'undefined'
+        ? screen.width || null
+        : null;
+    const screenH =
+      typeof screen !== 'undefined'
+        ? screen.height || null
+        : null;
+    const tzOffset = new Date().getTimezoneOffset();
+  
+    return {
+      ts: now,
+      client_id: analyticsClientId,
+      session_id: analyticsSessionId,
+      platform,
+      source,
+      url,        // короткий, «человеческий» URL
+      raw_url: rawUrl || null, // если не нужно — можешь удалить это поле
+      referrer,
+      ua,
+      lang,
+      screen_w: screenW,
+      screen_h: screenH,
+      tz_offset_min: tzOffset,
+      tg_user_id: tgUserId,
+      tg_username: tgUsername
+    };
+  }  
 
 function analyticsScheduleFlush() {
   if (analyticsFlushTimer) return;
