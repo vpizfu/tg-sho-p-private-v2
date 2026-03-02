@@ -36,10 +36,11 @@
   }
 
   function formatPrice(value) {
-    const num = Number(value) || 0;
-    return new Intl.NumberFormat('ru-RU', {
-      maximumFractionDigits: 0
-    }).format(num);
+    const num = Math.floor(Number(value) || 0);
+    // обычная строка без разделителей
+    const s = String(num);
+    // регэксп: вставляем точку между каждыми 3 цифрами с конца
+    return s.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   }  
   
   function showError(message) {
