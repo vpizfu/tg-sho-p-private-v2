@@ -1033,10 +1033,14 @@ if (!contactConfirmed) {
     currentOrderId = order.id;
     hasCheckoutResultForCurrent = false;
 
-    // корректно считаем, использовался ли сохранённый профиль и адрес
-    const usedSavedProfile =
-      !!(savedProfile && savedProfile.confirmed) &&
-      !cartFormState.contactEditedManually;
+    // фактическое совпадение с сохранённым профилем на момент клика
+    const profileMatchesSaved =
+      !!savedProfile &&
+      !!savedProfile.confirmed &&
+      (savedProfile.name || '').trim() === contactName &&
+      normalizePhone(savedProfile.phone || '') === contactPhone;
+
+    const usedSavedProfile = profileMatchesSaved;
 
     const usedSavedAddress =
       !pickupMode &&                       // только для доставки
