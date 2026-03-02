@@ -812,6 +812,7 @@ window.placeOrder = async function () {
   let address = '';
   if (pickupMode) {
     if (!pickupLocation) {
+      trackEvent('need_fill_pickup', {}, {});
       tg?.showAlert?.('Выберите пункт самовывоза');
       return;
     }
@@ -824,6 +825,7 @@ window.placeOrder = async function () {
       address = select.value;
     }
     if (!address) {
+      trackEvent('need_fill_address', {}, {});
       tg?.showAlert?.('Введите или выберите адрес доставки');
       return;
     }
@@ -841,24 +843,46 @@ window.placeOrder = async function () {
   const contactConfirmedEl = document.getElementById('contactConfirmed');
   const contactConfirmed = contactConfirmedEl ? contactConfirmedEl.checked : false;
 
-  if (!isValidName(rawName)) {
-    tg?.showAlert?.('Введите корректное имя (только буквы, 1–50 символов)');
-    trackEvent('need_type_name', {}, {});
-    return;
-  }
 
-  const normalizedPhone = normalizePhone(rawPhone);
-  if (!normalizedPhone) {
-    tg?.showAlert?.('Введите корректный номер телефона в формате +7XXXXXXXXXX');
-    trackEvent('need_type_phone', {}, {});
-    return;
-  }
+  const hasBadName = !isValidName(rawName);
+const hasBadPhone = !normalizePhone(rawPhone); // без сохранения
+const hasNoConfirm = !contactConfirmed;
 
-  if (!contactConfirmed) {
-    tg?.showAlert?.('Подтвердите правильность введенных данных');
-    trackEvent('need_confirm_data', {}, {});
-    return;
-  }
+// 1) Все три не ок: имя, телефон, подтверждение
+if (hasBadName && hasBadPhone && hasNoConfirm) {
+  tg?.showAlert?.('Заполните имя и телефон и подтвердите данные');
+  trackEvent('need_fill_all_fields', {}, {});
+  return;
+}
+
+// 2) Имя и телефон не ок, подтверждение неважно (всё равно данные кривые)
+if (hasBadName && hasBadPhone) {
+  tg?.showAlert?.('Заполните корректные имя и телефон');
+  trackEvent('need_fill_name_and_phone', {}, {});
+  return;
+}
+
+// 3) Только имя не ок
+if (hasBadName) {
+  tg?.showAlert?.('Введите корректное имя (только буквы, 1–50 символов)');
+  trackEvent('need_type_name', {}, {});
+  return;
+}
+
+// 4) Только телефон не ок
+const normalizedPhone = normalizePhone(rawPhone);
+if (!normalizedPhone) {
+  tg?.showAlert?.('Введите корректный номер телефона в формате +7XXXXXXXXXX');
+  trackEvent('need_type_phone', {}, {});
+  return;
+}
+
+// 5) Имя и телефон ок, но не подтвердил
+if (!contactConfirmed) {
+  tg?.showAlert?.('Подтвердите правильность введенных данных');
+  trackEvent('need_confirm_data', {}, {});
+  return;
+}
 
   const contactName = rawName.trim();
   const contactPhone = normalizedPhone;
