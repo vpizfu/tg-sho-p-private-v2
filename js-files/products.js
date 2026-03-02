@@ -1078,7 +1078,9 @@ function renderShop() {
       if (typeof trackEvent === 'function') {
         trackEvent('shop_loaded', {
           products_count: Array.isArray(productsData) ? productsData.length : 0
-        });
+        }, {
+          sync: true
+        });        
       }
     } catch (e) {}
   }  
