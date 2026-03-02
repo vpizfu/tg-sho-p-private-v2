@@ -1051,6 +1051,11 @@ function switchTab(tabName) {
           }
         }        
       } else if (tabName === 'cart') {
+        try {
+          if (cartItems.length && typeof trackCartView === 'function') {
+            trackCartView(cartItems);
+          }
+        } catch (e2) {}
         showCartTab();
         restoreTabScroll('cart');
       } else if (tabName === 'sale') {

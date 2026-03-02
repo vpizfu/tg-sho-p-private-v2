@@ -170,7 +170,7 @@ function analyticsGetBaseContext() {
       platform,
       source,
       url,        // короткий, «человеческий» URL
-      raw_url: rawUrl || null, // если не нужно — можешь удалить это поле
+    //   raw_url: rawUrl || null, // если не нужно — можешь удалить это поле
       referrer,
       ua,
       lang,

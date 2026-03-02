@@ -444,12 +444,6 @@ function getCartItemSubtitle(item) {
 
 function showCartTab() {
   console.log('[cart] showCartTab, items=', cartItems.length, 'isPlacingOrder=', isPlacingOrder);
-  try {
-    if (cartItems.length && typeof trackCartView === 'function') {
-      trackCartView(cartItems);
-    }
-  } catch (e2) {}
-
   saveCartFormState();
 
   if (!cartItems.length) {
