@@ -472,14 +472,37 @@ function trackCheckoutSubmit(order, extra) {
 }
 
 function trackCheckoutResult(orderId, ok, extra) {
-  trackEvent('checkout_result', {
-    order_id: orderId,
-    ok: !!ok,
-    ...((extra && typeof extra === 'object')
-      ? extra
-      : {})
-  });
-}
+    try {
+      const basePayload = {
+        order_id: orderId,
+        ok: !!ok,
+        // pickup_mode: строка delivery/pickup
+        pickup_mode:
+          (typeof getPickupModeForAnalytics === 'function'
+            ? getPickupModeForAnalytics()
+            : (pickupMode ? 'pickup' : 'delivery')),
+        // payment_type: 'cash' | 'card'
+        payment_type: typeof paymentType !== 'undefined' ? paymentType || null : null,
+        // total_amount: итоговая сумма заказа (subtotal + комиссия)
+        total_amount:
+          (typeof lastOrderTotal !== 'undefined'
+            ? Number(lastOrderTotal) || 0
+            : 0)
+      };
+  
+      trackEvent('checkout_result', {
+        ...basePayload,
+        ...((extra && typeof extra === 'object') ? extra : {})
+      });
+    } catch (e) {
+      console.error('[analytics] trackCheckoutResult error', e);
+      // в случае фэила отправим хотя бы минимальный вариант
+      trackEvent('checkout_result', {
+        order_id: orderId,
+        ok: !!ok
+      });
+    }
+  }  
 
 function trackCheckoutFormFilled(params) {
   trackEvent('checkout_form_filled', {

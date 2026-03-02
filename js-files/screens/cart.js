@@ -1,6 +1,7 @@
 // ---------- Корзина и бейдж ----------
 let currentOrderId = null;
 let hasCheckoutResultForCurrent = false;
+let lastOrderTotal = 0;
 
 function updateCartBadge() {
   const badge = document.getElementById('cartBadge');
@@ -151,7 +152,10 @@ window.updateCartItemPrice = function (cartKey) {
   console.log('[cart] updateCartItemPrice cartKey=', cartKey, 'old=', item.price, 'new=', item.newPrice);
   try {
     if (typeof trackEvent === 'function') {
-      trackEvent('updateCartItemPrice', {});
+      trackEvent('cart_item_price_updated', {
+        product_name: item.name || '',
+        cart_key: item.cartKey || ''
+      });
     }
   } catch (e) {}
   item.price = item.newPrice;
@@ -170,7 +174,9 @@ window.refreshCartPricesAndCleanup = async function () {
   console.log('[cart] refreshCartPricesAndCleanup start');
   try {
     if (typeof trackEvent === 'function') {
-      trackEvent('refreshCartPricesAndCleanup', {});
+      trackEvent('cart_refresh_clicked', {
+        items_count: cartItems.length
+      });
     }
   } catch (e) {}
   const btn = document.getElementById('refreshCartButton');
@@ -783,6 +789,11 @@ function scheduleDelayedOrdersSync(reason) {
   }, 120000);
 }
 
+function getPickupModeForAnalytics() {
+  // pickupMode у тебя уже есть: false = доставка, true = самовывоз
+  return pickupMode ? 'pickup' : 'delivery';
+}
+
 window.placeOrder = async function () {
   if (isPlacingOrder) return;
 
@@ -964,6 +975,10 @@ window.placeOrder = async function () {
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
     const total = subtotal + commission;
+
+        // сохраняем итоговую сумму для аналитики checkout_result
+        lastOrderTotal = total;
+
 
     // сохраняем контакты в состояние и профиль
     cartFormState.contactName = contactName;
