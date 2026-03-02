@@ -1728,7 +1728,7 @@ async function initApp() {
     setLoadingStatus(
       'Загружаем актуальный каталог…<br>' +
       'Проверяем свежие цены и наличие.<br>' +
-      'Обычно это занимает до 15 секунд 😊'
+      'Обычно это занимает до 10 секунд 😊'
     );
     await fetchAndUpdateProducts();
     logStage('after fetchAndUpdateProducts', t0);
