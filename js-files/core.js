@@ -1719,8 +1719,7 @@ async function initApp() {
 
     // шаг 1 — конфиг
     setLoadingStatus(
-      'Получаем настройки магазина…<br>' +
-      'Обычно это занимает до 15 секунд.'
+      'Получаем настройки магазина…<br>'
     );
     await loadAppConfig();
     logStage('after load config', t0);
@@ -1728,7 +1727,8 @@ async function initApp() {
     // шаг 2 — товары
     setLoadingStatus(
       'Загружаем актуальный каталог…<br>' +
-      'Проверяем свежие цены и наличие.'
+      'Проверяем свежие цены и наличие.<br>' +
+      'Обычно это занимает до 15 секунд 😊'
     );
     await fetchAndUpdateProducts();
     logStage('after fetchAndUpdateProducts', t0);
