@@ -1719,20 +1719,25 @@ async function initApp() {
 
     // шаг 1 — конфиг
     setLoadingStatus(
-      'Получаем настройки магазина…<br>'
+      'Получаем настройки магазина...<br>' +
+      'Обычно загрузка занимает до 10 секунд 😊'
     );
     await loadAppConfig();
     logStage('after load config', t0);
 
     // шаг 2 — товары
     setLoadingStatus(
-      'Проверяем свежие цены и наличие.<br>' +
+      'Проверяем свежие цены и наличие...<br>' +
       'Обычно это занимает до 10 секунд 😊'
     );
     await fetchAndUpdateProducts();
     logStage('after fetchAndUpdateProducts', t0);
 
     // шаг 3 — финализация
+    setLoadingStatus(
+      'Готовим витрину…<br>' +
+      'Обычно это занимает до 10 секунд 😊'
+    );
     setLoadingStatus('Готовим витрину…');
 
     fetchUserOrders().catch(e =>
