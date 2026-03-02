@@ -946,61 +946,6 @@ function showModal(product) {
   tg?.expand();
 }
 
-function trackModalImageStateOnCompleteSelection() {
-  if (!currentProduct) return;
-
-  try {
-    // Берём варианты именно этого товара из productsData
-    if (!Array.isArray(productsData)) return;
-    const allVariants = getProductVariants(currentProduct['Название'])
-      .filter(v => v && v.inStock);
-
-    if (!allVariants.length) return;
-
-    const filtered = getFilteredVariants(allVariants);
-    if (!filtered.length) return;
-
-    const v = filtered[0];
-
-    // есть ли вообще ссылки на картинки для выбранного варианта
-    const allImages = getAllProductImages(v) || [];
-    const hasAnyImage = allImages.length > 0;
-
-    // ищем реальный img в текущем слайде
-    const slidesWrapper = document.getElementById('modalSlidesWrapper');
-    let modalImg = null;
-
-    if (slidesWrapper) {
-      const activeSlide = slidesWrapper.children[modalCurrentIndex] || null;
-      if (activeSlide) {
-        modalImg = activeSlide.querySelector('img.carousel-img');
-      }
-    }
-
-    const imgVisible =
-      !!modalImg &&
-      modalImg.offsetParent !== null &&
-      modalImg.naturalWidth > 0 &&
-      modalImg.naturalHeight > 0;
-
-    if (typeof trackEvent === 'function') {
-      trackEvent('product_image_state_on_complete_selection', {
-        product_name: currentProduct['Название'] || null,
-        has_any_image: !!hasAnyImage,
-        img_visible: !!imgVisible
-      });
-
-      if (hasAnyImage && !imgVisible) {
-        trackEvent('product_image_missing_on_full_selection', {
-          product_name: currentProduct['Название'] || null
-        });
-      }
-    }
-  } catch (e) {
-    console.error('[analytics] modal image state error', e);
-  }
-}
-
 
 // выбор опций: при полном выборе продукта запускаем modal-product прогрев
 (function patchSelectForModalWarmup() {
@@ -1022,7 +967,6 @@ function trackModalImageStateOnCompleteSelection() {
 
     if (isCompleteSelection()) {
       console.log('[modal] all options selected, browser loads product images via <img src>');
-      trackModalImageStateOnCompleteSelection();
     }    
   };
 })();
