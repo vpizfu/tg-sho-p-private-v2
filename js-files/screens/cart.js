@@ -1009,11 +1009,16 @@ window.placeOrder = async function () {
     currentOrderId = order.id;
     hasCheckoutResultForCurrent = false;
 
-    const usedSavedProfile = !!(savedProfile && savedProfile.confirmed);
+    // корректно считаем, использовался ли сохранённый профиль и адрес
+    const usedSavedProfile =
+      !!(savedProfile && savedProfile.confirmed) &&
+      !cartFormState.contactEditedManually;
+
     const usedSavedAddress =
-      !!deliveryPrefs &&
-      !!deliveryPrefs.savedAddressValue &&
-      !pickupMode;
+      !pickupMode &&                       // только для доставки
+      !!deliveryPrefs &&                   // prefs есть
+      !!deliveryPrefs.savedAddressValue && // вообще есть сохранённый адрес
+      deliveryPrefs.savedAddressValue === (cartFormState.savedAddressValue || '');
 
     try {
       if (typeof trackCheckoutFormFilled === 'function') {
