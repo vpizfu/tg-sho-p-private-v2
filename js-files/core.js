@@ -1728,7 +1728,7 @@ async function initApp() {
     // шаг 2 — товары
     setLoadingStatus(
       'Проверяем свежие цены и наличие...<br>' +
-      'Обычно это занимает до 10 секунд 😊'
+      'Обычно загрузка занимает до 10 секунд 😊'
     );
     await fetchAndUpdateProducts();
     logStage('after fetchAndUpdateProducts', t0);
@@ -1736,9 +1736,8 @@ async function initApp() {
     // шаг 3 — финализация
     setLoadingStatus(
       'Готовим витрину…<br>' +
-      'Обычно это занимает до 10 секунд 😊'
+      'Обычно загрузка занимает до 10 секунд 😊'
     );
-    setLoadingStatus('Готовим витрину…');
 
     fetchUserOrders().catch(e =>
       console.error('[orders] init fetch error', e)
