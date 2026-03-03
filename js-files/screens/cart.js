@@ -783,44 +783,8 @@ function scheduleDelayedOrdersSync(reason) {
   }, 120000);
 }
 
-function setPlaceOrderLoading(loading) {
-  const btn = document.getElementById('placeOrderButton');
-  if (!btn) return;
-
-  if (loading) {
-    btn.disabled = true;
-    btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
-    btn.classList.add('bg-gray-400', 'cursor-not-allowed');
-    btn.innerHTML =
-      '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
-  } else {
-    btn.disabled = cartItems.some(i => !i.available);
-    btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
-    if (!btn.disabled) {
-      btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
-      btn.innerHTML = 'Оформить заказ';
-    } else {
-      btn.innerHTML = 'Удалите недоступные товары или обновите цены';
-    }
-  }
-}
-
-function scheduleDelayedOrdersSync(reason) {
-  console.log('[placeOrder] scheduleDelayedOrdersSync reason=', reason);
-  setTimeout(async () => {
-    try {
-      console.log('[placeOrder] delayed sync 2min after', reason);
-      await fetchUserOrders();
-      if (currentTab === 'profile') {
-        showProfileTab();
-      }
-    } catch (e) {
-      console.error('[placeOrder] fetchUserOrders delayed error', e);
-    }
-  }, 120000);
-}
-
 function getPickupModeForAnalytics() {
+  // pickupMode у тебя уже есть: false = доставка, true = самовывоз
   return pickupMode ? 'pickup' : 'delivery';
 }
 
@@ -834,19 +798,17 @@ window.placeOrder = async function () {
     if (cartItems.length && typeof trackCheckoutStart === 'function') {
       trackCheckoutStart(cartItems, {
         payment_type: paymentType,
-        pickup_mode: pickupMode,
+        pickup_mode: pickupMode
       });
     }
   } catch (e2) {}
 
+
   if (cartItems.length === 0) {
-    tg?.showAlert?.(
-      'Корзина пуста.\nДля заказа через менеджера напишите @TechBex.'
-    );
+    tg?.showAlert?.('Корзина пуста.\nДля заказа через менеджера напишите @TechBex.');
     return;
   }
 
-  // адрес
   let address = '';
   if (pickupMode) {
     if (!pickupLocation) {
@@ -881,100 +843,99 @@ window.placeOrder = async function () {
   const contactConfirmedEl = document.getElementById('contactConfirmed');
   const contactConfirmed = contactConfirmedEl ? contactConfirmedEl.checked : false;
 
+
   const hasBadName = !isValidName(rawName);
-  const hasBadPhone = !normalizePhone(rawPhone); // без сохранения
-  const hasNoConfirm = !contactConfirmed;
+const hasBadPhone = !normalizePhone(rawPhone); // без сохранения
+const hasNoConfirm = !contactConfirmed;
 
-  if (hasBadName && hasBadPhone && hasNoConfirm) {
-    tg?.showAlert?.('Заполните имя и телефон и подтвердите данные');
-    trackEvent('need_fill_all_fields', {}, {});
-    return;
-  }
+// 1) Все три не ок: имя, телефон, подтверждение
+if (hasBadName && hasBadPhone && hasNoConfirm) {
+  tg?.showAlert?.('Заполните имя и телефон и подтвердите данные');
+  trackEvent('need_fill_all_fields', {}, {});
+  return;
+}
 
-  if (hasBadName && hasBadPhone) {
-    tg?.showAlert?.('Заполните корректные имя и телефон');
-    trackEvent('need_fill_name_and_phone', {}, {});
-    return;
-  }
+// 2) Имя и телефон не ок, подтверждение неважно (всё равно данные кривые)
+if (hasBadName && hasBadPhone) {
+  tg?.showAlert?.('Заполните корректные имя и телефон');
+  trackEvent('need_fill_name_and_phone', {}, {});
+  return;
+}
 
-  if (hasBadName) {
-    tg?.showAlert?.(
-      'Введите корректное имя (только буквы, 1–50 символов)'
-    );
-    trackEvent('need_type_name', {}, {});
-    return;
-  }
+// 3) Только имя не ок
+if (hasBadName) {
+  tg?.showAlert?.('Введите корректное имя (только буквы, 1–50 символов)');
+  trackEvent('need_type_name', {}, {});
+  return;
+}
 
-  const normalizedPhone = normalizePhone(rawPhone);
-  if (!normalizedPhone) {
-    tg?.showAlert?.(
-      'Введите корректный номер телефона в формате +7XXXXXXXXXX'
-    );
-    trackEvent('need_type_phone', {}, {});
-    return;
-  }
+// 4) Только телефон не ок
+const normalizedPhone = normalizePhone(rawPhone);
+if (!normalizedPhone) {
+  tg?.showAlert?.('Введите корректный номер телефона в формате +7XXXXXXXXXX');
+  trackEvent('need_type_phone', {}, {});
+  return;
+}
 
-  if (!contactConfirmed) {
-    tg?.showAlert?.('Подтвердите правильность введенных данных');
-    trackEvent('need_confirm_data', {}, {});
-    return;
-  }
+// 5) Имя и телефон ок, но не подтвердил
+if (!contactConfirmed) {
+  tg?.showAlert?.('Подтвердите правильность введенных данных');
+  trackEvent('need_confirm_data', {}, {});
+  return;
+}
 
   const contactName = rawName.trim();
   const contactPhone = normalizedPhone;
 
-  console.log(
-    '[placeOrder] address=',
-    address,
-    'pickupMode=',
-    pickupMode
-  );
-  console.log(
-    '[placeOrder] comment=',
-    deliveryComment,
-    'contact=',
-    contactName,
-    contactPhone
-  );
+  console.log('[placeOrder] address=', address, 'pickupMode=', pickupMode);
+  console.log('[placeOrder] comment=', deliveryComment, 'contact=', contactName, contactPhone);
 
   isPlacingOrder = true;
   setPlaceOrderLoading(true);
 
-  try {
-    // 1. Перед заказом всегда тянем актуальный каталог с бэка (/products)
+  placeOrderTimeoutId = setTimeout(async () => {
+    if (!isPlacingOrder) return;
+    console.log('[placeOrder] client-side timeout 70s');
+    isPlacingOrder = false;
+
     try {
-      console.time('[placeOrder] fetch_products');
-      await fetchAndUpdateProducts(false); // ОБЯЗАТЕЛЬНО: ходит ТОЛЬКО в BACKEND /products
-      console.timeEnd('[placeOrder] fetch_products');
+      await fetchUserOrders();
+    } catch (e) {
+      console.error('[placeOrder] fetchUserOrders after timeout error', e);
+    }
+
+    if (currentTab === 'cart') {
+      showCartTab();
+    }
+    trackEvent('timeout_checkout_error', {}, {});
+    tg?.showAlert?.(
+      'Превышено время ожидания ответа сервера.\nДля заказа через менеджера напишите @TechBex.\nВозможно большая нагрузка и заказ появится в профиле в течении 3 минут. Если не появился проверьте интернет и попробуйте ещё раз (либо сразу можете попробовать повторно оформить заказ)'
+    );
+
+    scheduleDelayedOrdersSync('timeout');
+  }, 70000);
+
+  try {
+    try {
+      await fetchAndUpdateProducts(false);
     } catch (e) {
       console.error('[placeOrder] refresh before order failed', e);
-      tg?.showAlert?.(
-        'Не удалось обновить наличие.\n' +
-          'Попробуйте ещё раз или напишите @TechBex.'
-      );
-      isPlacingOrder = false;
-      setPlaceOrderLoading(false);
-      return;
     }
 
     if (!productsData) {
-      tg?.showAlert?.(
-        'Товары ещё не загружены, попробуйте позже.\n' +
-          'Для заказа через менеджера напишите @TechBex.'
-      );
+      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
       isPlacingOrder = false;
       setPlaceOrderLoading(false);
       return;
     }
 
-    // 2. Проверка наличия и цены по актуальному кешу бэка
     let hasUnavailable = false;
     let hasPriceChanged = false;
 
     const productByKeyForOrder = new Map(
       productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
     );
-
+    
     cartItems = cartItems.map(item => {
       const fresh = productByKeyForOrder.get(item.cartKey);
 
@@ -986,6 +947,7 @@ window.placeOrder = async function () {
       const freshPrice = Number(fresh['Цена']);
       const oldPrice = Number(item.price);
 
+      // цена исчезла или стала 0 → считаем недоступным
       if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
         hasUnavailable = true;
         return { ...item, available: false };
@@ -1016,12 +978,10 @@ window.placeOrder = async function () {
           'Некоторые товары недоступны, а у других обновилась цена. Проверьте корзину.'
         );
       } else if (hasUnavailable) {
-        tg?.showAlert?.(
-          'Некоторые товары стали недоступны. Удалите их из корзины.'
-        );
+        tg?.showAlert?.('Некоторые товары стали недоступны. Удалите их из корзины.');
       } else {
         tg?.showAlert?.(
-          'У некоторых товаров обновилась цена. Нажмите «Обновить» возле позиции.'
+          'У некоторых товаров обновилась цена. Нажмите "Обновить" возле позиции.'
         );
       }
       if (currentTab === 'cart') {
@@ -1030,17 +990,15 @@ window.placeOrder = async function () {
       return;
     }
 
-    const subtotal = cartItems.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0
-    );
-    const commission = paymentType === 'card'
-      ? Math.round(subtotal * 0.15)
-      : 0;
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
     const total = subtotal + commission;
-    lastOrderTotal = total;
 
-    // сохраняем контакты
+        // сохраняем итоговую сумму для аналитики checkout_result
+        lastOrderTotal = total;
+
+
+    // сохраняем контакты в состояние и профиль
     cartFormState.contactName = contactName;
     cartFormState.contactPhone = contactPhone;
     cartFormState.contactConfirmed = contactConfirmed;
@@ -1048,7 +1006,7 @@ window.placeOrder = async function () {
     savedProfile = {
       name: contactName,
       phone: contactPhone,
-      confirmed: contactConfirmed,
+      confirmed: contactConfirmed
     };
     saveProfileToStorage();
 
@@ -1068,13 +1026,14 @@ window.placeOrder = async function () {
       comment: deliveryComment,
       contact: {
         name: contactName,
-        phone: contactPhone,
-      },
+        phone: contactPhone
+      }
     };
 
     currentOrderId = order.id;
     hasCheckoutResultForCurrent = false;
 
+    // фактическое совпадение с сохранённым профилем на момент клика
     const profileMatchesSaved =
       !!savedProfile &&
       !!savedProfile.confirmed &&
@@ -1084,11 +1043,10 @@ window.placeOrder = async function () {
     const usedSavedProfile = profileMatchesSaved;
 
     const usedSavedAddress =
-      !pickupMode &&
-      !!deliveryPrefs &&
-      !!deliveryPrefs.savedAddressValue &&
-      deliveryPrefs.savedAddressValue ===
-        (cartFormState.savedAddressValue || '');
+      !pickupMode &&                       // только для доставки
+      !!deliveryPrefs &&                   // prefs есть
+      !!deliveryPrefs.savedAddressValue && // вообще есть сохранённый адрес
+      deliveryPrefs.savedAddressValue === (cartFormState.savedAddressValue || '');
 
     try {
       if (typeof trackCheckoutFormFilled === 'function') {
@@ -1096,7 +1054,7 @@ window.placeOrder = async function () {
           used_saved_profile: usedSavedProfile,
           used_saved_address: usedSavedAddress,
           pickup_mode: pickupMode,
-          payment_type: paymentType,
+          payment_type: paymentType
         });
       }
       if (typeof trackCheckoutSubmit === 'function') {
@@ -1106,119 +1064,104 @@ window.placeOrder = async function () {
 
     console.log('[placeOrder] order payload', order);
 
-    // считаем длительность до момента клика "Оформить" + проверка наличия
+    let resp;
+    let text;
+    try {
+      resp = await fetch(BACKEND_ORDER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+
+      text = await resp.text();
+      console.log('[placeOrder] BACKEND_ORDER_URL status:', resp.status);
+      console.log('[placeOrder] BACKEND_ORDER_URL body:', text);
+    } catch (e) {
+      console.error('[placeOrder] backend order network error', e);
+      tg?.showAlert?.('Ошибка сети. Заказ не сохранён, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+
+      try {
+        if (typeof trackCheckoutResult === 'function') {
+          trackCheckoutResult(order.id, false, {
+            reason: 'network_error'
+          });
+        }
+        hasCheckoutResultForCurrent = true;
+      } catch (e2) {}
+
+      scheduleDelayedOrdersSync('network-error');
+
+      isPlacingOrder = false;
+      setPlaceOrderLoading(false);
+      return;
+    }
+
+
+    let json = null;
+    try {
+      json = JSON.parse(text);
+    } catch (e) {
+      console.log('[placeOrder] response is not valid JSON');
+    }
+
+    if (!resp.ok || !json || json.ok !== true) {
+      console.log('[placeOrder] backend responded with error status:', resp.status, json);
+      tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+
+      try {
+        if (typeof trackCheckoutResult === 'function') {
+          trackCheckoutResult(order.id, false, {
+            reason: 'server_error',
+            status: resp.status
+          });
+        }
+        hasCheckoutResultForCurrent = true;
+      } catch (e2) {}
+
+      scheduleDelayedOrdersSync('server-error');
+
+      isPlacingOrder = false;
+      setPlaceOrderLoading(false);
+      return;
+    }
+
+    try {
+      console.log('[placeOrder] fetching orders after success');
+      await fetchUserOrders();
+    } catch (e) {
+      console.error('[placeOrder] fetchUserOrders after success error', e);
+    }
+
     const now = Date.now();
     const durationMs = now - orderClickTs;
-    console.log('[perf] placeOrder duration (front+stock):', durationMs, 'ms');
+    console.log('[perf] placeOrder duration:', durationMs, 'ms');
 
     try {
       if (typeof trackEvent === 'function') {
-        trackEvent('perf_checkout_total_front_stock', {
-          duration_ms: durationMs,
+        trackEvent('perf_checkout_total', {
+          duration_ms: durationMs
         });
       }
       if (typeof trackCheckoutResult === 'function') {
-        // считаем успех сразу, backend делаем асинхронно
-        trackCheckoutResult(order.id, true, { async_backend: true });
+        trackCheckoutResult(order.id, true);
       }
       hasCheckoutResultForCurrent = true;
     } catch (e2) {}
 
-    // сообщаем пользователю сразу
     tg?.showAlert?.(
-      '✅ Заявка на заказ отправлена!\n' +
-        'Менеджер свяжется в Telegram для подтверждения наличия.'
+      '✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.'
     );
-
+    
     resetCartStateAfterOrder();
+    
     isPlacingOrder = false;
-    setPlaceOrderLoading(false);
-
+    
     if (currentTab === 'cart') {
-      if (typeof resetUiAfterOrderSuccessIfCart === 'function') {
-        resetUiAfterOrderSuccessIfCart();
-      }
+      resetUiAfterOrderSuccessIfCart();
       showCartTab();
-    }
-
-    // 3. Отправка заказа на backend /order в фоне (для записи в таблицу и TG)
-    (async () => {
-      try {
-        const resp = await fetch(BACKEND_ORDER_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(order),
-        });
-
-        const text = await resp.text();
-        console.log(
-          '[placeOrder] BACKEND_ORDER_URL status (bg):',
-          resp.status
-        );
-        console.log(
-          '[placeOrder] BACKEND_ORDER_URL body (bg):',
-          text
-        );
-
-        let json = null;
-        try {
-          json = JSON.parse(text);
-        } catch (e) {
-          console.log('[placeOrder] response is not valid JSON (bg)');
-        }
-
-        if (!resp.ok || !json || json.ok !== true) {
-          console.log(
-            '[placeOrder] backend responded with error (bg):',
-            resp.status,
-            json
-          );
-          // при желании можно трекнуть в аналитику
-          try {
-            if (typeof trackCheckoutResult === 'function') {
-              trackCheckoutResult(order.id, false, {
-                reason: 'backend_error_async',
-                status: resp.status,
-              });
-            }
-          } catch (e2) {}
-          scheduleDelayedOrdersSync('backend-error');
-          return;
-        }
-
-        // после успешного ответа фоном обновим историю заказов
-        try {
-          console.log('[placeOrder] fetching orders after success (bg)');
-          await fetchUserOrders();
-          if (currentTab === 'profile') {
-            showProfileTab();
-          }
-        } catch (e) {
-          console.error(
-            '[placeOrder] fetchUserOrders after success error (bg)',
-            e
-          );
-        }
-      } catch (e) {
-        console.error(
-          '[placeOrder] backend order network error (bg)',
-          e
-        );
-        try {
-          if (typeof trackCheckoutResult === 'function') {
-            trackCheckoutResult(order.id, false, {
-              reason: 'network_error_async',
-            });
-          }
-        } catch (e2) {}
-        scheduleDelayedOrdersSync('network-error');
-      }
-    })();
+    }    
   } finally {
-    // таймер больше не используем, но если где-то остался — чистим
-    if (typeof placeOrderTimeoutId !== 'undefined' && placeOrderTimeoutId) {
-      clearTimeout(placeOrderTimeoutId);
-      placeOrderTimeoutId = null;
-    }
+    clearTimeout(placeOrderTimeoutId);
+    placeOrderTimeoutId = null;
   }
 };
