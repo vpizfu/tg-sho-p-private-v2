@@ -93,6 +93,17 @@ function getAvailableOptions(type, variants) {
   const options = [
     ...new Set(filteredVariants.map(v => v[type]).filter(Boolean))
   ];
+
+  // если хотя бы одно значение похоже на ёмкость (GB/TB/ГБ/ТБ) — включаем capacity-сортировку
+  const hasCapacityLike = options.some(val => {
+    const s = String(val).toUpperCase();
+    return s.includes('GB') || s.includes('ГБ') || s.includes('TB') || s.includes('ТБ');
+  });
+
+  if (hasCapacityLike) {
+    return options.sort(compareCapacity); // или compareStorage, если оставишь старое имя
+  }
+
   return options.sort();
 }
 
@@ -348,6 +359,36 @@ function getMaxNumberFromName(name) {
   const matches = String(name).match(/\d+/g);
   if (!matches) return 0;
   return Math.max(...matches.map(n => parseInt(n, 10) || 0));
+}
+
+function parseCapacity(value) {
+  if (!value) return null;
+  const str = String(value).trim().toUpperCase();
+  const match = str.match(/(\d+(?:\.\d+)?)\s*(TB|TБ|T|GB|G|ГБ|ТБ)/i);
+  if (!match) return null;
+
+  const num = parseFloat(match[1]);
+  const unit = match[2].toUpperCase();
+
+  // всё приводим к гигабайтам
+  if (unit === 'TB' || unit === 'TБ' || unit === 'T' || unit === 'ТБ') {
+    return num * 1024;
+  }
+  // GB / G / ГБ
+  return num;
+}
+
+function compareCapacity(a, b) {
+  const ca = parseCapacity(a);
+  const cb = parseCapacity(b);
+
+  if (ca == null && cb == null) {
+    return String(a).localeCompare(String(b), 'ru');
+  }
+  if (ca == null) return 1;
+  if (cb == null) return -1;
+
+  return ca - cb;
 }
 
 // список товаров для отображения в магазине
