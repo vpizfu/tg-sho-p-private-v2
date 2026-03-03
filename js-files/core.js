@@ -138,29 +138,21 @@ try {
 }
 
 const BACKEND_BASE_URL  = 'https://tg-shop-test-backend.onrender.com';
+const PRODUCTS_API_URL  = BACKEND_BASE_URL + '/products';
 const ORDERS_API_URL    = BACKEND_BASE_URL + '/orders';
 const BACKEND_ORDER_URL = BACKEND_BASE_URL + '/order';
 
-let APP_CONFIG = {
-  products_api_url: '',
-};
+// если конфиг больше не нужен — можно удалить
+let APP_CONFIG = {};
 
+// заглушка, чтобы старый код, который вдруг зовёт, не падал
 async function loadAppConfig() {
-  try {
-    const resp = await fetch(BACKEND_BASE_URL + '/config');
-    if (!resp.ok) throw new Error('config status ' + resp.status);
-    const data = await resp.json();
-    if (data && typeof data === 'object') {
-      Object.assign(APP_CONFIG, data);
-    }
-    console.log('[config] loaded', APP_CONFIG);
-  } catch (e) {
-    console.warn('[config] failed, using defaults', e);
-  }
+  console.log('[config] skip, using direct products URL');
 }
 
+// теперь просто возвращаем products URL
 function getApiUrl() {
-  return APP_CONFIG.products_api_url;
+  return PRODUCTS_API_URL;
 }
 
 const isMobileDevice =
