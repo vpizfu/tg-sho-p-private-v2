@@ -1125,13 +1125,6 @@ if (!contactConfirmed) {
       return;
     }
 
-    try {
-      console.log('[placeOrder] fetching orders after success');
-      await fetchUserOrders();
-    } catch (e) {
-      console.error('[placeOrder] fetchUserOrders after success error', e);
-    }
-
     const now = Date.now();
     const durationMs = now - orderClickTs;
     console.log('[perf] placeOrder duration:', durationMs, 'ms');
@@ -1151,15 +1144,42 @@ if (!contactConfirmed) {
     tg?.showAlert?.(
       '✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.'
     );
-    
+
+    // после успешного ответа от бэка
+    try {
+      if (!Array.isArray(previousOrders)) {
+        previousOrders = [];
+      }
+
+      previousOrders.unshift(order);
+
+      if (previousOrders.length > 50) {
+        previousOrders = previousOrders.slice(0, 50);
+      }
+
+      if (currentTab === 'profile') {
+        renderOrdersSection();
+      }
+    } catch (e) {
+      console.error('[placeOrder] failed to push order into previousOrders', e);
+    }
+
+    // отложенный синк истории с таблицей
+    setTimeout(async () => {
+      try {
+        await fetchUserOrders();
+      } catch (e) {
+        console.error('[placeOrder] delayed fetchUserOrders error', e);
+      }
+    }, 25000);
+
     resetCartStateAfterOrder();
-    
     isPlacingOrder = false;
-    
+
     if (currentTab === 'cart') {
       resetUiAfterOrderSuccessIfCart();
       showCartTab();
-    }    
+    }  
   } finally {
     clearTimeout(placeOrderTimeoutId);
     placeOrderTimeoutId = null;
