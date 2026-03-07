@@ -1229,21 +1229,19 @@ function setupHandlers() {
 
   function bindCategoryOptionButtons() {
     if (!categoryOptionsContainer) return;
-
+  
     categoryOptionsContainer
       .querySelectorAll('button[data-value]')
       .forEach(btn => {
-        if (btn.dataset.catClickBound === '1') return;
-        btn.dataset.catClickBound = '1';
-
+        // всегда сбрасываем старый хэндлер, на случай перерендера
         btn.onclick = function (e) {
           e.stopPropagation();
           const value =
             btn.getAttribute('data-value') || 'Популярное';
-
+  
           selectedCategory = value;
           loadedCount = 10;
-
+  
           try {
             if (typeof trackEvent === 'function') {
               trackEvent('category_change', {
@@ -1251,19 +1249,19 @@ function setupHandlers() {
               });
             }
           } catch (_) {}
-
+  
           if (categoryLabel) {
             categoryLabel.textContent = value;
           }
-
+  
           closeCategoryDropdown();
-
+  
           if (currentTab === 'shop') {
             renderShop();
           }
         };
       });
-  }
+  }  
 
   if (categoryButton && categoryDropdown) {
     categoryButton.onclick = function (e) {
