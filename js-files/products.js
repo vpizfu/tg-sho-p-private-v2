@@ -1051,86 +1051,106 @@ function renderShop() {
   console.log('[renderShop] branch: full rerender');
 
   root.innerHTML =
-    '<div class="pb-[65px]">' +
+  '<div class="pb-[65px]">' +
     '<div class="mb-5">' +
-'<div class="flex items-center justify-center mb-4 gap-2">' +
-  '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-'</div>' +
-  '<div class="flex items-center gap-3">' +
-  /* дальше текущий код с categorySelect + search */
-'<div id="categorySelectDropdown"' +
-' class="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-lg z-30 max-h-80 overflow-hidden hidden">' +
+      '<div class="flex items-center justify-center mb-4 gap-2">' +
+        '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
+      '</div>' +
+      '<div class="flex items-center gap-3">' +
 
-  // строка поиска по категориям
-  '<div class="border-b border-gray-100 px-3 py-2">' +
-    '<input' +
-      ' id="categorySearchInput"' +
-      ' type="text"' +
-      ' class="w-full text-sm px-3 py-1.5 rounded-xl bg-gray-50 focus:bg-white' +
-      ' border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-400' +
-      ' outline-none"' +
-      ' placeholder="Найти категорию..."' +
-      ' autocomplete="off"' +
-    '/>' +
-  '</div>' +
+        // ВЕСЬ блок селекта категорий
+        '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2 relative">' +
+          '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
+          '<div id="categorySelect" class="relative">' +
+            '<button type="button"' +
+              ' id="categorySelectButton"' +
+              ' class="w-full text-left font-semibold text-base flex items-center justify-between gap-2">' +
+              '<span id="categorySelectLabel">' +
+                escapeHtml(selectedCategory) +
+              '</span>' +
+              '<svg class="w-4 h-4 text-gray-400 flex-shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor">' +
+                '<path d="M6 8l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />' +
+              '</svg>' +
+            '</button>' +
 
-  // список категорий (фильтруемый)
-  '<div id="categoryOptionsContainer"' +
-    ' class="max-h-64 overflow-y-auto py-1">' +
-    categories
-      .map(
-        c =>
-          '<button type="button"' +
-          ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100' +
-          (c === selectedCategory
-            ? ' text-blue-600 font-semibold'
-            : ' text-gray-800') +
-          '"' +
-          ' data-value="' +
-          escapeHtml(c) +
-          '">' +
-          (c === selectedCategory
-            ? '<span class="text-blue-500">✓</span>'
-            : '<span class="w-4"></span>') +
-          '<span class="category-option-label">' +
-          escapeHtml(c) +
-          '</span>' +
-          '</button>'
-      )
-      .join('') +
-  '</div>' +
-'</div>' +
-    '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
-    '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
-    '<div class="flex items-center">' +
-    '<svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-    ' d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"/>' +
-    '</svg>' +
-    '<input id="search" value="' +
-    escapeHtml(query) +
-    '" placeholder="Поиск..."' +
-    ' class="w-full bg-transparent outline-none text-sm text-gray-900" />' +
-    '</div>' +
-    '</div>' +
-    '</div>' +
-    '<div class="mt-3 text-xs text-gray-500">' +
-    'Показано: <span class="font-semibold">' +
-    showCount +
-    '</span> из ' +
-    list.length +
-    '</div>' +
+            // СЮДА вставляем dropdown с поиском
+            '<div id="categorySelectDropdown"' +
+              ' class="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-lg z-30 max-h-80 overflow-hidden hidden">' +
+
+              // строка поиска по категориям
+              '<div class="border-b border-gray-100 px-3 py-2">' +
+                '<input' +
+                  ' id="categorySearchInput"' +
+                  ' type="text"' +
+                  ' class="w-full text-sm px-3 py-1.5 rounded-xl bg-gray-50 focus:bg-white' +
+                  ' border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-400' +
+                  ' outline-none"' +
+                  ' placeholder="Найти категорию..."' +
+                  ' autocomplete="off"' +
+                '/>' +
+              '</div>' +
+
+              // список категорий (фильтруемый)
+              '<div id="categoryOptionsContainer"' +
+                ' class="max-h-64 overflow-y-auto py-1">' +
+                categories
+                  .map(
+                    c =>
+                      '<button type="button"' +
+                        ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100' +
+                        (c === selectedCategory
+                          ? ' text-blue-600 font-semibold'
+                          : ' text-gray-800') +
+                        '"' +
+                        ' data-value="' + escapeHtml(c) + '"' +
+                      '>' +
+                        (c === selectedCategory
+                          ? '<span class="text-blue-500">✓</span>'
+                          : '<span class="w-4"></span>') +
+                        '<span class="category-option-label">' +
+                          escapeHtml(c) +
+                        '</span>' +
+                      '</button>'
+                  )
+                  .join('') +
+              '</div>' +
+            '</div>' + // /#categorySelectDropdown
+          '</div>' +   // /#categorySelect
+        '</div>' +     // /обёртка селекта
+
+        // блок поиска как был
+        '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
+          '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
+          '<div class="flex items-center">' +
+            '<svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+                ' d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"/>' +
+            '</svg>' +
+            '<input id="search" value="' +
+              escapeHtml(query) +
+              '" placeholder="Поиск..."' +
+              ' class="w-full bg-transparent outline-none text-sm text-gray-900" />' +
+          '</div>' +
+        '</div>' +
+
+      '</div>' + // flex items-center gap-3
+      '<div class="mt-3 text-xs text-gray-500">' +
+        'Показано: <span class="font-semibold">' +
+          showCount +
+        '</span> из ' +
+        list.length +
+      '</div>' +
     '</div>' +
     '<div class="product-grid" id="productGrid"></div>' +
     '<div id="scrollSentinel" class="h-10 flex items-center justify-center mt-4">' +
-    (showCount < list.length
-      ? '<div class="w-full">' +
-        '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
-        '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
-        '</div>'
-      : '') +
+      (showCount < list.length
+        ? '<div class="w-full">' +
+            '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
+          '</div>'
+        : '') +
     '</div>' +
-    '</div>';
+  '</div>';
 
   const grid = document.getElementById('productGrid');
   if (grid) {
