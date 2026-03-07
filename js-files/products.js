@@ -923,6 +923,39 @@ function buildSeparatedPreloadQueues(allProducts) {
 
 // --------- Рендер магазина ---------
 
+function getFilteredCategoriesList(term, allCategories) {
+  const q = (term || '').trim().toLowerCase();
+  if (!q) return allCategories;
+
+  return allCategories.filter(c =>
+    String(c).toLowerCase().includes(q)
+  );
+}
+
+function renderCategoryOptionsIntoContainer(categories, container, selected) {
+  if (!container) return;
+
+  container.innerHTML = categories
+    .map(c =>
+      '<button type="button"' +
+      ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100' +
+      (c === selected
+        ? ' text-blue-600 font-semibold'
+        : ' text-gray-800') +
+      '"' +
+      ' data-value="' + escapeHtml(c) + '"' +
+      '>' +
+      (c === selected
+        ? '<span class="text-blue-500">✓</span>'
+        : '<span class="w-4"></span>') +
+      '<span class="category-option-label">' +
+      escapeHtml(c) +
+      '</span>' +
+      '</button>'
+    )
+    .join('');
+}
+
 function renderShop() {
   console.log('---------------- [renderShop] ----------------');
   console.log(
@@ -1025,21 +1058,25 @@ function renderShop() {
 '</div>' +
   '<div class="flex items-center gap-3">' +
   /* дальше текущий код с categorySelect + search */
-    '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2 relative">' +
-    '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
-    '<div id="categorySelect" class="relative">' +
-    '<button type="button"' +
-    ' id="categorySelectButton"' +
-    ' class="w-full text-left font-semibold text-base flex items-center justify-between gap-2">' +
-    '<span id="categorySelectLabel">' +
-    escapeHtml(selectedCategory) +
-    '</span>' +
-    '<svg class="w-4 h-4 text-gray-400 flex-shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor">' +
-    '<path d="M6 8l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />' +
-    '</svg>' +
-    '</button>' +
-    '<div id="categorySelectDropdown"' +
-    ' class="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-lg z-30 max-h-64 overflow-y-auto hidden">' +
+'<div id="categorySelectDropdown"' +
+' class="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-lg z-30 max-h-80 overflow-hidden hidden">' +
+
+  // строка поиска по категориям
+  '<div class="border-b border-gray-100 px-3 py-2">' +
+    '<input' +
+      ' id="categorySearchInput"' +
+      ' type="text"' +
+      ' class="w-full text-sm px-3 py-1.5 rounded-xl bg-gray-50 focus:bg-white' +
+      ' border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-400' +
+      ' outline-none"' +
+      ' placeholder="Найти категорию..."' +
+      ' autocomplete="off"' +
+    '/>' +
+  '</div>' +
+
+  // список категорий (фильтруемый)
+  '<div id="categoryOptionsContainer"' +
+    ' class="max-h-64 overflow-y-auto py-1">' +
     categories
       .map(
         c =>
@@ -1055,15 +1092,14 @@ function renderShop() {
           (c === selectedCategory
             ? '<span class="text-blue-500">✓</span>'
             : '<span class="w-4"></span>') +
-          '<span>' +
+          '<span class="category-option-label">' +
           escapeHtml(c) +
           '</span>' +
           '</button>'
       )
       .join('') +
-    '</div>' +
-    '</div>' +
-    '</div>' +
+  '</div>' +
+'</div>' +
     '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
     '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
     '<div class="flex items-center">' +
@@ -1137,23 +1173,49 @@ function setupHandlers() {
   );
   const categoryLabel =
     document.getElementById('categorySelectLabel');
+  const categorySearchInput = document.getElementById(
+    'categorySearchInput'
+  );
+  const categoryOptionsContainer = document.getElementById(
+    'categoryOptionsContainer'
+  );
   const searchEl = document.getElementById('search');
 
-  if (categoryButton && categoryDropdown) {
-    categoryButton.onclick = function (e) {
-      e.stopPropagation();
-      const isHidden =
-        categoryDropdown.classList.contains('hidden');
-      if (isHidden) {
-        categoryDropdown.classList.remove('hidden');
-      } else {
-        categoryDropdown.classList.add('hidden');
-      }
-    };
+  const categories = getCategoriesFromProducts();
 
-    categoryDropdown
+  // --- CATEGORY SELECT + ПОИСК ПО КАТЕГОРИЯМ ---
+
+  function openCategoryDropdown() {
+    if (!categoryDropdown) return;
+    categoryDropdown.classList.remove('hidden');
+
+    if (categorySearchInput) {
+      categorySearchInput.value = '';
+      renderCategoryOptionsIntoContainer(
+        categories,
+        categoryOptionsContainer,
+        selectedCategory
+      );
+      setTimeout(() => {
+        categorySearchInput.focus();
+      }, 0);
+    }
+  }
+
+  function closeCategoryDropdown() {
+    if (!categoryDropdown) return;
+    categoryDropdown.classList.add('hidden');
+  }
+
+  function bindCategoryOptionButtons() {
+    if (!categoryOptionsContainer) return;
+
+    categoryOptionsContainer
       .querySelectorAll('button[data-value]')
       .forEach(btn => {
+        if (btn.dataset.catClickBound === '1') return;
+        btn.dataset.catClickBound = '1';
+
         btn.onclick = function (e) {
           e.stopPropagation();
           const value =
@@ -1168,29 +1230,109 @@ function setupHandlers() {
                 category: value
               });
             }
-          } catch (e2) {}
+          } catch (_) {}
 
           if (categoryLabel) {
             categoryLabel.textContent = value;
           }
 
-          categoryDropdown.classList.add('hidden');
+          closeCategoryDropdown();
 
           if (currentTab === 'shop') {
             renderShop();
           }
         };
       });
-
-    document.addEventListener('click', function (e) {
-      if (!categoryDropdown) return;
-      const root = document.getElementById('categorySelect');
-      if (!root) return;
-      if (!root.contains(e.target)) {
-        categoryDropdown.classList.add('hidden');
-      }
-    });
   }
+
+  if (categoryButton && categoryDropdown) {
+    categoryButton.onclick = function (e) {
+      e.stopPropagation();
+      const isHidden =
+        categoryDropdown.classList.contains('hidden');
+      if (isHidden) {
+        openCategoryDropdown();
+      } else {
+        closeCategoryDropdown();
+      }
+    };
+
+    // фильтрация категорий по вводу
+    if (categorySearchInput && categoryOptionsContainer) {
+      if (!categorySearchInput.dataset.catSearchBound) {
+        categorySearchInput.dataset.catSearchBound = '1';
+
+        categorySearchInput.addEventListener('input', () => {
+          const term = categorySearchInput.value || '';
+          const filtered = getFilteredCategoriesList(
+            term,
+            categories
+          );
+          renderCategoryOptionsIntoContainer(
+            filtered,
+            categoryOptionsContainer,
+            selectedCategory
+          );
+          bindCategoryOptionButtons();
+        });
+
+        categorySearchInput.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const term = categorySearchInput.value || '';
+            const filtered = getFilteredCategoriesList(
+              term,
+              categories
+            );
+            if (filtered.length) {
+              const value = filtered[0];
+              selectedCategory = value;
+              loadedCount = 10;
+
+              try {
+                if (typeof trackEvent === 'function') {
+                  trackEvent('category_search_select', {
+                    category: value
+                  });
+                }
+              } catch (_) {}
+
+              if (categoryLabel) {
+                categoryLabel.textContent = value;
+              }
+
+              closeCategoryDropdown();
+
+              if (currentTab === 'shop') {
+                renderShop();
+              }
+            }
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            closeCategoryDropdown();
+          }
+        });
+      }
+    }
+
+    // клик вне селекта — закрываем
+    if (!document.__categoryOutsideClickBound) {
+      document.__categoryOutsideClickBound = true;
+      document.addEventListener('click', function (e) {
+        if (!categoryDropdown) return;
+        const root = document.getElementById('categorySelect');
+        if (!root) return;
+        if (!root.contains(e.target)) {
+          closeCategoryDropdown();
+        }
+      });
+    }
+
+    // первичная привязка обработчиков на кнопки категорий
+    bindCategoryOptionButtons();
+  }
+
+  // --- SEARCH (как у тебя было) ---
 
   if (searchEl) {
     searchEl.onfocus = () => hideTabBar();
@@ -1274,6 +1416,7 @@ function setupHandlers() {
     };
   }
 
+  // --- обработчик клика по карточкам и прочее ниже оставляем как есть ---
   document.querySelectorAll('[data-product-name]').forEach(card => {
     card.onclick = function (e) {
       if (e.target.closest('button') || e.target.closest('.dot'))
