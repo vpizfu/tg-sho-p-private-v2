@@ -182,6 +182,7 @@ const EXCLUDE_FILTER_FIELDS = new Set([
   'Изображения',
   'Входная цена',
   'Наценка',
+  'Комплектация',
   'images'
 ]);
 

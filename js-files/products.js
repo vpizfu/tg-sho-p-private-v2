@@ -1208,7 +1208,7 @@ function setupHandlers() {
   function openCategoryDropdown() {
     if (!categoryDropdown) return;
     categoryDropdown.classList.remove('hidden');
-
+  
     if (categorySearchInput) {
       categorySearchInput.value = '';
       renderCategoryOptionsIntoContainer(
@@ -1216,11 +1216,23 @@ function setupHandlers() {
         categoryOptionsContainer,
         selectedCategory
       );
-      setTimeout(() => {
-        categorySearchInput.focus();
-      }, 0);
+  
+      // Лёгкий хак: фокус только при явном тапе по зоне поиска
+      const searchWrapper = categoryDropdown.querySelector(
+        '#categorySearchInput'
+      );
+      if (searchWrapper && !searchWrapper._tgBound) {
+        searchWrapper._tgBound = true;
+        searchWrapper.addEventListener('touchstart', () => {
+          setTimeout(() => searchWrapper.focus(), 0);
+        }, { passive: true });
+        searchWrapper.addEventListener('mousedown', () => {
+          setTimeout(() => searchWrapper.focus(), 0);
+        });
+      }
     }
-  }
+  }  
+
 
   function closeCategoryDropdown() {
     if (!categoryDropdown) return;
