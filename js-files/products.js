@@ -1186,29 +1186,21 @@ function renderShop() {
 // ---------- навешивание обработчиков ----------
 
 function setupHandlers() {
-  const categoryButton =
-    document.getElementById('categorySelectButton');
-  const categoryDropdown = document.getElementById(
-    'categorySelectDropdown'
-  );
-  const categoryLabel =
-    document.getElementById('categorySelectLabel');
-  const categorySearchInput = document.getElementById(
-    'categorySearchInput'
-  );
-  const categoryOptionsContainer = document.getElementById(
-    'categoryOptionsContainer'
-  );
+  const categoryButton = document.getElementById('categorySelectButton');
+  const categoryDropdown = document.getElementById('categorySelectDropdown');
+  const categoryLabel = document.getElementById('categorySelectLabel');
+  const categorySearchInput = document.getElementById('categorySearchInput');
+  const categoryOptionsContainer = document.getElementById('categoryOptionsContainer');
   const searchEl = document.getElementById('search');
 
   const categories = getCategoriesFromProducts();
 
-  // --- CATEGORY SELECT + ПОИСК ПО КАТЕГОРИЯМ ---
+  // ─── CATEGORY SELECT ───────────────────────────────────────────────────────
 
   function openCategoryDropdown() {
     if (!categoryDropdown) return;
     categoryDropdown.classList.remove('hidden');
-  
+
     if (categorySearchInput) {
       categorySearchInput.value = '';
       renderCategoryOptionsIntoContainer(
@@ -1216,86 +1208,76 @@ function setupHandlers() {
         categoryOptionsContainer,
         selectedCategory
       );
-  
-      // Лёгкий хак: фокус только при явном тапе по зоне поиска
-      const searchWrapper = categoryDropdown.querySelector(
-        '#categorySearchInput'
-      );
-      if (searchWrapper && !searchWrapper._tgBound) {
-        searchWrapper._tgBound = true;
-        searchWrapper.addEventListener('touchstart', () => {
-          setTimeout(() => searchWrapper.focus(), 0);
-        }, { passive: true });
-        searchWrapper.addEventListener('mousedown', () => {
-          setTimeout(() => searchWrapper.focus(), 0);
-        });
-      }
     }
-  }  
-
+  }
 
   function closeCategoryDropdown() {
     if (!categoryDropdown) return;
     categoryDropdown.classList.add('hidden');
   }
 
-  function bindCategoryOptionButtons() {
-    if (!categoryOptionsContainer) return;
-  
-    categoryOptionsContainer
-      .querySelectorAll('button[data-value]')
-      .forEach(btn => {
-        // всегда сбрасываем старый хэндлер, на случай перерендера
-        btn.onclick = function (e) {
-          e.stopPropagation();
-          const value =
-            btn.getAttribute('data-value') || 'Популярное';
-  
-          selectedCategory = value;
-          loadedCount = 10;
-  
-          try {
-            if (typeof trackEvent === 'function') {
-              trackEvent('category_change', {
-                category: value
-              });
-            }
-          } catch (_) {}
-  
-          if (categoryLabel) {
-            categoryLabel.textContent = value;
-          }
-  
-          closeCategoryDropdown();
-  
-          if (currentTab === 'shop') {
-            renderShop();
-          }
-        };
-      });
-  }  
-
   if (categoryButton && categoryDropdown) {
+
+    // кнопка «открыть/закрыть дроп»
     categoryButton.onclick = function (e) {
       e.stopPropagation();
-      const isHidden =
-        categoryDropdown.classList.contains('hidden');
-      if (isHidden) {
+      if (categoryDropdown.classList.contains('hidden')) {
         openCategoryDropdown();
       } else {
         closeCategoryDropdown();
       }
     };
 
-    // фильтрация категорий по вводу
+    // ── ДЕЛЕГИРОВАНИЕ: один обработчик на весь контейнер ─────────────────────
+    // Работает при любом перерендере содержимого — обработчик на родителе,
+    // а не на каждой кнопке, поэтому перерисовка кнопок не ломает логику.
+    if (categoryOptionsContainer && !categoryOptionsContainer._delegateBound) {
+      categoryOptionsContainer._delegateBound = true;
+
+      categoryOptionsContainer.addEventListener('click', function (e) {
+        const btn = e.target.closest('button[data-value]');
+        if (!btn) return;
+        e.stopPropagation();
+
+        const value = btn.getAttribute('data-value') || 'Популярное';
+        selectedCategory = value;
+        loadedCount = 10;
+
+        try {
+          if (typeof trackEvent === 'function') {
+            trackEvent('category_change', { category: value });
+          }
+        } catch (_) {}
+
+        if (categoryLabel) {
+          categoryLabel.textContent = value;
+        }
+
+        closeCategoryDropdown();
+
+        if (currentTab === 'shop') {
+          renderShop();
+        }
+      });
+    }
+
+    // ── ПОИСК ПО КАТЕГОРИЯМ ──────────────────────────────────────────────────
     if (categorySearchInput && categoryOptionsContainer) {
       if (!categorySearchInput.dataset.catSearchBound) {
         categorySearchInput.dataset.catSearchBound = '1';
 
+        // фокус только по явному тапу/клику, не при открытии дропа
+        categorySearchInput.addEventListener('touchstart', () => {
+          setTimeout(() => categorySearchInput.focus(), 0);
+        }, { passive: true });
+
+        categorySearchInput.addEventListener('mousedown', () => {
+          setTimeout(() => categorySearchInput.focus(), 0);
+        });
+
         categorySearchInput.addEventListener('input', () => {
-          const term = categorySearchInput.value || '';
           const filtered = getFilteredCategoriesList(
-            term,
+            categorySearchInput.value || '',
             categories
           );
           renderCategoryOptionsIntoContainer(
@@ -1303,39 +1285,36 @@ function setupHandlers() {
             categoryOptionsContainer,
             selectedCategory
           );
-          bindCategoryOptionButtons();
+          // делегирование не требует повторного bindCategoryOptionButtons
         });
 
         categorySearchInput.addEventListener('keydown', e => {
           if (e.key === 'Enter') {
             e.preventDefault();
-            const term = categorySearchInput.value || '';
             const filtered = getFilteredCategoriesList(
-              term,
+              categorySearchInput.value || '',
               categories
             );
-            if (filtered.length) {
-              const value = filtered[0];
-              selectedCategory = value;
-              loadedCount = 10;
+            if (!filtered.length) return;
 
-              try {
-                if (typeof trackEvent === 'function') {
-                  trackEvent('category_search_select', {
-                    category: value
-                  });
-                }
-              } catch (_) {}
+            const value = filtered[0];
+            selectedCategory = value;
+            loadedCount = 10;
 
-              if (categoryLabel) {
-                categoryLabel.textContent = value;
+            try {
+              if (typeof trackEvent === 'function') {
+                trackEvent('category_search_select', { category: value });
               }
+            } catch (_) {}
 
-              closeCategoryDropdown();
+            if (categoryLabel) {
+              categoryLabel.textContent = value;
+            }
 
-              if (currentTab === 'shop') {
-                renderShop();
-              }
+            closeCategoryDropdown();
+
+            if (currentTab === 'shop') {
+              renderShop();
             }
           } else if (e.key === 'Escape') {
             e.preventDefault();
@@ -1345,24 +1324,21 @@ function setupHandlers() {
       }
     }
 
-    // клик вне селекта — закрываем
+    // клик вне селекта — закрываем дроп
     if (!document.__categoryOutsideClickBound) {
       document.__categoryOutsideClickBound = true;
       document.addEventListener('click', function (e) {
         if (!categoryDropdown) return;
-        const root = document.getElementById('categorySelect');
-        if (!root) return;
-        if (!root.contains(e.target)) {
+        const selectRoot = document.getElementById('categorySelect');
+        if (!selectRoot) return;
+        if (!selectRoot.contains(e.target)) {
           closeCategoryDropdown();
         }
       });
     }
-
-    // первичная привязка обработчиков на кнопки категорий
-    bindCategoryOptionButtons();
   }
 
-  // --- SEARCH (как у тебя было) ---
+  // ─── SEARCH ────────────────────────────────────────────────────────────────
 
   if (searchEl) {
     searchEl.onfocus = () => hideTabBar();
@@ -1371,10 +1347,8 @@ function setupHandlers() {
     searchEl.oninput = function () {
       const value = searchEl.value || '';
       console.log(
-        '[search.oninput] raw value =',
-        JSON.stringify(value),
-        ', old query =',
-        JSON.stringify(query)
+        '[search.oninput] raw value =', JSON.stringify(value),
+        ', old query =', JSON.stringify(query)
       );
 
       query = value;
@@ -1391,16 +1365,11 @@ function setupHandlers() {
       loadedCount = 10;
 
       console.log(
-        '[search.oninput] NEW query =',
-        JSON.stringify(query),
-        ', loadedCount reset to',
-        loadedCount
+        '[search.oninput] NEW query =', JSON.stringify(query),
+        ', loadedCount reset to', loadedCount
       );
 
       if (currentTab === 'shop') {
-        console.log(
-          '[search.oninput] calling rerenderShopPreserveSearchFocus'
-        );
         rerenderShopPreserveSearchFocus();
       }
     };
@@ -1410,10 +1379,8 @@ function setupHandlers() {
         e.preventDefault();
         const value = searchEl.value || '';
         console.log(
-          '[search.onkeydown] ENTER, value =',
-          JSON.stringify(value),
-          ', old query =',
-          JSON.stringify(query)
+          '[search.onkeydown] ENTER, value =', JSON.stringify(value),
+          ', old query =', JSON.stringify(query)
         );
 
         query = value;
@@ -1430,35 +1397,28 @@ function setupHandlers() {
         loadedCount = 10;
 
         console.log(
-          '[search.onkeydown] NEW query =',
-          JSON.stringify(query),
-          ', loadedCount reset to',
-          loadedCount
+          '[search.onkeydown] NEW query =', JSON.stringify(query),
+          ', loadedCount reset to', loadedCount
         );
 
         if (currentTab === 'shop') {
-          console.log(
-            '[search.onkeydown] calling rerenderShopPreserveSearchFocus'
-          );
           rerenderShopPreserveSearchFocus();
         }
       }
     };
   }
 
-  // --- обработчик клика по карточкам и прочее ниже оставляем как есть ---
+  // ─── КАРТОЧКИ ТОВАРОВ ──────────────────────────────────────────────────────
+
   document.querySelectorAll('[data-product-name]').forEach(card => {
     card.onclick = function (e) {
-      if (e.target.closest('button') || e.target.closest('.dot'))
-        return;
+      if (e.target.closest('button') || e.target.closest('.dot')) return;
 
       const active = document.activeElement;
       if (active && active.blur) active.blur();
 
       const productName = card.dataset.productName;
-      const product = productsData.find(
-        p => p['Название'] === productName
-      );
+      const product = productsData.find(p => p['Название'] === productName);
       if (!product) return;
 
       selectedOption = {};
@@ -1484,14 +1444,15 @@ function setupHandlers() {
 // ---------- карусели на карточках ----------
 
 function setupImageCarousels() {
+  // чистим старые глобальные функции каруселей перед перерендером
   Object.keys(window)
-  .filter(k =>
-    k.startsWith('carouselNext_') ||
-    k.startsWith('carouselPrev_') ||
-    k.startsWith('carouselGoTo_')
-  )
-  .forEach(k => delete window[k]);
-  
+    .filter(k =>
+      k.startsWith('carouselNext_') ||
+      k.startsWith('carouselPrev_') ||
+      k.startsWith('carouselGoTo_')
+    )
+    .forEach(k => delete window[k]);
+
   document
     .querySelectorAll('.image-carousel-inner[data-carousel]')
     .forEach(inner => {
@@ -1500,8 +1461,7 @@ function setupImageCarousels() {
       let currentIndex = 0;
 
       function updateCarousel() {
-        inner.style.transform =
-          'translateX(-' + currentIndex * 100 + '%)';
+        inner.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
         dots.forEach((dot, idx) => {
           dot.classList.toggle('active', idx === currentIndex);
         });
@@ -1548,6 +1508,5 @@ window.carouselPrev = function (id) {
   if (window['carouselPrev_' + id]) window['carouselPrev_' + id]();
 };
 window.carouselGoTo = function (id, index) {
-  if (window['carouselGoTo_' + id])
-    window['carouselGoTo_' + id](index);
+  if (window['carouselGoTo_' + id]) window['carouselGoTo_' + id](index);
 };
