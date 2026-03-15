@@ -226,7 +226,7 @@ function getFilteredProductImages(variants) {
       });
     }
   });
-  return Array.from(images);
+  return sortAdapterImageLast(Array.from(images));
 }
 
 // все варианты по имени товара
