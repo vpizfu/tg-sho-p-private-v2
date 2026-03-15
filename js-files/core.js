@@ -188,7 +188,8 @@ const EXCLUDE_FILTER_FIELDS = new Set([
 
 function sortAdapterImageLast(images) {
   if (!images || images.length <= 1) return images;
-  const isAdapter = url => /adapter|переходник/i.test(String(url));
+  const isAdapter = url =>
+    /adapter|переходник|euro.?plug|plug/i.test(String(url));
   const main = images.filter(url => !isAdapter(url));
   const adapters = images.filter(url => isAdapter(url));
   return main.concat(adapters);
