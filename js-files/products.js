@@ -461,14 +461,25 @@ function getVisibleProducts() {
   }
 
   groupedVisible.sort((a, b) => {
-    const na = getMaxNumberFromName(a['Название']);
-    const nb = getMaxNumberFromName(b['Название']);
-    if (na !== nb) {
-      return nb - na;
+    const aPreview = !!a.isPreview || String(a.sourceSheet || '').toLowerCase() === 'preview_new';
+    const bPreview = !!b.isPreview || String(b.sourceSheet || '').toLowerCase() === 'preview_new';
+  
+    if (aPreview !== bPreview) {
+      return aPreview ? -1 : 1;
     }
-    return String(a['Название']).localeCompare(
-      String(b['Название'])
-    );
+  
+    const aIphone = String(a.cat || '').toLowerCase().includes('iphone');
+    const bIphone = String(b.cat || '').toLowerCase().includes('iphone');
+  
+    if (aIphone !== bIphone) {
+      return aIphone ? -1 : 1;
+    }
+  
+    const na = getMaxNumberFromName(a.name);
+    const nb = getMaxNumberFromName(b.name);
+    if (na !== nb) return nb - na;
+  
+    return String(a.name).localeCompare(String(b.name), 'ru');
   });
 
   console.log(
