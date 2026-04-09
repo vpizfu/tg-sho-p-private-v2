@@ -20,7 +20,7 @@ function updateCartBadge() {
 const CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
-  'cat', 'Категория', 'SourceSheet', 'IsPreview'
+  'cat', 'Категория', 'sourceSheet', 'isPreview'
 ]);
 
 function buildCartKey(product) {

@@ -184,8 +184,8 @@ const EXCLUDE_FILTER_FIELDS = new Set([
   'Наценка',
   'Комплектация',
   'images',
-  'SourceSheet',
-  'IsPreview'
+  'sourceSheet',
+  'isPreview'
 ]);
 
 function sortAdapterImageLast(images) {
