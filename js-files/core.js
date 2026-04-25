@@ -223,8 +223,7 @@ let pickupMode = false;
 let pickupLocation = '';
 
 const PICKUP_LOCATIONS = [
-  'ТЦ Галерея, пр-т Победителей, 9',
-  'ТРЦ Dana Mall, ул. Петра Мстиславца, 11'
+  'Москва , ул. Барклая 8, Бизнес центр Рубин'
 ];
 
 let isAddingToCart = false;
