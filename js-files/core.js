@@ -223,7 +223,7 @@ let pickupMode = false;
 let pickupLocation = '';
 
 const PICKUP_LOCATIONS = [
-  'Москва , ул. Барклая 8, Бизнес центр Рубин'
+  'г. Москва, ул. Барклая, 8, Бизнес центр Рубин'
 ];
 
 let isAddingToCart = false;
