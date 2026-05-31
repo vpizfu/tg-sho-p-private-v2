@@ -137,9 +137,10 @@ try {
   console.log('[core] tg init error', e);
 }
 
-const BACKEND_BASE_URL  = 'https://tg-shop-test-backend.onrender.com';
-const PRODUCTS_API_URL  = BACKEND_BASE_URL + '/products';
-const ORDERS_API_URL    = BACKEND_BASE_URL + '/orders';
+const BACKEND_BASE_URL = 'https://tg-shop-test-backend.onrender.com';
+const PRODUCTS_API_URL = BACKEND_BASE_URL + '/products';
+const PRODUCTS_META_API_URL = BACKEND_BASE_URL + '/products/meta';
+const ORDERS_API_URL = BACKEND_BASE_URL + '/orders';
 const BACKEND_ORDER_URL = BACKEND_BASE_URL + '/order';
 
 // если конфиг больше не нужен — можно удалить
@@ -153,6 +154,53 @@ async function loadAppConfig() {
 // теперь просто возвращаем products URL
 function getApiUrl() {
   return PRODUCTS_API_URL;
+}
+
+function getProductsMetaApiUrl() {
+  return PRODUCTS_META_API_URL;
+}
+
+async function fetchProductsMeta() {
+  const resp = await fetch(getProductsMetaApiUrl(), {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  if (!resp.ok) {
+    throw new Error('META_REQUEST_FAILED_' + resp.status);
+  }
+
+  return await resp.json();
+}
+
+function formatProductsUpdatedMsk(meta) {
+  if (!meta || typeof meta !== 'object') {
+    return 'Нет данных';
+  }
+
+  if (meta.lastUpdatedAt) {
+    const dt = new Date(meta.lastUpdatedAt);
+
+    if (!Number.isNaN(dt.getTime())) {
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: 'Europe/Moscow',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(dt);
+    }
+  }
+
+  if (meta.lastUpdatedMsk) {
+    return String(meta.lastUpdatedMsk);
+  }
+
+  return 'Нет данных';
 }
 
 const isMobileDevice =
