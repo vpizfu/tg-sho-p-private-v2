@@ -203,6 +203,25 @@ function formatProductsUpdatedMsk(meta) {
   return 'Нет данных';
 }
 
+async function refreshAboutMetaFromBackend() {
+  try {
+    const meta = await fetchProductsMeta();
+    const nextText = formatProductsUpdatedMsk(meta);
+
+    aboutLastProductsMeta = meta;
+    aboutLastProductsMetaText = nextText;
+
+    if (currentTab === 'about') {
+      const valueEl = document.getElementById('pricesUpdatedValue');
+      if (valueEl && valueEl.textContent !== nextText) {
+        valueEl.textContent = nextText;
+      }
+    }
+  } catch (err) {
+    console.error('[about] refreshAboutMetaFromBackend error', err);
+  }
+}
+
 const isMobileDevice =
   (navigator.userAgentData && navigator.userAgentData.mobile) ||
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobi/i.test(
@@ -259,6 +278,9 @@ let selectedCategory = 'Популярное',
 let cartItems = [];
 let savedAddresses = [];
 let previousOrders = [];
+
+let aboutLastProductsMeta = null;
+let aboutLastProductsMetaText = '';
 
 let savedProfile = {
   name: '',
@@ -1272,7 +1294,11 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
-  }  catch (error) {
+
+    refreshAboutMetaFromBackend().catch(err =>
+      console.error('[about] meta refresh after products update error', err)
+    );
+  } catch (error) {
     console.error('[core] products API error:', error);
 
     try {
@@ -1283,6 +1309,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
         });
       }
     } catch (e2) {}
+
     if (currentTab === 'shop') {
       isRefreshingProducts = false;
       root.innerHTML =
