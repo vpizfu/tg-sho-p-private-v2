@@ -11,7 +11,7 @@
 
   <!-- Глобальная версия приложения -->
   <script>
-    const version = '421';
+    const version = '422';
     window.APP_VERSIONS = {
       app: version,
       products: version,
@@ -157,16 +157,16 @@
   </div>
 </div>
 
-<script src="js-files/analytics.js?v=421"></script>
-<script src="js-files/products.js?v=421"></script>
-<script src="js-files/core.js?v=421"></script>
+<script src="js-files/analytics.js?v=422"></script>
+<script src="js-files/products.js?v=422"></script>
+<script src="js-files/core.js?v=422"></script>
 <!-- дальше как было -->
-  <script src="js-files/modals.js?v=421"></script>
-  <script src="js-files/screens/cart.js?v=421"></script>
-  <script src="js-files/ui_common.js?v=421"></script>
-  <script src="js-files/screens/sale.js?v=421"></script>
-  <script src="js-files/screens/profile.js?v=421"></script>
-  <script src="js-files/screens/about.js?v=421"></script>
+  <script src="js-files/modals.js?v=422"></script>
+  <script src="js-files/screens/cart.js?v=422"></script>
+  <script src="js-files/ui_common.js?v=422"></script>
+  <script src="js-files/screens/sale.js?v=422"></script>
+  <script src="js-files/screens/profile.js?v=422"></script>
+  <script src="js-files/screens/about.js?v=422"></script>
 
   <script>
     // запуск после загрузки всех модулей
@@ -185,19 +185,16 @@
       if (!isRealMiniApp) {
         tg?.showAlert?.(
           'Версия: ' + version +
-        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.' +
-        '\nТелефон: +7 916 017-12-61' +
-        '\nВремя работы: 10:00 – 20:00 по МСК' +
-        '\nЦены считаются актуальными только после сегодняшнего обновления и действуют до 20:00 по МСК.' +
-        '\nАктуальная дата обновления указана во вкладке «О нас».'
+        '\nКонтакты, время работы и актуальность цен — во вкладке «О нас»' +
+        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
       );
         return
       }
 
       tg.showAlert(
         'Версия: ' + version +
-        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.' +
-        '\nКонтакты, время работы и актуальность цен — во вкладке «О нас'
+        '\nКонтакты, время работы и актуальность цен — во вкладке «О нас»' +
+        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
       );
     })();
   </script>
