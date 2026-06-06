@@ -27,8 +27,7 @@ function showAboutTab() {
       hour: Number(map.hour),
       minute: Number(map.minute),
       second: Number(map.second),
-      dateKey: `${map.year}-${map.month}-${map.day}`,
-      timeLabel: `${map.hour}:${map.minute}`
+      dateKey: `${map.year}-${map.month}-${map.day}`
     };
   }
 
@@ -36,6 +35,7 @@ function showAboutTab() {
     if (!metaText) return null;
 
     const str = String(metaText).trim();
+    if (!str || str === 'Загрузка...') return null;
 
     const isoDate = new Date(str);
     if (!Number.isNaN(isoDate.getTime())) {
@@ -58,10 +58,11 @@ function showAboutTab() {
     return new Date(`${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}+03:00`);
   }
 
-  function getPriceStatusText(metaText) {
+  function getPriceStatus(metaText) {
     const updatedDate = parseMetaDateToDate(metaText);
+
     if (!updatedDate) {
-      return 'Ожидается сегодняшнее обновление';
+      return null;
     }
 
     const nowMsk = getMoscowParts(new Date());
@@ -70,19 +71,30 @@ function showAboutTab() {
     const isTodayMsk = updatedMsk.dateKey === nowMsk.dateKey;
     const isBefore20 = nowMsk.hour < 20;
 
-    if (!isTodayMsk) {
-      return 'Цены неактуальны — нужно ждать сегодняшнего обновления';
+    if (isTodayMsk && isBefore20) {
+      return {
+        text: 'Цены актуальны',
+        classes: 'text-green-600'
+      };
     }
 
-    if (isBefore20) {
-      return 'Цены актуальны';
+    if (!isTodayMsk && isBefore20) {
+      return {
+        text: 'Ждут обновления сегодня',
+        classes: 'text-amber-600'
+      };
     }
 
-    return 'Цены неактуальны — ожидается следующее обновление';
+    return {
+      text: 'Цены неактуальны',
+      classes: 'text-red-500'
+    };
   }
 
-  const priceStatusText = getPriceStatusText(aboutLastProductsMetaText);
-  const priceStatusIsActual = priceStatusText === 'Цены актуальны';
+  const priceStatus = getPriceStatus(aboutLastProductsMetaText);
+  const priceStatusHtml = priceStatus
+    ? '<div class="text-xs mt-2 font-medium ' + priceStatus.classes + '">' + priceStatus.text + '</div>'
+    : '';
 
   root.innerHTML =
     '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto">' +
@@ -105,12 +117,7 @@ function showAboutTab() {
           '<div class="text-sm text-gray-500">Цены обновлены</div>' +
           '<div id="pricesUpdatedValue" class="text-base font-semibold text-gray-800 mt-1">' + initialValue + '</div>' +
           '<div class="text-xs text-gray-400 mt-1">Время по МСК</div>' +
-        '</div>' +
-
-        '<div class="mt-2 p-4 rounded-2xl border shadow-sm ' + (priceStatusIsActual ? 'bg-green-50 border-green-100 ring-1 ring-green-100/60' : 'bg-amber-50 border-amber-100 ring-1 ring-amber-100/60') + '">' +
-          '<div class="text-sm ' + (priceStatusIsActual ? 'text-green-700' : 'text-amber-700') + '">Статус цен</div>' +
-          '<div class="text-base font-semibold mt-1 ' + (priceStatusIsActual ? 'text-green-800' : 'text-amber-800') + '">' + priceStatusText + '</div>' +
-          '<div class="text-xs mt-1 ' + (priceStatusIsActual ? 'text-green-600' : 'text-amber-600') + '">Статус рассчитывается по времени МСК</div>' +
+          priceStatusHtml +
         '</div>' +
 
         '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
