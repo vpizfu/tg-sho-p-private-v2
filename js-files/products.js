@@ -555,6 +555,17 @@ function getShopPriceStatusMeta() {
   };
 }
 
+function renderShopPriceStatusInline() {
+  const shopPriceStatus = getShopPriceStatusMeta();
+  if (!shopPriceStatus) return '';
+
+  return (
+    '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium whitespace-nowrap ' + shopPriceStatus.pillClasses + '">' +
+      escapeHtml(shopPriceStatus.text) +
+    '</div>'
+  );
+}
+
 
 function renderShopPriceStatusPill() {
   const shopPriceStatus = getShopPriceStatusMeta();
@@ -1102,9 +1113,9 @@ function renderShop() {
   root.innerHTML =
   '<div class="pb-[65px]">' +
 '<div class="mb-5">' +
-  '<div class="flex flex-col items-center justify-center mb-4 gap-2">' +
-    '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-    renderShopPriceStatusPill() +
+  '<div class="flex items-center justify-between mb-4 gap-3">' +
+    '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
+    renderShopPriceStatusInline() +
   '</div>' +
       '<div class="flex items-center gap-3">' +
 
