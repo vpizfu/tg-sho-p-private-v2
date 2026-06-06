@@ -72,6 +72,13 @@ function getPriceStatus(metaText) {
     };
   }
 
+  if (!isTodayMsk && isBefore20) {
+    return {
+      text: 'Ждут обновления сегодня',
+      classes: 'text-xs mt-2 font-medium text-amber-600'
+    };
+  }
+
   return {
     text: 'Цены неактуальны',
     classes: 'text-xs mt-2 font-medium text-red-500'
