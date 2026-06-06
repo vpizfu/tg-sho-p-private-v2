@@ -541,11 +541,11 @@ function getShopPriceStatusMeta() {
 
   let pillClasses = 'bg-gray-100 text-gray-600';
 
-  if (status.text === 'Цены актуальны') {
+  if (status.type === 'actual') {
     pillClasses = 'bg-green-50 text-green-600 ring-1 ring-green-100';
-  } else if (status.text === 'Ждут обновления сегодня') {
+  } else if (status.type === 'pending') {
     pillClasses = 'bg-amber-50 text-amber-600 ring-1 ring-amber-100';
-  } else if (status.text === 'Цены неактуальны') {
+  } else if (status.type === 'tomorrow') {
     pillClasses = 'bg-red-50 text-red-500 ring-1 ring-red-100';
   }
 

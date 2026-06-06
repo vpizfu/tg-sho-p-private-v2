@@ -62,26 +62,31 @@ function getPriceStatus(metaText) {
     return null;
   }
 
-  const diffMs = Date.now() - updatedDate.getTime();
-  const fiveMinutesMs = 5 * 60 * 1000;
-  const tenMinutesMs = 200 * 60 * 1000;
+  const nowMsk = getMoscowParts(new Date());
+  const updatedMsk = getMoscowParts(updatedDate);
 
-  if (diffMs <= fiveMinutesMs) {
+  const isTodayMsk = updatedMsk.dateKey === nowMsk.dateKey;
+  const isBefore20 = nowMsk.hour < 20;
+
+  if (isTodayMsk && isBefore20) {
     return {
+      type: 'actual',
       text: 'Цены актуальны',
       classes: 'text-xs mt-2 font-medium text-green-600'
     };
   }
 
-  if (diffMs <= tenMinutesMs) {
+  if (!isTodayMsk && isBefore20) {
     return {
-      text: 'Ждут обновления',
+      type: 'pending',
+      text: 'Ожидается обновление цен сегодня',
       classes: 'text-xs mt-2 font-medium text-amber-600'
     };
   }
 
   return {
-    text: 'Цены неактуальны',
+    type: 'tomorrow',
+    text: 'Ожидается обновление цен завтра',
     classes: 'text-xs mt-2 font-medium text-red-500'
   };
 }
