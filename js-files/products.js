@@ -532,7 +532,6 @@ function getLabel(type) {
 }
 
 // ---------- рендер магазина ----------
-
 function getShopPriceStatusMeta() {
   if (typeof getPriceStatus !== 'function') return null;
 
@@ -551,8 +550,46 @@ function getShopPriceStatusMeta() {
 
   return {
     text: status.text,
-    pillClasses: pillClasses
+    pillClasses
   };
+}
+
+function renderShopPriceStatusBadge() {
+  const shopPriceStatus = getShopPriceStatusMeta();
+  if (!shopPriceStatus) return '';
+
+  return (
+    '<div id="shopPriceStatusWrap" class="mt-1">' +
+      '<div id="shopPriceStatusBadge" class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' + shopPriceStatus.pillClasses + '">' +
+        escapeHtml(shopPriceStatus.text) +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function updateShopPriceStatusBadge() {
+  const wrap = document.getElementById('shopPriceStatusWrap');
+  const badge = document.getElementById('shopPriceStatusBadge');
+  const shopPriceStatus = getShopPriceStatusMeta();
+
+  if (!shopPriceStatus) {
+    if (wrap) wrap.remove();
+    return;
+  }
+
+  if (!badge) {
+    const logoWrap = document.querySelector('.nav-logo')?.parentElement;
+    if (logoWrap) {
+      logoWrap.insertAdjacentHTML('beforeend', renderShopPriceStatusBadge());
+    }
+    return;
+  }
+
+  badge.className =
+    'inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' +
+    shopPriceStatus.pillClasses;
+
+  badge.textContent = shopPriceStatus.text;
 }
 
 function renderShopPriceStatusInline() {
@@ -597,16 +634,7 @@ function renderShopHeader(list, showCount) {
     '<div class="mb-5">' +
       '<div class="flex flex-col items-center justify-center mb-4 gap-2">' +
         '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-
-        (
-          shopPriceStatus
-            ? '<div class="mt-1">' +
-                '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' + shopPriceStatus.pillClasses + '">' +
-                  escapeHtml(shopPriceStatus.text) +
-                '</div>' +
-              '</div>'
-            : ''
-        ) +
+        renderShopPriceStatusBadge() +
       '</div>' +
 
       '<div class="flex items-center gap-3">' +

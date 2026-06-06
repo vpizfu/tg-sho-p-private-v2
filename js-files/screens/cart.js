@@ -40,6 +40,39 @@ function buildCartKey(product) {
   return 'ck_' + hash.toString(36);
 }
 
+function getCartPriceStatusMeta() {
+  if (typeof getPriceStatus !== 'function') return null;
+
+  const status = getPriceStatus(aboutLastProductsMetaText);
+  if (!status || !status.text) return null;
+
+  let wrapClasses = 'bg-gray-50 text-gray-600 border border-gray-200';
+
+  if (status.type === 'actual') {
+    wrapClasses = 'bg-green-50 text-green-700 border border-green-200';
+  } else if (status.type === 'pending') {
+    wrapClasses = 'bg-amber-50 text-amber-700 border border-amber-200';
+  } else if (status.type === 'tomorrow') {
+    wrapClasses = 'bg-red-50 text-red-700 border border-red-200';
+  }
+
+  return {
+    text: status.text,
+    wrapClasses
+  };
+}
+
+function renderCartPriceStatusNote() {
+  const meta = getCartPriceStatusMeta();
+  if (!meta) return '';
+
+  return (
+    '<div id="cartPriceStatusNote" class="mb-4 rounded-2xl px-4 py-3 text-sm font-medium ' + meta.wrapClasses + '">' +
+      'Статус цен: ' + escapeHtml(meta.text) +
+    '</div>'
+  );
+}
+
 function resetCartStateAfterOrder() {
   cartItems = [];
   saveCartToStorage();
@@ -149,7 +182,9 @@ window.removeCartItem = function (cartKey) {
 window.updateCartItemPrice = function (cartKey) {
   const item = cartItems.find(i => i.cartKey === cartKey);
   if (!item || !item.newPrice) return;
+
   console.log('[cart] updateCartItemPrice cartKey=', cartKey, 'old=', item.price, 'new=', item.newPrice);
+
   try {
     if (typeof trackEvent === 'function') {
       trackEvent('cart_item_price_updated', {
@@ -158,15 +193,30 @@ window.updateCartItemPrice = function (cartKey) {
       });
     }
   } catch (e) {}
+
   item.price = item.newPrice;
   item.available = true;
   delete item.newPrice;
+
   saveCartToStorage();
   updateCartBadge();
+
   if (currentTab === 'cart') {
     showCartTab();
   }
-  tg?.showAlert?.('Цена обновлена для выбранного товара');
+
+  const status = typeof getPriceStatus === 'function'
+    ? getPriceStatus(aboutLastProductsMetaText)
+    : null;
+
+  let msg = 'Цена для выбранного товара обновлена.';
+  if (status?.type === 'pending') {
+    msg += '\nЦены по магазину ещё ждут обновления и могут быть пересмотрены при обработке заказа.';
+  } else if (status?.type === 'tomorrow') {
+    msg += '\nЦены по магазину сейчас неактуальны и могут быть пересмотрены при обработке заказа.';
+  }
+
+  tg?.showAlert?.(msg);
 };
 
 // обновить цены всех и удалить неактуальные
@@ -195,6 +245,14 @@ window.refreshCartPricesAndCleanup = async function () {
       await fetchAndUpdateProducts(false);
     } catch (e) {
       console.error('[cart] refreshCartPricesAndCleanup fetch error', e);
+    }
+
+    try {
+      if (typeof refreshAboutMetaFromBackend === 'function') {
+        await refreshAboutMetaFromBackend();
+      }
+    } catch (e) {
+      console.error('[cart] refreshCartPricesAndCleanup meta error', e);
     }
 
     if (!productsData) {
@@ -245,12 +303,25 @@ window.refreshCartPricesAndCleanup = async function () {
     updateCartBadge();
 
     if (!removedCount && !changedCount) {
-      // если прямо сейчас идёт оформление заказа — не спамим
       if (!isPlacingOrder) {
-        tg?.showAlert?.('Все товары актуальны');
+        const status = typeof getPriceStatus === 'function'
+          ? getPriceStatus(aboutLastProductsMetaText)
+          : null;
+    
+        let message = 'Корзина проверена по последним загруженным данным. Изменений по товарам не найдено.';
+    
+        if (status?.type === 'actual') {
+          message += '\n\nЦены актуальны.';
+        } else if (status?.type === 'pending') {
+          message += '\n\nЦены ждут обновления сегодня и могут быть пересмотрены при обработке заказа.';
+        } else if (status?.type === 'tomorrow') {
+          message += '\n\nЦены сейчас неактуальны и могут быть пересмотрены при обработке заказа.';
+        }
+    
+        tg?.showAlert?.(message);
       }
       return;
-    }    
+    }  
 
     let msgLines = [];
 
@@ -485,6 +556,7 @@ function showCartTab() {
           '<span class="leading-tight">Актуализировать корзину</span>' +
         '</button>' +
       '</div>' +
+      renderCartPriceStatusNote() +
       '<div class="space-y-3">' +
         cartItems
           .map(
@@ -1142,7 +1214,10 @@ if (!contactConfirmed) {
     } catch (e2) {}
 
     tg?.showAlert?.(
-      '✅ Заказ оформлен!\nМенеджер свяжется для подтверждение заказа в ближайшее время.'
+      '✅ Заказ оформлен!\n' +
+      'Менеджер свяжется с вами для подтверждения в ближайшее рабочее время.\n' +
+      'Время работы: 10:00–20:00 МСК.\n' +
+      'Важно: если в магазине отображается статус «Ожидается обновление цен», итоговая сумма заказа может измениться при подтверждении.'
     );
 
     // после успешного ответа от бэка
