@@ -551,10 +551,23 @@ function getShopPriceStatusMeta() {
 
   return {
     text: status.text,
-    pillClasses
+    pillClasses: pillClasses
   };
 }
 
+
+function renderShopPriceStatusPill() {
+  const shopPriceStatus = getShopPriceStatusMeta();
+  if (!shopPriceStatus) return '';
+
+  return (
+    '<div class="mt-1">' +
+      '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' + shopPriceStatus.pillClasses + '">' +
+        escapeHtml(shopPriceStatus.text) +
+      '</div>' +
+    '</div>'
+  );
+}
 
 function renderShopHeader(list, showCount) {
   const categories = getCategoriesFromProducts();
@@ -1088,10 +1101,11 @@ function renderShop() {
 
   root.innerHTML =
   '<div class="pb-[65px]">' +
-    '<div class="mb-5">' +
-      '<div class="flex items-center justify-center mb-4 gap-2">' +
-        '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-      '</div>' +
+'<div class="mb-5">' +
+  '<div class="flex flex-col items-center justify-center mb-4 gap-2">' +
+    '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
+    renderShopPriceStatusPill() +
+  '</div>' +
       '<div class="flex items-center gap-3">' +
 
         // ВЕСЬ блок селекта категорий

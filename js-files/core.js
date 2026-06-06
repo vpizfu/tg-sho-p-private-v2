@@ -211,13 +211,8 @@ async function refreshAboutMetaFromBackend() {
     aboutLastProductsMeta = meta;
     aboutLastProductsMetaText = nextText;
 
-    if (currentTab === 'about') {
-      if (typeof updateAboutPricesMeta === 'function') {
-        updateAboutPricesMeta();
-      } else {
-        const valueEl = document.getElementById('pricesUpdatedValue');
-        if (valueEl && nextText) valueEl.textContent = nextText;
-      }
+    if (currentTab === 'about' && typeof updateAboutPricesMeta === 'function') {
+      updateAboutPricesMeta();
     }
 
     if (currentTab === 'shop' && typeof renderShop === 'function') {
