@@ -533,57 +533,63 @@ function getLabel(type) {
 
 // ---------- рендер магазина ----------
 
+function getShopPriceStatusText() {
+  if (typeof getPriceStatus !== 'function') return '';
+
+  const status = getPriceStatus(aboutLastProductsMetaText);
+  if (!status || !status.text) return '';
+
+  return status.text;
+}
+
 function renderShopHeader(list, showCount) {
   const categories = getCategoriesFromProducts();
+  const shopPriceStatusText = getShopPriceStatusText();
 
   let optionsHtml = '';
   for (let i = 0; i < categories.length; i++) {
     const c = categories[i];
-    optionsHtml +=
-      '<option value="' +
-      c +
-      '"' +
-      (c === selectedCategory ? ' selected' : '') +
-      '>' +
-      c +
-      '</option>';
+    optionsHtml += `<option value="${c}" ${c === selectedCategory ? 'selected' : ''}>${c}</option>`;
   }
 
-  return (
-    '<div class="mb-5">' +
-'<div class="flex items-center justify-center mb-4 gap-2">' +
-  '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-'</div>' +
-      '<div class="flex items-center gap-3">' +
-      /* дальше без изменений */
-      '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
-      '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
-      '<select id="category" class="w-full bg-transparent border-none font-semibold text-base focus:outline-none appearance-none">' +
-      optionsHtml +
-      '</select>' +
-      '</div>' +
-      '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
-      '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
-      '<div class="flex items-center">' +
-      '<svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-      ' d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"/>' +
-      '</svg>' +
-      '<input id="search" value="' +
-      escapeHtml(query) +
-      '" placeholder="Поиск..."' +
-      ' class="w-full bg-transparent outline-none text-sm text-gray-900" />' +
-      '</div>' +
-      '</div>' +
-      '</div>' +
-      '<div class="mt-3 text-xs text-gray-500">' +
-      'Показано: <span class="font-semibold">' +
-      showCount +
-      '</span> из ' +
-      list.length +
-      '</div>' +
-      '</div>'
-  );
+  return `
+    <div class="mb-5">
+      <div class="flex items-center justify-center mb-4 gap-2">
+        <a href="#" class="nav-logo">Tech<span>Bex</span></a>
+      </div>
+
+      ${shopPriceStatusText ? `
+        <div class="text-center mb-3">
+          <div class="inline-flex items-center justify-center rounded-full bg-gray-100 px-3 py-1 text-[11px] font-medium text-gray-600">
+            ${escapeHtml(shopPriceStatusText)}
+          </div>
+        </div>
+      ` : ''}
+
+      <div class="flex items-center gap-3">
+        <div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">
+          <label class="text-xs text-gray-500 block mb-1">Категория</label>
+          <select id="category" class="w-full bg-transparent border-none font-semibold text-base focus:outline-none appearance-none">
+            ${optionsHtml}
+          </select>
+        </div>
+
+        <div class="w-44 bg-white rounded-2xl shadow px-3 py-2">
+          <label class="text-xs text-gray-500 block mb-1">Поиск</label>
+          <div class="flex items-center">
+            <svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"></path>
+            </svg>
+            <input id="search" value="${escapeHtml(query)}" placeholder="Поиск..." class="w-full bg-transparent outline-none text-sm text-gray-900" />
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 text-xs text-gray-500">
+        <span class="font-semibold">${showCount}</span> / ${list.length}
+      </div>
+    </div>
+  `;
 }
 
 let sessionImageLoads = new Map();
