@@ -116,7 +116,6 @@ function setAboutLastProductsMetaText(value) {
 
 function showAboutTab() {
   const initialValue = aboutLastProductsMetaText || 'Загрузка...';
-  const initialStatus = getPriceStatus(initialValue);
 
   root.innerHTML =
     '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto">' +
@@ -139,9 +138,7 @@ function showAboutTab() {
           '<div class="text-sm text-gray-500">Цены обновлены</div>' +
           '<div id="pricesUpdatedValue" class="text-base font-semibold text-gray-800 mt-1">' + initialValue + '</div>' +
           '<div class="text-xs text-gray-400 mt-1">Время по МСК</div>' +
-          '<div id="pricesUpdatedStatus" class="' + (initialStatus ? initialStatus.classes : 'hidden') + '">' +
-            (initialStatus ? initialStatus.text : '') +
-          '</div>' +
+          '<div id="pricesUpdatedStatus" class="hidden"></div>' +
         '</div>' +
 
         '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
