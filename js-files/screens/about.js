@@ -148,8 +148,15 @@ function showAboutTab() {
         '</div>' +
 
         '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
-          '<div class="text-sm text-gray-500">Номер телефона для связи</div>' +
-          '<a href="tel:+79160171261" class="block text-base font-semibold text-gray-800 mt-1 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+          '<div class="text-sm text-gray-500">Контакты</div>' +
+          '<div class="mt-1">' +
+            '<div class="text-xs text-gray-400">Телефон</div>' +
+            '<a href="tel:+79160171261" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+          '</div>' +
+          '<div class="mt-2">' +
+            '<div class="text-xs text-gray-400">Telegram</div>' +
+            '<a href="https://t.me/TechBex" target="_blank" rel="noopener noreferrer" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">@TechBex</a>' +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</div>';

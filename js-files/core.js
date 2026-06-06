@@ -209,16 +209,21 @@ async function refreshAboutMetaFromBackend() {
     const nextText = formatProductsUpdatedMsk(meta);
 
     aboutLastProductsMeta = meta;
-    aboutLastProductsMetaText = nextText;
 
-    if (currentTab === 'about') {
-      const valueEl = document.getElementById('pricesUpdatedValue');
-      if (valueEl && valueEl.textContent !== nextText) {
-        valueEl.textContent = nextText;
+    if (typeof setAboutLastProductsMetaText === 'function') {
+      setAboutLastProductsMetaText(nextText);
+    } else {
+      aboutLastProductsMetaText = nextText;
+
+      if (currentTab === 'about' && typeof updateAboutPricesMeta === 'function') {
+        updateAboutPricesMeta();
+      } else if (currentTab === 'about') {
+        const valueEl = document.getElementById('pricesUpdatedValue');
+        if (valueEl && nextText) valueEl.textContent = nextText;
       }
     }
   } catch (err) {
-    console.error('[about] refreshAboutMetaFromBackend error', err);
+    console.error('about refreshAboutMetaFromBackend error', err);
   }
 }
 
