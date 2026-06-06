@@ -64,7 +64,7 @@ function getPriceStatus(metaText) {
 
   const diffMs = Date.now() - updatedDate.getTime();
   const fiveMinutesMs = 5 * 60 * 1000;
-  const tenMinutesMs = 10 * 60 * 1000;
+  const tenMinutesMs = 200 * 60 * 1000;
 
   if (diffMs <= fiveMinutesMs) {
     return {
