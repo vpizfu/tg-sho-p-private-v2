@@ -11,7 +11,7 @@
 
   <!-- Глобальная версия приложения -->
   <script>
-    const version = '415';
+    const version = '416';
     window.APP_VERSIONS = {
       app: version,
       products: version,
@@ -157,16 +157,16 @@
   </div>
 </div>
 
-<script src="js-files/analytics.js?v=415"></script>
-<script src="js-files/products.js?v=415"></script>
-<script src="js-files/core.js?v=415"></script>
+<script src="js-files/analytics.js?v=416"></script>
+<script src="js-files/products.js?v=416"></script>
+<script src="js-files/core.js?v=416"></script>
 <!-- дальше как было -->
-  <script src="js-files/modals.js?v=415"></script>
-  <script src="js-files/screens/cart.js?v=415"></script>
-  <script src="js-files/ui_common.js?v=415"></script>
-  <script src="js-files/screens/sale.js?v=415"></script>
-  <script src="js-files/screens/profile.js?v=415"></script>
-  <script src="js-files/screens/about.js?v=415"></script>
+  <script src="js-files/modals.js?v=416"></script>
+  <script src="js-files/screens/cart.js?v=416"></script>
+  <script src="js-files/ui_common.js?v=416"></script>
+  <script src="js-files/screens/sale.js?v=416"></script>
+  <script src="js-files/screens/profile.js?v=416"></script>
+  <script src="js-files/screens/about.js?v=416"></script>
 
   <script>
     // запуск после загрузки всех модулей
@@ -179,26 +179,21 @@
   <script>
     (function () {
       const tg = window.Telegram?.WebApp;
-      const isRealMiniApp = !!tg && !!tg.initData;
-  
-      const version = String(window.APP_VERSIONS?.app || 'unknown');
-  
+      const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
+
+      const version = window.APP_VERSIONS.app || {};
       if (!isRealMiniApp) {
-        alert(
+        tg?.showAlert?.(
           'Версия: ' + version +
-          '\nПриложение разработано для использования через Telegram-мини-приложение @techbex_bot — рекомендуем открывать его в Telegram.' +
-          '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.' +
-          '\nТелефон: +7 916 017-12-61' +
-          '\nВремя работы: 10:00 – 20:00 по МСК' +
-          '\nЦены считаются актуальными только после сегодняшнего обновления и действуют до 20:00 по МСК.' +
-          '\nАктуальная дата обновления указана во вкладке «О нас».'
-        );
-        return;
+        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.' +
+        '\nТелефон: +7 916 017-12-61' +
+        '\nВремя работы: 10:00 – 20:00 по МСК' +
+        '\nЦены считаются актуальными только после сегодняшнего обновления и действуют до 20:00 по МСК.' +
+        '\nАктуальная дата обновления указана во вкладке «О нас».'
+      );
+        return
       }
-  
-      tg.ready?.();
-      tg.expand?.();
-  
+
       tg.showAlert(
         'Версия: ' + version +
         '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.' +
