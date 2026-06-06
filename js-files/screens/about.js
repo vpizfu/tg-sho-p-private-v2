@@ -97,7 +97,7 @@ function updateAboutPricesMeta() {
   const value = aboutLastProductsMetaText || 'Загрузка...';
   valueEl.textContent = value;
 
-  const status = getPriceStatus(aboutLastProductsMetaText);
+  const status = getPriceStatus(value);
 
   if (!status) {
     statusEl.className = 'hidden';
@@ -109,9 +109,14 @@ function updateAboutPricesMeta() {
   statusEl.textContent = status.text;
 }
 
+function setAboutLastProductsMetaText(value) {
+  aboutLastProductsMetaText = value || 'Загрузка...';
+  updateAboutPricesMeta();
+}
+
 function showAboutTab() {
   const initialValue = aboutLastProductsMetaText || 'Загрузка...';
-  const initialStatus = getPriceStatus(aboutLastProductsMetaText);
+  const initialStatus = getPriceStatus(initialValue);
 
   root.innerHTML =
     '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto">' +
