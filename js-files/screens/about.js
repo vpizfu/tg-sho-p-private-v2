@@ -64,13 +64,7 @@ function getPriceStatus(metaText) {
 
   const diffMs = Date.now() - updatedDate.getTime();
   const fiveMinutesMs = 5 * 60 * 1000;
-
-  const nowMsk = getMoscowParts(new Date());
-  const updatedMsk = getMoscowParts(updatedDate);
-
-  const isTodayMsk = updatedMsk.dateKey === nowMsk.dateKey;
-  const isBefore20 = nowMsk.hour < 20;
-
+  const tenMinutesMs = 10 * 60 * 1000;
 
   if (diffMs <= fiveMinutesMs) {
     return {
@@ -79,9 +73,9 @@ function getPriceStatus(metaText) {
     };
   }
 
-  if (!isTodayMsk && isBefore20) {
+  if (diffMs <= tenMinutesMs) {
     return {
-      text: 'Ждут обновления сегодня',
+      text: 'Ждут обновления',
       classes: 'text-xs mt-2 font-medium text-amber-600'
     };
   }
