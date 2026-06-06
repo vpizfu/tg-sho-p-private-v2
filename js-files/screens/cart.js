@@ -67,7 +67,7 @@ function renderCartPriceStatusNote() {
   if (!meta) return '';
 
   return (
-    '<div id="cartPriceStatusNote" class="mb-4 rounded-2xl px-4 py-3 text-sm font-medium ' + meta.wrapClasses + '">' +
+    '<div id="cartPriceStatusNote" class="mb-3 rounded-xl px-3 py-2 text-[11px] leading-4 font-medium ' + meta.wrapClasses + '">' +
       'Статус цен: ' + escapeHtml(meta.text) +
     '</div>'
   );
@@ -855,6 +855,25 @@ function scheduleDelayedOrdersSync(reason) {
   }, 120000);
 }
 
+function getOrderPlacedAlertText() {
+  const status = typeof getPriceStatus === 'function'
+    ? getPriceStatus(aboutLastProductsMetaText)
+    : null;
+
+  let text =
+    '✅ Заказ оформлен!\n' +
+    'Менеджер свяжется с вами для подтверждения в ближайшее рабочее время.\n' +
+    'Время работы: 10:00–20:00 МСК.';
+
+  if (status?.type === 'pending') {
+    text += '\nВажно: цены в магазине ждут обновления сегодня, поэтому итоговая сумма заказа может быть пересмотрена при подтверждении.';
+  } else if (status?.type === 'tomorrow') {
+    text += '\nВажно: цены в магазине сейчас неактуальны, поэтому итоговая сумма заказа может быть пересмотрена при подтверждении.';
+  }
+
+  return text;
+}
+
 function getPickupModeForAnalytics() {
   // pickupMode у тебя уже есть: false = доставка, true = самовывоз
   return pickupMode ? 'pickup' : 'delivery';
@@ -1213,12 +1232,7 @@ if (!contactConfirmed) {
       hasCheckoutResultForCurrent = true;
     } catch (e2) {}
 
-    tg?.showAlert?.(
-      '✅ Заказ оформлен!\n' +
-      'Менеджер свяжется с вами для подтверждения в ближайшее рабочее время.\n' +
-      'Время работы: 10:00–20:00 МСК.\n' +
-      'Важно: если в магазине отображается статус «Ожидается обновление цен», итоговая сумма заказа может измениться при подтверждении.'
-    );
+    tg?.showAlert?.(getOrderPlacedAlertText());
 
     // после успешного ответа от бэка
     try {
