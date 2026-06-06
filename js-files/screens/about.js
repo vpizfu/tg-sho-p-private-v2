@@ -65,6 +65,13 @@ function getPriceStatus(metaText) {
   const diffMs = Date.now() - updatedDate.getTime();
   const fiveMinutesMs = 5 * 60 * 1000;
 
+  const nowMsk = getMoscowParts(new Date());
+  const updatedMsk = getMoscowParts(updatedDate);
+
+  const isTodayMsk = updatedMsk.dateKey === nowMsk.dateKey;
+  const isBefore20 = nowMsk.hour < 20;
+
+
   if (diffMs <= fiveMinutesMs) {
     return {
       text: 'Цены актуальны',
