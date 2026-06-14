@@ -62,6 +62,42 @@ function getCartPriceStatusMeta() {
   };
 }
 
+function captureAppPriceStatusSnapshot() {
+  const status = typeof getPriceStatus === 'function'
+    ? getPriceStatus(aboutLastProductsMetaText)
+    : null;
+
+  return {
+    code: status?.type || 'unknown',
+    text: status?.text || '',
+    capturedAt: new Date().toISOString()
+  };
+}
+
+function buildFactPriceStatus(hasUnavailable, hasPriceChanged) {
+  if (hasUnavailable) {
+    return {
+      code: 'unavailable',
+      text: 'После контрольной проверки перед оформлением заказа часть товаров недоступна.',
+      capturedAt: new Date().toISOString()
+    };
+  }
+
+  if (hasPriceChanged) {
+    return {
+      code: 'changed',
+      text: 'После контрольной проверки перед оформлением заказа цены изменились.',
+      capturedAt: new Date().toISOString()
+    };
+  }
+
+  return {
+    code: 'actual',
+    text: 'После контрольной проверки перед оформлением заказа цены совпали.',
+    capturedAt: new Date().toISOString()
+  };
+}
+
 function renderCartPriceStatusNote() {
   const meta = getCartPriceStatusMeta();
   if (!meta) return '';
@@ -883,6 +919,7 @@ window.placeOrder = async function () {
   if (isPlacingOrder) return;
 
   const orderClickTs = Date.now();
+  const appPriceStatus = captureAppPriceStatusSnapshot();
   console.log('[placeOrder] start at', orderClickTs, 'items=', cartItems.length);
 
   try {
@@ -1081,6 +1118,7 @@ if (!contactConfirmed) {
       return;
     }
 
+    const factPriceStatus = buildFactPriceStatus(hasUnavailable, hasPriceChanged);
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
     const total = subtotal + commission;
@@ -1118,7 +1156,9 @@ if (!contactConfirmed) {
       contact: {
         name: contactName,
         phone: contactPhone
-      }
+      },
+      appPriceStatus,
+      factPriceStatus
     };
 
     currentOrderId = order.id;
