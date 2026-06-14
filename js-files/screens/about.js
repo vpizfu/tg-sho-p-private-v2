@@ -14,7 +14,9 @@ function getMoscowParts(date = new Date()) {
   const map = {};
 
   for (const part of parts) {
-    if (part.type !== 'literal') map[part.type] = part.value;
+    if (part.type !== 'literal') {
+      map[part.type] = part.value;
+    }
   }
 
   return {
@@ -117,20 +119,11 @@ function setAboutLastProductsMetaText(value) {
   updateAboutPricesMeta();
 }
 
-function openAboutPhone() {
-  const phoneHref = 'tel:+79160171261';
-
-  if (window.Telegram && window.Telegram.WebApp) {
-    try {
-      window.open(phoneHref, '_blank');
-      return;
-    } catch (error) {
-      copyAboutPhone();
-      return;
-    }
-  }
-
-  window.location.href = phoneHref;
+function isTelegramMiniApp() {
+  return !!(
+    window.Telegram &&
+    window.Telegram.WebApp
+  );
 }
 
 function copyAboutPhone() {
@@ -138,7 +131,7 @@ function copyAboutPhone() {
 
   if (navigator.clipboard && window.isSecureContext) {
     navigator.clipboard.writeText(phone).then(function () {
-      showAboutPhoneCopyState('Номер скопирован');
+      showAboutPhoneCopyState('Скопировано');
     }).catch(function () {
       fallbackCopyAboutPhone(phone);
     });
@@ -163,9 +156,9 @@ function fallbackCopyAboutPhone(phone) {
 
   try {
     document.execCommand('copy');
-    showAboutPhoneCopyState('Номер скопирован');
+    showAboutPhoneCopyState('Скопировано');
   } catch (error) {
-    showAboutPhoneCopyState('Скопируйте номер вручную');
+    showAboutPhoneCopyState('Не удалось скопировать');
   }
 
   document.body.removeChild(textarea);
@@ -176,7 +169,7 @@ function showAboutPhoneCopyState(text) {
   if (!copyStateEl) return;
 
   copyStateEl.textContent = text;
-  copyStateEl.className = 'text-xs mt-2 font-medium text-green-600';
+  copyStateEl.className = 'text-[11px] mt-1 text-gray-400';
 
   clearTimeout(showAboutPhoneCopyState._timer);
 
@@ -185,7 +178,7 @@ function showAboutPhoneCopyState(text) {
     if (!el) return;
     el.textContent = '';
     el.className = 'hidden';
-  }, 2500);
+  }, 1800);
 }
 
 function openAboutTelegram() {
@@ -206,18 +199,8 @@ function openAboutTelegram() {
 }
 
 function bindAboutActions() {
-  const phoneLink = document.getElementById('aboutPhoneLink');
   const phoneCopyBtn = document.getElementById('aboutPhoneCopyBtn');
   const telegramLink = document.getElementById('aboutTelegramLink');
-
-  if (phoneLink) {
-    phoneLink.onclick = function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      openAboutPhone();
-      return false;
-    };
-  }
 
   if (phoneCopyBtn) {
     phoneCopyBtn.onclick = function (e) {
@@ -240,6 +223,25 @@ function bindAboutActions() {
 
 function showAboutTab() {
   const initialValue = aboutLastProductsMetaText || 'Загрузка...';
+  const isMiniApp = isTelegramMiniApp();
+
+  const phoneBlock = isMiniApp
+    ? (
+        '<div class="mt-3">' +
+          '<div class="text-xs text-gray-400">Телефон</div>' +
+          '<div class="mt-1 flex items-center justify-between gap-3">' +
+            '<div class="text-base font-semibold text-gray-800">+7 916 017-12-61</div>' +
+            '<button id="aboutPhoneCopyBtn" type="button" class="shrink-0 text-[12px] font-medium text-gray-400 hover:text-gray-500 active:text-gray-600 transition-colors">Скопировать</button>' +
+          '</div>' +
+          '<div id="aboutPhoneCopyState" class="hidden"></div>' +
+        '</div>'
+      )
+    : (
+        '<div class="mt-3">' +
+          '<div class="text-xs text-gray-400">Телефон</div>' +
+          '<a href="tel:+79160171261" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+        '</div>'
+      );
 
   root.innerHTML =
     '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto">' +
@@ -274,12 +276,7 @@ function showAboutTab() {
         '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
           '<div class="text-sm text-gray-500">Контакты</div>' +
 
-          '<div class="mt-3">' +
-            '<div class="text-xs text-gray-400">Телефон</div>' +
-            '<a href="tel:+79160171261" id="aboutPhoneLink" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
-            '<button id="aboutPhoneCopyBtn" type="button" class="mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">Скопировать номер</button>' +
-            '<div id="aboutPhoneCopyState" class="hidden"></div>' +
-          '</div>' +
+          phoneBlock +
 
           '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">Telegram</div>' +
