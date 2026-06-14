@@ -119,26 +119,21 @@ function setAboutLastProductsMetaText(value) {
   updateAboutPricesMeta();
 }
 
-function isTelegramMiniApp() {
-  return !!(
-    window.Telegram &&
-    window.Telegram.WebApp
-  );
-}
+function showAboutPhoneStatus(text, classes) {
+  const statusEl = document.getElementById('aboutPhoneStatus');
+  if (!statusEl) return;
 
-function copyAboutPhone() {
-  const phone = '+79160171261';
+  statusEl.textContent = text;
+  statusEl.className = classes;
 
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(phone).then(function () {
-      showAboutPhoneCopyState('Скопировано');
-    }).catch(function () {
-      fallbackCopyAboutPhone(phone);
-    });
-    return;
-  }
+  clearTimeout(showAboutPhoneStatus._timer);
 
-  fallbackCopyAboutPhone(phone);
+  showAboutPhoneStatus._timer = setTimeout(function () {
+    const el = document.getElementById('aboutPhoneStatus');
+    if (!el) return;
+    el.textContent = '';
+    el.className = 'hidden';
+  }, 2200);
 }
 
 function fallbackCopyAboutPhone(phone) {
@@ -156,29 +151,81 @@ function fallbackCopyAboutPhone(phone) {
 
   try {
     document.execCommand('copy');
-    showAboutPhoneCopyState('Скопировано');
+    showAboutPhoneStatus('Скопировано', 'text-[11px] mt-1 text-gray-400');
   } catch (error) {
-    showAboutPhoneCopyState('Не удалось скопировать');
+    showAboutPhoneStatus('Скопируйте номер вручную', 'text-[11px] mt-1 text-amber-500');
   }
 
   document.body.removeChild(textarea);
 }
 
-function showAboutPhoneCopyState(text) {
-  const copyStateEl = document.getElementById('aboutPhoneCopyState');
-  if (!copyStateEl) return;
+function copyAboutPhone() {
+  const phone = '+79160171261';
 
-  copyStateEl.textContent = text;
-  copyStateEl.className = 'text-[11px] mt-1 text-gray-400';
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(phone).then(function () {
+      showAboutPhoneStatus('Скопировано', 'text-[11px] mt-1 text-gray-400');
+    }).catch(function () {
+      fallbackCopyAboutPhone(phone);
+    });
+    return;
+  }
 
-  clearTimeout(showAboutPhoneCopyState._timer);
+  fallbackCopyAboutPhone(phone);
+}
 
-  showAboutPhoneCopyState._timer = setTimeout(function () {
-    const el = document.getElementById('aboutPhoneCopyState');
-    if (!el) return;
-    el.textContent = '';
-    el.className = 'hidden';
-  }, 1800);
+function openAboutPhone() {
+  const phoneHref = 'tel:+79160171261';
+  let pageHidden = false;
+  let handled = false;
+
+  function markHidden() {
+    pageHidden = true;
+  }
+
+  function cleanup() {
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    window.removeEventListener('pagehide', markHidden);
+    window.removeEventListener('blur', markHidden);
+  }
+
+  function handleVisibilityChange() {
+    if (document.visibilityState === 'hidden') {
+      pageHidden = true;
+    }
+  }
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('pagehide', markHidden);
+  window.addEventListener('blur', markHidden);
+
+  try {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.src = phoneHref;
+    document.body.appendChild(iframe);
+
+    setTimeout(function () {
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe);
+      }
+    }, 1200);
+  } catch (error) {}
+
+  try {
+    window.location.href = phoneHref;
+  } catch (error) {}
+
+  setTimeout(function () {
+    if (handled) return;
+    handled = true;
+    cleanup();
+
+    if (!pageHidden) {
+      copyAboutPhone();
+    }
+  }, 900);
 }
 
 function openAboutTelegram() {
@@ -199,14 +246,14 @@ function openAboutTelegram() {
 }
 
 function bindAboutActions() {
-  const phoneCopyBtn = document.getElementById('aboutPhoneCopyBtn');
+  const phoneLink = document.getElementById('aboutPhoneLink');
   const telegramLink = document.getElementById('aboutTelegramLink');
 
-  if (phoneCopyBtn) {
-    phoneCopyBtn.onclick = function (e) {
+  if (phoneLink) {
+    phoneLink.onclick = function (e) {
       e.preventDefault();
       e.stopPropagation();
-      copyAboutPhone();
+      openAboutPhone();
       return false;
     };
   }
@@ -223,25 +270,6 @@ function bindAboutActions() {
 
 function showAboutTab() {
   const initialValue = aboutLastProductsMetaText || 'Загрузка...';
-  const isMiniApp = isTelegramMiniApp();
-
-  const phoneBlock = isMiniApp
-    ? (
-        '<div class="mt-3">' +
-          '<div class="text-xs text-gray-400">Телефон</div>' +
-          '<div class="mt-1 flex items-center justify-between gap-3">' +
-            '<div class="text-base font-semibold text-gray-800">+7 916 017-12-61</div>' +
-            '<button id="aboutPhoneCopyBtn" type="button" class="shrink-0 text-[12px] font-medium text-gray-400 hover:text-gray-500 active:text-gray-600 transition-colors">Скопировать</button>' +
-          '</div>' +
-          '<div id="aboutPhoneCopyState" class="hidden"></div>' +
-        '</div>'
-      )
-    : (
-        '<div class="mt-3">' +
-          '<div class="text-xs text-gray-400">Телефон</div>' +
-          '<a href="tel:+79160171261" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
-        '</div>'
-      );
 
   root.innerHTML =
     '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto">' +
@@ -276,7 +304,11 @@ function showAboutTab() {
         '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
           '<div class="text-sm text-gray-500">Контакты</div>' +
 
-          phoneBlock +
+          '<div class="mt-3">' +
+            '<div class="text-xs text-gray-400">Телефон</div>' +
+            '<a href="tel:+79160171261" id="aboutPhoneLink" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+            '<div id="aboutPhoneStatus" class="hidden"></div>' +
+          '</div>' +
 
           '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">Telegram</div>' +
