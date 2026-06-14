@@ -117,6 +117,127 @@ function setAboutLastProductsMetaText(value) {
   updateAboutPricesMeta();
 }
 
+function openAboutPhone() {
+  const phoneHref = 'tel:+79160171261';
+
+  if (window.Telegram && window.Telegram.WebApp) {
+    try {
+      window.open(phoneHref, '_blank');
+      return;
+    } catch (error) {
+      copyAboutPhone();
+      return;
+    }
+  }
+
+  window.location.href = phoneHref;
+}
+
+function copyAboutPhone() {
+  const phone = '+79160171261';
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(phone).then(function () {
+      showAboutPhoneCopyState('Номер скопирован');
+    }).catch(function () {
+      fallbackCopyAboutPhone(phone);
+    });
+    return;
+  }
+
+  fallbackCopyAboutPhone(phone);
+}
+
+function fallbackCopyAboutPhone(phone) {
+  const textarea = document.createElement('textarea');
+  textarea.value = phone;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.top = '-1000px';
+  textarea.style.left = '-1000px';
+  textarea.style.opacity = '0';
+
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand('copy');
+    showAboutPhoneCopyState('Номер скопирован');
+  } catch (error) {
+    showAboutPhoneCopyState('Скопируйте номер вручную');
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function showAboutPhoneCopyState(text) {
+  const copyStateEl = document.getElementById('aboutPhoneCopyState');
+  if (!copyStateEl) return;
+
+  copyStateEl.textContent = text;
+  copyStateEl.className = 'text-xs mt-2 font-medium text-green-600';
+
+  clearTimeout(showAboutPhoneCopyState._timer);
+
+  showAboutPhoneCopyState._timer = setTimeout(function () {
+    const el = document.getElementById('aboutPhoneCopyState');
+    if (!el) return;
+    el.textContent = '';
+    el.className = 'hidden';
+  }, 2500);
+}
+
+function openAboutTelegram() {
+  const telegramUrl = 'https://t.me/TechBex';
+
+  if (
+    window.Telegram &&
+    window.Telegram.WebApp &&
+    typeof window.Telegram.WebApp.openTelegramLink === 'function'
+  ) {
+    try {
+      window.Telegram.WebApp.openTelegramLink(telegramUrl);
+      return;
+    } catch (error) {}
+  }
+
+  window.open(telegramUrl, '_blank', 'noopener,noreferrer');
+}
+
+function bindAboutActions() {
+  const phoneLink = document.getElementById('aboutPhoneLink');
+  const phoneCopyBtn = document.getElementById('aboutPhoneCopyBtn');
+  const telegramLink = document.getElementById('aboutTelegramLink');
+
+  if (phoneLink) {
+    phoneLink.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openAboutPhone();
+      return false;
+    };
+  }
+
+  if (phoneCopyBtn) {
+    phoneCopyBtn.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      copyAboutPhone();
+      return false;
+    };
+  }
+
+  if (telegramLink) {
+    telegramLink.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openAboutTelegram();
+      return false;
+    };
+  }
+}
+
 function showAboutTab() {
   const initialValue = aboutLastProductsMetaText || 'Загрузка...';
 
@@ -152,21 +273,27 @@ function showAboutTab() {
 
         '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
           '<div class="text-sm text-gray-500">Контакты</div>' +
+
           '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">Телефон</div>' +
-            '<a href="tel:+79160171261" onclick="if (window.Telegram && window.Telegram.WebApp) { event.preventDefault(); event.stopPropagation(); window.open(\'tel:+79160171261\', \'_blank\'); }" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+            '<a href="tel:+79160171261" id="aboutPhoneLink" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+            '<button id="aboutPhoneCopyBtn" type="button" class="mt-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors">Скопировать номер</button>' +
+            '<div id="aboutPhoneCopyState" class="hidden"></div>' +
           '</div>' +
+
           '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">Telegram</div>' +
-            '<a href="https://t.me/TechBex" target="_blank" rel="noopener noreferrer" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">@TechBex</a>' +
+            '<a href="https://t.me/TechBex" id="aboutTelegramLink" target="_blank" rel="noopener noreferrer" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">@TechBex</a>' +
           '</div>' +
-          '<div class="mt-1">' +
+
+          '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">ИП</div>' +
-          '<div class="block text-base font-semibold text-gray-800">Руль Елизавета Николаевна</div>' +
-        '</div>' +
+            '<div class="block text-base font-semibold text-gray-800">Руль Елизавета Николаевна</div>' +
+          '</div>' +
         '</div>' +
       '</div>' +
     '</div>';
 
   updateAboutPricesMeta();
+  bindAboutActions();
 }
