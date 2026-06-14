@@ -154,7 +154,7 @@ function showAboutTab() {
           '<div class="text-sm text-gray-500">Контакты</div>' +
           '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">Телефон</div>' +
-            '<a href="tel:+79160171261" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+            '<a href="tel:+79160171261" onclick="if (window.Telegram && window.Telegram.WebApp) { event.preventDefault(); event.stopPropagation(); window.open(\'tel:+79160171261\', \'_blank\'); }" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
           '</div>' +
           '<div class="mt-3">' +
             '<div class="text-xs text-gray-400">Telegram</div>' +
