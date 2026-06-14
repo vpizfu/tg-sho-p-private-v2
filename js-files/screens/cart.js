@@ -1161,7 +1161,6 @@ if (!contactConfirmed) {
       factPriceStatus
     };
 
-    
     currentOrderId = order.id;
     hasCheckoutResultForCurrent = false;
 
