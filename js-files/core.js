@@ -234,7 +234,7 @@ const isMobileDevice =
 
 // --------- Глобальный стейт ---------
 
-let CATEGORIES = ['Популярное'];
+let CATEGORIES = ['Все товары'];
 let isOrdersLoading = false;
 
 let FILTER_ORDER_BY_CAT = {}; // динамический порядок фильтров по категориям
@@ -268,7 +268,7 @@ function sortAdapterImageLast(images) {
   return main.concat(adapters);
 }
 
-let selectedCategory = 'Популярное',
+let selectedCategory = 'Все товары',
   query = '',
   loadedCount = 10,
   imageCache = new Map(),
@@ -1293,7 +1293,7 @@ async function fetchAndUpdateProducts(showLoader = false) {
     const cats = Array.from(
       new Set(productsData.map(p => p.cat).filter(Boolean))
     );
-    CATEGORIES = ['Популярное', ...cats];
+    CATEGORIES = ['Все товары', ...cats];
     console.log('[core] CATEGORIES', CATEGORIES);
 
     syncProductsAndCart();

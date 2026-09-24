@@ -14,7 +14,7 @@ function makeVariantUserKeyWithoutPrice(variant) {
 
 function getCategoriesFromProducts() {
   if (!productsData || !productsData.length) {
-    return ['Популярное'];
+    return ['Все товары'];
   }
 
   const categoriesSet = new Set();
@@ -36,7 +36,7 @@ function getCategoriesFromProducts() {
     a.localeCompare(b, 'ru')
   );
 
-  return ['Популярное', ...cats];
+  return ['Все товары', ...cats];
 }
 
 function dedupeIdenticalVariants(variants) {
@@ -438,7 +438,7 @@ function getVisibleProducts() {
     groupedVisible.length
   );
 
-  if (selectedCategory !== 'Популярное') {
+  if (selectedCategory !== 'Все товары') {
     groupedVisible = groupedVisible.filter(
       p => p.cat === selectedCategory
     );
@@ -1328,7 +1328,7 @@ function setupHandlers() {
         if (!btn) return;
         e.stopPropagation();
 
-        const value = btn.getAttribute('data-value') || 'Популярное';
+        const value = btn.getAttribute('data-value') || 'Все товары';
         selectedCategory = value;
         loadedCount = 10;
 
