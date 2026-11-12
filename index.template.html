@@ -26,6 +26,12 @@
   </script>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- CSS с версией -->
@@ -182,20 +188,19 @@
       const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
 
       const version = window.APP_VERSIONS.app || {};
-      if (!isRealMiniApp) {
-        tg?.showAlert?.(
-          'Версия: ' + version +
-        '\nКонтакты, время работы и обновления цен — во вкладке «О нас»' +
-        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
-      );
-        return
-      }
-
-      tg.showAlert(
+      const alertText =
         'Версия: ' + version +
         '\nКонтакты, время работы и обновления цен — во вкладке «О нас»' +
-        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
-      );
+        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.';
+
+      if (!isRealMiniApp) {
+        tg?.showAlert?.(alertText);
+        return;
+      }
+
+      setTimeout(function () {
+        tg.showAlert(alertText);
+      }, 400);
     })();
   </script>
 </body>
