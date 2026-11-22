@@ -1461,10 +1461,6 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
-
-    refreshAboutMetaFromBackend().catch(err =>
-      console.error('[about] meta refresh after products update error', err)
-    );
   } catch (error) {
     console.error('[core] products API error:', error);
 
@@ -1983,6 +1979,9 @@ async function initApp() {
     );
     await fetchAndUpdateProducts();
     logStage('after fetchAndUpdateProducts', t0);
+
+    // Load meta BEFORE rendering shop so price status shows immediately
+    await refreshAboutMetaFromBackend();
 
     // шаг 3 — финализация
     setLoadingStatus(
