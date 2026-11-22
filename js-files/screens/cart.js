@@ -628,7 +628,7 @@ function showCartTab() {
             ' onclick="setCartCountryAndRefresh(\'RU\')">' +
             '<input type="radio" name="cartCountry" value="RU" ' + (cartCountry === 'RU' ? 'checked' : '') + ' style="display:none;">' +
             '<span class="flex items-center gap-1">' +
-              '<span>🇷🇺</span><span class="font-medium">Россия (RUB)</span>' +
+              '<span>🇷🇺</span><span class="font-medium text-sm">Россия</span>' +
             '</span>' +
           '</label>' +
           '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
@@ -636,7 +636,7 @@ function showCartTab() {
             ' onclick="setCartCountryAndRefresh(\'BY\')">' +
             '<input type="radio" name="cartCountry" value="BY" ' + (cartCountry === 'BY' ? 'checked' : '') + ' style="display:none;">' +
             '<span class="flex items-center gap-1">' +
-              '<span>🇧🇾</span><span class="font-medium">Беларусь (USD)</span>' +
+              '<span>🇧🇾</span><span class="font-medium text-sm">Беларусь</span>' +
             '</span>' +
           '</label>' +
         '</div>' +
