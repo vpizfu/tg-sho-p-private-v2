@@ -535,13 +535,18 @@ function getLabel(type) {
 function getShopPriceStatusMeta() {
   if (typeof getPriceStatus !== 'function') return null;
 
+  // Check if meta is loaded and has a valid date
+  if (!aboutLastProductsMeta || !aboutLastProductsMeta.lastUpdatedAt) {
+    // No valid date - meta is stale/missing
+    return {
+      text: 'Статус цен недоступен (просрочено)',
+      pillClasses: 'bg-red-50 text-red-600 ring-1 ring-red-100'
+    };
+  }
+
   const status = getPriceStatus(aboutLastProductsMetaText);
   if (!status || !status.text) {
-    // Return loading state when meta is not yet loaded
-    return {
-      text: 'Загрузка статуса цен...',
-      pillClasses: 'bg-gray-100 text-gray-600'
-    };
+    return null;
   }
 
   let pillClasses = 'bg-gray-100 text-gray-600';
@@ -639,22 +644,21 @@ function renderShopHeader(list, showCount) {
 
   return (
     '<div class="mb-5">' +
-      '<div class="flex flex-col items-center justify-center mb-4 gap-2">' +
-        '<div class="flex items-center justify-center gap-2">' +
-          '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-          renderShopPriceStatusBadge() +
-        '</div>' +
-        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать страну">' +
+      '<div class="flex items-center justify-between mb-4 gap-3">' +
+        '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
+        renderShopPriceStatusInline() +
+        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать регион">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
+          '<span id="countryLabel" class="font-medium text-xs text-gray-500">Регион</span>' +
           '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
         '</div>' +
         '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">Выберите страну</div>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'RU\')">' +
-            '<span>🇷🇺</span><span class="font-medium">Россия (RUB)</span>' +
+            '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
           '</button>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'BY\')">' +
-            '<span>🇧🇾</span><span class="font-medium">Беларусь (USD)</span>' +
+            '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
           '</button>' +
           '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100">Цены для Беларуси в USD</div>' +
         '</div>' +
@@ -1213,23 +1217,22 @@ function renderShop() {
   '<div class="flex items-center justify-between mb-4 gap-3">' +
     '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
     renderShopPriceStatusInline() +
+    '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать регион">' +
+      '<span id="countryFlag">' + config.flag + '</span>' +
+      '<span id="countryLabel" class="font-medium text-xs text-gray-500">Регион</span>' +
+      '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+    '</div>' +
+    '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
+      '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">Выберите страну</div>' +
+      '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'RU\')">' +
+        '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
+      '</button>' +
+      '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'BY\')">' +
+        '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
+      '</button>' +
+      '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100">Цены для Беларуси в USD</div>' +
+    '</div>' +
   '</div>' +
-  '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать страну">' +
-    '<span id="countryFlag">' + config.flag + '</span>' +
-    '<span id="countryLabel" class="font-medium">' + config.currency + '</span>' +
-    '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
-  '</div>' +
-  '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
-    '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">Выберите страну</div>' +
-    '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'RU\')">' +
-      '<span>🇷🇺</span><span class="font-medium">Россия (RUB)</span>' +
-    '</button>' +
-    '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'BY\')">' +
-      '<span>🇧🇾</span><span class="font-medium">Беларусь (USD)</span>' +
-    '</button>' +
-    '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100">Цены для Беларуси в USD</div>' +
-  '</div>' +
-'</div>' +
 
       '<div class="flex items-center gap-3">' +
 
