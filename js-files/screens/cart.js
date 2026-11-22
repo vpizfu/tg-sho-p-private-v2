@@ -572,71 +572,34 @@ function showCartTab() {
   console.log('[cart] showCartTab, items=', cartItems.length, 'isPlacingOrder=', isPlacingOrder);
   saveCartFormState();
 
+  if (!cartItems.length) {
+    root.innerHTML =
+      '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
+        '<div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">' +
+          '<svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+              ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
+            '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
+            '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
+          '</svg>' +
+        '</div>' +
+        '<h2 class="text-2xl font-bold text-gray-800 mb-4">Корзина пуста</h2>' +
+        '<p class="text-lg text-gray-600 mb-8 max-w-xs">' +
+          'Добавьте устройство в корзину, чтобы оформить заказ.' +
+        '</p>' +
+        '<button onclick="switchTab(\'shop\')"' +
+          ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
+          'В магазин' +
+        '</button>' +
+      '</div>';
+    return;
+  }  
+
   // Get cart country and format prices accordingly
   const cartCountry = window.getCartCountry ? window.getCartCountry() : 'RU';
   const formatPriceFn = window.formatPriceForCountry || formatPrice;
   const config = window.getCountryConfig ? window.getCountryConfig(cartCountry) : { currency: 'RUB', symbol: '₽', flag: '🇷🇺', name: 'Россия' };
   const currencyLabel = config.currency;
-
-  if (!cartItems.length) {
-    root.innerHTML =
-      '<div class="relative min-h-[100vh] p-6 space-y-6 pb-[80px] max-w-md mx-auto">' +
-        '<div class="flex items-center justify-between mb-4">' +
-          '<h2 class="text-2xl font-bold text-gray-800">Корзина</h2>' +
-          '<button onclick="refreshCartPricesAndCleanup()"' +
-            ' class="inline-flex items-center justify-center text-[11px] font-semibold px-2.5 h-8 rounded-full ' +
-              'bg-purple-500 hover:bg-purple-600 text-white shadow-md active:scale-[0.97] max-w-[180px] whitespace-nowrap"' +
-            ' id="refreshCartButton">' +
-            '<span class="loader-circle hidden mr-1" id="refreshCartLoader"></span>' +
-            '<span class="leading-tight">Актуализировать корзину</span>' +
-          '</button>' +
-        '</div>' +
-        // Country selector
-        '<div class="space-y-2 mb-4 p-3 bg-gray-50 rounded-xl border border-gray-200">' +
-          '<label class="text-sm font-semibold text-gray-700 block">Страна заказа <span class="text-red-500">*</span></label>' +
-          '<div class="flex gap-2">' +
-            '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
-              (cartCountry === 'RU' ? 'border-blue-500 bg-blue-50' : 'border-gray-200') + '"' +
-              ' onclick="setCartCountryAndRefresh(\'RU\')">' +
-              '<input type="radio" name="cartCountry" value="RU" ' + (cartCountry === 'RU' ? 'checked' : '') + ' style="display:none;">' +
-              '<span class="flex items-center gap-1">' +
-                '<span>🇷🇺</span><span class="font-medium text-sm">Россия</span>' +
-              '</span>' +
-            '</label>' +
-            '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
-              (cartCountry === 'BY' ? 'border-green-500 bg-green-50' : 'border-gray-200') + '"' +
-              ' onclick="setCartCountryAndRefresh(\'BY\')">' +
-              '<input type="radio" name="cartCountry" value="BY" ' + (cartCountry === 'BY' ? 'checked' : '') + ' style="display:none;">' +
-              '<span class="flex items-center gap-1">' +
-                '<span>🇧🇾</span><span class="font-medium text-sm">Беларусь</span>' +
-              '</span>' +
-            '</label>' +
-          '</div>' +
-          '<p class="text-xs text-gray-500">Смена страны пересчитает цены товаров</p>' +
-          (cartCountry !== (window.selectedCountry || 'RU')
-            ? '<p class="text-xs text-amber-600">⚠ Страна в корзине отличается от магазина</p>'
-            : '') +
-        '</div>' +
-        '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
-          '<div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">' +
-            '<svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
-                ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
-              '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
-              '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
-            '</svg>' +
-          '</div>' +
-          '<h2 class="text-2xl font-bold text-gray-800 mb-4">Корзина пуста</h2>' +
-          '<p class="text-lg text-gray-600 mb-8 max-w-xs">' +
-            'Добавьте устройство в корзину, чтобы оформить заказ.' +
-          '</p>' +
-          '<button onclick="switchTab(\'shop\')"' +
-            ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
-            'В магазин' +
-          '</button>' +
-      '</div>';
-    return;
-  }
 
   // Compute totals in cart country currency
   const subtotalRub = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
