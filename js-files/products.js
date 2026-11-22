@@ -692,18 +692,17 @@ window.setCountryAndRefresh = function(country) {
   if (window.setCountry && window.setCountry(country)) {
     const picker = document.getElementById('countryPicker');
     if (picker) picker.classList.add('hidden');
-    // Re-render shop to update prices and header
-    if (window.currentTab === 'shop' && window.renderShop) {
-      window.renderShop();
-    }
-    // Also update cart if open
-    if (window.currentTab === 'cart' && window.showCartTab) {
-      window.showCartTab();
-    }
-    // Update modal if open
-    if (window.currentProduct && window.renderProductModal) {
-      window.renderProductModal(window.currentProduct);
-    }
+    // Reload page with new country query param for full price recalculation
+    const url = new URL(window.location.href);
+    url.searchParams.set('country', country);
+    // Show loader
+    document.body.style.cursor = 'wait';
+    const loader = document.createElement('div');
+    loader.id = 'countryReloadLoader';
+    loader.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:16px;color:#0284c7;';
+    loader.textContent = 'Переключаем магазин...';
+    document.body.appendChild(loader);
+    window.location.href = url.toString();
   }
 };
 
