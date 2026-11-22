@@ -318,7 +318,7 @@ const COUNTRY_CONFIG = {
 };
 
 let selectedCountry = 'RU';
-let exchangeRateRubUsd = 0.011;
+let exchangeRateUsdRub = 90;
 let byRounding = { step: 1, mode: 'ceil' };
 
 function getCountryConfig(country) {
@@ -378,7 +378,7 @@ function convertPrice(rubPrice, fromCountry, toCountry) {
   if (fromCountry === toCountry) return rubPrice;
   const config = getCountryConfig(toCountry);
   if (config.currency === 'USD') {
-    const usd = rubPrice * exchangeRateRubUsd;
+    const usd = rubPrice / exchangeRateUsdRub;
     if (byRounding.mode === 'ceil') {
       return Math.ceil(usd / byRounding.step) * byRounding.step;
     }
@@ -416,9 +416,9 @@ function loadSelectedCountryFromStorage() {
 }
 
 function setExchangeRate(rate) {
-  exchangeRateRubUsd = Number(rate) || 0.011;
+  exchangeRateUsdRub = Number(rate) || 90;
   try {
-    localStorage.setItem('exchangeRateRubUsd', String(exchangeRateRubUsd));
+    localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
   } catch (e) {}
 }
 
@@ -432,8 +432,8 @@ function setByRounding(step, mode) {
 
 function loadExchangeRateAndRounding() {
   try {
-    const storedRate = localStorage.getItem('exchangeRateRubUsd');
-    if (storedRate) exchangeRateRubUsd = Number(storedRate);
+    const storedRate = localStorage.getItem('exchangeRateUsdRub');
+    if (storedRate) exchangeRateUsdRub = Number(storedRate);
     const storedRounding = localStorage.getItem('byRounding');
     if (storedRounding) byRounding = JSON.parse(storedRounding);
   } catch (e) {
