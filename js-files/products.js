@@ -643,7 +643,7 @@ function renderShopHeader(list, showCount) {
       '<div class="flex items-center justify-between mb-4 gap-3">' +
         '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
         renderShopPriceStatusInline() +
-        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать регион">' +
+        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
           '<span id="countryLabel" class="font-medium text-xs text-gray-500">Регион</span>' +
           '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
@@ -1213,7 +1213,7 @@ function renderShop() {
   '<div class="flex items-center justify-between mb-4 gap-3">' +
     '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
     renderShopPriceStatusInline() +
-    '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать регион">' +
+    '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
       '<span id="countryFlag">' + config.flag + '</span>' +
       '<span id="countryLabel" class="font-medium text-xs text-gray-500">Регион</span>' +
       '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
