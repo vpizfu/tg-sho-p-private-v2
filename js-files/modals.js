@@ -216,7 +216,12 @@ window.addToCartFromModal = async function () {
         '\nКоличество: ' +
         selectedQuantity +
         '\n' +
-        (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum))
+        (window.getCurrentCountryConfig
+          ? (function() {
+              const cfg = window.getCurrentCountryConfig();
+              return cfg.currency + ' ' + (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum));
+            })()
+          : (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum)))
     );
     closeModal();
   } finally {
@@ -299,13 +304,15 @@ function renderProductModal(product) {
 
   const country = window.selectedCountry || 'RU';
   const formatPriceFn = window.formatPriceForCountry || formatPrice;
+  const cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+  const currencyLabel = cfg.currency;
 
   if (!complete) {
-    headerPriceText = 'от ' + formatPriceFn(currentMinPrice, country);
+    headerPriceText = 'от ' + currencyLabel + ' ' + formatPriceFn(currentMinPrice, country);
     headerSuffix = 'за единицу';
   } else if (complete && availableVariants.length > 0) {
     const priceToShow = availableVariants[0]['Цена'];
-    headerPriceText = formatPriceFn(priceToShow, country);
+    headerPriceText = currencyLabel + ' ' + formatPriceFn(priceToShow, country);
     headerSuffix = 'за единицу';
   } else {
     headerPriceText = 'Нет вариантов';
@@ -766,7 +773,7 @@ function renderProductModal(product) {
   } else if (complete && availableVariants.length > 0) {
     const price = availableVariants[0]['Цена'] || 0;
     const sum = price * selectedQuantity;
-    btn.innerHTML = '✅ В корзину ' + formatPriceFn(sum, country);
+    btn.innerHTML = '✅ В корзину ' + currencyLabel + ' ' + formatPriceFn(sum, country);
     btn.className =
       'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
     btn.disabled = false;

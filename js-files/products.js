@@ -889,7 +889,12 @@ function productCard(product) {
     '</div>' +
     '<div class="text-blue-600 font-black text-xl mb-1">' +
     (window.formatPriceForCountry
-      ? window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry)
+      ? (window.getCurrentCountryConfig
+          ? (function() {
+              const cfg = window.getCurrentCountryConfig();
+              return cfg.currency + ' ' + window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry);
+            })()
+          : window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry))
       : 'RUB ' + formatPrice(cheapestVariant['Цена'])) +
     '</div>' +
     '<div class="text-xs text-gray-500 mb-4">' +
