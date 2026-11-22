@@ -966,6 +966,8 @@ function getOrderPlacedAlertText() {
   return text;
 }
 
+window.showCartTab = showCartTab;
+
 function getPickupModeForAnalytics() {
   // pickupMode у тебя уже есть: false = доставка, true = самовывоз
   return pickupMode ? 'pickup' : 'delivery';
