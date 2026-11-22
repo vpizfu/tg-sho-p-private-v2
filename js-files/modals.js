@@ -216,7 +216,7 @@ window.addToCartFromModal = async function () {
         '\nКоличество: ' +
         selectedQuantity +
         '\n' +
-        formatPriceFn(sum, country)
+        (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum))
     );
     closeModal();
   } finally {

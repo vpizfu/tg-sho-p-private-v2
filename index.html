@@ -198,5 +198,23 @@
       );
     })();
   </script>
+
+  <!-- Алерт о выборе страны для релевантных цен -->
+  <script>
+    (function () {
+      const tg = window.Telegram?.WebApp;
+      const isRealMiniApp = !!tg && !!tg.initData;
+      if (!isRealMiniApp) return;
+      setTimeout(() => {
+        tg.showAlert?.(
+          '🌍 Выберите страну в шапке магазина для актуальных цен:
+' +
+          '🇷🇺 Россия — цены в RUB
+' +
+          '🇧🇾 Беларусь — цены в USD'
+        );
+      }, 800);
+    })();
+  </script>
 </body>
 </html>
