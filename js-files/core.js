@@ -360,8 +360,6 @@ function loadCartCountry() {
     if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
       cartCountry = fromUrl;
       localStorage.setItem('cartCountry', fromUrl);
-      // Flag to open cart tab after reload
-      sessionStorage.setItem('openCartAfterReload', 'true');
       return;
     }
     // Then check localStorage
