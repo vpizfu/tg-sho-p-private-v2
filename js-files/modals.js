@@ -757,8 +757,6 @@ function renderProductModal(product) {
 
   const btn = document.getElementById('modalAddButton');
 
-  const formatPriceFn = window.formatPriceForCountry || formatPrice;
-
   if (isAddingToCart) {
     btn.innerHTML =
       '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
