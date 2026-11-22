@@ -718,7 +718,12 @@ if (!document.__countryPickerOutsideClickBound) {
     const picker = document.getElementById('countryPicker');
     const selector = document.getElementById('countrySelector');
     if (picker && selector && !picker.contains(e.target) && !selector.contains(e.target)) {
-      picker.classList.add('hidden');
+      // Defer to next tick to avoid closing immediately after opening
+      setTimeout(() => {
+        if (!picker.classList.contains('hidden') && !selector.contains(document.activeElement)) {
+          picker.classList.add('hidden');
+        }
+      }, 0);
     }
   });
 }
