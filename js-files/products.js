@@ -638,15 +638,17 @@ function renderShopHeader(list, showCount) {
       '</option>';
   }
 
-  return (
+return (
     '<div class="mb-5">' +
       '<div class="flex items-center justify-between mb-4 gap-3">' +
         '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
         renderShopPriceStatusInline() +
-        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
+      '</div>' +
+      '<div class="flex items-center justify-between mb-4 gap-2">' +
+        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
-          '<span id="countryLabel" class="font-medium text-xs text-gray-500">Регион</span>' +
-          '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+          '<span id="countryLabel" class="font-medium text-xs text-gray-500 hidden sm:inline">Регион</span>' +
+          '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
         '</div>' +
         '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">Выберите страну</div>' +
@@ -660,7 +662,7 @@ function renderShopHeader(list, showCount) {
         '</div>' +
       '</div>' +
 
-      '<div class="flex items-center gap-3">' +
+      '<div class="flex items-center gap-2">' +
         '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
           '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
           '<select id="category" class="w-full bg-transparent border-none font-semibold text-base focus:outline-none appearance-none">' +
@@ -1218,10 +1220,12 @@ function renderShop() {
   '<div class="flex items-center justify-between mb-4 gap-3">' +
     '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
     renderShopPriceStatusInline() +
-    '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
+  '</div>' +
+  '<div class="flex items-center justify-between mb-4 gap-2">' +
+    '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
       '<span id="countryFlag">' + config.flag + '</span>' +
-      '<span id="countryLabel" class="font-medium text-xs text-gray-500">Регион</span>' +
-      '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+      '<span id="countryLabel" class="font-medium text-xs text-gray-500 hidden sm:inline">Регион</span>' +
+      '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
     '</div>' +
     '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
       '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">Выберите страну</div>' +
@@ -1235,7 +1239,7 @@ function renderShop() {
     '</div>' +
   '</div>' +
 
-      '<div class="flex items-center gap-3">' +
+      '<div class="flex items-center gap-2">' +
 
         // ВЕСЬ блок селекта категорий
         '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2 relative">' +
