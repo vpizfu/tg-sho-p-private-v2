@@ -344,6 +344,14 @@ function setCartCountry(country) {
 
 function loadCartCountry() {
   try {
+    // First check URL query parameter
+    const fromUrl = new URLSearchParams(window.location.search).get('country');
+    if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
+      cartCountry = fromUrl;
+      localStorage.setItem('cartCountry', fromUrl);
+      return;
+    }
+    // Then check localStorage
     const stored = localStorage.getItem('cartCountry');
     if (stored && COUNTRY_CONFIG[stored]) {
       cartCountry = stored;
