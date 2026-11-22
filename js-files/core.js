@@ -161,6 +161,7 @@ function getProductsMetaApiUrl() {
 }
 
 async function fetchProductsMeta() {
+  console.log('[meta] fetching meta from:', getProductsMetaApiUrl());
   const resp = await fetch(getProductsMetaApiUrl(), {
     method: 'GET',
     headers: {
@@ -168,11 +169,14 @@ async function fetchProductsMeta() {
     },
   });
 
+  console.log('[meta] response status:', resp.status);
   if (!resp.ok) {
     throw new Error('META_REQUEST_FAILED_' + resp.status);
   }
 
-  return await resp.json();
+  const data = await resp.json();
+  console.log('[meta] response data:', data);
+  return data;
 }
 
 function formatProductsUpdatedMsk(meta) {
@@ -205,8 +209,12 @@ function formatProductsUpdatedMsk(meta) {
 
 async function refreshAboutMetaFromBackend() {
   try {
+    console.log('[meta] refreshAboutMetaFromBackend called, currentTab:', currentTab);
     const meta = await fetchProductsMeta();
     const nextText = formatProductsUpdatedMsk(meta);
+
+    console.log('[meta] meta received:', meta);
+    console.log('[meta] formatted text:', nextText);
 
     aboutLastProductsMeta = meta;
     aboutLastProductsMetaText = nextText;
@@ -219,7 +227,10 @@ async function refreshAboutMetaFromBackend() {
     }
 
     if (currentTab === 'shop' && typeof updateShopPriceStatusBadge === 'function') {
+      console.log('[meta] calling updateShopPriceStatusBadge');
       updateShopPriceStatusBadge();
+    } else {
+      console.log('[meta] not calling updateShopPriceStatusBadge, currentTab:', currentTab, 'updateShopPriceStatusBadge exists:', typeof updateShopPriceStatusBadge === 'function');
     }
   } catch (err) {
     console.error('[about] refreshAboutMetaFromBackend error', err);
