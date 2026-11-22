@@ -520,18 +520,17 @@ window.setCartCountryAndRefresh = function (country) {
   if (window.setCartCountry && window.setCartCountry(country)) {
     // Also sync with shop country
     if (window.setCountry) window.setCountry(country);
-    // Re-render cart with new country
-    if (window.currentTab === 'cart' && window.showCartTab) {
-      window.showCartTab();
-    }
-    // Update shop header if on shop tab
-    if (window.currentTab === 'shop' && window.renderShop) {
-      window.renderShop();
-    }
-    // Update modal if open
-    if (window.currentProduct && window.renderProductModal) {
-      window.renderProductModal(window.currentProduct);
-    }
+    // Reload page with new country query param for full price recalculation
+    const url = new URL(window.location.href);
+    url.searchParams.set('country', country);
+    // Show loader
+    document.body.style.cursor = 'wait';
+    const loader = document.createElement('div');
+    loader.id = 'countryReloadLoader';
+    loader.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:16px;color:#0284c7;';
+    loader.textContent = 'Переключаем магазин...';
+    document.body.appendChild(loader);
+    window.location.href = url.toString();
   }
 };
 

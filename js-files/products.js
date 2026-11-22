@@ -536,7 +536,13 @@ function getShopPriceStatusMeta() {
   if (typeof getPriceStatus !== 'function') return null;
 
   const status = getPriceStatus(aboutLastProductsMetaText);
-  if (!status || !status.text) return null;
+  if (!status || !status.text) {
+    // Return a pending status when meta is not yet loaded
+    return {
+      text: 'Загрузка статуса цен...',
+      pillClasses: 'bg-gray-100 text-gray-600'
+    };
+  }
 
   let pillClasses = 'bg-gray-100 text-gray-600';
 
