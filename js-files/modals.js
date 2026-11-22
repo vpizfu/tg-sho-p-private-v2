@@ -757,7 +757,6 @@ function renderProductModal(product) {
 
   const btn = document.getElementById('modalAddButton');
 
-  const country = window.selectedCountry || 'RU';
   const formatPriceFn = window.formatPriceForCountry || formatPrice;
 
   if (isAddingToCart) {
