@@ -651,7 +651,7 @@ function renderShopHeader(list, showCount) {
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'BY\')">' +
             '<span>🇧🇾</span><span class="font-medium">Беларусь (USD)</span>' +
           '</button>' +
-          '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100">Цены для Беларуси пересчитываются по курсу</div>' +
+          '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100">Цены для Беларуси в USD</div>' +
         '</div>' +
       '</div>' +
 
