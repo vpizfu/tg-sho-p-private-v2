@@ -360,6 +360,8 @@ function loadCartCountry() {
     if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
       cartCountry = fromUrl;
       localStorage.setItem('cartCountry', fromUrl);
+      // Flag to open cart tab after reload
+      sessionStorage.setItem('openCartAfterReload', 'true');
       return;
     }
     // Then check localStorage
@@ -2014,6 +2016,16 @@ async function initApp() {
       showProfileTab();
     } else if (currentTab === 'about') {
       showAboutTab();
+    }
+
+    // Check if we should open cart tab after country change reload
+    if (sessionStorage.getItem('openCartAfterReload') === 'true') {
+      sessionStorage.removeItem('openCartAfterReload');
+      if (currentTab !== 'cart') {
+        switchTab('cart');
+      } else {
+        showCartTab();
+      }
     }
 
     try {

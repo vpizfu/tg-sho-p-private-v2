@@ -537,11 +537,7 @@ function getShopPriceStatusMeta() {
 
   // Check if meta is loaded and has a valid date
   if (!aboutLastProductsMeta || !aboutLastProductsMeta.lastUpdatedAt) {
-    // No valid date - meta is stale/missing
-    return {
-      text: 'Статус цен недоступен (просрочено)',
-      pillClasses: 'bg-red-50 text-red-600 ring-1 ring-red-100'
-    };
+    return null;
   }
 
   const status = getPriceStatus(aboutLastProductsMetaText);
