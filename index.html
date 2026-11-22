@@ -11,7 +11,7 @@
 
   <!-- Глобальная версия приложения -->
   <script>
-    const version = '444';
+    const version = '462';
     window.APP_VERSIONS = {
       app: version,
       products: version,
@@ -26,6 +26,12 @@
   </script>
 
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
+    if (window.Telegram?.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.expand();
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- CSS с версией -->
@@ -157,16 +163,16 @@
   </div>
 </div>
 
-<script src="js-files/analytics.js?v=458"></script>
-<script src="js-files/core.js?v=458"></script>
-<script src="js-files/products.js?v=458"></script>
+<script src="js-files/analytics.js?v=462"></script>
+<script src="js-files/products.js?v=462"></script>
+<script src="js-files/core.js?v=462"></script>
 <!-- дальше как было -->
-  <script src="js-files/modals.js?v=458"></script>
-  <script src="js-files/screens/cart.js?v=458"></script>
-  <script src="js-files/ui_common.js?v=458"></script>
-  <script src="js-files/screens/sale.js?v=458"></script>
-  <script src="js-files/screens/profile.js?v=458"></script>
-  <script src="js-files/screens/about.js?v=458"></script>
+  <script src="js-files/modals.js?v=462"></script>
+  <script src="js-files/screens/cart.js?v=462"></script>
+  <script src="js-files/ui_common.js?v=462"></script>
+  <script src="js-files/screens/sale.js?v=462"></script>
+  <script src="js-files/screens/profile.js?v=462"></script>
+  <script src="js-files/screens/about.js?v=462"></script>
 
   <script>
     // запуск после загрузки всех модулей
@@ -175,43 +181,26 @@
     }
   </script>
 
-<!-- Подпись версий на табах + алерт при запуске (только в Mini App) -->
+  <!-- Подпись версий на табах + алерт при запуске (только в Mini App) -->
   <script>
     (function () {
       const tg = window.Telegram?.WebApp;
       const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
 
       const version = window.APP_VERSIONS.app || {};
-      if (!isRealMiniApp) {
-        tg?.showAlert?.(
-          'Версия: ' + version +
-        '\nКонтакты, время работы и обновления цен — во вкладке «О нас»' +
-        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
-        );
-        return
-      }
-
-      tg.showAlert(
+      const alertText =
         'Версия: ' + version +
         '\nКонтакты, время работы и обновления цен — во вкладке «О нас»' +
-        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.'
-      );
-    })();
-  </script>
+        '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.';
 
-  <!-- Алерт о выборе страны для релевантных цен -->
-  <script>
-    (function () {
-      const tg = window.Telegram?.WebApp;
-      const isRealMiniApp = !!tg && !!tg.initData;
-      if (!isRealMiniApp) return;
-      setTimeout(() => {
-        tg.showAlert?.(
-          '🌍 Выберите страну в шапке магазина для актуальных цен:\n' +
-          '🇷🇺 Россия — цены в RUB\n' +
-          '🇧🇾 Беларусь — цены в USD'
-        );
-      }, 800);
+      if (!isRealMiniApp) {
+        tg?.showAlert?.(alertText);
+        return;
+      }
+
+      setTimeout(function () {
+        tg.showAlert(alertText);
+      }, 400);
     })();
   </script>
 </body>

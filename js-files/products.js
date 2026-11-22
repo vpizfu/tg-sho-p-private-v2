@@ -537,11 +537,7 @@ function getShopPriceStatusMeta() {
 
   const status = getPriceStatus(aboutLastProductsMetaText);
   if (!status || !status.text) {
-    // Return a pending status when meta is not yet loaded
-    return {
-      text: 'Загрузка статуса цен...',
-      pillClasses: 'bg-gray-100 text-gray-600'
-    };
+    return null;
   }
 
   let pillClasses = 'bg-gray-100 text-gray-600';
@@ -646,7 +642,6 @@ function renderShopHeader(list, showCount) {
         '</div>' +
         '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать страну">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
-          '<span id="countryLabel" class="font-medium">' + config.currency + '</span>' +
           '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
         '</div>' +
         '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
