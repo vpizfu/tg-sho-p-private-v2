@@ -37,8 +37,7 @@
 
   function formatPrice(value) {
     const num = Math.floor(Number(value) || 0);
-    const s = String(num);
-    return s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+    return String(num);
   }  
   
   function showError(message) {

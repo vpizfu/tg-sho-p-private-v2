@@ -372,9 +372,7 @@ function formatPriceForCountry(rubPrice, country) {
   const config = getCountryConfig(country);
   const price = convertPrice(rubPrice, 'RU', country);
   const num = Math.floor(Number(price) || 0);
-  const s = String(num);
-  const formatted = s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-  return formatted;
+  return String(num);
 }
 
 function getStorageKey(baseKey) {
@@ -440,6 +438,13 @@ window.COUNTRY_CONFIG = COUNTRY_CONFIG;
 window.getCartCountry = getCartCountry;
 window.setCartCountry = setCartCountry;
 window.loadCartCountry = loadCartCountry;
+
+// Export selectedCountry getter/setter
+Object.defineProperty(window, 'selectedCountry', {
+  get: function() { return selectedCountry; },
+  set: function(val) { selectedCountry = val; },
+  configurable: true
+});
 
 let isAddingToCart = false;
 let isPlacingOrder = false;
