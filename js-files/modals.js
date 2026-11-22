@@ -215,8 +215,8 @@ window.addToCartFromModal = async function () {
         (subtitle ? '\n' + subtitle : '') +
         '\nКоличество: ' +
         selectedQuantity +
-        '\nRUB ' +
-        formatPrice(sum)
+        '\n' +
+        formatPriceFn(sum, country)
     );
     closeModal();
   } finally {
@@ -297,12 +297,15 @@ function renderProductModal(product) {
   let headerPriceText;
   let headerSuffix = '';
 
+  const country = window.selectedCountry || 'RU';
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+
   if (!complete) {
-    headerPriceText = 'от RUB ' + formatPrice(currentMinPrice);
+    headerPriceText = 'от ' + formatPriceFn(currentMinPrice, country);
     headerSuffix = 'за единицу';
   } else if (complete && availableVariants.length > 0) {
     const priceToShow = availableVariants[0]['Цена'];
-    headerPriceText = 'RUB ' + formatPrice(priceToShow);
+    headerPriceText = formatPriceFn(priceToShow, country);
     headerSuffix = 'за единицу';
   } else {
     headerPriceText = 'Нет вариантов';
@@ -754,6 +757,9 @@ function renderProductModal(product) {
 
   const btn = document.getElementById('modalAddButton');
 
+  const country = window.selectedCountry || 'RU';
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+
   if (isAddingToCart) {
     btn.innerHTML =
       '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
@@ -763,7 +769,7 @@ function renderProductModal(product) {
   } else if (complete && availableVariants.length > 0) {
     const price = availableVariants[0]['Цена'] || 0;
     const sum = price * selectedQuantity;
-    btn.innerHTML = '✅ В корзину RUB ' + formatPrice(sum);
+    btn.innerHTML = '✅ В корзину ' + formatPriceFn(sum, country);
     btn.className =
       'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
     btn.disabled = false;

@@ -55,69 +55,80 @@ function renderOrdersSection() {
     return;
   }
 
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+
   const ordersHtml = previousOrders
     .map(
-      (o, idx) =>
-        '<div class="mb-3 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">' +
-          '<button type="button" class="w-full text-left px-3 py-2 flex items-center justify-between" onclick="toggleOrderDetails(' +
-            idx +
-          ')">' +
-            '<div class="flex flex-col min-w-0 mr-2">' +
-              '<span class="text-sm font-semibold text-gray-800 truncate">Заказ #' +
-                o.id +
-              '</span>' +
-              '<span class="text-[11px] text-gray-500">' +
-                new Date(o.date).toLocaleString() +
-              '</span>' +
-            '</div>' +
-            '<span class="text-sm font-bold text-blue-600 whitespace-nowrap">RUB ' +
-              formatPrice(o.total) +
-            '</span>' +
-          '</button>' +
-          '<div class="px-3 pb-2 border-t border-gray-100 text-xs text-gray-600">' +
-            '<div class="mt-1 break-words">Адрес: ' +
-              escapeHtml(o.address) +
-            '</div>' +
-            (o.comment
-              ? '<div class="mt-1 break-words text-gray-500">Комментарий: ' +
-                  escapeHtml(o.comment) +
-                '</div>'
-              : '') +
-            (o.contact && (o.contact.name || o.contact.phone)
-              ? '<div class="mt-1 break-words">Контакт: ' +
-                  (o.contact.name ? escapeHtml(o.contact.name) : '') +
-                  (o.contact.name && o.contact.phone ? ', ' : '') +
-                  (o.contact.phone ? escapeHtml(o.contact.phone) : '') +
-                '</div>'
-              : '') +
-            '<div class="mt-1 text-gray-500">Товаров: ' +
-              o.items.reduce((sum, item) => sum + (item.quantity || 0), 0) +
-            '</div>' +
-            '<div id="orderDetails_' +
+      (o, idx) => {
+        const orderCountry = o.country || 'RU';
+        const config = window.getCountryConfig ? window.getCountryConfig(orderCountry) : { currency: 'RUB' };
+        const currencyLabel = config.currency;
+        const countryFlag = config.flag;
+
+        return (
+          '<div class="mb-3 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">' +
+            '<button type="button" class="w-full text-left px-3 py-2 flex items-center justify-between" onclick="toggleOrderDetails(' +
               idx +
-            '" class="hidden mt-2 pt-2 border-t border-dashed border-gray-200">' +
-            o.items
-            .map(
-              item =>
-                '<div class="flex items-center justify-between mb-1 gap-2">' +
-                  '<div class="flex-1 min-w-0">' +
-                    '<div class="font-semibold text-[11px] break-words">' +
-                      escapeHtml(item.name) +
+            ')">' +
+              '<div class="flex flex-col min-w-0 mr-2">' +
+                '<span class="text-sm font-semibold text-gray-800 truncate">Заказ #' +
+                  o.id +
+                '</span>' +
+                '<span class="text-[11px] text-gray-500">' +
+                  new Date(o.date).toLocaleString() +
+                '</span>' +
+              '</div>' +
+              '<span class="text-sm font-bold text-blue-600 whitespace-nowrap">' +
+                countryFlag + ' ' + currencyLabel + ' ' +
+                formatPriceFn(o.total, orderCountry) +
+              '</span>' +
+            '</button>' +
+            '<div class="px-3 pb-2 border-t border-gray-100 text-xs text-gray-600">' +
+              '<div class="mt-1 break-words">Адрес: ' +
+                escapeHtml(o.address) +
+              '</div>' +
+              (o.comment
+                ? '<div class="mt-1 break-words text-gray-500">Комментарий: ' +
+                    escapeHtml(o.comment) +
+                  '</div>'
+                : '') +
+              (o.contact && (o.contact.name || o.contact.phone)
+                ? '<div class="mt-1 break-words">Контакт: ' +
+                    (o.contact.name ? escapeHtml(o.contact.name) : '') +
+                    (o.contact.name && o.contact.phone ? ', ' : '') +
+                    (o.contact.phone ? escapeHtml(o.contact.phone) : '') +
+                  '</div>'
+                : '') +
+              '<div class="mt-1 text-gray-500">Товаров: ' +
+                o.items.reduce((sum, item) => sum + (item.quantity || 0), 0) +
+              '</div>' +
+              '<div id="orderDetails_' +
+                idx +
+              '" class="hidden mt-2 pt-2 border-t border-dashed border-gray-200">' +
+              o.items
+              .map(
+                item =>
+                  '<div class="flex items-center justify-between mb-1 gap-2">' +
+                    '<div class="flex-1 min-w-0">' +
+                      '<div class="font-semibold text-[11px] break-words">' +
+                        escapeHtml(item.name) +
+                      '</div>' +
+                      '<div class="text-[10px] text-gray-500 break-words">' +
+                        escapeHtml(getCartItemSubtitle(item)) +
+                      '</div>' +
                     '</div>' +
-                    '<div class="text-[10px] text-gray-500 break-words">' +
-                      escapeHtml(getCartItemSubtitle(item)) +
+                    '<div class="text-right text-[10px] whitespace-nowrap">' +
+                      '<div>' + item.quantity + ' шт.</div>' +
+                      '<div>' + currencyLabel + ' ' + formatPriceFn(item.price * item.quantity, orderCountry) + '</div>' +
                     '</div>' +
-                  '</div>' +
-                  '<div class="text-right text-[10px] whitespace-nowrap">' +
-                    '<div>' + item.quantity + ' шт.</div>' +
-                    '<div>RUB ' + formatPrice(item.price * item.quantity) + '</div>' +
-                  '</div>' +
-                '</div>'
-            )
-            .join('') +          
+                  '</div>'
+              )
+              .join('') +          
+              '</div>' +
             '</div>' +
-          '</div>' +
-        '</div>'
+          '</div>'
+        );
+      }
     )
     .join('');
 

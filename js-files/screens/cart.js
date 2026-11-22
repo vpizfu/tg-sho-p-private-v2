@@ -516,6 +516,25 @@ window.setPickupLocation = function (addr) {
   saveDeliveryPrefs();
 };
 
+window.setCartCountryAndRefresh = function (country) {
+  if (window.setCartCountry && window.setCartCountry(country)) {
+    // Also sync with shop country
+    if (window.setCountry) window.setCountry(country);
+    // Re-render cart with new country
+    if (window.currentTab === 'cart' && window.showCartTab) {
+      window.showCartTab();
+    }
+    // Update shop header if on shop tab
+    if (window.currentTab === 'shop' && window.renderShop) {
+      window.renderShop();
+    }
+    // Update modal if open
+    if (window.currentProduct && window.renderProductModal) {
+      window.renderProductModal(window.currentProduct);
+    }
+  }
+};
+
 window.onSavedAddressChange = function () {
   const select = document.getElementById('savedAddress');
   const wrapper = document.getElementById('deliveryAddressWrapper');
@@ -572,11 +591,19 @@ function showCartTab() {
           ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
           'В магазин' +
         '</button>' +
-      '</div>';
+'</div>';
     return;
   }  
 
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Get cart country and format prices accordingly
+  const cartCountry = window.getCartCountry ? window.getCartCountry() : 'RU';
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+  const config = window.getCountryConfig ? window.getCountryConfig(cartCountry) : { currency: 'RUB', symbol: '₽', flag: '🇷🇺', name: 'Россия' };
+  const currencyLabel = config.currency;
+
+  // Compute totals in cart country currency
+  const subtotalRub = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = window.convertPrice ? window.convertPrice(subtotalRub, 'RU', cartCountry) : subtotalRub;
   const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
   const total = subtotal + commission;
 
@@ -592,6 +619,32 @@ function showCartTab() {
           '<span class="leading-tight">Актуализировать корзину</span>' +
         '</button>' +
       '</div>' +
+      // Country selector
+      '<div class="space-y-2 mb-4 p-3 bg-gray-50 rounded-xl border border-gray-200">' +
+        '<label class="text-sm font-semibold text-gray-700 block">Страна заказа <span class="text-red-500">*</span></label>' +
+        '<div class="flex gap-2">' +
+          '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
+            (cartCountry === 'RU' ? 'border-blue-500 bg-blue-50' : 'border-gray-200') + '"' +
+            ' onclick="setCartCountryAndRefresh(\'RU\')">' +
+            '<input type="radio" name="cartCountry" value="RU" ' + (cartCountry === 'RU' ? 'checked' : '') + ' style="display:none;">' +
+            '<span class="flex items-center gap-1">' +
+              '<span>🇷🇺</span><span class="font-medium">Россия (RUB)</span>' +
+            '</span>' +
+          '</label>' +
+          '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
+            (cartCountry === 'BY' ? 'border-green-500 bg-green-50' : 'border-gray-200') + '"' +
+            ' onclick="setCartCountryAndRefresh(\'BY\')">' +
+            '<input type="radio" name="cartCountry" value="BY" ' + (cartCountry === 'BY' ? 'checked' : '') + ' style="display:none;">' +
+            '<span class="flex items-center gap-1">' +
+              '<span>🇧🇾</span><span class="font-medium">Беларусь (USD)</span>' +
+            '</span>' +
+          '</label>' +
+        '</div>' +
+        '<p class="text-xs text-gray-500">Смена страны пересчитает цены товаров</p>' +
+        (cartCountry !== (window.selectedCountry || 'RU')
+          ? '<p class="text-xs text-amber-600">⚠ Страна в корзине отличается от магазина</p>'
+          : '') +
+      '</div>' +
       renderCartPriceStatusNote() +
       '<div class="space-y-3">' +
         cartItems
@@ -605,38 +658,38 @@ function showCartTab() {
                     escapeHtml(item.name) +
                   '</div>' +
                  '<div class="text-xs text-gray-500">' +
-  escapeHtml(getCartItemSubtitle(item)) +
-'</div>' +
+   escapeHtml(getCartItemSubtitle(item)) +
+ '</div>' +
                   '<div class="text-xs mt-1 ' +
                     (item.available
                       ? 'text-green-600'
                       : item.newPrice
                       ? 'text-orange-600'
                       : 'text-red-600') +
-                  '">' +
+                    '">' +
                     (item.available
                       ? 'В наличии'
                       : item.newPrice
-                      ? 'Цена обновилась: старая RUB ' + formatPrice(item.price) +
-                      ', новая RUB ' + formatPrice(item.newPrice)                    
+                      ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, cartCountry) +
+                      ', новая ' + currencyLabel + ' ' + formatPriceFn(item.newPrice, cartCountry)                    
                       : 'Товар недоступен, удалите из корзины') +
-                  '</div>' +
+                    '</div>' +
                 '</div>' +
                 '<div class="text-right flex flex-col items-end gap-1">' +
                   '<div class="flex items-center justify-end gap-2">' +
-  '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
-    ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', -1)">-</button>' +
-  '<span class="min-w-[24px] text-center text-sm font-semibold">' +
-    item.quantity +
-  '</span>' +
-  '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
-    ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
-'</div>' +
-'<div class="text-sm font-bold text-blue-600">RUB ' +
-  formatPrice(item.price * item.quantity) +
-'</div>' +
-(item.newPrice
-  ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(\'' +
+    '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
+      ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', -1)">-</button>' +
+    '<span class="min-w-[24px] text-center text-sm font-semibold">' +
+      item.quantity +
+    '</span>' +
+    '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
+      ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
+  '</div>' +
+  '<div class="text-sm font-bold text-blue-600">' + currencyLabel + ' ' +
+    formatPriceFn(item.price * item.quantity, cartCountry) +
+  '</div>' +
+  (item.newPrice
+    ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(\'' +
       item.cartKey +
     '\')">Обновить цену</button>'
   : '') +
@@ -714,7 +767,10 @@ function showCartTab() {
               '<select id="pickupLocation" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm mb-2"' +
                 ' onchange="setPickupLocation(this.value)">' +
                 '<option value="">Выберите пункт самовывоза</option>' +
-                PICKUP_LOCATIONS.map(
+                (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry] 
+                  ? window.PICKUP_LOCATIONS[cartCountry]
+                  : (window.PICKUP_LOCATIONS || [])
+                ).map(
                   addr =>
                     '<option value="' +
                     escapeHtml(addr) +
@@ -747,17 +803,17 @@ function showCartTab() {
         '<div class="space-y-1 text-sm text-gray-700">' +
           '<div class="flex items-center justify-between">' +
             '<span>Сумма товаров</span>' +
-            '<span>RUB ' + formatPrice(subtotal) + '</span>' +
+            '<span>' + currencyLabel + ' ' + formatPriceFn(subtotal, cartCountry) + '</span>' +
           '</div>' +
           (paymentType === 'card'
             ? '<div class="flex items-center justify-between">' +
                 '<span>Сервисный сбор (карта)</span>' +
-                '<span>+RUB ' + formatPrice(commission) + '</span>' +
+                '<span>+' + currencyLabel + ' ' + formatPriceFn(commission, cartCountry) + '</span>' +
               '</div>'
             : '') +
           '<div class="flex items-center justify-between font-semibold mt-1">' +
             '<span>Итого к оплате</span>' +
-            '<span>RUB ' + formatPrice(total) + '</span>' +
+            '<span>' + currencyLabel + ' ' + formatPriceFn(total, cartCountry) + '</span>' +
           '</div>' +
         '</div>' +
         '<div class="pt-3">' +
@@ -1157,6 +1213,7 @@ if (!contactConfirmed) {
         name: contactName,
         phone: contactPhone
       },
+      country: cartCountry, // Add cart country to order
       appPriceStatus,
       factPriceStatus
     };

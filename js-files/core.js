@@ -296,9 +296,150 @@ let paymentType = 'cash';
 let pickupMode = false;
 let pickupLocation = '';
 
-const PICKUP_LOCATIONS = [
-  'г. Москва, ул. Барклая, 8, Бизнес центр Рубин'
-];
+const PICKUP_LOCATIONS = {
+  RU: ['г. Москва, ул. Барклая, 8, Бизнес центр Рубин'],
+  BY: ['заглушка, белорусский адрес']
+};
+
+const COUNTRY_CONFIG = {
+  RU: { currency: 'RUB', symbol: '₽', flag: '🇷🇺', locale: 'ru-RU', name: 'Россия' },
+  BY: { currency: 'USD', symbol: '$', flag: '🇧🇾', locale: 'be-BY', name: 'Беларусь' }
+};
+
+let selectedCountry = 'RU';
+let exchangeRateRubUsd = 0.011;
+let byRounding = { step: 1, mode: 'ceil' };
+
+function getCountryConfig(country) {
+  return COUNTRY_CONFIG[country] || COUNTRY_CONFIG.RU;
+}
+
+function getCurrentCountryConfig() {
+  return getCountryConfig(selectedCountry);
+}
+
+function setCountry(country) {
+  if (!COUNTRY_CONFIG[country]) return false;
+  selectedCountry = country;
+  try {
+    localStorage.setItem('selectedCountry', country);
+  } catch (e) {}
+  return true;
+}
+
+let cartCountry = 'RU';
+
+function getCartCountry() {
+  return cartCountry;
+}
+
+function setCartCountry(country) {
+  if (!COUNTRY_CONFIG[country]) return false;
+  cartCountry = country;
+  try {
+    localStorage.setItem('cartCountry', country);
+  } catch (e) {}
+  return true;
+}
+
+function loadCartCountry() {
+  try {
+    const stored = localStorage.getItem('cartCountry');
+    if (stored && COUNTRY_CONFIG[stored]) {
+      cartCountry = stored;
+    } else {
+      cartCountry = selectedCountry;
+    }
+  } catch (e) {
+    cartCountry = selectedCountry;
+  }
+}
+
+function convertPrice(rubPrice, fromCountry, toCountry) {
+  if (fromCountry === toCountry) return rubPrice;
+  const config = getCountryConfig(toCountry);
+  if (config.currency === 'USD') {
+    const usd = rubPrice * exchangeRateRubUsd;
+    if (byRounding.mode === 'ceil') {
+      return Math.ceil(usd / byRounding.step) * byRounding.step;
+    }
+    return Math.round(usd / byRounding.step) * byRounding.step;
+  }
+  return rubPrice;
+}
+
+function formatPriceForCountry(rubPrice, country) {
+  const config = getCountryConfig(country);
+  const price = convertPrice(rubPrice, 'RU', country);
+  const num = Math.floor(Number(price) || 0);
+  const s = String(num);
+  const formatted = s.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  return formatted;
+}
+
+function getStorageKey(baseKey) {
+  return `${baseKey}_${selectedCountry}`;
+}
+
+function loadSelectedCountryFromStorage() {
+  try {
+    const fromUrl = new URLSearchParams(window.location.search).get('country');
+    if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
+      selectedCountry = fromUrl;
+      localStorage.setItem('selectedCountry', fromUrl);
+      return;
+    }
+    const stored = localStorage.getItem('selectedCountry');
+    if (stored && COUNTRY_CONFIG[stored]) {
+      selectedCountry = stored;
+    }
+  } catch (e) {
+    console.log('[core] loadSelectedCountryFromStorage error', e);
+  }
+}
+
+function setExchangeRate(rate) {
+  exchangeRateRubUsd = Number(rate) || 0.011;
+  try {
+    localStorage.setItem('exchangeRateRubUsd', String(exchangeRateRubUsd));
+  } catch (e) {}
+}
+
+function setByRounding(step, mode) {
+  byRounding.step = Number(step) || 1;
+  byRounding.mode = mode || 'ceil';
+  try {
+    localStorage.setItem('byRounding', JSON.stringify(byRounding));
+  } catch (e) {}
+}
+
+function loadExchangeRateAndRounding() {
+  try {
+    const storedRate = localStorage.getItem('exchangeRateRubUsd');
+    if (storedRate) exchangeRateRubUsd = Number(storedRate);
+    const storedRounding = localStorage.getItem('byRounding');
+    if (storedRounding) byRounding = JSON.parse(storedRounding);
+  } catch (e) {
+    console.log('[core] loadExchangeRateAndRounding error', e);
+  }
+}
+
+// Глобальные экспорты для использования в других модулях
+window.getCountryConfig = getCountryConfig;
+window.getCurrentCountryConfig = getCurrentCountryConfig;
+window.setCountry = setCountry;
+window.convertPrice = convertPrice;
+window.formatPriceForCountry = formatPriceForCountry;
+window.getStorageKey = getStorageKey;
+window.loadSelectedCountryFromStorage = loadSelectedCountryFromStorage;
+window.setExchangeRate = setExchangeRate;
+window.setByRounding = setByRounding;
+window.loadExchangeRateAndRounding = loadExchangeRateAndRounding;
+window.PICKUP_LOCATIONS = PICKUP_LOCATIONS;
+window.COUNTRY_CONFIG = COUNTRY_CONFIG;
+window.getCartCountry = getCartCountry;
+window.setCartCountry = setCartCountry;
+window.loadCartCountry = loadCartCountry;
 
 let isAddingToCart = false;
 let isPlacingOrder = false;
@@ -741,9 +882,13 @@ window.onerror = function (message, source, lineno, colno, error) {
 
 // ---------- localStorage (корзина, адреса, профиль) ----------
 
+function getStorageKey(baseKey) {
+  return `${baseKey}_${selectedCountry}`;
+}
+
 function saveCartToStorage() {
   try {
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    localStorage.setItem(getStorageKey('cartItems'), JSON.stringify(cartItems));
   } catch (e) {
     console.log('[core] saveCartToStorage error', e);
   }
@@ -751,7 +896,7 @@ function saveCartToStorage() {
 
 function loadCartFromStorage() {
   try {
-    const raw = localStorage.getItem('cartItems');
+    const raw = localStorage.getItem(getStorageKey('cartItems'));
     cartItems = raw ? JSON.parse(raw) : [];
 
     // миграция: старые записи без cartKey восстановить невозможно — дропаем
@@ -771,7 +916,7 @@ function loadCartFromStorage() {
 
 function saveAddressesToStorage() {
   try {
-    localStorage.setItem('addresses', JSON.stringify(savedAddresses));
+    localStorage.setItem(getStorageKey('addresses'), JSON.stringify(savedAddresses));
   } catch (e) {
     console.log('[core] saveAddressesToStorage error', e);
   }
@@ -779,7 +924,7 @@ function saveAddressesToStorage() {
 
 function loadAddressesFromStorage() {
   try {
-    const raw = localStorage.getItem('addresses');
+    const raw = localStorage.getItem(getStorageKey('addresses'));
     savedAddresses = raw ? JSON.parse(raw) : [];
   } catch (e) {
     console.log('[core] loadAddressesFromStorage error', e);
@@ -790,7 +935,7 @@ function loadAddressesFromStorage() {
 
 function saveProfileToStorage() {
   try {
-    localStorage.setItem('profile', JSON.stringify(savedProfile));
+    localStorage.setItem(getStorageKey('profile'), JSON.stringify(savedProfile));
   } catch (e) {
     console.log('[core] saveProfileToStorage error', e);
   }
@@ -822,6 +967,10 @@ function buildFilterOrderByCat(products) {
 
 const DELIVERY_PREFS_KEY = 'deliveryPrefs_v1';
 
+function getDeliveryPrefsKey() {
+  return `${DELIVERY_PREFS_KEY}_${selectedCountry}`;
+}
+
 let deliveryPrefs = {
   paymentType: 'cash',
   pickupMode: false,
@@ -831,7 +980,7 @@ let deliveryPrefs = {
 
 function loadDeliveryPrefs() {
   try {
-    const raw = localStorage.getItem(DELIVERY_PREFS_KEY);
+    const raw = localStorage.getItem(getDeliveryPrefsKey());
     if (!raw) return;
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object') return;
@@ -844,7 +993,8 @@ function loadDeliveryPrefs() {
     paymentType = deliveryPrefs.paymentType;
     pickupMode = deliveryPrefs.pickupMode;
 
-    pickupLocation = PICKUP_LOCATIONS.includes(deliveryPrefs.pickupLocation)
+    const locations = PICKUP_LOCATIONS[selectedCountry] || PICKUP_LOCATIONS.RU;
+    pickupLocation = locations.includes(deliveryPrefs.pickupLocation)
       ? deliveryPrefs.pickupLocation
       : '';
 
@@ -862,7 +1012,7 @@ function saveDeliveryPrefs() {
       pickupLocation,
       savedAddressValue: cartFormState.savedAddressValue || ''
     };
-    localStorage.setItem(DELIVERY_PREFS_KEY, JSON.stringify(data));
+    localStorage.setItem(getDeliveryPrefsKey(), JSON.stringify(data));
   } catch (e) {
     console.log('[core] saveDeliveryPrefs error', e);
   }
@@ -870,7 +1020,7 @@ function saveDeliveryPrefs() {
 
 function loadProfileFromStorage() {
   try {
-    const raw = localStorage.getItem('profile');
+    const raw = localStorage.getItem(getStorageKey('profile'));
     if (!raw) {
       savedProfile = { name: '', phone: '', confirmed: false };
       return;
@@ -1756,6 +1906,11 @@ async function initApp() {
     initTabBar();
     logStage('after initTabBar', t0);
 
+    // загружаем страну, курс и настройки округления ДО загрузки localStorage
+    loadSelectedCountryFromStorage();
+    loadExchangeRateAndRounding();
+    logStage('after country config', t0);
+
     if (currentTab === 'shop') {
       root.innerHTML = buildShimmerHTML();
 
@@ -1777,6 +1932,7 @@ async function initApp() {
     loadProfileFromStorage();
     loadCartFromStorage();
     loadDeliveryPrefs();
+    loadCartCountry();
     logStage('after localStorage', t0);
 
     // валидация сохранённого адреса

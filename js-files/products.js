@@ -620,6 +620,7 @@ function renderShopPriceStatusPill() {
 function renderShopHeader(list, showCount) {
   const categories = getCategoriesFromProducts();
   const shopPriceStatus = getShopPriceStatusMeta();
+  const config = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { flag: '🇷🇺', currency: 'RUB', name: 'Россия' };
 
   let optionsHtml = '';
   for (let i = 0; i < categories.length; i++) {
@@ -633,8 +634,25 @@ function renderShopHeader(list, showCount) {
   return (
     '<div class="mb-5">' +
       '<div class="flex flex-col items-center justify-center mb-4 gap-2">' +
-        '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
-        renderShopPriceStatusBadge() +
+        '<div class="flex items-center justify-center gap-2">' +
+          '<a href="#" class="nav-logo">Tech<span>Bex</span></a>' +
+          renderShopPriceStatusBadge() +
+        '</div>' +
+        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer" onclick="toggleCountryPicker()" title="Выбрать страну">' +
+          '<span id="countryFlag">' + config.flag + '</span>' +
+          '<span id="countryLabel" class="font-medium">' + config.currency + '</span>' +
+          '<svg class="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+        '</div>' +
+        '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
+          '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">Выберите страну</div>' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'RU\')">' +
+            '<span>🇷🇺</span><span class="font-medium">Россия (RUB)</span>' +
+          '</button>' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" onclick="setCountryAndRefresh(\'BY\')">' +
+            '<span>🇧🇾</span><span class="font-medium">Беларусь (USD)</span>' +
+          '</button>' +
+          '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100">Цены для Беларуси пересчитываются по курсу</div>' +
+        '</div>' +
       '</div>' +
 
       '<div class="flex items-center gap-3">' +
@@ -661,6 +679,44 @@ function renderShopHeader(list, showCount) {
       '</div>' +
     '</div>'
   );
+}
+
+// Country picker functions
+window.toggleCountryPicker = function() {
+  const picker = document.getElementById('countryPicker');
+  if (!picker) return;
+  picker.classList.toggle('hidden');
+};
+
+window.setCountryAndRefresh = function(country) {
+  if (window.setCountry && window.setCountry(country)) {
+    const picker = document.getElementById('countryPicker');
+    if (picker) picker.classList.add('hidden');
+    // Re-render shop to update prices and header
+    if (window.currentTab === 'shop' && window.renderShop) {
+      window.renderShop();
+    }
+    // Also update cart if open
+    if (window.currentTab === 'cart' && window.showCartTab) {
+      window.showCartTab();
+    }
+    // Update modal if open
+    if (window.currentProduct && window.renderProductModal) {
+      window.renderProductModal(window.currentProduct);
+    }
+  }
+};
+
+// Close picker when clicking outside
+if (!document.__countryPickerOutsideClickBound) {
+  document.__countryPickerOutsideClickBound = true;
+  document.addEventListener('click', function(e) {
+    const picker = document.getElementById('countryPicker');
+    const selector = document.getElementById('countrySelector');
+    if (picker && selector && !picker.contains(e.target) && !selector.contains(e.target)) {
+      picker.classList.add('hidden');
+    }
+  });
 }
 
 let sessionImageLoads = new Map();
@@ -826,8 +882,10 @@ function productCard(product) {
     '<div class="font-bold text-base mb-1 product-title">' +
     escapeHtml(product['Название']) +
     '</div>' +
-    '<div class="text-blue-600 font-black text-xl mb-1">RUB ' +
-    formatPrice(cheapestVariant['Цена']) +
+    '<div class="text-blue-600 font-black text-xl mb-1">' +
+    (window.formatPriceForCountry
+      ? window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry)
+      : 'RUB ' + formatPrice(cheapestVariant['Цена'])) +
     '</div>' +
     '<div class="text-xs text-gray-500 mb-4">' +
     getVariantCountText(uniqueVariants.length) +
