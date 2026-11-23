@@ -1,1 +1,136 @@
-function _0x5b93(){const _0x4c457c=['Dg9tDhjPBMC','zM9YrwfJAa','Dg9mB3DLCKnHC2u','DhjPBq','pgrPDIbJBgfZCZ0IDY0YncbOlti0igjNlw9Yyw5Nzs0XmdaGCM91BMrLzc0ZEgWGzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwiTnIi+','0jiG0lZqSncZ0ldqT9c40l0','mJG2nJq3nwfYANr4qW','mMfRt2TSta','C3rYAw5NAwz5','y2XHC3m9iM10ltiGDgv4Dc14CYbMB250lxnLBwLIB2XKihb4ltmGChKTms41ihjVDw5KzwqTBgCGyMCTyMX1zs01mdaGAg92zxi6yMCTyMX1zs02mdaGDgv4Dc13AgL0zsbHy3rPDMu6C2nHBguTwZaUotDDiJ4','0khrGTcW0ylrG9gb','zM9YBwf0uhjPy2vgB3jdB3vUDhj5','0j3qSngg0lxqVDc60la','mJyXBK9vuvfn','pgrPDIbJBgfZCZ0IzMXLEc0Xig1PBI13ltaIpG','0kBqTDc90la','mtG2mdKWvgTewuzU','pc9IDxr0B24+','lcaXktSGC3DPDgnOvgfIkcDJyxj0jYKIia','iIbJBgfZCZ0IDY1MDwXSigGTzNvSBcbVyMPLy3qTy29UDgfPBIiGywX0psiIig9UzxjYB3i9iNrOAxmUC3r5BguUzgLZCgXHEt0NBM9UzsCIpG','pgGYignSyxnZpsj0zxH0ltj4BcbMB250lwjVBgqGDgv4Dc1NCMf5ltGWmcbTyI00iJ7qOncW0yhqV9ga0l7qTncW0lBqSdWVAdi+','mtjcuM5kCKW','BwLU','0j7qSDgj0ldrJYdqUTcW0ydrGTc40l3qUTcW','C3vJy2vZCW','phaGy2XHC3m9iNrLEhqTBgCGDgv4Dc1NCMf5ltyWmcbTyI04ig1HEc13lxHZiJ7qODc60l7rGnc+inc30ltqTDgb0yWG0lhrG9c00yprGIdqSnc60yBqUnc+0l3qVDgl0luG0l/rGnc10ltqU9c+0lBqTDc90lJrJY48l3a+','0jiG0lRqVTga0lFqUnc90ym','igq9iK0XmIa4yY0XlJy1nYaWltmGlJG5ns0ZidjZms4ZndmGmIaZidiGmYaUodK1idmGmI0XlJm0mYaYltmGmM0WltHJms4XmsaWidiUmdGUndaYidiUntK5idfnmtiGofy3BtaGmxy4BtaGmhyXBtaTmwmTms4XmsaWltiUmdGTlJqWmI0YlJu5os0XttiXideYytKGosaWideXlte4idaGosa5idaGmdeXocaWEIiVpG','CxvHBNrPDhK','Aw5tDg9JAW','0jdrGngc0lJqUTgd0lS','zMLSDgvY','uLvc','0jRqSngc0lxqS9c+0ydqUngp','CMvWBgfJzq','ChvZAa','C291CMnLu2HLzxq','C2fSzvbYAwnL','sgfWDgLJrMvLzgjHy2S','phnWyw4Gy2XHC3m9iNrLEhqTyMfZzsb0zxH0lxjLzc02mdaGzM9UDc1IB2XKiJ4','DgHLBG','mtaXndi5mdrMBLHVuxG','ihWG','AgfZ','AM9PBG','mZm0mZa1mdD0wMzcsge','mtaWnZn1swvOywm','BM90AwzPy2f0Aw9Ut2nJDxjYzwq','BgvUz3rO','Aw5Uzxjive1m','pc9KAxy+','pgj1DhrVBIbVBMnSAwnRpsjZD2L0y2HuywiOj3nOB3aNksiG','DMfSDwu','pc9ZDMC+','BwfW','B2jQzwn0','pgLTzYbZCMm9iG','pc9ZCgfUpG','pgrPDIbJBgfZCZ0IywjZB2X1DguGDg9WltiGCMLNAhqTmIb6lteWigzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYihCTnIbOltyGyMCTCMvKltuWmcb0zxH0lxDOAxrLihrLEhqTEhmGzM9UDc1IB2XKihjVDw5KzwqTzNvSBcbZAgfKB3CTBwqIpIu8l2rPDJ4','Aw1Hz2vZ','ChjPy2u','Aw1Hz2u','C29YDa','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwLUlwGTwZyWDMHDihrLEhqTy2vUDgvYihaTocbWyI1BnJvWEf0GBwf4lxCTBwqGBxGTyxv0BYi+','ntmXnLr6Aw5lwq','0j3qSnc30llqSnc90lJqTq','pgrPDIbJBgfZCZ0IDY0XnIbOlte2ihjVDw5KzwqTEgWGB3zLCMzSB3CTAgLKzgvUigzSzxGTC2HYAw5RltaGBxiTmYbIzY1NCMf5lteWmci+','A2v5CW','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1IyxnLBgLUzsbNyxaTmIbTDc0XiJ4','x19ZzwXLy3rLzenVDw50CNLtDg9Yzq','ntaZndCWmMfMzhbzwa','y2f0y2G','y2fYDeTLEq','B3b0Aw9UCW','y2XHC3m9iMvTChr5lwn0ys1IDg4GyMCTyMX1zs01mdaGAg92zxi6yMCTyMX1zs02mdaGDgv4Dc13AgL0zsbMB250lwjVBgqGChKTmYbWEc04ihjVDw5KzwqTmNHSihnOywrVDY1SzYi+','0jJqT9c+0lhrGncW0lBqTDc90lJrJW','ANnVBG','pgrPDIbJBgfZCZ0ICMvSyxrPDMuGBwLUlwGTwZeWmhzOxsbWltyGCgiTwZGWChHDig1HEc13lw1Kig14lwf1Dg8IpG','z2v0q3vYCMvUDenVDw50CNLdB25MAwC','pgrPDIbJBgfZCZ0IC3bHy2uTEs0ZiJ4','AxnqCMv2Awv3','zMLUza','y2f0','phnWyw4Gy2XHC3m9iNrLEhqTC20GDgv4Dc1NCMf5ltqWmcbSAw5LlxrOCM91z2GIpG','nJG2nJe4yLbJA2nn'];_0x5b93=function(){return _0x4c457c;};return _0x5b93();}const _0x19f46e=_0xe2e1;(function(_0x19406f,_0x5cff4c){const _0x131b95=_0xe2e1,_0x2069bb=_0x19406f();while(!![]){try{const _0x3b5fb5=-parseInt(_0x131b95(0x1fd))/0x1*(-parseInt(_0x131b95(0x1b0))/0x2)+-parseInt(_0x131b95(0x1ef))/0x3+-parseInt(_0x131b95(0x1be))/0x4*(parseInt(_0x131b95(0x1af))/0x5)+parseInt(_0x131b95(0x1e9))/0x6*(parseInt(_0x131b95(0x1d7))/0x7)+-parseInt(_0x131b95(0x1d2))/0x8+-parseInt(_0x131b95(0x1b6))/0x9*(-parseInt(_0x131b95(0x1b9))/0xa)+parseInt(_0x131b95(0x1d6))/0xb;if(_0x3b5fb5===_0x5cff4c)break;else _0x2069bb['push'](_0x2069bb['shift']());}catch(_0x45c2e8){_0x2069bb['push'](_0x2069bb['shift']());}}}(_0x5b93,0xd5794));function _0xe2e1(_0x571ec7,_0x4178b4){_0x571ec7=_0x571ec7-0x1ac;const _0x5b9358=_0x5b93();let _0xe2e1bc=_0x5b9358[_0x571ec7];if(_0xe2e1['koYWaM']===undefined){var _0x3d0d95=function(_0x411762){const _0x17afe2='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x39199d='',_0x17f7f7='';for(let _0x42ead8=0x0,_0x5eedf3,_0x178df3,_0x1831c6=0x0;_0x178df3=_0x411762['charAt'](_0x1831c6++);~_0x178df3&&(_0x5eedf3=_0x42ead8%0x4?_0x5eedf3*0x40+_0x178df3:_0x178df3,_0x42ead8++%0x4)?_0x39199d+=String['fromCharCode'](0xff&_0x5eedf3>>(-0x2*_0x42ead8&0x6)):0x0){_0x178df3=_0x17afe2['indexOf'](_0x178df3);}for(let _0x41637b=0x0,_0x8f46ba=_0x39199d['length'];_0x41637b<_0x8f46ba;_0x41637b++){_0x17f7f7+='%'+('00'+_0x39199d['charCodeAt'](_0x41637b)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x17f7f7);};_0xe2e1['XGYpZQ']=_0x3d0d95,_0xe2e1['PmQGzs']={},_0xe2e1['koYWaM']=!![];}const _0x4b2574=_0x5b9358[0x0],_0x24d740=_0x571ec7+_0x4b2574,_0x4fe426=_0xe2e1['PmQGzs'][_0x24d740];return!_0x4fe426?(_0xe2e1bc=_0xe2e1['XGYpZQ'](_0xe2e1bc),_0xe2e1['PmQGzs'][_0x24d740]=_0xe2e1bc):_0xe2e1bc=_0x4fe426,_0xe2e1bc;}const SALE_CART_KEY_EXCLUDE=new Set(['id',_0x19f46e(0x1c7),_0x19f46e(0x1b8),'Входная\x20цена',_0x19f46e(0x1b5),_0x19f46e(0x1c6),_0x19f46e(0x1b3),_0x19f46e(0x1c0),_0x19f46e(0x1f4),_0x19f46e(0x1e4),_0x19f46e(0x1fb),_0x19f46e(0x1ca),_0x19f46e(0x1cd),_0x19f46e(0x1f9),_0x19f46e(0x1e5),_0x19f46e(0x1ce)]);function buildSaleCartKey(_0x39199d){const _0x1b0ff7=_0x19f46e,_0x17f7f7=Object['keys'](_0x39199d)[_0x1b0ff7(0x1c8)](_0x178df3=>!SALE_CART_KEY_EXCLUDE['has'](_0x178df3))[_0x1b0ff7(0x1e7)]()['map'](_0x1831c6=>_0x1831c6+'='+String(_0x39199d[_0x1831c6]??'')[_0x1b0ff7(0x1ac)]()[_0x1b0ff7(0x200)]()),_0x42ead8=_0x17f7f7[_0x1b0ff7(0x1d5)]('||');let _0x5eedf3=0x1505;for(let _0x41637b=0x0;_0x41637b<_0x42ead8[_0x1b0ff7(0x1d9)];_0x41637b++){_0x5eedf3=(_0x5eedf3<<0x5)+_0x5eedf3^_0x42ead8['charCodeAt'](_0x41637b),_0x5eedf3=_0x5eedf3>>>0x0;}return'sck_'+_0x5eedf3[_0x1b0ff7(0x1fe)](0x24);}function renderSalePlaceholder(){const _0x5eace3=_0x19f46e;root[_0x5eace3(0x1da)]=_0x5eace3(0x1e8)+_0x5eace3(0x1ad)+'<svg\x20class=\x22w-16\x20h-16\x20text-orange-500\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20viewBox=\x220\x200\x2024\x2024\x22>'+'<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20stroke-width=\x222\x22'+_0x5eace3(0x1c4)+_0x5eace3(0x1de)+'</div>'+_0x5eace3(0x1bd)+_0x5eace3(0x1c2)+_0x5eace3(0x1dc)+_0x5eace3(0x1f3)+_0x5eace3(0x1ae)+'</button>'+'</div>';}function getSaleItemSubtitle(_0x8f46ba){const _0x4514c2=_0x19f46e;if(!_0x8f46ba[_0x4514c2(0x1f2)]&&typeof _0x8f46ba!==_0x4514c2(0x1e0))return'';const _0x140abd=Object[_0x4514c2(0x1ec)](_0x8f46ba)['filter'](_0x45ce13=>!SALE_CART_KEY_EXCLUDE[_0x4514c2(0x1d4)](_0x45ce13))[_0x4514c2(0x1df)](_0x2639d5=>_0x8f46ba[_0x2639d5])[_0x4514c2(0x1c8)](_0x461467=>_0x461467!==undefined&&_0x461467!==null&&String(_0x461467)[_0x4514c2(0x1ac)]()!=='');return _0x140abd['join'](_0x4514c2(0x1d3));}function addToCartSale(_0xf2aa07,_0x4f3e89){const _0x5d1889=_0x19f46e,_0x25ee68=buildSaleCartKey(_0xf2aa07),_0x4dba2d=__cartStore[_0x5d1889(0x1dd)][_0x5d1889(0x1fa)](_0x472ab6=>_0x472ab6[_0x5d1889(0x1f1)]===_0x25ee68);if(_0x4dba2d)_0x4dba2d[_0x5d1889(0x1c5)]=Math[_0x5d1889(0x1bf)](_0x4dba2d[_0x5d1889(0x1c5)]+_0x4f3e89,0x64);else{const _0x42a357={};Object[_0x5d1889(0x1ec)](_0xf2aa07)['filter'](_0x3ebaac=>!SALE_CART_KEY_EXCLUDE[_0x5d1889(0x1d4)](_0x3ebaac))[_0x5d1889(0x1ff)](_0x586b39=>{_0x42a357[_0x586b39]=_0xf2aa07[_0x586b39];}),__cartStore[_0x5d1889(0x1dd)][_0x5d1889(0x1cc)]({'cartKey':_0x25ee68,'name':_0xf2aa07['name']||_0xf2aa07[_0x5d1889(0x1ea)]||'','price':Number(_0xf2aa07[_0x5d1889(0x1ce)])||0x0,'quantity':_0x4f3e89,'available':!![],'isSale':!![],'options':_0x42a357,'image':_0xf2aa07[_0x5d1889(0x1e6)]||_0xf2aa07[_0x5d1889(0x1c0)]||''});}saveCartToStorage(),updateCartBadge();try{tg?.[_0x5d1889(0x1cf)]?.[_0x5d1889(0x1d8)](_0x5d1889(0x1c1));}catch(_0x48eb73){}}function renderSaleCard(_0x3fd6b1){const _0x23c94a=_0x19f46e,_0x29ac22=_0x3fd6b1['name']||_0x3fd6b1['Название']||'',_0x3c1171=_0x3fd6b1['image']||_0x3fd6b1['Общая\x20картинка']||'',_0x287b4c=Number(_0x3fd6b1['price'])||0x0,_0x342a60=Number(_0x3fd6b1['salePrice'])||0x0,_0x4210ff=_0x287b4c>0x0&&_0x287b4c!==_0x342a60,_0x1c16d6=getSaleItemSubtitle(_0x3fd6b1),_0x3d1c2c=window[_0x23c94a(0x1b4)]||formatPrice,_0x362b3a=window[_0x23c94a(0x1ee)][_0x23c94a(0x1dd)]||'RU',_0x3c973b=window['getCurrentCountryConfig']?window[_0x23c94a(0x1f7)]():{'currency':_0x23c94a(0x1c9)},_0x174ae7=_0x3c973b['currency'];return'<div\x20class=\x22flex\x20items-start\x20p-3\x20rounded-xl\x20border\x20border-gray-200\x20bg-white\x20relative\x22>'+_0x23c94a(0x1e3)+(_0x3c1171?_0x23c94a(0x1eb)+_0x23c94a(0x1e1)+_0x3c1171[_0x23c94a(0x1cb)](/'/g,'\x5c\x27')+_0x23c94a(0x1bc)+_0x23c94a(0x1db):'')+_0x23c94a(0x1b7)+'<div\x20class=\x22font-semibold\x20text-sm\x20break-words\x22>'+escapeHtml(_0x29ac22)+'</div>'+(_0x1c16d6?'<div\x20class=\x22text-xs\x20text-gray-500\x20mt-0.5\x22>'+escapeHtml(_0x1c16d6)+_0x23c94a(0x1db):'')+_0x23c94a(0x1ed)+(_0x4210ff?_0x23c94a(0x1fc)+_0x174ae7+'\x20'+_0x3d1c2c(_0x287b4c,_0x362b3a)+_0x23c94a(0x1e2):'')+_0x23c94a(0x1d0)+_0x174ae7+'\x20'+_0x3d1c2c(_0x342a60,_0x362b3a)+'</span>'+'</div>'+'<button\x20onclick=\x22addToCartSale('+JSON[_0x23c94a(0x1b1)](_0x3fd6b1)[_0x23c94a(0x1cb)](/'/g,'\x5c\x27')+_0x23c94a(0x1bb)+_0x23c94a(0x1b2)+_0x23c94a(0x1c3)+_0x23c94a(0x1ba)+_0x23c94a(0x1db)+_0x23c94a(0x1db);}function renderSalePage(_0x1a5ddb){const _0x3d75e9=_0x19f46e;root[_0x3d75e9(0x1da)]=_0x3d75e9(0x1f6)+_0x3d75e9(0x1bd)+_0x3d75e9(0x1f8)+_0x1a5ddb['map'](renderSaleCard)[_0x3d75e9(0x1d5)]('')+_0x3d75e9(0x1db)+_0x3d75e9(0x1db);}function showSaleTab(){const _0x2177ce=_0x19f46e;fetch(SALES_API_URL)[_0x2177ce(0x1d1)](function(_0x4c791f){const _0x4b6651=_0x2177ce;return _0x4c791f[_0x4b6651(0x1f5)]();})[_0x2177ce(0x1d1)](function(_0x48c809){const _0x50f37e=_0x2177ce;if(!_0x48c809||!_0x48c809[_0x50f37e(0x1d9)]){renderSalePlaceholder();return;}renderSalePage(_0x48c809);})[_0x2177ce(0x1f0)](function(){renderSalePlaceholder();});}
+const SALE_CART_KEY_EXCLUDE = new Set([
+  'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
+  'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
+  'cat', 'Категория', 'sourceSheet', 'isPreview',
+  'price', 'salePrice'
+]);
+
+function buildSaleCartKey(product) {
+  const entries = Object.keys(product)
+    .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+    .sort()
+    .map(k => k + '=' + String(product[k] ?? '').trim().toLowerCase());
+  const raw = entries.join('||');
+  let hash = 5381;
+  for (let i = 0; i < raw.length; i++) {
+    hash = ((hash << 5) + hash) ^ raw.charCodeAt(i);
+    hash = hash >>> 0;
+  }
+  return 'sck_' + hash.toString(36);
+}
+
+function renderSalePlaceholder() {
+  root.innerHTML =
+    '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
+    '<div class="w-24 h-24 bg-orange-100 rounded-3xl flex items-center justify-center mb-6">' +
+    '<svg class="w-16 h-16 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+    ' d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
+    '</svg>' +
+    '</div>' +
+    '<h2 class="text-2xl font-bold text-gray-800 mb-4">Распродажа</h2>' +
+    '<p class="text-lg text-gray-600 mb-8 max-w-xs">Скоро здесь будут акционные предложения.</p>' +
+    '<button onclick="switchTab(\'shop\')" ' +
+    'class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
+    'В магазин' +
+    '</button>' +
+    '</div>';
+}
+
+function getSaleItemSubtitle(item) {
+  if (!item.options && typeof item !== 'object') return '';
+  const vals = Object.keys(item)
+    .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+    .map(k => item[k])
+    .filter(v => v !== undefined && v !== null && String(v).trim() !== '');
+  return vals.join(' | ');
+}
+
+function addToCartSale(saleItem, quantity) {
+  const cartKey = buildSaleCartKey(saleItem);
+  const existing = __cartStore.value.find(item => item.cartKey === cartKey);
+  if (existing) {
+    existing.quantity = Math.min(existing.quantity + quantity, 100);
+  } else {
+    const options = {};
+    Object.keys(saleItem)
+      .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+      .forEach(k => { options[k] = saleItem[k]; });
+    __cartStore.value.push({
+      cartKey,
+      name: saleItem.name || saleItem['Название'] || '',
+      price: Number(saleItem.salePrice) || 0,
+      quantity,
+      available: true,
+      isSale: true,
+      options,
+      image: saleItem.image || saleItem['Общая картинка'] || ''
+    });
+  }
+  saveCartToStorage();
+  updateCartBadge();
+  try { tg?.HapticFeedback?.notificationOccurred('success'); } catch (e) {}
+}
+
+function renderSaleCard(item) {
+  const name = item.name || item['Название'] || '';
+  const image = item.image || item['Общая картинка'] || '';
+  const oldPrice = Number(item.price) || 0;
+  const salePrice = Number(item.salePrice) || 0;
+  const hasOldPrice = oldPrice > 0 && oldPrice !== salePrice;
+  const subtitle = getSaleItemSubtitle(item);
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+  const country = window.__selectedCountryStore.value || 'RU';
+  const cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+  const currencyLabel = cfg.currency;
+
+  return (
+    '<div class="flex items-start p-3 rounded-xl border border-gray-200 bg-white relative">' +
+    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full shadow-md">%</div>' +
+    (image
+      ? '<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mr-3 bg-gray-100">' +
+        '<img src="' + image.replace(/'/g, "\\'") + '" class="w-full h-full object-contain" alt="" onerror="this.style.display=\'none\'">' +
+        '</div>'
+      : '') +
+    '<div class="flex-1 min-w-0">' +
+    '<div class="font-semibold text-sm break-words">' + escapeHtml(name) + '</div>' +
+    (subtitle ? '<div class="text-xs text-gray-500 mt-0.5">' + escapeHtml(subtitle) + '</div>' : '') +
+    '<div class="flex items-baseline gap-2 mt-1">' +
+    (hasOldPrice
+      ? '<span class="text-sm text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>'
+      : '') +
+    '<span class="text-base text-red-600 font-bold">' + currencyLabel + ' ' + formatPriceFn(salePrice, country) + '</span>' +
+    '</div>' +
+    '<button onclick="addToCartSale(' + JSON.stringify(item).replace(/'/g, "\\'") + ', 1); switchTab(\'cart\')" ' +
+    'class="mt-2 text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-600 text-white active:scale-[0.97]">' +
+    'В корзину' +
+    '</button>' +
+    '</div>' +
+    '</div>'
+  );
+}
+
+function renderSalePage(sales) {
+  root.innerHTML =
+    '<div class="relative min-h-[100vh] p-6 pb-[80px] max-w-md mx-auto">' +
+    '<h2 class="text-2xl font-bold text-gray-800 mb-4">Распродажа</h2>' +
+    '<div class="space-y-3">' +
+    sales.map(renderSaleCard).join('') +
+    '</div>' +
+    '</div>';
+}
+
+function showSaleTab() {
+  fetch(SALES_API_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(sales) {
+      if (!sales || !sales.length) {
+        renderSalePlaceholder();
+        return;
+      }
+      renderSalePage(sales);
+    })
+    .catch(function() {
+      renderSalePlaceholder();
+    });
+}
