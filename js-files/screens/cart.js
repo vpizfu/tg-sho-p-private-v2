@@ -755,21 +755,29 @@ function showCartTab() {
           '</div>' +
           (!pickupMode
             ? '<label class="text-sm font-semibold text-gray-700 block">Адрес доставки</label>' +
-              '<select id="savedAddress" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm mb-2" onchange="onSavedAddressChange()">' +
-                '<option value="">Выбрать сохранённый адрес</option>' +
-                (savedAddresses || [])
-                  .map(
-                    addr =>
-                      '<option value="' +
-                      escapeHtml(addr) +
-                      '"' +
-                      (cartFormState.savedAddressValue === addr ? ' selected' : '') +
-                      '>' +
-                      escapeHtml(addr) +
-                      '</option>'
-                  )
-                  .join('') +
-              '</select>' +
+              '<div class="relative w-full mb-2">' +
+  '<select id="savedAddress" class="w-full appearance-none bg-white border border-gray-300 rounded-xl pl-3 pr-10 py-2 text-sm" onchange="onSavedAddressChange()">' +
+    '<option value="">Выбрать сохранённый адрес</option>' +
+    (savedAddresses || [])
+      .map(
+        addr =>
+          '<option value="' +
+          escapeHtml(addr) +
+          '"' +
+          (cartFormState.savedAddressValue === addr ? ' selected' : '') +
+          '>' +
+          escapeHtml(addr) +
+          '</option>'
+      )
+      .join('') +
+  '</select>' +
+  '<div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">' +
+    '<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />' +
+    '</svg>' +
+  '</div>' +
+'</div>'
+ +
               '<div id="deliveryAddressWrapper" class="mb-2"' +
                 (cartFormState.savedAddressValue ? ' style="display:none"' : '') +
               '>' +

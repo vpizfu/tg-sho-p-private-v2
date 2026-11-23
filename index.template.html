@@ -182,13 +182,17 @@
 
   <!-- Подпись версий на табах + алерт при запуске (только в Mini App) -->
   <script>
-    (function () {
+            (function () {
       const tg = window.Telegram?.WebApp;
       const isRealMiniApp = !!tg && !!tg.initData; // есть initData → мы в Telegram
 
       const version = window.APP_VERSIONS.app || {};
       const alertText =
-        'Версия: ' + version +
+          '\uD83C\uDF0D Выбор региона для заказа:\n' +
+          '\uD83C\uDDF7\uD83C\uDDFA Россия \u2014 цены в RUB\n' +
+          '\uD83C\uDDE7\uD83C\uDDFE Беларусь \u2014 цены в USD\n' +
+          'Нажмите на флаг в шапке, чтобы сменить регион.' +
+        '\n\nВерсия: ' + version +
         '\nКонтакты, время работы и обновления цен — во вкладке «О нас»' +
         '\nНе нашли нужный товар или хотите оформить заказ через менеджера? Напишите @TechBex.';
 
@@ -200,15 +204,6 @@
       setTimeout(function () {
         tg.showAlert(alertText);
       }, 400);
-
-      setTimeout(function () {
-        tg.showAlert(
-          '\uD83C\uDF0D Выбор региона для заказа:\n' +
-          '\uD83C\uDDF7\uD83C\uDDFA Россия \u2014 цены в RUB\n' +
-          '\uD83C\uDDE7\uD83C\uDDFE Беларусь \u2014 цены в USD\n\n' +
-          'Нажмите на флаг в шапке, чтобы сменить регион.'
-        );
-      }, 800);
     })();
   </script>
 </body>
