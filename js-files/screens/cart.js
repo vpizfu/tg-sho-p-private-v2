@@ -103,7 +103,7 @@ function renderCartPriceStatusNote() {
   if (!meta) return '';
 
   return (
-    '<div id="cartPriceStatusNote" class="mb-3 rounded-xl px-3 py-2 text-[11px] leading-4 font-medium ' + meta.wrapClasses + '">' +
+    '<div id="cartPriceStatusNote" class="mb-3 rounded-xl px-3 py-2 text-[10px] leading-4 font-medium ' + meta.wrapClasses + '">' +
       'Статус цен: ' + escapeHtml(meta.text) +
     '</div>'
   );

@@ -567,7 +567,7 @@ function renderShopPriceStatusBadge() {
 
   return (
     '<div id="shopPriceStatusWrap" class="mt-1">' +
-      '<div id="shopPriceStatusBadge" class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' + shopPriceStatus.pillClasses + '">' +
+      '<div id="shopPriceStatusBadge" class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' + shopPriceStatus.pillClasses + '">' +
         escapeHtml(shopPriceStatus.text) +
       '</div>' +
     '</div>'
@@ -593,7 +593,7 @@ function updateShopPriceStatusBadge() {
   }
 
   badge.className =
-    'inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' +
+    'inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' +
     shopPriceStatus.pillClasses;
 
   badge.textContent = shopPriceStatus.text;
@@ -604,7 +604,7 @@ function renderShopPriceStatusInline() {
   if (!shopPriceStatus) return '';
 
   return (
-    '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium whitespace-nowrap ' + shopPriceStatus.pillClasses + '">' +
+    '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium whitespace-nowrap ' + shopPriceStatus.pillClasses + '">' +
       escapeHtml(shopPriceStatus.text) +
     '</div>'
   );
@@ -617,7 +617,7 @@ function renderShopPriceStatusPill() {
 
   return (
     '<div class="mt-1">' +
-      '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[11px] font-medium ' + shopPriceStatus.pillClasses + '">' +
+      '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' + shopPriceStatus.pillClasses + '">' +
         escapeHtml(shopPriceStatus.text) +
       '</div>' +
     '</div>'
