@@ -1390,7 +1390,12 @@ if (!contactConfirmed) {
 
     if (!resp.ok || !json || json.ok !== true) {
       console.log('[placeOrder] backend responded with error status:', resp.status, json);
-      tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+
+      if (json && json.error === 'prices_outdated') {
+        tg?.showAlert?.(json.message || 'Цены в корзине устарели. Нажмите "Обновить корзину" и попробуйте снова.');
+      } else {
+        tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+      }
 
       try {
         if (typeof trackCheckoutResult === 'function') {
