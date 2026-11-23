@@ -337,7 +337,7 @@ const COUNTRY_CONFIG = {
 };
 
 let selectedCountry = 'RU';
-let exchangeRateUsdRub = 90;
+let exchangeRateUsdRub = null;
 let byRounding = { step: 1, mode: 'ceil' };
 
 function getCountryConfig(country) {
@@ -1340,7 +1340,9 @@ function switchTab(tabName) {
           console.log('[modal] return to shop without modal, rerender shop');
           modalWasOpenOnShop = false;
           modalSavedScrollTop = 0;
-        
+
+          refreshAboutMetaFromBackend();
+
           if (!productsData) {
             // товары ещё не загружены — показываем шиммер
             root.innerHTML = buildShimmerHTML();
@@ -1502,6 +1504,8 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     syncProductsAndCart();
     logStage('update productsData + sync', t0);
+
+    await refreshAboutMetaFromBackend();
   } catch (error) {
     console.error('[core] products API error:', error);
 
