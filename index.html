@@ -11,7 +11,7 @@
 
   <!-- Глобальная версия приложения -->
   <script>
-    const version = '489';
+    const version = '491';
     window.APP_VERSIONS = {
       app: version,
       products: version,
@@ -163,15 +163,15 @@
   </div>
 </div>
 
-<script src="js-files/analytics.js?v=489"></script>
-<script src="js-files/core.js?v=489"></script>
-<script src="js-files/ui_common.js?v=489"></script>
-<script src="js-files/screens/about.js?v=489"></script>
-<script src="js-files/products.js?v=489"></script>
-<script src="js-files/screens/cart.js?v=489"></script>
-<script src="js-files/modals.js?v=489"></script>
-<script src="js-files/screens/sale.js?v=489"></script>
-<script src="js-files/screens/profile.js?v=489"></script>
+<script src="js-files/analytics.js?v=491"></script>
+<script src="js-files/core.js?v=491"></script>
+<script src="js-files/ui_common.js?v=491"></script>
+<script src="js-files/screens/about.js?v=491"></script>
+<script src="js-files/products.js?v=491"></script>
+<script src="js-files/screens/cart.js?v=491"></script>
+<script src="js-files/modals.js?v=491"></script>
+<script src="js-files/screens/sale.js?v=491"></script>
+<script src="js-files/screens/profile.js?v=491"></script>
 
   <script>
     // запуск после загрузки всех модулей
@@ -200,6 +200,15 @@
       setTimeout(function () {
         tg.showAlert(alertText);
       }, 400);
+
+      setTimeout(function () {
+        tg.showAlert(
+          '\uD83C\uDF0D Выбор региона для заказа:\n' +
+          '\uD83C\uDDF7\uD83C\uDDFA Россия \u2014 цены в RUB\n' +
+          '\uD83C\uDDE7\uD83C\uDDFE Беларусь \u2014 цены в USD\n\n' +
+          'Нажмите на флаг в шапке, чтобы сменить регион.'
+        );
+      }, 800);
     })();
   </script>
 </body>
