@@ -534,13 +534,6 @@ window.getCartCountry = getCartCountry;
 window.setCartCountry = setCartCountry;
 window.loadCartCountry = loadCartCountry;
 
-// Export __selectedCountryStore.value getter/setter
-Object.defineProperty(window, 'selectedCountry', {
-  get: function() { return __selectedCountryStore.value; },
-  set: function(val) { __selectedCountryStore.value = val; },
-  configurable: true
-});
-
 
 
 let isAddingToCart = false;
