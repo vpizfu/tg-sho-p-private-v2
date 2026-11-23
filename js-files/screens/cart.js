@@ -517,6 +517,12 @@ window.setPickupLocation = function (addr) {
 };
 
 window.setCartCountryAndRefresh = function (country) {
+  // Don't reload if the same country is already selected
+  if (window.getCartCountry && window.getCartCountry() === country) {
+    console.log('[setCartCountryAndRefresh] same country, skipping reload');
+    return;
+  }
+
   if (window.setCartCountry && window.setCartCountry(country)) {
     // Also sync with shop country
     if (window.setCountry) window.setCountry(country);
