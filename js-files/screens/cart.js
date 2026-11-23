@@ -302,14 +302,10 @@ window.refreshCartPricesAndCleanup = async function () {
       return;
     }
 
-    let hasRateChanged = false;
+    window.__hasRateChanged = false;
     const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
-    if (cc === 'BY') {
-      const oldRate = window.exchangeRateUsdRub;
-      const newRate = aboutLastProductsMeta?.exchangeRateUsdRub;
-      if (oldRate != null && newRate != null && Math.abs(newRate - oldRate) > 0.01) {
-        hasRateChanged = true;
-      }
+    if (cc === 'BY' && window.exchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.exchangeRateUsdRub) > 0.01) {
+      window.__hasRateChanged = true;
     }
     let removedCount = 0;
     let changedCount = 0;
@@ -1222,13 +1218,10 @@ if (!contactConfirmed) {
       return;
     }
 
-    let hasRateChanged = false;
-    if (cartCountry === 'BY') {
-      const oldRate = window.exchangeRateUsdRub;
-      const newRate = aboutLastProductsMeta?.exchangeRateUsdRub;
-      if (oldRate != null && newRate != null && Math.abs(newRate - oldRate) > 0.01) {
-        hasRateChanged = true;
-      }
+    let hasRateChanged = window.__hasRateChanged;
+    window.__hasRateChanged = false;
+    if (cartCountry === 'BY' && window.exchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.exchangeRateUsdRub) > 0.01) {
+      hasRateChanged = true;
     }
 
     let hasUnavailable = false;
