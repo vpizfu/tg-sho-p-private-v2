@@ -17,6 +17,14 @@ const __cartCountryStore = { value: 'RU' };
 const __byRoundingStore = { value: { step: 1, mode: 'ceil' } };
 const __paymentTypeStore = { value: 'cash' };
 
+window.__exchangeRateStore = __exchangeRateStore;
+window.__cartStore = __cartStore;
+window.__productsStore = __productsStore;
+window.__selectedCountryStore = __selectedCountryStore;
+window.__cartCountryStore = __cartCountryStore;
+window.__byRoundingStore = __byRoundingStore;
+window.__paymentTypeStore = __paymentTypeStore;
+
 Object.defineProperty(window, 'cartItems', {
   get: function() { return __cartStore.value; },
   set: function(v) {},
