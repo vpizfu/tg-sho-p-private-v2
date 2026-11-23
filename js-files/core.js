@@ -374,29 +374,8 @@ function setCartCountry(country) {
 }
 
 function loadCartCountry() {
-  try {
-    // First check URL query parameter
-    const fromUrl = new URLSearchParams(window.location.search).get('country');
-    if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
-      cartCountry = fromUrl;
-      localStorage.setItem('cartCountry', fromUrl);
-      return;
-    }
-    // Then check localStorage
-    const stored = localStorage.getItem('cartCountry');
-    if (stored && COUNTRY_CONFIG[stored]) {
-      cartCountry = stored;
-    } else {
-      cartCountry = selectedCountry;
-    }
-  } catch (e) {
-    cartCountry = selectedCountry;
-  }
-  // Ensure cartCountry matches selectedCountry unless explicitly changed by user
-  if (cartCountry !== selectedCountry) {
-    cartCountry = selectedCountry;
-    localStorage.setItem('cartCountry', selectedCountry);
-  }
+  cartCountry = resolveCountryFromUrlOrStorage();
+  try { localStorage.setItem('cartCountry', cartCountry); } catch (e) {}
 }
 
 function convertPrice(rubPrice, fromCountry, toCountry) {
@@ -427,21 +406,28 @@ function getStorageKey(baseKey) {
   return `${baseKey}_${selectedCountry}`;
 }
 
-function loadSelectedCountryFromStorage() {
-  try {
-    const fromUrl = new URLSearchParams(window.location.search).get('country');
-    if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
-      selectedCountry = fromUrl;
-      localStorage.setItem('selectedCountry', fromUrl);
-      return;
-    }
-    const stored = localStorage.getItem('selectedCountry');
-    if (stored && COUNTRY_CONFIG[stored]) {
-      selectedCountry = stored;
-    }
-  } catch (e) {
-    console.log('[core] loadSelectedCountryFromStorage error', e);
+function resolveCountryFromUrlOrStorage() {
+  const fromUrl = new URLSearchParams(window.location.search).get('country');
+  if (fromUrl && COUNTRY_CONFIG[fromUrl]) return fromUrl;
+  if (fromUrl != null) {
+    const stored = (() => { try { return localStorage.getItem('selectedCountry'); } catch (e) {} })();
+    if (stored && COUNTRY_CONFIG[stored]) return stored;
   }
+  const stored = (() => { try { return localStorage.getItem('selectedCountry'); } catch (e) {} })();
+  if (stored && COUNTRY_CONFIG[stored]) return stored;
+  return 'RU';
+}
+
+function loadSelectedCountryFromStorage() {
+  const country = resolveCountryFromUrlOrStorage();
+  selectedCountry = country;
+  try { localStorage.setItem('selectedCountry', country); } catch (e) {}
+}
+
+function loadCartCountry() {
+  const country = resolveCountryFromUrlOrStorage();
+  cartCountry = country;
+  try { localStorage.setItem('cartCountry', country); } catch (e) {}
 }
 
 function setExchangeRate(rate) {
