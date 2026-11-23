@@ -644,7 +644,7 @@ return (
         '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
         renderShopPriceStatusInline() +
       '</div>' +
-      '<div class="flex items-center justify-between mb-4 gap-2">' +
+'<div class="flex items-center justify-between mb-4 gap-2 relative">' +
         '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
           '<span id="countryLabel" class="font-medium text-xs text-gray-500 hidden sm:inline">Регион</span>' +
@@ -691,8 +691,10 @@ return (
 // Country picker functions
 window.toggleCountryPicker = function() {
   const picker = document.getElementById('countryPicker');
+  console.log('[toggleCountryPicker] picker:', picker, 'hidden:', picker?.classList.contains('hidden'));
   if (!picker) return;
   picker.classList.toggle('hidden');
+  console.log('[toggleCountryPicker] after toggle, hidden:', picker.classList.contains('hidden'));
 };
 
 window.setCountryAndRefresh = function(country) {
