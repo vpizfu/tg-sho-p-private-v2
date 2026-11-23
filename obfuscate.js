@@ -6,8 +6,8 @@ const OPTIONS = {
   compact: true,
   stringArray: true,
   stringArrayEncoding: ['base64'],
-  rotateStringArray: true,
-  shuffleStringArray: true,
+  rotateStringArray: false,
+  shuffleStringArray: false,
 };
 
 function getJsFiles(dir) {
