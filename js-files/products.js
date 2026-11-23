@@ -13,13 +13,13 @@ function makeVariantUserKeyWithoutPrice(variant) {
 }
 
 function getCategoriesFromProducts() {
-  if (!productsData || !productsData.length) {
+  if (!__productsStore.value || !__productsStore.value.length) {
     return ['Все товары'];
   }
 
   const categoriesSet = new Set();
 
-  productsData.forEach(p => {
+  __productsStore.value.forEach(p => {
     if (!p) return;
     if (!p.inStock) return;
 
@@ -231,8 +231,8 @@ function getFilteredProductImages(variants) {
 
 // все варианты по имени товара
 function getProductVariants(productName) {
-  return productsData
-    ? productsData.filter(p => p['Название'] === productName)
+  return __productsStore.value
+    ? __productsStore.value.filter(p => p['Название'] === productName)
     : [];
 }
 
@@ -393,9 +393,9 @@ function compareCapacity(a, b) {
 
 // список товаров для отображения в магазине
 function getVisibleProducts() {
-  if (!productsData) {
+  if (!__productsStore.value) {
     console.log(
-      '[getVisibleProducts] productsData is null, query =',
+      '[getVisibleProducts] __productsStore.value is null, query =',
       query
     );
     return [];
@@ -407,12 +407,12 @@ function getVisibleProducts() {
     ', selectedCategory =',
     selectedCategory,
     ', total variants =',
-    productsData.length
+    __productsStore.value.length
   );
 
   const groupedByName = {};
 
-  productsData.forEach(p => {
+  __productsStore.value.forEach(p => {
     const title = p['Название'];
     if (!groupedByName[title]) groupedByName[title] = [];
     groupedByName[title].push(p);
@@ -655,14 +655,14 @@ return (
 '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[160px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
-            (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
+            (__selectedCountryStore.value === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
             '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
-            (selectedCountry === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
+            (__selectedCountryStore.value === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
           '</button>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
-            (selectedCountry === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
+            (__selectedCountryStore.value === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
             '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
-            (selectedCountry === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
+            (__selectedCountryStore.value === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
           '</button>' +
         '</div>' +
       '</div>' +
@@ -724,7 +724,7 @@ window.toggleCountryPicker = function() {
 
 window.setCountryAndRefresh = function(country) {
   // Don't reload if the same country is already selected
-  if (window.selectedCountry === country) {
+  if (window.__selectedCountryStore.value === country) {
     console.log('[setCountryAndRefresh] same country, skipping reload');
     const picker = document.getElementById('countryPicker');
     if (picker) picker.classList.add('hidden');
@@ -934,9 +934,9 @@ function productCard(product) {
       ? (window.getCurrentCountryConfig
           ? (function() {
               const cfg = window.getCurrentCountryConfig();
-              return cfg.currency + ' ' + window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry);
+              return cfg.currency + ' ' + window.formatPriceForCountry(cheapestVariant['Цена'], window.__selectedCountryStore.value);
             })()
-          : window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry))
+          : window.formatPriceForCountry(cheapestVariant['Цена'], window.__selectedCountryStore.value))
       : 'RUB ' + formatPrice(cheapestVariant['Цена'])) +
     '</div>' +
     '<div class="text-xs text-gray-500 mb-4">' +
@@ -1156,7 +1156,7 @@ function renderCategoryOptionsIntoContainer(categories, container, selected) {
 
 function renderShop() {
   console.log('---------------- [renderShop] ----------------');
-  console.log('[renderShop] selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.(), 'cartItems:', cartItems?.length);
+  console.log('[renderShop] __selectedCountryStore.value:', window.__selectedCountryStore.value, '__cartCountryStore.value:', window.getCartCountry?.(), '__cartStore.value:', __cartStore.value?.length);
   console.log(
     '[renderShop] BEFORE getVisibleProducts, query =',
     JSON.stringify(query),
@@ -1166,7 +1166,7 @@ function renderShop() {
     loadedCount
   );
   const categories = getCategoriesFromProducts();
-  if (!productsData || productsData.length === 0) {
+  if (!__productsStore.value || __productsStore.value.length === 0) {
     root.innerHTML =
       '<div class="flex flex-col items-center justify-center min-h-[70vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
       '<div class="w-24 h-24 bg-gray-100 rounded-3xl flex items-center justify-center mb-4">' +
@@ -1189,7 +1189,7 @@ function renderShop() {
 
   const list = getVisibleProducts();
 
-  console.log('[renderShop] AFTER getVisibleProducts, cartItems:', cartItems?.length, 'selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.());
+  console.log('[renderShop] AFTER getVisibleProducts, __cartStore.value:', __cartStore.value?.length, '__selectedCountryStore.value:', window.__selectedCountryStore.value, '__cartCountryStore.value:', window.getCartCountry?.());
 
   let showCount;
   if (query.trim()) {
@@ -1269,14 +1269,14 @@ root.innerHTML =
 '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[160px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
-            (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
+            (__selectedCountryStore.value === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
             '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
-            (selectedCountry === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
+            (__selectedCountryStore.value === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
           '</button>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
-            (selectedCountry === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
+            (__selectedCountryStore.value === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
             '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
-            (selectedCountry === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
+            (__selectedCountryStore.value === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
           '</button>' +
         '</div>' +
     '</div>' +
@@ -1399,7 +1399,7 @@ root.innerHTML =
     try {
       if (typeof trackEvent === 'function') {
         trackEvent('shop_loaded', {
-          products_count: Array.isArray(productsData) ? productsData.length : 0
+          products_count: Array.isArray(__productsStore.value) ? __productsStore.value.length : 0
         }, {
           sync: true
         });        
@@ -1643,7 +1643,7 @@ function setupHandlers() {
       if (active && active.blur) active.blur();
 
       const productName = card.dataset.productName;
-      const product = productsData.find(p => p['Название'] === productName);
+      const product = __productsStore.value.find(p => p['Название'] === productName);
       if (!product) return;
 
       selectedOption = {};

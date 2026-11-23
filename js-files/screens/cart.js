@@ -5,7 +5,7 @@ let lastOrderTotal = 0;
 function updateCartBadge() {
   const badge = document.getElementById('cartBadge');
   if (!badge) return;
-  const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const count = __cartStore.value.reduce((sum, item) => sum + item.quantity, 0);
   if (count > 0) {
     badge.textContent = count;
     badge.style.display = 'flex';
@@ -109,7 +109,7 @@ function renderCartPriceStatusNote() {
 }
 
 function resetCartStateAfterOrder() {
-  cartItems = [];
+  __cartStore.value = [];
   saveCartToStorage();
   updateCartBadge();
 
@@ -131,17 +131,17 @@ function resetCartStateAfterOrder() {
 
 
 function addToCart(variant, quantity) {
-  console.log('[cart] addToCart START', {variant, quantity, cartItemsLen: cartItems.length, selectedCountry, cartCountry: window.getCartCountry?.()});
-  if (!productsData) {
+  console.log('[cart] addToCart START', {variant, quantity, cartItemsLen: __cartStore.value.length, __selectedCountryStore.value, __cartCountryStore.value: window.getCartCountry?.()});
+  if (!__productsStore.value) {
     tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
     return;
   }
 
-  const freshVariant = productsData.find(p => p.id === variant.id) || variant;
+  const freshVariant = __productsStore.value.find(p => p.id === variant.id) || variant;
   const cartKey = buildCartKey(freshVariant);
-  console.log('[cart] addToCart freshVariant:', freshVariant['Название'], 'price:', freshVariant['Цена'], 'cartKey:', cartKey, 'selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.());
+  console.log('[cart] addToCart freshVariant:', freshVariant['Название'], 'price:', freshVariant['Цена'], 'cartKey:', cartKey, '__selectedCountryStore.value:', window.__selectedCountryStore.value, '__cartCountryStore.value:', window.getCartCountry?.());
 
-  const existing = cartItems.find(item => item.cartKey === cartKey);
+  const existing = __cartStore.value.find(item => item.cartKey === cartKey);
   if (existing) {
     existing.quantity = Math.min(existing.quantity + quantity, 100);
     console.log('[cart] addToCart existing item, new qty:', existing.quantity);
@@ -160,7 +160,7 @@ function addToCart(variant, quantity) {
       )
     };
     console.log('[cart] addToCart new item:', newItem);
-    cartItems.push(newItem);
+    __cartStore.value.push(newItem);
   }
 
   saveCartToStorage();
@@ -168,7 +168,7 @@ function addToCart(variant, quantity) {
 
   try {
     if (typeof trackAddToCart === 'function') {
-      const cartItem = cartItems.find(i => i.cartKey === cartKey);
+      const cartItem = __cartStore.value.find(i => i.cartKey === cartKey);
       if (cartItem) {
         trackAddToCart(cartItem);
       }
@@ -176,11 +176,11 @@ function addToCart(variant, quantity) {
   } catch (e2) {}
 
   tg?.HapticFeedback?.notificationOccurred('success');
-  console.log('[cart] addToCart END, cartItems:', cartItems.length);
+  console.log('[cart] addToCart END, __cartStore.value:', __cartStore.value.length);
 }
 
 window.changeCartItemQuantity = function (cartKey, delta) {
-  const item = cartItems.find(i => i.cartKey === cartKey);
+  const item = __cartStore.value.find(i => i.cartKey === cartKey);
   if (!item) return;
   const oldQuantity = item.quantity;
   let q = item.quantity + delta;
@@ -204,13 +204,13 @@ window.changeCartItemQuantity = function (cartKey, delta) {
 
 window.removeCartItem = function (cartKey) {
   console.log('[cart] removeCartItem cartKey=', cartKey);
-  const item = cartItems.find(i => i.cartKey === cartKey);
+  const item = __cartStore.value.find(i => i.cartKey === cartKey);
   try {
     if (item && typeof trackRemoveFromCart === 'function') {
       trackRemoveFromCart(item);
     }
   } catch (e2) {}
-  cartItems = cartItems.filter(i => i.cartKey !== cartKey);
+  __cartStore.value = __cartStore.value.filter(i => i.cartKey !== cartKey);
   saveCartToStorage();
   updateCartBadge();
   if (currentTab === 'cart') {
@@ -220,7 +220,7 @@ window.removeCartItem = function (cartKey) {
 
 // обновление цены одной позиции
 window.updateCartItemPrice = function (cartKey) {
-  const item = cartItems.find(i => i.cartKey === cartKey);
+  const item = __cartStore.value.find(i => i.cartKey === cartKey);
   if (!item || !item.newPrice) return;
 
   console.log('[cart] updateCartItemPrice cartKey=', cartKey, 'old=', item.price, 'new=', item.newPrice);
@@ -261,11 +261,11 @@ window.updateCartItemPrice = function (cartKey) {
 
 // обновить цены всех и удалить неактуальные
 window.refreshCartPricesAndCleanup = async function () {
-  console.log('[cart] refreshCartPricesAndCleanup START', {cartItemsLen: cartItems.length, cartItems: cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price})), selectedCountry: window.selectedCountry, cartCountry: window.getCartCountry?.()});
+  console.log('[cart] refreshCartPricesAndCleanup START', {cartItemsLen: __cartStore.value.length, __cartStore.value: __cartStore.value.map(i => ({key: i.cartKey, name: i.name, price: i.price})), __selectedCountryStore.value: window.__selectedCountryStore.value, __cartCountryStore.value: window.getCartCountry?.()});
   try {
     if (typeof trackEvent === 'function') {
       trackEvent('cart_refresh_clicked', {
-        items_count: cartItems.length
+        items_count: __cartStore.value.length
       });
     }
   } catch (e) {}
@@ -297,7 +297,7 @@ window.refreshCartPricesAndCleanup = async function () {
       console.error('[cart] refreshCartPricesAndCleanup meta error', e);
     }
 
-    if (!productsData) {
+    if (!__productsStore.value) {
       tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
       return;
     }
@@ -313,11 +313,11 @@ window.refreshCartPricesAndCleanup = async function () {
     const changedItems = [];
 
     const productByKey = new Map(
-      productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
+      __productsStore.value.filter(p => p.inStock).map(p => [buildCartKey(p), p])
     );
-    console.log('[cart] refreshCartPricesAndCleanup productByKey size:', productByKey.size, 'cartItems:', cartItems.length);
+    console.log('[cart] refreshCartPricesAndCleanup productByKey size:', productByKey.size, '__cartStore.value:', __cartStore.value.length);
     
-    cartItems = cartItems.map(item => {
+    __cartStore.value = __cartStore.value.map(item => {
       console.log('[cart] refreshCartPricesAndCleanup mapping item:', item.cartKey, 'price:', item.price);
       const fresh = productByKey.get(item.cartKey);
     
@@ -345,7 +345,7 @@ window.refreshCartPricesAndCleanup = async function () {
       return { ...item, available: true, newPrice: undefined, deleted: false };
     });    
 
-    cartItems = cartItems.filter(i => !i.deleted);
+    __cartStore.value = __cartStore.value.filter(i => !i.deleted);
 
     console.log('[cart] refreshCartPricesAndCleanup removed=', removedCount, 'changed=', changedCount);
     saveCartToStorage();
@@ -491,7 +491,7 @@ function restoreCartFormState() {
 // ---------- Вкладка корзины ----------
 
 window.setPaymentType = function (type) {
-  paymentType = type;
+  __paymentTypeStore.value = type;
   console.log('[cart] setPaymentType', type);
   try {
     if (typeof trackEvent === 'function') {
@@ -530,7 +530,7 @@ window.setPickupLocation = function (addr) {
 };
 
 window.setCartCountryAndRefresh = function (country) {
-  console.log('[setCartCountryAndRefresh] START', {country, currentCartCountry: window.getCartCountry?.(), currentSelectedCountry: window.selectedCountry, currentTab: window.currentTab});
+  console.log('[setCartCountryAndRefresh] START', {country, currentCartCountry: window.getCartCountry?.(), currentSelectedCountry: window.__selectedCountryStore.value, currentTab: window.currentTab});
   // Don't reload if the same country is already selected
   if (window.getCartCountry && window.getCartCountry() === country) {
     console.log('[setCartCountryAndRefresh] same country, skipping reload');
@@ -538,7 +538,7 @@ window.setCartCountryAndRefresh = function (country) {
   }
 
   if (window.setCartCountry && window.setCartCountry(country)) {
-    console.log('[setCartCountryAndRefresh] setCartCountry success, cartCountry now:', window.getCartCountry?.());
+    console.log('[setCartCountryAndRefresh] setCartCountry success, __cartCountryStore.value now:', window.getCartCountry?.());
     // Also sync with shop country
     if (window.setCountry) window.setCountry(country);
     // Set flag to return to cart tab after reload
@@ -593,10 +593,10 @@ function getCartItemSubtitle(item) {
 }
 
 function showCartTab() {
-  console.log('[cart] showCartTab, items=', cartItems.length, 'isPlacingOrder=', isPlacingOrder);
+  console.log('[cart] showCartTab, items=', __cartStore.value.length, 'isPlacingOrder=', isPlacingOrder);
   saveCartFormState();
 
-  if (!cartItems.length) {
+  if (!__cartStore.value.length) {
     root.innerHTML =
       '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
         '<div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">' +
@@ -620,15 +620,15 @@ function showCartTab() {
   }  
 
   // Get cart country and format prices accordingly
-  const cartCountry = window.getCartCountry ? window.getCartCountry() : 'RU';
+  const __cartCountryStore.value = window.getCartCountry ? window.getCartCountry() : 'RU';
   const formatPriceFn = window.formatPriceForCountry || formatPrice;
-  const config = window.getCountryConfig ? window.getCountryConfig(cartCountry) : { currency: 'RUB', symbol: '₽', flag: '🇷🇺', name: 'Россия' };
+  const config = window.getCountryConfig ? window.getCountryConfig(__cartCountryStore.value) : { currency: 'RUB', symbol: '₽', flag: '🇷🇺', name: 'Россия' };
   const currencyLabel = config.currency;
 
   // Compute totals in cart country currency
-  const subtotalRaw = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotalRaw = __cartStore.value.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const subtotal = subtotalRaw;
-  const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
+  const commission = __paymentTypeStore.value === 'card' ? Math.round(subtotal * 0.15) : 0;
   const total = subtotal + commission;
 
   root.innerHTML =
@@ -648,7 +648,7 @@ function showCartTab() {
         '<label class="text-sm font-semibold text-gray-700 block">В какую страну заказ:<span class="text-red-500">*</span></label>' +
         '<div class="flex gap-2">' +
           '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
-            (cartCountry === 'RU' ? 'border-blue-500 bg-blue-50' : 'border-gray-200') + '"' +
+            (__cartCountryStore.value === 'RU' ? 'border-blue-500 bg-blue-50' : 'border-gray-200') + '"' +
             ' onclick="setCartCountryAndRefresh(\'RU\')">' +
             '<input type="radio" name="cartCountry" value="RU" ' + (cartCountry === 'RU' ? 'checked' : '') + ' style="display:none;">' +
             '<span class="flex items-center gap-1">' +
@@ -656,7 +656,7 @@ function showCartTab() {
             '</span>' +
           '</label>' +
           '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
-            (cartCountry === 'BY' ? 'border-green-500 bg-green-50' : 'border-gray-200') + '"' +
+            (__cartCountryStore.value === 'BY' ? 'border-green-500 bg-green-50' : 'border-gray-200') + '"' +
             ' onclick="setCartCountryAndRefresh(\'BY\')">' +
             '<input type="radio" name="cartCountry" value="BY" ' + (cartCountry === 'BY' ? 'checked' : '') + ' style="display:none;">' +
             '<span class="flex items-center gap-1">' +
@@ -665,13 +665,13 @@ function showCartTab() {
           '</label>' +
         '</div>' +
         '<p class="text-xs text-gray-500">Смена страны пересчитает цены товаров</p>' +
-        (cartCountry !== (window.selectedCountry || 'RU')
+        (__cartCountryStore.value !== (window.__selectedCountryStore.value || 'RU')
           ? '<p class="text-xs text-amber-600">⚠ Страна в корзине отличается от магазина</p>'
           : '') +
       '</div>' +
       renderCartPriceStatusNote() +
       '<div class="space-y-3">' +
-        cartItems
+        __cartStore.value
           .map(
             (item, idx) =>
               '<div class="flex items-center justify-between p-3 rounded-xl border ' +
@@ -694,8 +694,8 @@ function showCartTab() {
                     (item.available
                       ? 'В наличии'
                       : item.newPrice
-                      ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, cartCountry) +
-                      ', новая ' + currencyLabel + ' ' + formatPriceFn(item.newPrice, cartCountry)                    
+                      ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, __cartCountryStore.value) +
+                      ', новая ' + currencyLabel + ' ' + formatPriceFn(item.newPrice, __cartCountryStore.value)                    
                       : 'Товар недоступен, удалите из корзины') +
                     '</div>' +
                 '</div>' +
@@ -710,7 +710,7 @@ function showCartTab() {
       ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
   '</div>' +
   '<div class="text-sm font-bold text-blue-600">' + currencyLabel + ' ' +
-    formatPriceFn(item.price * item.quantity, cartCountry) +
+    formatPriceFn(item.price * item.quantity, __cartCountryStore.value) +
   '</div>' +
   (item.newPrice
     ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(\'' +
@@ -731,13 +731,13 @@ function showCartTab() {
           '<div class="flex flex-col gap-2">' +
             '<label class="flex items-center gap-2 text-sm">' +
               '<input type="radio" name="paymentType" value="cash"' +
-                (paymentType === 'cash' ? ' checked' : '') +
+                (__paymentTypeStore.value === 'cash' ? ' checked' : '') +
                 ' onchange="setPaymentType(\'cash\')">' +
               '<span>Наличными (0%)</span>' +
             '</label>' +
             '<label class="flex items-center gap-2 text-sm">' +
               '<input type="radio" name="paymentType" value="card"' +
-                (paymentType === 'card' ? ' checked' : '') +
+                (__paymentTypeStore.value === 'card' ? ' checked' : '') +
                 ' onchange="setPaymentType(\'card\')">' +
               '<span>Картой (+15%)</span>' +
             '</label>' +
@@ -800,8 +800,8 @@ function showCartTab() {
   '<select id="pickupLocation" class="w-full appearance-none bg-white border border-gray-300 rounded-xl pl-3 pr-10 py-2 text-sm"' +
     ' onchange="setPickupLocation(this.value)">' +
     '<option value="">Выберите пункт самовывоза</option>' +
-    (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry] 
-      ? window.PICKUP_LOCATIONS[cartCountry]
+    (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[__cartCountryStore.value] 
+      ? window.PICKUP_LOCATIONS[__cartCountryStore.value]
       : (window.PICKUP_LOCATIONS || [])
     ).map(
       addr =>
@@ -842,30 +842,30 @@ function showCartTab() {
         '<div class="space-y-1 text-sm text-gray-700">' +
           '<div class="flex items-center justify-between">' +
             '<span>Сумма товаров</span>' +
-            '<span>' + currencyLabel + ' ' + formatPriceFn(subtotal, cartCountry) + '</span>' +
+            '<span>' + currencyLabel + ' ' + formatPriceFn(subtotal, __cartCountryStore.value) + '</span>' +
           '</div>' +
-          (paymentType === 'card'
+          (__paymentTypeStore.value === 'card'
             ? '<div class="flex items-center justify-between">' +
                 '<span>Сервисный сбор (карта)</span>' +
-                '<span>+' + currencyLabel + ' ' + formatPriceFn(commission, cartCountry) + '</span>' +
+                '<span>+' + currencyLabel + ' ' + formatPriceFn(commission, __cartCountryStore.value) + '</span>' +
               '</div>'
             : '') +
           '<div class="flex items-center justify-between font-semibold mt-1">' +
             '<span>Итого к оплате</span>' +
-            '<span>' + currencyLabel + ' ' + formatPriceFn(total, cartCountry) + '</span>' +
+            '<span>' + currencyLabel + ' ' + formatPriceFn(total, __cartCountryStore.value) + '</span>' +
           '</div>' +
         '</div>' +
         '<div class="pt-3">' +
           '<button onclick="placeOrder()"' +
             ' id="placeOrderButton"' +
             ' class="w-full flex items-center justify-center gap-2 ' +
-              (!cartItems.some(i => !i.available) && !isPlacingOrder
+              (!__cartStore.value.some(i => !i.available) && !isPlacingOrder
                 ? 'bg-blue-500 hover:bg-blue-600'
                 : 'bg-gray-400 cursor-not-allowed') +
               ' text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg text-sm"' +
-            (cartItems.some(i => !i.available) || isPlacingOrder ? ' disabled' : '') +
+            (__cartStore.value.some(i => !i.available) || isPlacingOrder ? ' disabled' : '') +
           '>' +
-            (cartItems.some(i => !i.available)
+            (__cartStore.value.some(i => !i.available)
               ? 'Удалите недоступные товары или обновите цены'
               : isPlacingOrder
               ? '<span class="loader-circle"></span><span>Проверяю наличие (до 70 сек)...</span>'
@@ -935,8 +935,8 @@ function showCartTab() {
     const pickupSelect = document.getElementById('pickupLocation');
     if (pickupSelect) {
       // предзаполнение по состоянию
-      const pickupLocations = (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry])
-        ? window.PICKUP_LOCATIONS[cartCountry]
+      const pickupLocations = (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[__cartCountryStore.value])
+        ? window.PICKUP_LOCATIONS[__cartCountryStore.value]
         : (window.PICKUP_LOCATIONS ? window.PICKUP_LOCATIONS.RU : []);
       if (pickupLocation && pickupLocations.includes(pickupLocation)) {
         pickupSelect.value = pickupLocation;
@@ -970,7 +970,7 @@ function setPlaceOrderLoading(loading) {
     btn.innerHTML =
       '<span class="loader-circle"></span><span>Проверяю наличие (до 70 сек)...</span>';
   } else {
-    btn.disabled = cartItems.some(i => !i.available);
+    btn.disabled = __cartStore.value.some(i => !i.available);
     btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
     if (!btn.disabled) {
       btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
@@ -1077,19 +1077,19 @@ window.placeOrder = async function () {
 
   const orderClickTs = Date.now();
   const appPriceStatus = captureAppPriceStatusSnapshot();
-  console.log('[placeOrder] start at', orderClickTs, 'items=', cartItems.length);
+  console.log('[placeOrder] start at', orderClickTs, 'items=', __cartStore.value.length);
 
   try {
-    if (cartItems.length && typeof trackCheckoutStart === 'function') {
-      trackCheckoutStart(cartItems, {
-        payment_type: paymentType,
+    if (__cartStore.value.length && typeof trackCheckoutStart === 'function') {
+      trackCheckoutStart(__cartStore.value, {
+        payment_type: __paymentTypeStore.value,
         pickup_mode: pickupMode
       });
     }
   } catch (e2) {}
 
 
-  if (cartItems.length === 0) {
+  if (__cartStore.value.length === 0) {
     tg?.showAlert?.('Корзина пуста.\nДля заказа через менеджера напишите @TechBex.');
     return;
   }
@@ -1130,7 +1130,7 @@ window.placeOrder = async function () {
 
 
   const hasBadName = !isValidName(rawName);
-const hasBadPhone = !normalizePhone(rawPhone, cartCountry);
+const hasBadPhone = !normalizePhone(rawPhone, __cartCountryStore.value);
 const hasNoConfirm = !contactConfirmed;
 
 // 1) Все три не ок: имя, телефон, подтверждение
@@ -1155,9 +1155,9 @@ if (hasBadName) {
 }
 
 // 4) Только телефон не ок
-const normalizedPhone = normalizePhone(rawPhone, cartCountry);
+const normalizedPhone = normalizePhone(rawPhone, __cartCountryStore.value);
 if (!normalizedPhone) {
-  const phoneFormat = cartCountry === 'BY' ? '+375 (XX) XXX-XX-XX' : '+7 (XXX) XXX-XX-XX';
+  const phoneFormat = __cartCountryStore.value === 'BY' ? '+375 (XX) XXX-XX-XX' : '+7 (XXX) XXX-XX-XX';
   tg?.showAlert?.('Введите корректный номер телефона в формате ' + phoneFormat);
   trackEvent('need_type_phone', {}, {});
   return;
@@ -1211,7 +1211,7 @@ if (!contactConfirmed) {
       console.error('[placeOrder] refresh before order failed', e);
     }
 
-    if (!productsData) {
+    if (!__productsStore.value) {
       tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
       isPlacingOrder = false;
       setPlaceOrderLoading(false);
@@ -1220,7 +1220,7 @@ if (!contactConfirmed) {
 
     let hasRateChanged = window.__hasRateChanged;
     window.__hasRateChanged = false;
-    if (cartCountry === 'BY' && window.exchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.exchangeRateUsdRub) > 0.01) {
+    if (__cartCountryStore.value === 'BY' && window.exchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.exchangeRateUsdRub) > 0.01) {
       hasRateChanged = true;
     }
 
@@ -1228,10 +1228,10 @@ if (!contactConfirmed) {
     let hasPriceChanged = false;
 
     const productByKeyForOrder = new Map(
-      productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
+      __productsStore.value.filter(p => p.inStock).map(p => [buildCartKey(p), p])
     );
     
-    cartItems = cartItems.map(item => {
+    __cartStore.value = __cartStore.value.map(item => {
       const fresh = productByKeyForOrder.get(item.cartKey);
 
       if (!fresh) {
@@ -1286,8 +1286,8 @@ if (!contactConfirmed) {
     }
 
     const factPriceStatus = buildFactPriceStatus(hasUnavailable, hasPriceChanged);
-    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-    const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
+    const subtotal = __cartStore.value.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const commission = __paymentTypeStore.value === 'card' ? Math.round(subtotal * 0.15) : 0;
     const total = subtotal + commission;
 
         // сохраняем итоговую сумму для аналитики checkout_result
@@ -1309,12 +1309,12 @@ if (!contactConfirmed) {
     const order = {
       id: Date.now(),
       date: new Date().toISOString(),
-      items: cartItems.slice(),
+      items: __cartStore.value.slice(),
       subtotal,
       commission,
       total,
       address,
-      paymentType,
+      __paymentTypeStore.value,
       pickupMode,
       pickupLocation: pickupMode ? pickupLocation : '',
       user: tg?.initDataUnsafe?.user || null,
@@ -1324,9 +1324,9 @@ if (!contactConfirmed) {
         name: contactName,
         phone: contactPhone
       },
-      country: cartCountry,
+      country: __cartCountryStore.value,
       exchangeRateUsdRub: window.exchangeRateUsdRub,
-      byRounding: window.byRounding,
+      __byRoundingStore.value: window.__byRoundingStore.value,
       appPriceStatus,
       factPriceStatus
     };
@@ -1355,7 +1355,7 @@ if (!contactConfirmed) {
           used_saved_profile: usedSavedProfile,
           used_saved_address: usedSavedAddress,
           pickup_mode: pickupMode,
-          payment_type: paymentType
+          payment_type: __paymentTypeStore.value
         });
       }
       if (typeof trackCheckoutSubmit === 'function') {

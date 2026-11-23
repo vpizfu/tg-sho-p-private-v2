@@ -25,7 +25,7 @@ function getVariantCountText(count) {
 }
 
 function getFinalTypesForCurrentProduct() {
-  if (!currentProduct || !productsData) return [];
+  if (!currentProduct || !__productsStore.value) return [];
 
   const variantsAll = getProductVariants(
     currentProduct['Название']
@@ -175,7 +175,7 @@ window.addToCartFromModal = async function () {
       return;
     }
 
-    if (!productsData) {
+    if (!__productsStore.value) {
       tg?.showAlert?.('Товары не загрузились, попробуйте позже');
       return;
     }
@@ -219,9 +219,9 @@ window.addToCartFromModal = async function () {
         (window.getCurrentCountryConfig
           ? (function() {
               const cfg = window.getCurrentCountryConfig();
-              return cfg.currency + ' ' + (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum));
+              return cfg.currency + ' ' + (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.__selectedCountryStore.value || 'RU') : formatPrice(sum));
             })()
-          : (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum)))
+          : (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.__selectedCountryStore.value || 'RU') : formatPrice(sum)))
     );
     closeModal();
   } finally {
@@ -302,7 +302,7 @@ function renderProductModal(product) {
   let headerPriceText;
   let headerSuffix = '';
 
-  const country = window.selectedCountry || 'RU';
+  const country = window.__selectedCountryStore.value || 'RU';
   const formatPriceFn = window.formatPriceForCountry || formatPrice;
   const cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
   const currencyLabel = cfg.currency;

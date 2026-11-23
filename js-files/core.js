@@ -10,6 +10,49 @@ Object.defineProperty(window, 'exchangeRateUsdRub', {
   configurable: false
 });
 
+const __cartStore = { value: [] };
+const __productsStore = { value: null };
+const __selectedCountryStore = { value: 'RU' };
+const __cartCountryStore = { value: 'RU' };
+const __byRoundingStore = { value: { step: 1, mode: 'ceil' } };
+const __paymentTypeStore = { value: 'cash' };
+
+Object.defineProperty(window, 'cartItems', {
+  get: function() { return __cartStore.value; },
+  set: function(v) {},
+  configurable: false
+});
+
+Object.defineProperty(window, 'selectedCountry', {
+  get: function() { return __selectedCountryStore.value; },
+  set: function(v) { __selectedCountryStore.value = v; },
+  configurable: false
+});
+
+Object.defineProperty(window, 'cartCountry', {
+  get: function() { return __cartCountryStore.value; },
+  set: function(v) { __cartCountryStore.value = v; },
+  configurable: false
+});
+
+Object.defineProperty(window, 'byRounding', {
+  get: function() { return __byRoundingStore.value; },
+  set: function(v) {},
+  configurable: false
+});
+
+Object.defineProperty(window, 'paymentType', {
+  get: function() { return __paymentTypeStore.value; },
+  set: function(v) {},
+  configurable: false
+});
+
+Object.defineProperty(window, 'productsData', {
+  get: function() { return __productsStore.value; },
+  set: function(v) {},
+  configurable: false
+});
+
 // только в браузере: управляем скроллом и «пинаем» адресную строку
 if (!isRealMiniApp) {
   try {
@@ -240,7 +283,7 @@ async function refreshAboutMetaFromBackend() {
         try {
           localStorage.setItem('byRounding', JSON.stringify(byRounding));
         } catch (e) {}
-        console.log('[meta] updated byRounding:', byRounding);
+        console.log('[meta] updated __byRoundingStore.value:', __byRoundingStore.value);
       }
     }
 
@@ -311,14 +354,14 @@ let selectedCategory = 'Все товары',
   query = '',
   loadedCount = 10,
   imageCache = new Map(),
-  productsData = null,
+  __productsStore.value = null,
   currentProduct = null,
   selectedOption = {},
   selectedQuantity = 1,
   searchTimeout = null,
   currentTab = 'shop';
 
-let cartItems = [];
+let __cartStore.value = [];
 let savedAddresses = [];
 let previousOrders = [];
 
@@ -331,7 +374,7 @@ let savedProfile = {
   confirmed: false
 };
 
-let paymentType = 'cash';
+let __paymentTypeStore.value = 'cash';
 let pickupMode = false;
 let pickupLocation = '';
 
@@ -345,36 +388,36 @@ const COUNTRY_CONFIG = {
   BY: { currency: 'USD', symbol: '$', flag: '🇧🇾', locale: 'be-BY', name: 'Беларусь' }
 };
 
-let selectedCountry = 'RU';
+let __selectedCountryStore.value = 'RU';
 
-let byRounding = { step: 1, mode: 'ceil' };
+let __byRoundingStore.value = { step: 1, mode: 'ceil' };
 
 function getCountryConfig(country) {
   return COUNTRY_CONFIG[country] || COUNTRY_CONFIG.RU;
 }
 
 function getCurrentCountryConfig() {
-  return getCountryConfig(selectedCountry);
+  return getCountryConfig(__selectedCountryStore.value);
 }
 
 function setCountry(country) {
   if (!COUNTRY_CONFIG[country]) return false;
-  selectedCountry = country;
+  __selectedCountryStore.value = country;
   try {
     localStorage.setItem('selectedCountry', country);
   } catch (e) {}
   return true;
 }
 
-let cartCountry = 'RU';
+let __cartCountryStore.value = 'RU';
 
 function getCartCountry() {
-  return cartCountry;
+  return __cartCountryStore.value;
 }
 
 function setCartCountry(country) {
   if (!COUNTRY_CONFIG[country]) return false;
-  cartCountry = country;
+  __cartCountryStore.value = country;
   try {
     localStorage.setItem('cartCountry', country);
   } catch (e) {}
@@ -382,7 +425,7 @@ function setCartCountry(country) {
 }
 
 function loadCartCountry() {
-  cartCountry = resolveCountryFromUrlOrStorage();
+  __cartCountryStore.value = resolveCountryFromUrlOrStorage();
   try { localStorage.setItem('cartCountry', cartCountry); } catch (e) {}
 }
 
@@ -391,10 +434,10 @@ function convertPrice(rubPrice, fromCountry, toCountry) {
   const config = getCountryConfig(toCountry);
   if (config.currency === 'USD') {
     const usd = rubPrice / __exchangeRateStore.value;
-    if (byRounding.mode === 'ceil') {
-      return Math.ceil(usd / byRounding.step) * byRounding.step;
+    if (__byRoundingStore.value.mode === 'ceil') {
+      return Math.ceil(usd / __byRoundingStore.value.step) * __byRoundingStore.value.step;
     }
-    return Math.round(usd / byRounding.step) * byRounding.step;
+    return Math.round(usd / __byRoundingStore.value.step) * __byRoundingStore.value.step;
   }
   return rubPrice;
 }
@@ -411,7 +454,7 @@ function getStorageKey(baseKey) {
   if (baseKey === 'cartItems') {
     return baseKey;
   }
-  return `${baseKey}_${selectedCountry}`;
+  return `${baseKey}_${__selectedCountryStore.value}`;
 }
 
 function resolveCountryFromUrlOrStorage() {
@@ -439,14 +482,14 @@ function syncCountryUrl(country) {
 
 function loadSelectedCountryFromStorage() {
   const country = resolveCountryFromUrlOrStorage();
-  selectedCountry = country;
+  __selectedCountryStore.value = country;
   syncCountryUrl(country);
   try { localStorage.setItem('selectedCountry', country); } catch (e) {}
 }
 
 function loadCartCountry() {
   const country = resolveCountryFromUrlOrStorage();
-  cartCountry = country;
+  __cartCountryStore.value = country;
   syncCountryUrl(country);
   try { localStorage.setItem('cartCountry', country); } catch (e) {}
 }
@@ -459,8 +502,8 @@ function setExchangeRate(rate) {
 }
 
 function setByRounding(step, mode) {
-  byRounding.step = Number(step) || 1;
-  byRounding.mode = mode || 'ceil';
+  __byRoundingStore.value.step = Number(step) || 1;
+  __byRoundingStore.value.mode = mode || 'ceil';
   try {
     localStorage.setItem('byRounding', JSON.stringify(byRounding));
   } catch (e) {}
@@ -470,10 +513,18 @@ function loadExchangeRateAndRounding() {
   try {
     const storedRate = localStorage.getItem('exchangeRateUsdRub');
     if (storedRate) {
-      __exchangeRateStore.value = Number(storedRate);
+      const parsed = Number(storedRate);
+      if (parsed > 0 && parsed < 10000) {
+        __exchangeRateStore.value = parsed;
+      }
     }
     const storedRounding = localStorage.getItem('byRounding');
-    if (storedRounding) byRounding = JSON.parse(storedRounding);
+    if (storedRounding) {
+      const parsed = JSON.parse(storedRounding);
+      if (parsed && typeof parsed === 'object' && Number(parsed.step) >= 1 && Number(parsed.step) <= 10000 && ['ceil', 'round', 'floor'].includes(parsed.mode)) {
+        __byRoundingStore.value = parsed;
+      }
+    }
   } catch (e) {
     console.log('[core] loadExchangeRateAndRounding error', e);
   }
@@ -496,10 +547,10 @@ window.getCartCountry = getCartCountry;
 window.setCartCountry = setCartCountry;
 window.loadCartCountry = loadCartCountry;
 
-// Export selectedCountry getter/setter
+// Export __selectedCountryStore.value getter/setter
 Object.defineProperty(window, 'selectedCountry', {
-  get: function() { return selectedCountry; },
-  set: function(val) { selectedCountry = val; },
+  get: function() { return __selectedCountryStore.value; },
+  set: function(val) { __selectedCountryStore.value = val; },
   configurable: true
 });
 
@@ -713,7 +764,7 @@ function stopGlobalPreload() {
 // но глобальные очереди/стейты — здесь, поэтому только обёртки.
 
 function initGlobalWarmupQueues() {
-  if (!productsData || !productsData.length) {
+  if (!__productsStore.value || !__productsStore.value.length) {
     globalMainQueue = [];
     globalOtherQueue = [];
     globalMainIndex = 0;
@@ -722,7 +773,7 @@ function initGlobalWarmupQueues() {
     return;
   }
 
-  const queues = buildSeparatedPreloadQueues(productsData);
+  const queues = buildSeparatedPreloadQueues(__productsStore.value);
   globalMainQueue = queues.mainQueue;
   globalOtherQueue = queues.otherQueue;
   globalMainIndex = 0;
@@ -951,8 +1002,8 @@ window.onerror = function (message, source, lineno, colno, error) {
 function saveCartToStorage() {
   try {
     const key = getStorageKey('cartItems');
-    console.log('[core] saveCartToStorage key:', key, 'items:', cartItems.length, cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
-    localStorage.setItem(key, JSON.stringify(cartItems));
+    console.log('[core] saveCartToStorage key:', key, 'items:', __cartStore.value.length, __cartStore.value.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
+    localStorage.setItem(key, JSON.stringify(__cartStore.value));
   } catch (e) {
     console.log('[core] saveCartToStorage error', e);
   }
@@ -963,20 +1014,20 @@ function loadCartFromStorage() {
     const key = getStorageKey('cartItems');
     console.log('[core] loadCartFromStorage key:', key);
     const raw = localStorage.getItem(key);
-    cartItems = raw ? JSON.parse(raw) : [];
+    __cartStore.value = raw ? JSON.parse(raw) : [];
 
     // миграция: старые записи без cartKey восстановить невозможно — дропаем
-    const before = cartItems.length;
-    cartItems = cartItems.filter(item => !!item.cartKey);
-    if (cartItems.length !== before) {
-      console.log('[cart] migration: dropped', before - cartItems.length, 'legacy items without cartKey');
+    const before = __cartStore.value.length;
+    __cartStore.value = __cartStore.value.filter(item => !!item.cartKey);
+    if (__cartStore.value.length !== before) {
+      console.log('[cart] migration: dropped', before - __cartStore.value.length, 'legacy items without cartKey');
       saveCartToStorage();
     }
   } catch (e) {
     console.log('[core] loadCartFromStorage error', e);
-    cartItems = [];
+    __cartStore.value = [];
   }
-  console.log('[core] cartItems loaded', cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
+  console.log('[core] __cartStore.value loaded', __cartStore.value.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
   updateCartBadge();
 }
 
@@ -1034,11 +1085,11 @@ function buildFilterOrderByCat(products) {
 const DELIVERY_PREFS_KEY = 'deliveryPrefs_v1';
 
 function getDeliveryPrefsKey() {
-  return `${DELIVERY_PREFS_KEY}_${selectedCountry}`;
+  return `${DELIVERY_PREFS_KEY}_${__selectedCountryStore.value}`;
 }
 
 let deliveryPrefs = {
-  paymentType: 'cash',
+  __paymentTypeStore.value: 'cash',
   pickupMode: false,
   pickupLocation: '',
   savedAddressValue: ''
@@ -1051,15 +1102,15 @@ function loadDeliveryPrefs() {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object') return;
 
-    deliveryPrefs.paymentType = parsed.paymentType ?? 'cash';
+    deliveryPrefs.__paymentTypeStore.value = parsed.__paymentTypeStore.value ?? 'cash';
     deliveryPrefs.pickupMode = !!parsed.pickupMode;
     deliveryPrefs.pickupLocation = parsed.pickupLocation || '';
     deliveryPrefs.savedAddressValue = parsed.savedAddressValue || '';
 
-    paymentType = deliveryPrefs.paymentType;
+    __paymentTypeStore.value = deliveryPrefs.__paymentTypeStore.value;
     pickupMode = deliveryPrefs.pickupMode;
 
-    const locations = PICKUP_LOCATIONS[selectedCountry] || PICKUP_LOCATIONS.RU;
+    const locations = PICKUP_LOCATIONS[__selectedCountryStore.value] || PICKUP_LOCATIONS.RU;
     pickupLocation = locations.includes(deliveryPrefs.pickupLocation)
       ? deliveryPrefs.pickupLocation
       : '';
@@ -1073,7 +1124,7 @@ function loadDeliveryPrefs() {
 function saveDeliveryPrefs() {
   try {
     const data = {
-      paymentType,
+      __paymentTypeStore.value,
       pickupMode,
       pickupLocation,
       savedAddressValue: cartFormState.savedAddressValue || ''
@@ -1355,7 +1406,7 @@ function switchTab(tabName) {
 
           refreshAboutMetaFromBackend();
 
-          if (!productsData) {
+          if (!__productsStore.value) {
             // товары ещё не загружены — показываем шиммер
             root.innerHTML = buildShimmerHTML();
           } else {
@@ -1365,8 +1416,8 @@ function switchTab(tabName) {
         }        
       } else if (tabName === 'cart') {
         try {
-          if (cartItems.length && typeof trackCartView === 'function') {
-            trackCartView(cartItems);
+          if (__cartStore.value.length && typeof trackCartView === 'function') {
+            trackCartView(__cartStore.value);
           }
         } catch (e2) {}
         showCartTab();
@@ -1406,13 +1457,13 @@ function switchTab(tabName) {
 // ---------- Синхронизация корзины и товаров ----------
 
 function syncCartWithProducts() {
-  if (!productsData) return;
+  if (!__productsStore.value) return;
 
   const productByKey = new Map(
-    productsData.map(p => [buildCartKey(p), p])
+    __productsStore.value.map(p => [buildCartKey(p), p])
   );
 
-  cartItems = cartItems.map(item => {
+  __cartStore.value = __cartStore.value.map(item => {
     const product = productByKey.get(item.cartKey);
 
     if (!product || !product.inStock) {
@@ -1503,19 +1554,19 @@ async function fetchAndUpdateProducts(showLoader = false) {
       Array.isArray(products) ? products.length : 'not array'
     );
 
-    productsData = Array.isArray(products) ? products : [];
+    __productsStore.value = Array.isArray(products) ? products : [];
 
-    FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
+    FILTER_ORDER_BY_CAT = buildFilterOrderByCat(__productsStore.value);
     console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
 
     const cats = Array.from(
-      new Set(productsData.map(p => p.cat).filter(Boolean))
+      new Set(__productsStore.value.map(p => p.cat).filter(Boolean))
     );
     CATEGORIES = ['Все товары', ...cats];
     console.log('[core] CATEGORIES', CATEGORIES);
 
     syncProductsAndCart();
-    logStage('update productsData + sync', t0);
+    logStage('update __productsStore.value + sync', t0);
 
     await refreshAboutMetaFromBackend();
   } catch (error) {
@@ -1844,7 +1895,7 @@ function setupInfiniteScroll() {
               return;
             }
             const productName = card.dataset.productName;
-            const product = productsData.find(
+            const product = __productsStore.value.find(
               p => p['Название'] === productName
             );
             if (product) {
@@ -1976,7 +2027,7 @@ async function initApp() {
     console.log('[core] initApp loading country config');
     loadSelectedCountryFromStorage();
     loadExchangeRateAndRounding();
-    console.log('[core] after country config, selectedCountry:', selectedCountry);
+    console.log('[core] after country config, __selectedCountryStore.value:', __selectedCountryStore.value);
     logStage('after country config', t0);
 
     if (currentTab === 'shop') {
@@ -2002,7 +2053,7 @@ async function initApp() {
     loadCartFromStorage();
     loadDeliveryPrefs();
     loadCartCountry();
-    console.log('[core] after localStorage - selectedCountry:', selectedCountry, 'cartCountry:', cartCountry, 'cartItems:', cartItems.length);
+    console.log('[core] after localStorage - __selectedCountryStore.value:', __selectedCountryStore.value, '__cartCountryStore.value:', __cartCountryStore.value, '__cartStore.value:', __cartStore.value.length);
     logStage('after localStorage', t0);
 
     // валидация сохранённого адреса
