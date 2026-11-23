@@ -914,7 +914,10 @@ function showCartTab() {
     const pickupSelect = document.getElementById('pickupLocation');
     if (pickupSelect) {
       // предзаполнение по состоянию
-      if (pickupLocation && PICKUP_LOCATIONS.includes(pickupLocation)) {
+      const pickupLocations = (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry])
+        ? window.PICKUP_LOCATIONS[cartCountry]
+        : (window.PICKUP_LOCATIONS ? window.PICKUP_LOCATIONS.RU : []);
+      if (pickupLocation && pickupLocations.includes(pickupLocation)) {
         pickupSelect.value = pickupLocation;
       } else {
         pickupSelect.value = '';
