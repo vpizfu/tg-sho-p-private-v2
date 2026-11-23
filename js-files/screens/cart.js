@@ -132,7 +132,7 @@ function resetCartStateAfterOrder() {
 
 
 function addToCart(variant, quantity) {
-  console.log('[cart] addToCart', variant, quantity);
+  console.log('[cart] addToCart START', {variant, quantity, cartItemsLen: cartItems.length, selectedCountry, cartCountry: window.getCartCountry?.()});
   if (!productsData) {
     tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
     return;
@@ -140,12 +140,14 @@ function addToCart(variant, quantity) {
 
   const freshVariant = productsData.find(p => p.id === variant.id) || variant;
   const cartKey = buildCartKey(freshVariant);
+  console.log('[cart] addToCart freshVariant:', freshVariant['Название'], 'price:', freshVariant['Цена'], 'cartKey:', cartKey, 'selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.());
 
   const existing = cartItems.find(item => item.cartKey === cartKey);
   if (existing) {
     existing.quantity = Math.min(existing.quantity + quantity, 100);
+    console.log('[cart] addToCart existing item, new qty:', existing.quantity);
   } else {
-    cartItems.push({
+    const newItem = {
       cartKey,
       name:     freshVariant['Название'],
       price:    freshVariant['Цена'],
@@ -157,7 +159,9 @@ function addToCart(variant, quantity) {
           .filter(k => !CART_KEY_EXCLUDE.has(k))
           .map(k => [k, freshVariant[k]])
       )
-    });
+    };
+    console.log('[cart] addToCart new item:', newItem);
+    cartItems.push(newItem);
   }
 
   saveCartToStorage();
@@ -173,6 +177,7 @@ function addToCart(variant, quantity) {
   } catch (e2) {}
 
   tg?.HapticFeedback?.notificationOccurred('success');
+  console.log('[cart] addToCart END, cartItems:', cartItems.length);
 }
 
 window.changeCartItemQuantity = function (cartKey, delta) {
@@ -257,7 +262,7 @@ window.updateCartItemPrice = function (cartKey) {
 
 // обновить цены всех и удалить неактуальные
 window.refreshCartPricesAndCleanup = async function () {
-  console.log('[cart] refreshCartPricesAndCleanup start');
+  console.log('[cart] refreshCartPricesAndCleanup START', {cartItemsLen: cartItems.length, cartItems: cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price})), selectedCountry: window.selectedCountry, cartCountry: window.getCartCountry?.()});
   try {
     if (typeof trackEvent === 'function') {
       trackEvent('cart_refresh_clicked', {
@@ -304,8 +309,10 @@ window.refreshCartPricesAndCleanup = async function () {
     const productByKey = new Map(
       productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
     );
+    console.log('[cart] refreshCartPricesAndCleanup productByKey size:', productByKey.size, 'cartItems:', cartItems.length);
     
     cartItems = cartItems.map(item => {
+      console.log('[cart] refreshCartPricesAndCleanup mapping item:', item.cartKey, 'price:', item.price);
       const fresh = productByKey.get(item.cartKey);
     
       if (!fresh) {
@@ -517,6 +524,7 @@ window.setPickupLocation = function (addr) {
 };
 
 window.setCartCountryAndRefresh = function (country) {
+  console.log('[setCartCountryAndRefresh] START', {country, currentCartCountry: window.getCartCountry?.(), currentSelectedCountry: window.selectedCountry, currentTab: window.currentTab});
   // Don't reload if the same country is already selected
   if (window.getCartCountry && window.getCartCountry() === country) {
     console.log('[setCartCountryAndRefresh] same country, skipping reload');
@@ -524,10 +532,12 @@ window.setCartCountryAndRefresh = function (country) {
   }
 
   if (window.setCartCountry && window.setCartCountry(country)) {
+    console.log('[setCartCountryAndRefresh] setCartCountry success, cartCountry now:', window.getCartCountry?.());
     // Also sync with shop country
     if (window.setCountry) window.setCountry(country);
     // Set flag to return to cart tab after reload
     sessionStorage.setItem('openCartAfterReload', 'true');
+    console.log('[setCartCountryAndRefresh] set openCartAfterReload=true');
     // Reload page with new country query param for full price recalculation
     const url = new URL(window.location.href);
     url.searchParams.set('country', country);
@@ -538,6 +548,7 @@ window.setCartCountryAndRefresh = function (country) {
     loader.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:16px;color:#0284c7;';
     loader.textContent = 'Переключаем магазин...';
     document.body.appendChild(loader);
+    console.log('[setCartCountryAndRefresh] reloading page with country:', country);
     window.location.href = url.toString();
   }
 };

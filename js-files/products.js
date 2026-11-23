@@ -1156,6 +1156,7 @@ function renderCategoryOptionsIntoContainer(categories, container, selected) {
 
 function renderShop() {
   console.log('---------------- [renderShop] ----------------');
+  console.log('[renderShop] selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.(), 'cartItems:', cartItems?.length);
   console.log(
     '[renderShop] BEFORE getVisibleProducts, query =',
     JSON.stringify(query),
@@ -1187,6 +1188,8 @@ function renderShop() {
   }
 
   const list = getVisibleProducts();
+
+  console.log('[renderShop] AFTER getVisibleProducts, cartItems:', cartItems?.length, 'selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.());
 
   let showCount;
   if (query.trim()) {

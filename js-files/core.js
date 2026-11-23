@@ -216,13 +216,32 @@ async function refreshAboutMetaFromBackend() {
     console.log('[meta] meta received:', meta);
     console.log('[meta] formatted text:', nextText);
 
+    // Update exchange rate and rounding from meta if available
+    if (meta && typeof meta === 'object') {
+      if (meta.exchangeRateUsdRub !== undefined) {
+        exchangeRateUsdRub = Number(meta.exchangeRateUsdRub) || exchangeRateUsdRub;
+        try {
+          localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
+        } catch (e) {}
+        console.log('[meta] updated exchangeRateUsdRub:', exchangeRateUsdRub);
+      }
+      if (meta.byRounding) {
+        byRounding.step = Number(meta.byRounding.step) || byRounding.step;
+        byRounding.mode = meta.byRounding.mode || byRounding.mode;
+        try {
+          localStorage.setItem('byRounding', JSON.stringify(byRounding));
+        } catch (e) {}
+        console.log('[meta] updated byRounding:', byRounding);
+      }
+    }
+
     aboutLastProductsMeta = meta;
-    aboutLastProductsMetaText = nextText;
+    aboutLastProductsMetaText = formatProductsUpdatedMsk(meta);
 
     if (currentTab === 'about') {
       const valueEl = document.getElementById('pricesUpdatedValue');
-      if (valueEl && valueEl.textContent !== nextText) {
-        valueEl.textContent = nextText;
+      if (valueEl && valueEl.textContent !== aboutLastProductsMetaText) {
+        valueEl.textContent = aboutLastProductsMetaText;
       }
     }
 
@@ -922,7 +941,7 @@ function getStorageKey(baseKey) {
 function saveCartToStorage() {
   try {
     const key = getStorageKey('cartItems');
-    console.log('[core] saveCartToStorage key:', key, 'items:', cartItems.length);
+    console.log('[core] saveCartToStorage key:', key, 'items:', cartItems.length, cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
     localStorage.setItem(key, JSON.stringify(cartItems));
   } catch (e) {
     console.log('[core] saveCartToStorage error', e);
@@ -947,7 +966,7 @@ function loadCartFromStorage() {
     console.log('[core] loadCartFromStorage error', e);
     cartItems = [];
   }
-  console.log('[core] cartItems loaded', cartItems);
+  console.log('[core] cartItems loaded', cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
   updateCartBadge();
 }
 
@@ -1940,8 +1959,10 @@ async function initApp() {
     logStage('after initTabBar', t0);
 
     // загружаем страну, курс и настройки округления ДО загрузки localStorage
+    console.log('[core] initApp loading country config');
     loadSelectedCountryFromStorage();
     loadExchangeRateAndRounding();
+    console.log('[core] after country config, selectedCountry:', selectedCountry);
     logStage('after country config', t0);
 
     if (currentTab === 'shop') {
@@ -1960,12 +1981,14 @@ async function initApp() {
     }
 
     // локальное состояние
+    console.log('[core] initApp loading localStorage');
     loadOrdersFromStorage();
     loadAddressesFromStorage();
     loadProfileFromStorage();
     loadCartFromStorage();
     loadDeliveryPrefs();
     loadCartCountry();
+    console.log('[core] after localStorage - selectedCountry:', selectedCountry, 'cartCountry:', cartCountry, 'cartItems:', cartItems.length);
     logStage('after localStorage', t0);
 
     // валидация сохранённого адреса
