@@ -409,24 +409,37 @@ function getStorageKey(baseKey) {
 function resolveCountryFromUrlOrStorage() {
   const fromUrl = new URLSearchParams(window.location.search).get('country');
   if (fromUrl && COUNTRY_CONFIG[fromUrl]) return fromUrl;
+  let country;
   if (fromUrl != null) {
     const stored = (() => { try { return localStorage.getItem('selectedCountry'); } catch (e) {} })();
-    if (stored && COUNTRY_CONFIG[stored]) return stored;
+    country = (stored && COUNTRY_CONFIG[stored]) ? stored : 'RU';
+  } else {
+    const stored = (() => { try { return localStorage.getItem('selectedCountry'); } catch (e) {} })();
+    country = (stored && COUNTRY_CONFIG[stored]) ? stored : 'RU';
   }
-  const stored = (() => { try { return localStorage.getItem('selectedCountry'); } catch (e) {} })();
-  if (stored && COUNTRY_CONFIG[stored]) return stored;
-  return 'RU';
+  return country;
+}
+
+function syncCountryUrl(country) {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('country') !== country) {
+    params.set('country', country);
+    const newUrl = window.location.pathname + '?' + params.toString();
+    window.history.replaceState(null, '', newUrl);
+  }
 }
 
 function loadSelectedCountryFromStorage() {
   const country = resolveCountryFromUrlOrStorage();
   selectedCountry = country;
+  syncCountryUrl(country);
   try { localStorage.setItem('selectedCountry', country); } catch (e) {}
 }
 
 function loadCartCountry() {
   const country = resolveCountryFromUrlOrStorage();
   cartCountry = country;
+  syncCountryUrl(country);
   try { localStorage.setItem('cartCountry', country); } catch (e) {}
 }
 
