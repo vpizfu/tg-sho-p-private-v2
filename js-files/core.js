@@ -220,6 +220,7 @@ async function refreshAboutMetaFromBackend() {
     if (meta && typeof meta === 'object') {
       if (meta.exchangeRateUsdRub !== undefined) {
         exchangeRateUsdRub = Number(meta.exchangeRateUsdRub) || exchangeRateUsdRub;
+        window.exchangeRateUsdRub = exchangeRateUsdRub;
         try {
           localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
         } catch (e) {}
@@ -445,6 +446,7 @@ function loadSelectedCountryFromStorage() {
 
 function setExchangeRate(rate) {
   exchangeRateUsdRub = Number(rate) || 90;
+  window.exchangeRateUsdRub = exchangeRateUsdRub;
   try {
     localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
   } catch (e) {}
@@ -461,7 +463,10 @@ function setByRounding(step, mode) {
 function loadExchangeRateAndRounding() {
   try {
     const storedRate = localStorage.getItem('exchangeRateUsdRub');
-    if (storedRate) exchangeRateUsdRub = Number(storedRate);
+    if (storedRate) {
+      exchangeRateUsdRub = Number(storedRate);
+      window.exchangeRateUsdRub = exchangeRateUsdRub;
+    }
     const storedRounding = localStorage.getItem('byRounding');
     if (storedRounding) byRounding = JSON.parse(storedRounding);
   } catch (e) {

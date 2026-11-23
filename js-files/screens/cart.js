@@ -307,10 +307,8 @@ window.refreshCartPricesAndCleanup = async function () {
     const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
     if (cc === 'BY') {
       const newRate = window.exchangeRateUsdRub;
-      console.log('[cart] refresh rate debug', {old: oldExchangeRate, new: newRate, cc});
       if (oldExchangeRate != null && newRate != null && Math.abs(newRate - oldExchangeRate) > 0.01) {
         hasRateChanged = true;
-        console.log('[cart] refresh rate changed');
       }
     }
 
@@ -1227,10 +1225,8 @@ if (!contactConfirmed) {
     let hasRateChanged = false;
     if (cartCountry === 'BY') {
       const newRate = window.exchangeRateUsdRub;
-      console.log('[placeOrder] rate debug', {old: oldExchangeRate, new: newRate, cartCountry});
       if (oldExchangeRate != null && newRate != null && Math.abs(newRate - oldExchangeRate) > 0.01) {
         hasRateChanged = true;
-        console.log('[placeOrder] rate changed');
       }
     }
 
