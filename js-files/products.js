@@ -640,9 +640,11 @@ function renderShopHeader(list, showCount) {
 
 return (
     '<div class="mb-5">' +
-      '<div class="flex items-center justify-between mb-4 gap-3">' +
+      '<div class="flex items-center justify-between mb-4 gap-3 min-w-0">' +
         '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
-        renderShopPriceStatusInline() +
+        '<div class="flex-shrink-0">' +
+          renderShopPriceStatusInline() +
+        '</div>' +
       '</div>' +
 '<div class="flex items-center justify-between mb-4 gap-2 relative">' +
         '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
@@ -689,19 +691,30 @@ return (
 }
 
 // Country picker functions
+// Country picker functions
 window.toggleCountryPicker = function() {
   const picker = document.getElementById('countryPicker');
-  console.log('[toggleCountryPicker] picker:', picker, 'hidden:', picker?.classList.contains('hidden'));
-  if (!picker) return;
+  const selector = document.getElementById('countrySelector');
+  console.log('[toggleCountryPicker] picker:', picker, 'selector:', selector);
+  if (!picker) {
+    console.error('[toggleCountryPicker] picker not found!');
+    return;
+  }
   const wasHidden = picker.classList.contains('hidden');
   picker.classList.toggle('hidden');
-  console.log('[toggleCountryPicker] after toggle, hidden:', picker.classList.contains('hidden'), 'wasHidden:', wasHidden);
+  console.log('[toggleCountryPicker] toggled, hidden:', picker.classList.contains('hidden'));
   if (!picker.classList.contains('hidden')) {
-    // Ensure picker is positioned correctly
+    // Ensure picker is positioned correctly relative to selector
     const selector = document.getElementById('countrySelector');
     if (selector) {
       const rect = selector.getBoundingClientRect();
       console.log('[toggleCountryPicker] selector rect:', rect);
+      // Force picker to be positioned correctly
+      picker.style.left = '';
+      picker.style.right = '';
+      picker.style.top = '';
+      picker.style.left = '';
+      picker.style.transform = '';
     }
   }
 };
@@ -710,6 +723,10 @@ window.setCountryAndRefresh = function(country) {
   if (window.setCountry && window.setCountry(country)) {
     const picker = document.getElementById('countryPicker');
     if (picker) picker.classList.add('hidden');
+    // Set flag to return to cart tab if we're currently on cart tab
+    if (window.currentTab === 'cart') {
+      sessionStorage.setItem('openCartAfterReload', 'true');
+    }
     // Reload page with new country query param for full price recalculation
     const url = new URL(window.location.href);
     url.searchParams.set('country', country);
@@ -724,16 +741,16 @@ window.setCountryAndRefresh = function(country) {
   }
 };
 
-// Delegation for country picker buttons (like category dropdown)
-if (!document.__countryPickerDelegationBound) {
-  document.__countryPickerDelegationBound = true;
+// Close picker when clicking outside
+if (!document.__countryPickerOutsideClickBound) {
+  document.__countryPickerOutsideClickBound = true;
   document.addEventListener('click', function(e) {
-    const btn = e.target.closest('#countryPicker button[data-country]');
-    if (!btn) return;
-    e.stopPropagation();
-    const country = btn.getAttribute('data-country');
-    if (country) {
-      setCountryAndRefresh(country);
+    const picker = document.getElementById('countryPicker');
+    const selector = document.getElementById('countrySelector');
+    if (picker && selector && !picker.contains(e.target) && !selector.contains(e.target)) {
+      if (!picker.classList.contains('hidden')) {
+        picker.classList.add('hidden');
+      }
     }
   });
 };

@@ -372,6 +372,11 @@ function loadCartCountry() {
   } catch (e) {
     cartCountry = selectedCountry;
   }
+  // Ensure cartCountry matches selectedCountry unless explicitly changed by user
+  if (cartCountry !== selectedCountry) {
+    cartCountry = selectedCountry;
+    localStorage.setItem('cartCountry', selectedCountry);
+  }
 }
 
 function convertPrice(rubPrice, fromCountry, toCountry) {

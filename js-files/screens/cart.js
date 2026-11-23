@@ -520,6 +520,8 @@ window.setCartCountryAndRefresh = function (country) {
   if (window.setCartCountry && window.setCartCountry(country)) {
     // Also sync with shop country
     if (window.setCountry) window.setCountry(country);
+    // Set flag to return to cart tab after reload
+    sessionStorage.setItem('openCartAfterReload', 'true');
     // Reload page with new country query param for full price recalculation
     const url = new URL(window.location.href);
     url.searchParams.set('country', country);
