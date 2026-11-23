@@ -393,8 +393,12 @@ function formatPriceForCountry(rubPrice, country) {
   const num = Math.floor(Number(price) || 0);
   return String(num);
 }
-
+ 
 function getStorageKey(baseKey) {
+  // Cart is shared between countries, only addresses and profile are country-specific
+  if (baseKey === 'cartItems') {
+    return baseKey;
+  }
   return `${baseKey}_${selectedCountry}`;
 }
 

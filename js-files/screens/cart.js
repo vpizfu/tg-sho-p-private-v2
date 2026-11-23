@@ -620,7 +620,7 @@ function showCartTab() {
       '</div>' +
       // Country selector
       '<div class="space-y-2 mb-4 p-3 bg-gray-50 rounded-xl border border-gray-200">' +
-        '<label class="text-sm font-semibold text-gray-700 block">Страна заказа <span class="text-red-500">*</span></label>' +
+        '<label class="text-sm font-semibold text-gray-700 block">Регион <span class="text-red-500">*</span></label>' +
         '<div class="flex gap-2">' +
           '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
             (cartCountry === 'RU' ? 'border-blue-500 bg-blue-50' : 'border-gray-200') + '"' +
