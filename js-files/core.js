@@ -306,11 +306,8 @@ async function refreshAboutMetaFromBackend() {
       }
     }
 
-    if (currentTab === 'shop' && typeof updateShopPriceStatusBadge === 'function') {
-      console.log('[meta] calling updateShopPriceStatusBadge');
-      updateShopPriceStatusBadge();
-    } else {
-      console.log('[meta] not calling updateShopPriceStatusBadge, currentTab:', currentTab, 'updateShopPriceStatusBadge exists:', typeof updateShopPriceStatusBadge === 'function');
+    if (currentTab === 'shop' && typeof renderShop === 'function') {
+      renderShop();
     }
   } catch (err) {
     console.error('[about] refreshAboutMetaFromBackend error', err);

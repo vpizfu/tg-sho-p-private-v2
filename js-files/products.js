@@ -561,43 +561,7 @@ function getShopPriceStatusMeta() {
   };
 }
 
-function renderShopPriceStatusBadge() {
-  const shopPriceStatus = getShopPriceStatusMeta();
-  if (!shopPriceStatus) return '';
 
-  return (
-    '<div id="shopPriceStatusWrap" class="mt-1">' +
-      '<div id="shopPriceStatusBadge" class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' + shopPriceStatus.pillClasses + '">' +
-        escapeHtml(shopPriceStatus.text) +
-      '</div>' +
-    '</div>'
-  );
-}
-
-function updateShopPriceStatusBadge() {
-  const wrap = document.getElementById('shopPriceStatusWrap');
-  const badge = document.getElementById('shopPriceStatusBadge');
-  const shopPriceStatus = getShopPriceStatusMeta();
-
-  if (!shopPriceStatus) {
-    if (wrap) wrap.remove();
-    return;
-  }
-
-  if (!badge) {
-    const logoWrap = document.querySelector('.nav-logo')?.parentElement;
-    if (logoWrap) {
-      logoWrap.insertAdjacentHTML('beforeend', renderShopPriceStatusBadge());
-    }
-    return;
-  }
-
-  badge.className =
-    'inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' +
-    shopPriceStatus.pillClasses;
-
-  badge.textContent = shopPriceStatus.text;
-}
 
 function renderShopPriceStatusInline() {
   const shopPriceStatus = getShopPriceStatusMeta();
