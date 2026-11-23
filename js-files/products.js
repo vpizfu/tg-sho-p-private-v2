@@ -665,7 +665,7 @@ return (
       '<div class="flex items-center gap-2">' +
         '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
           '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
-          '<select id="category" class="w-full bg-transparent border-none font-semibold text-base focus:outline-none appearance-none">' +
+          '<select id="category" class="w-full bg-transparent border-none font-semibold text-base focus:outline-none appearance-none text-left">' +
             optionsHtml +
           '</select>' +
         '</div>' +
@@ -693,8 +693,17 @@ window.toggleCountryPicker = function() {
   const picker = document.getElementById('countryPicker');
   console.log('[toggleCountryPicker] picker:', picker, 'hidden:', picker?.classList.contains('hidden'));
   if (!picker) return;
+  const wasHidden = picker.classList.contains('hidden');
   picker.classList.toggle('hidden');
-  console.log('[toggleCountryPicker] after toggle, hidden:', picker.classList.contains('hidden'));
+  console.log('[toggleCountryPicker] after toggle, hidden:', picker.classList.contains('hidden'), 'wasHidden:', wasHidden);
+  if (!picker.classList.contains('hidden')) {
+    // Ensure picker is positioned correctly
+    const selector = document.getElementById('countrySelector');
+    if (selector) {
+      const rect = selector.getBoundingClientRect();
+      console.log('[toggleCountryPicker] selector rect:', rect);
+    }
+  }
 };
 
 window.setCountryAndRefresh = function(country) {

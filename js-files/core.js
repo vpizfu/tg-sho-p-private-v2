@@ -916,7 +916,9 @@ function getStorageKey(baseKey) {
 
 function saveCartToStorage() {
   try {
-    localStorage.setItem(getStorageKey('cartItems'), JSON.stringify(cartItems));
+    const key = getStorageKey('cartItems');
+    console.log('[core] saveCartToStorage key:', key, 'items:', cartItems.length);
+    localStorage.setItem(key, JSON.stringify(cartItems));
   } catch (e) {
     console.log('[core] saveCartToStorage error', e);
   }
@@ -924,7 +926,9 @@ function saveCartToStorage() {
 
 function loadCartFromStorage() {
   try {
-    const raw = localStorage.getItem(getStorageKey('cartItems'));
+    const key = getStorageKey('cartItems');
+    console.log('[core] loadCartFromStorage key:', key);
+    const raw = localStorage.getItem(key);
     cartItems = raw ? JSON.parse(raw) : [];
 
     // миграция: старые записи без cartKey восстановить невозможно — дропаем
