@@ -327,8 +327,8 @@ let pickupMode = false;
 let pickupLocation = '';
 
 const PICKUP_LOCATIONS = {
-  RU: ['г. Москва, ул. Барклая, 8, Бизнес центр Рубин'],
-  BY: ['заглушка, белорусский адрес']
+  RU: ['г. Москва, ул. Барклая, 8, БЦ Рубин'],
+  BY: ['Заглушка, белорусский адрес']
 };
 
 const COUNTRY_CONFIG = {
