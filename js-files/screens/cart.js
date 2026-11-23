@@ -184,7 +184,13 @@ window.changeCartItemQuantity = function (cartKey, delta) {
   if (!item) return;
   const oldQuantity = item.quantity;
   let q = item.quantity + delta;
-  if (q < 1) q = 1;
+  if (q < 1) {
+    __cartStore.value = __cartStore.value.filter(i => i.cartKey !== cartKey);
+    saveCartToStorage();
+    updateCartBadge();
+    if (currentTab === 'cart') showCartTab();
+    return;
+  }
   if (q > 100) q = 100;
   item.quantity = q;
   console.log('[cart] changeCartItemQuantity cartKey=', cartKey, 'quantity=', q);
