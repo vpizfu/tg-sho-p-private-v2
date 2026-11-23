@@ -282,7 +282,7 @@ window.refreshCartPricesAndCleanup = async function () {
   }
 
   try {
-    const oldExchangeRate = window.exchangeRateUsdRub;
+    const oldExchangeRate = Number(localStorage.getItem('exchangeRateUsdRub'));
 
     try {
       await fetchAndUpdateProducts(false);
@@ -306,8 +306,8 @@ window.refreshCartPricesAndCleanup = async function () {
     let hasRateChanged = false;
     const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
     if (cc === 'BY') {
-      const newRate = window.exchangeRateUsdRub;
-      if (oldExchangeRate != null && newRate != null && Math.abs(newRate - oldExchangeRate) > 0.01) {
+      const newRate = Number(localStorage.getItem('exchangeRateUsdRub'));
+      if (oldExchangeRate && newRate && Math.abs(newRate - oldExchangeRate) > 0.01) {
         hasRateChanged = true;
       }
     }
@@ -1207,7 +1207,7 @@ if (!contactConfirmed) {
   }, 70000);
 
   try {
-    const oldExchangeRate = window.exchangeRateUsdRub;
+    const oldExchangeRate = Number(localStorage.getItem('exchangeRateUsdRub'));
 
     try {
       await fetchAndUpdateProducts(false);
@@ -1224,8 +1224,8 @@ if (!contactConfirmed) {
 
     let hasRateChanged = false;
     if (cartCountry === 'BY') {
-      const newRate = window.exchangeRateUsdRub;
-      if (oldExchangeRate != null && newRate != null && Math.abs(newRate - oldExchangeRate) > 0.01) {
+      const newRate = Number(localStorage.getItem('exchangeRateUsdRub'));
+      if (oldExchangeRate && newRate && Math.abs(newRate - oldExchangeRate) > 0.01) {
         hasRateChanged = true;
       }
     }

@@ -219,8 +219,8 @@ async function refreshAboutMetaFromBackend() {
     // Update exchange rate and rounding from meta if available
     if (meta && typeof meta === 'object') {
       if (meta.exchangeRateUsdRub !== undefined) {
+        meta._rawRate = exchangeRateUsdRub;
         exchangeRateUsdRub = Number(meta.exchangeRateUsdRub) || exchangeRateUsdRub;
-        window.exchangeRateUsdRub = exchangeRateUsdRub;
         try {
           localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
         } catch (e) {}
