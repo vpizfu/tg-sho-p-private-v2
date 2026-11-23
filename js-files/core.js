@@ -224,6 +224,7 @@ async function refreshAboutMetaFromBackend() {
         try {
           localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
         } catch (e) {}
+        window.exchangeRateUsdRub = exchangeRateUsdRub;
         console.log('[meta] updated exchangeRateUsdRub:', exchangeRateUsdRub);
       }
       if (meta.byRounding) {
