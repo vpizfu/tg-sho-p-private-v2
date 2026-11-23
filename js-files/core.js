@@ -936,10 +936,6 @@ window.onerror = function (message, source, lineno, colno, error) {
 
 // ---------- localStorage (корзина, адреса, профиль) ----------
 
-function getStorageKey(baseKey) {
-  return `${baseKey}_${selectedCountry}`;
-}
-
 function saveCartToStorage() {
   try {
     const key = getStorageKey('cartItems');
