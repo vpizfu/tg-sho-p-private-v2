@@ -640,10 +640,10 @@ async function runPreloadLoop() {
     }
 
     globalWarmupState = 'done';
-    console.log('[global-preload] COMPLETELY DONE');
+    // console.log('[global-preload] COMPLETELY DONE');
 
   } catch (e) {
-    console.error('[global-preload] fatal error in runPreloadLoop', e);
+    // console.error('[global-preload] fatal error in runPreloadLoop', e);
   } finally {
     preloadRunning = false;
   }
@@ -667,15 +667,17 @@ async function runParallelPreload(queue, maxParallel, label, shouldPause) {
       if (!url) continue;
 
       console.log(
-        '[global-preload]', label,
-        'worker', workerId,
-        'loading', index, '/', queue.length, url
+        // '[global-preload]', label,
+        // 'worker', workerId,
+        // 'loading', index, '/', queue.length, url
       );
 
       try {
         await preloadOneImage(url);
       } catch (e) {
-        console.warn('[global-preload] error', label, url, e);
+        console.warn(
+        // '[global-preload] error', label, url, e
+      );
       }
     }
   }
