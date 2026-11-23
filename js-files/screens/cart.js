@@ -307,10 +307,8 @@ window.refreshCartPricesAndCleanup = async function () {
     if (cc === 'BY') {
       const oldRate = window.exchangeRateUsdRub;
       const newRate = aboutLastProductsMeta?.exchangeRateUsdRub;
-      console.log('[refresh] rate check: old=', oldRate, 'new=', newRate);
       if (oldRate != null && newRate != null && Math.abs(newRate - oldRate) > 0.01) {
         hasRateChanged = true;
-        console.log('[refresh] RATE CHANGED');
       }
     }
     let removedCount = 0;
@@ -1228,10 +1226,8 @@ if (!contactConfirmed) {
     if (cartCountry === 'BY') {
       const oldRate = window.exchangeRateUsdRub;
       const newRate = aboutLastProductsMeta?.exchangeRateUsdRub;
-      console.log('[placeOrder] rate check: old=', oldRate, 'new=', newRate, 'meta=', aboutLastProductsMeta);
       if (oldRate != null && newRate != null && Math.abs(newRate - oldRate) > 0.01) {
         hasRateChanged = true;
-        console.log('[placeOrder] RATE CHANGED');
       }
     }
 
