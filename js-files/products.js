@@ -647,7 +647,7 @@ return (
         '</div>' +
       '</div>' +
 '<div class="flex items-center gap-2 relative mb-2">' +
-        '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
+        '<span class="font-medium text-xs text-gray-500">В какую страну заказ:</span>' +
         '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
           '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
@@ -1261,7 +1261,7 @@ root.innerHTML =
     renderShopPriceStatusInline() +
   '</div>' +
   '<div class="flex items-center gap-2 relative mb-2">' +
-    '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
+    '<span class="font-medium text-xs text-gray-500">В какую страну заказ:</span>' +
     '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
       '<span id="countryFlag">' + config.flag + '</span>' +
       '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
