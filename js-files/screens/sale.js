@@ -118,10 +118,59 @@ function renderSalePage(sales) {
       var id = card.dataset.saleId;
       var item = sales.find(function(s) { return s.id === id; });
       if (!item) return;
-      addToCartSale(item, 1);
-      switchTab('cart');
+      if (typeof showSaleModal === 'function') {
+        showSaleModal(item);
+      }
     };
   });
+}
+
+function showSaleModal(saleItem) {
+  var name = saleItem.name || saleItem['Название'] || '';
+  var price = Number(saleItem.salePrice) || 0;
+  var oldPrice = Number(saleItem.price) || 0;
+  var image = saleItem.image || saleItem['Общая картинка'] || '';
+  var formatPriceFn = window.formatPriceForCountry || formatPrice;
+  var country = window.__selectedCountryStore.value || 'RU';
+  var cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+  var currencyLabel = cfg.currency;
+
+  if (!modal) return;
+  var modalContent = document.getElementById('modalContent');
+  if (!modalContent) return;
+
+  modalContent.innerHTML =
+    '<div class="flex flex-col h-full">' +
+    '<div class="p-6 pb-4 border-b border-gray-200">' +
+    '<div class="flex items-center justify-between mb-2">' +
+    '<h2 class="text-2xl font-bold">' + escapeHtml(name) + '</h2>' +
+    '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
+    '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+    '</svg>' +
+    '</button>' +
+    '</div>' +
+    '<div class="flex items-center gap-2 text-sm">' +
+    (oldPrice > 0 ? '<span class="text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>' : '') +
+    '<span class="text-red-600 font-bold text-lg">' + currencyLabel + ' ' + formatPriceFn(price, country) + '</span>' +
+    '<span class="text-green-600 font-semibold text-sm">-' + Math.round((1 - price / (oldPrice || price)) * 100) + '%</span>' +
+    '</div>' +
+    '</div>' +
+    '<div class="flex-1 overflow-y-auto p-6">' +
+    (image
+      ? '<div class="w-full h-48 bg-gray-50 rounded-xl flex items-center justify-center mb-4">' +
+        '<img src="' + image.replace(/'/g, "\\'") + '" class="max-w-full max-h-full object-contain" alt="">' +
+        '</div>'
+      : '') +
+    '<button onclick="addToCartSale(' + JSON.stringify(saleItem).replace(/'/g, "\\'") + ', 1); closeModal(); switchTab(\'cart\')" ' +
+    'class="w-full text-sm font-semibold py-3 rounded-xl bg-blue-500 hover:bg-blue-600 text-white active:scale-[0.97] transition-transform">' +
+    'В корзину' +
+    '</button>' +
+    '</div>' +
+    '</div>';
+
+  modal.classList.remove('hidden');
+  tg?.expand();
 }
 
 function showSaleTab() {
