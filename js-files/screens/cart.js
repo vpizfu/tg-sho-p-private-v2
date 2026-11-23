@@ -1309,7 +1309,9 @@ if (!contactConfirmed) {
         name: contactName,
         phone: contactPhone
       },
-      country: cartCountry, // Add cart country to order
+      country: cartCountry,
+      exchangeRateUsdRub: window.exchangeRateUsdRub,
+      byRounding: window.byRounding,
       appPriceStatus,
       factPriceStatus
     };
