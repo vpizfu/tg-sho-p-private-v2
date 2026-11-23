@@ -2,7 +2,6 @@
 let currentOrderId = null;
 let hasCheckoutResultForCurrent = false;
 let lastOrderTotal = 0;
-
 function updateCartBadge() {
   const badge = document.getElementById('cartBadge');
   if (!badge) return;
@@ -282,12 +281,7 @@ window.refreshCartPricesAndCleanup = async function () {
   }
 
   try {
-    const oldSnapshot = localStorage.getItem('exchangeRateUsdRub');
-    if (window.exchangeRateUsdRub != null) {
-      localStorage.setItem('__rateSnapshot', String(window.exchangeRateUsdRub));
-    } else {
-      localStorage.setItem('__rateSnapshot', oldSnapshot || '');
-    }
+    const _oldMetaRate = aboutLastProductsMeta?.exchangeRateUsdRub;
 
     try {
       await fetchAndUpdateProducts(false);
@@ -311,13 +305,12 @@ window.refreshCartPricesAndCleanup = async function () {
     let hasRateChanged = false;
     const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
     if (cc === 'BY') {
-      const oldRate = Number(localStorage.getItem('__rateSnapshot'));
-      const newRate = Number(localStorage.getItem('exchangeRateUsdRub'));
-      if (oldRate && newRate && Math.abs(newRate - oldRate) > 0.01) {
+      const oldRate = window.exchangeRateUsdRub;
+      const newRate = aboutLastProductsMeta?.exchangeRateUsdRub;
+      if (oldRate != null && newRate != null && Math.abs(newRate - oldRate) > 0.01) {
         hasRateChanged = true;
       }
     }
-
     let removedCount = 0;
     let changedCount = 0;
     const removedItems = [];
@@ -1214,12 +1207,7 @@ if (!contactConfirmed) {
 
   try {
     // Save current rate snapshot for later comparison
-    const oldSnapshot = localStorage.getItem('exchangeRateUsdRub');
-    if (window.exchangeRateUsdRub != null) {
-      localStorage.setItem('__rateSnapshot', String(window.exchangeRateUsdRub));
-    } else {
-      localStorage.setItem('__rateSnapshot', oldSnapshot || '');
-    }
+    const _oldMetaRate = aboutLastProductsMeta?.exchangeRateUsdRub;
 
     try {
       await fetchAndUpdateProducts(false);
@@ -1236,9 +1224,9 @@ if (!contactConfirmed) {
 
     let hasRateChanged = false;
     if (cartCountry === 'BY') {
-      const oldRate = Number(localStorage.getItem('__rateSnapshot'));
-      const newRate = Number(localStorage.getItem('exchangeRateUsdRub'));
-      if (oldRate && newRate && Math.abs(newRate - oldRate) > 0.01) {
+      const oldRate = window.exchangeRateUsdRub;
+      const newRate = aboutLastProductsMeta?.exchangeRateUsdRub;
+      if (oldRate != null && newRate != null && Math.abs(newRate - oldRate) > 0.01) {
         hasRateChanged = true;
       }
     }
