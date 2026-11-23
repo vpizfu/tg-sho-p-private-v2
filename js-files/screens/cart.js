@@ -304,7 +304,7 @@ window.refreshCartPricesAndCleanup = async function () {
 
     window.__hasRateChanged = false;
     const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
-    if (cc === 'BY' && window.exchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.exchangeRateUsdRub) > 0.01) {
+    if (cc === 'BY' && window.__prevExchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.__prevExchangeRateUsdRub) > 0.01) {
       window.__hasRateChanged = true;
     }
     let removedCount = 0;
@@ -1220,7 +1220,7 @@ if (!contactConfirmed) {
 
     let hasRateChanged = window.__hasRateChanged;
     window.__hasRateChanged = false;
-    if (cartCountry === 'BY' && window.exchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.exchangeRateUsdRub) > 0.01) {
+    if (cartCountry === 'BY' && window.__prevExchangeRateUsdRub != null && aboutLastProductsMeta?.exchangeRateUsdRub != null && Math.abs(aboutLastProductsMeta.exchangeRateUsdRub - window.__prevExchangeRateUsdRub) > 0.01) {
       hasRateChanged = true;
     }
 
