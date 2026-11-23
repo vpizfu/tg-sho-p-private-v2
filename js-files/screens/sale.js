@@ -85,7 +85,7 @@ function renderSaleCard(item) {
   const currencyLabel = cfg.currency;
 
   return (
-    '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-name="' + escapeHtml(name) + '">' +
+    '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-id="' + escapeHtml(item.id) + '">' +
     '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
     '<div class="w-full h-32 rounded-xl mb-3 bg-gray-50 flex items-center justify-center overflow-hidden">' +
     (image
@@ -112,11 +112,11 @@ function renderSalePage(sales) {
     '</div>' +
     '</div>';
 
-  document.querySelectorAll('[data-sale-name]').forEach(function(card) {
+  document.querySelectorAll('[data-sale-id]').forEach(function(card) {
     card.onclick = function(e) {
       if (e.target.closest('button') || e.target.closest('.dot')) return;
-      var name = card.dataset.saleName;
-      var item = sales.find(function(s) { return (s.name || s['Название'] || '') === name; });
+      var id = card.dataset.saleId;
+      var item = sales.find(function(s) { return s.id === id; });
       if (!item) return;
       addToCartSale(item, 1);
       switchTab('cart');
