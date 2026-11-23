@@ -1108,7 +1108,7 @@ function renderCategoryOptionsIntoContainer(categories, container, selected) {
   container.innerHTML = categories
     .map(c =>
       '<button type="button"' +
-      ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100' +
+      ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 justify-start hover:bg-gray-100' +
       (c === selected
         ? ' text-blue-600 font-semibold'
         : ' text-gray-800') +
@@ -1119,7 +1119,7 @@ function renderCategoryOptionsIntoContainer(categories, container, selected) {
         ? '<span class="text-blue-500">✓</span>'
         : '<span class="w-4"></span>') +
       '<span class="category-option-label">' +
-      escapeHtml(c) +
+        escapeHtml(c) +
       '</span>' +
       '</button>'
     )
@@ -1287,8 +1287,8 @@ function renderShop() {
                 categories
                   .map(
                     c =>
-                      '<button type="button"' +
-                        ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100' +
+'<button type="button"' +
+                        ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 justify-start hover:bg-gray-100 rounded-lg' +
                         (c === selectedCategory
                           ? ' text-blue-600 font-semibold'
                           : ' text-gray-800') +
