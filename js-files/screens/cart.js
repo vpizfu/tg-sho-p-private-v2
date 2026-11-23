@@ -282,6 +282,8 @@ window.refreshCartPricesAndCleanup = async function () {
   }
 
   try {
+    const oldExchangeRate = window.exchangeRateUsdRub;
+
     try {
       await fetchAndUpdateProducts(false);
     } catch (e) {
@@ -299,6 +301,15 @@ window.refreshCartPricesAndCleanup = async function () {
     if (!productsData) {
       tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
       return;
+    }
+
+    let hasRateChanged = false;
+    const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
+    if (cc === 'BY') {
+      const newRate = window.exchangeRateUsdRub;
+      if (oldExchangeRate != null && newRate != null && Math.abs(newRate - oldExchangeRate) > 0.01) {
+        hasRateChanged = true;
+      }
     }
 
     let removedCount = 0;
@@ -330,7 +341,7 @@ window.refreshCartPricesAndCleanup = async function () {
         return { ...item, available: false, deleted: true };
       }
     
-      if (freshPrice !== oldPrice) {
+      if (freshPrice !== oldPrice || hasRateChanged) {
         changedCount++;
         changedItems.push({ ...item, newPrice: freshPrice });
         return { ...item, available: false, newPrice: freshPrice, deleted: false };
@@ -1196,6 +1207,8 @@ if (!contactConfirmed) {
   }, 70000);
 
   try {
+    const oldExchangeRate = window.exchangeRateUsdRub;
+
     try {
       await fetchAndUpdateProducts(false);
     } catch (e) {
@@ -1207,6 +1220,14 @@ if (!contactConfirmed) {
       isPlacingOrder = false;
       setPlaceOrderLoading(false);
       return;
+    }
+
+    let hasRateChanged = false;
+    if (cartCountry === 'BY') {
+      const newRate = window.exchangeRateUsdRub;
+      if (oldExchangeRate != null && newRate != null && Math.abs(newRate - oldExchangeRate) > 0.01) {
+        hasRateChanged = true;
+      }
     }
 
     let hasUnavailable = false;
@@ -1233,7 +1254,7 @@ if (!contactConfirmed) {
         return { ...item, available: false };
       }
 
-      if (freshPrice !== oldPrice) {
+      if (freshPrice !== oldPrice || hasRateChanged) {
         hasPriceChanged = true;
         return { ...item, available: false, newPrice: freshPrice };
       }
