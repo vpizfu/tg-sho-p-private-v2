@@ -416,11 +416,6 @@ function setCartCountry(country) {
   return true;
 }
 
-function loadCartCountry() {
-  __cartCountryStore.value = resolveCountryFromUrlOrStorage();
-  try { localStorage.setItem('cartCountry', cartCountry); } catch (e) {}
-}
-
 function convertPrice(rubPrice, fromCountry, toCountry) {
   if (fromCountry === toCountry) return rubPrice;
   const config = getCountryConfig(toCountry);
