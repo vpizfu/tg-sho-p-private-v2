@@ -282,7 +282,12 @@ window.refreshCartPricesAndCleanup = async function () {
   }
 
   try {
-    const oldExchangeRate = Number(localStorage.getItem('exchangeRateUsdRub'));
+    const oldSnapshot = localStorage.getItem('exchangeRateUsdRub');
+    if (window.exchangeRateUsdRub != null) {
+      localStorage.setItem('__rateSnapshot', String(window.exchangeRateUsdRub));
+    } else {
+      localStorage.setItem('__rateSnapshot', oldSnapshot || '');
+    }
 
     try {
       await fetchAndUpdateProducts(false);
@@ -306,8 +311,9 @@ window.refreshCartPricesAndCleanup = async function () {
     let hasRateChanged = false;
     const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
     if (cc === 'BY') {
+      const oldRate = Number(localStorage.getItem('__rateSnapshot'));
       const newRate = Number(localStorage.getItem('exchangeRateUsdRub'));
-      if (oldExchangeRate && newRate && Math.abs(newRate - oldExchangeRate) > 0.01) {
+      if (oldRate && newRate && Math.abs(newRate - oldRate) > 0.01) {
         hasRateChanged = true;
       }
     }
@@ -1207,7 +1213,13 @@ if (!contactConfirmed) {
   }, 70000);
 
   try {
-    const oldExchangeRate = Number(localStorage.getItem('exchangeRateUsdRub'));
+    // Save current rate snapshot for later comparison
+    const oldSnapshot = localStorage.getItem('exchangeRateUsdRub');
+    if (window.exchangeRateUsdRub != null) {
+      localStorage.setItem('__rateSnapshot', String(window.exchangeRateUsdRub));
+    } else {
+      localStorage.setItem('__rateSnapshot', oldSnapshot || '');
+    }
 
     try {
       await fetchAndUpdateProducts(false);
@@ -1224,8 +1236,9 @@ if (!contactConfirmed) {
 
     let hasRateChanged = false;
     if (cartCountry === 'BY') {
+      const oldRate = Number(localStorage.getItem('__rateSnapshot'));
       const newRate = Number(localStorage.getItem('exchangeRateUsdRub'));
-      if (oldExchangeRate && newRate && Math.abs(newRate - oldExchangeRate) > 0.01) {
+      if (oldRate && newRate && Math.abs(newRate - oldRate) > 0.01) {
         hasRateChanged = true;
       }
     }
