@@ -640,7 +640,7 @@ function renderShopHeader(list, showCount) {
 
 return (
     '<div class="mb-5">' +
-      '<div class="flex items-center justify-between mb-4 gap-3 min-w-0">' +
+      '<div class="flex items-center justify-between gap-3 min-w-0">' +
         '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
         '<div class="flex-shrink-0 ml-2">' +
           renderShopPriceStatusInline() +
@@ -654,13 +654,16 @@ return (
         '</div>' +
         '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
-          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" data-country="RU">' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
             '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
+            (selectedCountry === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
           '</button>' +
-          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" data-country="BY">' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
             '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
+            (selectedCountry === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
           '</button>' +
-          '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100"></div>' +
         '</div>' +
       '</div>' +
 
@@ -1250,27 +1253,30 @@ function renderShop() {
 root.innerHTML =
   '<div class="pb-[65px]">' +
 '<div class="mb-5">' +
-  '<div class="flex items-center justify-between mb-4 gap-3">' +
+  '<div class="flex items-center justify-between gap-3 min-w-0">' +
     '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
     renderShopPriceStatusInline() +
   '</div>' +
-  '<div class="flex items-center gap-2 relative">' +
+  '<div class="flex items-center gap-2 relative mt-2">' +
     '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
     '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
       '<span id="countryFlag">' + config.flag + '</span>' +
       '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
     '</div>' +
-    '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
+'<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
-          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" data-country="RU">' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
             '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
+            (selectedCountry === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
           '</button>' +
-'<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg" data-country="BY">' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
             '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
+            (selectedCountry === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
           '</button>' +
-          '<div class="px-3 py-2 text-[11px] text-gray-500 border-t border-gray-100"></div>' +
         '</div>' +
-      '</div>' +
+    '</div>' +
 
       '<div class="flex items-center gap-2">' +
 

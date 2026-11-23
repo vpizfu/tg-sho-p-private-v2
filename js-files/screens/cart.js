@@ -619,7 +619,7 @@ function showCartTab() {
       '<div class="flex items-center justify-between mb-4">' +
         '<h2 class="text-2xl font-bold text-gray-800">Корзина</h2>' +
         '<button onclick="refreshCartPricesAndCleanup()"' +
-          ' class="inline-flex items-center justify-center text-[11px] font-semibold px-2.5 h-8 rounded-full ' +
+          ' class="inline-flex items-center justify-center text-[10px] font-semibold px-2.5 h-8 rounded-full ' +
             'bg-purple-500 hover:bg-purple-600 text-white shadow-md active:scale-[0.97] max-w-[180px] whitespace-nowrap"' +
           ' id="refreshCartButton">' +
           '<span class="loader-circle hidden mr-1" id="refreshCartLoader"></span>' +
