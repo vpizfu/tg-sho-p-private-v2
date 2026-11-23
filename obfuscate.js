@@ -8,7 +8,7 @@ const OPTIONS = {
   stringArrayEncoding: ['base64'],
   rotateStringArray: false,
   shuffleStringArray: false,
-  reservedNames: ['__hasRateChanged', '__prevExchangeRateUsdRub'],
+  reservedNames: ['__hasRateChanged'],
 };
 
 function getJsFiles(dir) {

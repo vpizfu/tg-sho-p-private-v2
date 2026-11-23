@@ -224,8 +224,7 @@ async function refreshAboutMetaFromBackend() {
         try {
           localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
         } catch (e) {}
-        window.__prevExchangeRateUsdRub = window.exchangeRateUsdRub;
-        window.exchangeRateUsdRub = exchangeRateUsdRub;
+        
         console.log('[meta] updated exchangeRateUsdRub:', exchangeRateUsdRub);
       }
       if (meta.byRounding) {
@@ -447,7 +446,6 @@ function loadCartCountry() {
 
 function setExchangeRate(rate) {
   exchangeRateUsdRub = Number(rate) || 90;
-  window.exchangeRateUsdRub = exchangeRateUsdRub;
   try {
     localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
   } catch (e) {}
@@ -466,7 +464,6 @@ function loadExchangeRateAndRounding() {
     const storedRate = localStorage.getItem('exchangeRateUsdRub');
     if (storedRate) {
       exchangeRateUsdRub = Number(storedRate);
-      window.exchangeRateUsdRub = exchangeRateUsdRub;
     }
     const storedRounding = localStorage.getItem('byRounding');
     if (storedRounding) byRounding = JSON.parse(storedRounding);
@@ -497,6 +494,13 @@ Object.defineProperty(window, 'selectedCountry', {
   get: function() { return selectedCountry; },
   set: function(val) { selectedCountry = val; },
   configurable: true
+});
+
+// Export exchangeRateUsdRub — always returns the local variable from core.js
+Object.defineProperty(window, 'exchangeRateUsdRub', {
+  get: function() { return exchangeRateUsdRub; },
+  set: function(val) {},
+  configurable: false
 });
 
 let isAddingToCart = false;
