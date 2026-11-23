@@ -373,7 +373,6 @@ let savedProfile = {
   confirmed: false
 };
 
-let __paymentTypeStore.value = 'cash';
 let pickupMode = false;
 let pickupLocation = '';
 
@@ -386,10 +385,6 @@ const COUNTRY_CONFIG = {
   RU: { currency: 'RUB', symbol: '₽', flag: '🇷🇺', locale: 'ru-RU', name: 'Россия' },
   BY: { currency: 'USD', symbol: '$', flag: '🇧🇾', locale: 'be-BY', name: 'Беларусь' }
 };
-
-let __selectedCountryStore.value = 'RU';
-
-let __byRoundingStore.value = { step: 1, mode: 'ceil' };
 
 function getCountryConfig(country) {
   return COUNTRY_CONFIG[country] || COUNTRY_CONFIG.RU;
@@ -407,8 +402,6 @@ function setCountry(country) {
   } catch (e) {}
   return true;
 }
-
-let __cartCountryStore.value = 'RU';
 
 function getCartCountry() {
   return __cartCountryStore.value;
