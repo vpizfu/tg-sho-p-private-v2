@@ -790,23 +790,30 @@ function showCartTab() {
                   ' rows="2" placeholder="Например: позвонить за 10 минут, домофон не работает..."></textarea>' +
               '</div>'
             : '<label class="text-sm font-semibold text-gray-700 block">Адрес самовывоза</label>' +
-              '<select id="pickupLocation" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm mb-2"' +
-                ' onchange="setPickupLocation(this.value)">' +
-                '<option value="">Выберите пункт самовывоза</option>' +
-                (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry] 
-                  ? window.PICKUP_LOCATIONS[cartCountry]
-                  : (window.PICKUP_LOCATIONS || [])
-                ).map(
-                  addr =>
-                    '<option value="' +
-                    escapeHtml(addr) +
-                    '"' +
-                    (pickupLocation === addr ? ' selected' : '') +
-                    '>' +
-                    escapeHtml(addr) +
-                    '</option>'
-                ).join('') +
-              '</select>' +
+              '<div class="relative w-full mb-2">' +
+  '<select id="pickupLocation" class="w-full appearance-none bg-white border border-gray-300 rounded-xl pl-3 pr-10 py-2 text-sm"' +
+    ' onchange="setPickupLocation(this.value)">' +
+    '<option value="">Выберите пункт самовывоза</option>' +
+    (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry] 
+      ? window.PICKUP_LOCATIONS[cartCountry]
+      : (window.PICKUP_LOCATIONS || [])
+    ).map(
+      addr =>
+        '<option value="' +
+        escapeHtml(addr) +
+        '"' +
+        (pickupLocation === addr ? ' selected' : '') +
+        '>' +
+        escapeHtml(addr) +
+        '</option>'
+    ).join('') +
+  '</select>' +
+  '<div class="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">' +
+    '<svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />' +
+    '</svg>' +
+  '</div>' +
+'</div>' +
               '<div class="mt-1">' +
                 '<label class="text-sm font-semibold text-gray-700 block mb-1">Комментарий к заказу</label>' +
                 '<textarea id="deliveryComment" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"' +
