@@ -1,4 +1,25 @@
-function showSaleTab() {
+const SALE_CART_KEY_EXCLUDE = new Set([
+  'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
+  'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
+  'cat', 'Категория', 'sourceSheet', 'isPreview',
+  'price', 'salePrice'
+]);
+
+function buildSaleCartKey(product) {
+  const entries = Object.keys(product)
+    .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+    .sort()
+    .map(k => k + '=' + String(product[k] ?? '').trim().toLowerCase());
+  const raw = entries.join('||');
+  let hash = 5381;
+  for (let i = 0; i < raw.length; i++) {
+    hash = ((hash << 5) + hash) ^ raw.charCodeAt(i);
+    hash = hash >>> 0;
+  }
+  return 'sck_' + hash.toString(36);
+}
+
+function renderSalePlaceholder() {
   root.innerHTML =
     '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
     '<div class="w-24 h-24 bg-orange-100 rounded-3xl flex items-center justify-center mb-6">' +
@@ -9,9 +30,107 @@ function showSaleTab() {
     '</div>' +
     '<h2 class="text-2xl font-bold text-gray-800 mb-4">Распродажа</h2>' +
     '<p class="text-lg text-gray-600 mb-8 max-w-xs">Скоро здесь будут акционные предложения.</p>' +
-'<button onclick="switchTab(\'shop\')" ' +
-  'class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
-  'В магазин' +
-'</button>'
+    '<button onclick="switchTab(\'shop\')" ' +
+    'class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
+    'В магазин' +
+    '</button>' +
     '</div>';
+}
+
+function getSaleItemSubtitle(item) {
+  if (!item.options && typeof item !== 'object') return '';
+  const vals = Object.keys(item)
+    .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+    .map(k => item[k])
+    .filter(v => v !== undefined && v !== null && String(v).trim() !== '');
+  return vals.join(' | ');
+}
+
+function addToCartSale(saleItem, quantity) {
+  const cartKey = buildSaleCartKey(saleItem);
+  const existing = __cartStore.value.find(item => item.cartKey === cartKey);
+  if (existing) {
+    existing.quantity = Math.min(existing.quantity + quantity, 100);
+  } else {
+    const options = {};
+    Object.keys(saleItem)
+      .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+      .forEach(k => { options[k] = saleItem[k]; });
+    __cartStore.value.push({
+      cartKey,
+      name: saleItem.name || saleItem['Название'] || '',
+      price: Number(saleItem.salePrice) || 0,
+      quantity,
+      available: true,
+      isSale: true,
+      options,
+      image: saleItem.image || saleItem['Общая картинка'] || ''
+    });
+  }
+  saveCartToStorage();
+  updateCartBadge();
+  try { tg?.HapticFeedback?.notificationOccurred('success'); } catch (e) {}
+}
+
+function renderSaleCard(item) {
+  const name = item.name || item['Название'] || '';
+  const image = item.image || item['Общая картинка'] || '';
+  const oldPrice = Number(item.price) || 0;
+  const salePrice = Number(item.salePrice) || 0;
+  const hasOldPrice = oldPrice > 0 && oldPrice !== salePrice;
+  const subtitle = getSaleItemSubtitle(item);
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+  const country = window.__selectedCountryStore.value || 'RU';
+  const cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+  const currencyLabel = cfg.currency;
+
+  return (
+    '<div class="flex items-start p-3 rounded-xl border border-gray-200 bg-white relative">' +
+    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-6 h-6 bg-red-500 text-white text-xs font-bold rounded-full shadow-md">%</div>' +
+    (image
+      ? '<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 mr-3 bg-gray-100">' +
+        '<img src="' + image.replace(/'/g, "\\'") + '" class="w-full h-full object-contain" alt="" onerror="this.style.display=\'none\'">' +
+        '</div>'
+      : '') +
+    '<div class="flex-1 min-w-0">' +
+    '<div class="font-semibold text-sm break-words">' + escapeHtml(name) + '</div>' +
+    (subtitle ? '<div class="text-xs text-gray-500 mt-0.5">' + escapeHtml(subtitle) + '</div>' : '') +
+    '<div class="flex items-baseline gap-2 mt-1">' +
+    (hasOldPrice
+      ? '<span class="text-sm text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>'
+      : '') +
+    '<span class="text-base text-red-600 font-bold">' + currencyLabel + ' ' + formatPriceFn(salePrice, country) + '</span>' +
+    '</div>' +
+    '<button onclick="addToCartSale(' + JSON.stringify(item).replace(/'/g, "\\'") + ', 1); switchTab(\'cart\')" ' +
+    'class="mt-2 text-xs font-semibold px-3 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-600 text-white active:scale-[0.97]">' +
+    'В корзину' +
+    '</button>' +
+    '</div>' +
+    '</div>'
+  );
+}
+
+function renderSalePage(sales) {
+  root.innerHTML =
+    '<div class="relative min-h-[100vh] p-6 pb-[80px] max-w-md mx-auto">' +
+    '<h2 class="text-2xl font-bold text-gray-800 mb-4">Распродажа</h2>' +
+    '<div class="space-y-3">' +
+    sales.map(renderSaleCard).join('') +
+    '</div>' +
+    '</div>';
+}
+
+function showSaleTab() {
+  fetch(SALES_API_URL)
+    .then(function(r) { return r.json(); })
+    .then(function(sales) {
+      if (!sales || !sales.length) {
+        renderSalePlaceholder();
+        return;
+      }
+      renderSalePage(sales);
+    })
+    .catch(function() {
+      renderSalePlaceholder();
+    });
 }

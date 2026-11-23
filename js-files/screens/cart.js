@@ -319,6 +319,11 @@ window.refreshCartPricesAndCleanup = async function () {
     
     __cartStore.value = __cartStore.value.map(item => {
       console.log('[cart] refreshCartPricesAndCleanup mapping item:', item.cartKey, 'price:', item.price);
+
+      if (item.isSale) {
+        return { ...item, available: true, newPrice: undefined, deleted: false };
+      }
+
       const fresh = productByKey.get(item.cartKey);
     
       if (!fresh) {

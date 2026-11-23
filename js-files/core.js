@@ -190,6 +190,7 @@ try {
 const BACKEND_BASE_URL = 'https://tg-shop-test-backend.onrender.com';
 const PRODUCTS_API_URL = BACKEND_BASE_URL + '/products';
 const PRODUCTS_META_API_URL = BACKEND_BASE_URL + '/products/meta';
+const SALES_API_URL = BACKEND_BASE_URL + '/sales';
 const ORDERS_API_URL = BACKEND_BASE_URL + '/orders';
 const BACKEND_ORDER_URL = BACKEND_BASE_URL + '/order';
 
