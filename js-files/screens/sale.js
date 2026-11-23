@@ -86,7 +86,7 @@ function renderSaleCard(item) {
 
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" onclick="addToCartSale(' + JSON.stringify(item).replace(/'/g, "\\'") + ', 1); switchTab(\'cart\')">' +
-    '<div class="absolute top-2 left-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
+    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
     '<div class="w-full h-32 rounded-xl mb-3 bg-gray-50 flex items-center justify-center overflow-hidden">' +
     (image
       ? '<img src="' + image.replace(/'/g, "\\'") + '" class="max-w-full max-h-full object-contain" alt="" onerror="this.style.display=\'none\'">'
@@ -97,9 +97,8 @@ function renderSaleCard(item) {
     (hasOldPrice && oldPrice !== salePrice
       ? '<span class="text-sm text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>'
       : '') +
-    '<span class="text-blue-600 font-black text-xl">' + currencyLabel + ' ' + formatPriceFn(salePrice, country) + '</span>' +
+    '<span class="text-red-600 font-black text-xl">' + currencyLabel + ' ' + formatPriceFn(salePrice, country) + '</span>' +
     '</div>' +
-    (subtitle ? '<div class="text-xs text-gray-500 mt-1">' + escapeHtml(subtitle) + '</div>' : '') +
     '</div>'
   );
 }
