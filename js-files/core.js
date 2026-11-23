@@ -1089,12 +1089,12 @@ function loadDeliveryPrefs() {
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed !== 'object') return;
 
-    deliveryPrefs.__paymentTypeStore.value = parsed.__paymentTypeStore.value ?? 'cash';
+    deliveryPrefs.paymentType = parsed.paymentType ?? parsed['__paymentTypeStore.value'] ?? 'cash';
     deliveryPrefs.pickupMode = !!parsed.pickupMode;
     deliveryPrefs.pickupLocation = parsed.pickupLocation || '';
     deliveryPrefs.savedAddressValue = parsed.savedAddressValue || '';
 
-    __paymentTypeStore.value = deliveryPrefs.__paymentTypeStore.value;
+    __paymentTypeStore.value = deliveryPrefs.paymentType;
     pickupMode = deliveryPrefs.pickupMode;
 
     const locations = PICKUP_LOCATIONS[__selectedCountryStore.value] || PICKUP_LOCATIONS.RU;
@@ -1111,7 +1111,7 @@ function loadDeliveryPrefs() {
 function saveDeliveryPrefs() {
   try {
     const data = {
-      __paymentTypeStore.value,
+      paymentType: __paymentTypeStore.value,
       pickupMode,
       pickupLocation,
       savedAddressValue: cartFormState.savedAddressValue || ''

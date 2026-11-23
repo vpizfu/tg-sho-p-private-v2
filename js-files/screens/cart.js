@@ -1319,7 +1319,7 @@ if (!contactConfirmed) {
       commission,
       total,
       address,
-      __paymentTypeStore.value,
+      paymentType: __paymentTypeStore.value,
       pickupMode,
       pickupLocation: pickupMode ? pickupLocation : '',
       user: tg?.initDataUnsafe?.user || null,
@@ -1331,7 +1331,7 @@ if (!contactConfirmed) {
       },
       country: __cartCountryStore.value,
       exchangeRateUsdRub: window.exchangeRateUsdRub,
-      __byRoundingStore.value: window.__byRoundingStore.value,
+      byRounding: __byRoundingStore.value,
       appPriceStatus,
       factPriceStatus
     };
