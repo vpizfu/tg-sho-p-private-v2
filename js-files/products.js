@@ -652,7 +652,7 @@ return (
           '<span id="countryFlag">' + config.flag + '</span>' +
           '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
         '</div>' +
-        '<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
+'<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[160px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
             (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
@@ -1263,7 +1263,7 @@ root.innerHTML =
       '<span id="countryFlag">' + config.flag + '</span>' +
       '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
     '</div>' +
-'<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[140px]">' +
+'<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[160px]">' +
           '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
           '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
             (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
