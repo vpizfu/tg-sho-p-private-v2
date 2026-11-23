@@ -1076,7 +1076,7 @@ function getDeliveryPrefsKey() {
 }
 
 let deliveryPrefs = {
-  __paymentTypeStore.value: 'cash',
+  paymentType: 'cash',
   pickupMode: false,
   pickupLocation: '',
   savedAddressValue: ''
