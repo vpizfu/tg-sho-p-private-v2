@@ -355,14 +355,12 @@ let selectedCategory = 'Все товары',
   query = '',
   loadedCount = 10,
   imageCache = new Map(),
-  __productsStore.value = null,
   currentProduct = null,
   selectedOption = {},
   selectedQuantity = 1,
   searchTimeout = null,
   currentTab = 'shop';
 
-let __cartStore.value = [];
 let savedAddresses = [];
 let previousOrders = [];
 
