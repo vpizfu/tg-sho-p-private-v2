@@ -3,6 +3,13 @@ const tgRaw = window.Telegram?.WebApp;
 const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → Telegram Mini App
 let hasShopLoadedOnce = false;
 
+const __exchangeRateStore = { value: null };
+Object.defineProperty(window, 'exchangeRateUsdRub', {
+  get: function() { return __exchangeRateStore.value; },
+  set: function(v) {},
+  configurable: false
+});
+
 // только в браузере: управляем скроллом и «пинаем» адресную строку
 if (!isRealMiniApp) {
   try {
@@ -219,13 +226,13 @@ async function refreshAboutMetaFromBackend() {
     // Update exchange rate and rounding from meta if available
     if (meta && typeof meta === 'object') {
       if (meta.exchangeRateUsdRub !== undefined) {
-        meta._rawRate = exchangeRateUsdRub;
-        exchangeRateUsdRub = Number(meta.exchangeRateUsdRub) || exchangeRateUsdRub;
+        meta._rawRate = __exchangeRateStore.value;
+        __exchangeRateStore.value = Number(meta.exchangeRateUsdRub) || __exchangeRateStore.value;
         try {
-          localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
+          localStorage.setItem('exchangeRateUsdRub', String(__exchangeRateStore.value));
         } catch (e) {}
         
-        console.log('[meta] updated exchangeRateUsdRub:', exchangeRateUsdRub);
+        console.log('[meta] updated exchangeRateUsdRub:', __exchangeRateStore.value);
       }
       if (meta.byRounding) {
         byRounding.step = Number(meta.byRounding.step) || byRounding.step;
@@ -339,7 +346,7 @@ const COUNTRY_CONFIG = {
 };
 
 let selectedCountry = 'RU';
-let exchangeRateUsdRub = null;
+
 let byRounding = { step: 1, mode: 'ceil' };
 
 function getCountryConfig(country) {
@@ -383,7 +390,7 @@ function convertPrice(rubPrice, fromCountry, toCountry) {
   if (fromCountry === toCountry) return rubPrice;
   const config = getCountryConfig(toCountry);
   if (config.currency === 'USD') {
-    const usd = rubPrice / exchangeRateUsdRub;
+    const usd = rubPrice / __exchangeRateStore.value;
     if (byRounding.mode === 'ceil') {
       return Math.ceil(usd / byRounding.step) * byRounding.step;
     }
@@ -445,9 +452,9 @@ function loadCartCountry() {
 }
 
 function setExchangeRate(rate) {
-  exchangeRateUsdRub = Number(rate) || 90;
+  __exchangeRateStore.value = Number(rate) || 90;
   try {
-    localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
+    localStorage.setItem('exchangeRateUsdRub', String(__exchangeRateStore.value));
   } catch (e) {}
 }
 
@@ -463,7 +470,7 @@ function loadExchangeRateAndRounding() {
   try {
     const storedRate = localStorage.getItem('exchangeRateUsdRub');
     if (storedRate) {
-      exchangeRateUsdRub = Number(storedRate);
+      __exchangeRateStore.value = Number(storedRate);
     }
     const storedRounding = localStorage.getItem('byRounding');
     if (storedRounding) byRounding = JSON.parse(storedRounding);
@@ -496,12 +503,7 @@ Object.defineProperty(window, 'selectedCountry', {
   configurable: true
 });
 
-// Export exchangeRateUsdRub — always returns the local variable from core.js
-Object.defineProperty(window, 'exchangeRateUsdRub', {
-  get: function() { return exchangeRateUsdRub; },
-  set: function(val) {},
-  configurable: false
-});
+
 
 let isAddingToCart = false;
 let isPlacingOrder = false;
