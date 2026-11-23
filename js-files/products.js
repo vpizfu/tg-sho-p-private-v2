@@ -646,7 +646,7 @@ return (
           renderShopPriceStatusInline() +
         '</div>' +
       '</div>' +
-      '<div class="flex items-center gap-2 relative mt-2">' +
+'<div class="flex items-center gap-2 relative mb-2">' +
         '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
         '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
           '<span id="countryFlag">' + config.flag + '</span>' +
@@ -1257,7 +1257,7 @@ root.innerHTML =
     '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
     renderShopPriceStatusInline() +
   '</div>' +
-  '<div class="flex items-center gap-2 relative mt-2">' +
+  '<div class="flex items-center gap-2 relative mb-2">' +
     '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
     '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
       '<span id="countryFlag">' + config.flag + '</span>' +
