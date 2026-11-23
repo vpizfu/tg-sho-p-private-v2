@@ -1,1 +1,95 @@
-const _0x3a0b11=_0x7dd2;(function(_0x13b445,_0xdb2473){const _0x3f6ed9=_0x7dd2,_0x24b23f=_0x13b445();while(!![]){try{const _0x168152=-parseInt(_0x3f6ed9(0xa5))/0x1*(parseInt(_0x3f6ed9(0x9e))/0x2)+-parseInt(_0x3f6ed9(0xac))/0x3*(parseInt(_0x3f6ed9(0x8a))/0x4)+parseInt(_0x3f6ed9(0x8c))/0x5+-parseInt(_0x3f6ed9(0x91))/0x6+parseInt(_0x3f6ed9(0x86))/0x7*(-parseInt(_0x3f6ed9(0xab))/0x8)+parseInt(_0x3f6ed9(0x9f))/0x9*(parseInt(_0x3f6ed9(0x8d))/0xa)+parseInt(_0x3f6ed9(0x8b))/0xb;if(_0x168152===_0xdb2473)break;else _0x24b23f['push'](_0x24b23f['shift']());}catch(_0x5a36af){_0x24b23f['push'](_0x24b23f['shift']());}}}(_0xb2d7,0xd9951));function escapeHtml(_0x189594){const _0x2ea036=_0x7dd2,_0x49710f={'&':'&','<':'<','>':'>','\x22':'\x22','\x27':_0x2ea036(0x8e)};return String(_0x189594)[_0x2ea036(0x9c)](/[&<>"']/g,_0x4b6b08=>_0x49710f[_0x4b6b08]);}function _0x7dd2(_0x3b76ba,_0x23675c){_0x3b76ba=_0x3b76ba-0x86;const _0xb2d7be=_0xb2d7();let _0x7dd232=_0xb2d7be[_0x3b76ba];if(_0x7dd2['Tubckq']===undefined){var _0x12b4e0=function(_0x27c20e){const _0x1891bb='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x189594='',_0x49710f='';for(let _0x4b6b08=0x0,_0x46b339,_0x4a8d41,_0xb308dd=0x0;_0x4a8d41=_0x27c20e['charAt'](_0xb308dd++);~_0x4a8d41&&(_0x46b339=_0x4b6b08%0x4?_0x46b339*0x40+_0x4a8d41:_0x4a8d41,_0x4b6b08++%0x4)?_0x189594+=String['fromCharCode'](0xff&_0x46b339>>(-0x2*_0x4b6b08&0x6)):0x0){_0x4a8d41=_0x1891bb['indexOf'](_0x4a8d41);}for(let _0x39ffca=0x0,_0x3519dd=_0x189594['length'];_0x39ffca<_0x3519dd;_0x39ffca++){_0x49710f+='%'+('00'+_0x189594['charCodeAt'](_0x39ffca)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x49710f);};_0x7dd2['uTpYpG']=_0x12b4e0,_0x7dd2['TSIcbk']={},_0x7dd2['Tubckq']=!![];}const _0x584595=_0xb2d7be[0x0],_0x5952ae=_0x3b76ba+_0x584595,_0x3c5cc8=_0x7dd2['TSIcbk'][_0x5952ae];return!_0x3c5cc8?(_0x7dd232=_0x7dd2['uTpYpG'](_0x7dd232),_0x7dd2['TSIcbk'][_0x5952ae]=_0x7dd232):_0x7dd232=_0x3c5cc8,_0x7dd232;}function normalizePhone(_0x46b339,_0x4a8d41){const _0x2899c3=_0x7dd2;if(!_0x46b339)return'';_0x4a8d41=_0x4a8d41||'RU';let _0xb308dd=_0x46b339[_0x2899c3(0x9c)](/[^\d+]/g,'');if(_0x4a8d41==='BY'){if(_0xb308dd[_0x2899c3(0x8f)]('+375'))_0xb308dd=_0xb308dd[_0x2899c3(0xa9)](0x4);else{if(_0xb308dd[_0x2899c3(0x8f)](_0x2899c3(0x98)))_0xb308dd=_0xb308dd[_0x2899c3(0xa9)](0x3);else{if(_0xb308dd['startsWith']('+'))return'';}}if(!/^\d{9}$/[_0x2899c3(0x99)](_0xb308dd))return'';return _0x2899c3(0xaa)+_0xb308dd;}else{if(_0xb308dd[_0x2899c3(0x8f)]('+7'))_0xb308dd=_0xb308dd[_0x2899c3(0xa9)](0x2);else{if(_0xb308dd['startsWith']('8'))_0xb308dd=_0xb308dd[_0x2899c3(0xa9)](0x1);else{if(_0xb308dd[_0x2899c3(0x8f)]('+'))return'';}}if(!/^\d{10}$/[_0x2899c3(0x99)](_0xb308dd))return'';return'+7'+_0xb308dd;}}function isValidName(_0x39ffca){const _0x18a2b8=_0x7dd2,_0x3519dd=String(_0x39ffca)[_0x18a2b8(0x88)]();if(_0x3519dd['length']<0x1||_0x3519dd[_0x18a2b8(0x9a)]>0x32)return![];if(!/^[A-Za-zА-Яа-яЁё\s\-']+$/['test'](_0x3519dd))return![];return/[A-Za-zА-Яа-яЁё]/['test'](_0x3519dd);}function formatPrice(_0x2736e3){const _0x971e7b=Math['floor'](Number(_0x2736e3)||0x0);return String(_0x971e7b);}function showError(_0x578a07){const _0x48f8ad=_0x7dd2;root[_0x48f8ad(0xa7)]=_0x48f8ad(0x94)+_0x48f8ad(0xae)+'<svg\x20class=\x22w-12\x20h-12\x20text-red-500\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20viewBox=\x220\x200\x2024\x2024\x22>'+_0x48f8ad(0xa1)+'\x20d=\x22M12\x208v4m0\x204h.01M21\x2012a9\x209\x200\x2011-18\x200\x209\x209\x200\x200118\x200z\x22/>'+_0x48f8ad(0xa3)+_0x48f8ad(0x90)+_0x48f8ad(0x9d)+_0x48f8ad(0x9b)+escapeHtml(_0x578a07)+'</p>'+_0x48f8ad(0xaf)+'Для\x20заказа\x20через\x20менеджера\x20напишите\x20@TechBex.'+_0x48f8ad(0x95)+_0x48f8ad(0xa6)+_0x48f8ad(0x89)+_0x48f8ad(0xad)+_0x48f8ad(0x92)+_0x48f8ad(0x90);try{typeof trackEvent==='function'&&trackEvent(_0x48f8ad(0x87),{});}catch(_0x2124d1){}tg?.[_0x48f8ad(0x93)]?.('❌\x20'+_0x578a07+'\x0aДля\x20заказа\x20через\x20менеджера\x20напишите\x20@TechBex.');}function _0xb2d7(){const _0x21bb74=['C2HVD0vYCM9YrMf0ywW','DhjPBq','ignSyxnZpsjIzY1IBhvLltuWmcbOB3zLCJPIzY1IBhvLltyWmcb0zxH0lxDOAxrLigzVBNqTyM9SzcbWEs0Zihb4ltGGCM91BMrLzc0YEgWGC2HHzg93lwXNiJ4','ne5OAgjYDG','mJa2oduYmZzftvzuCgO','ntC2mJu3nxPdq3rpAW','mJKWvNHvyNbb','jMfWB3m7','C3rHCNrZv2L0Aa','pc9KAxy+','nda1mZbbwfDeEgK','pc9IDxr0B24+','C2HVD0fSzxj0','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwLUlwGTC2nYzwvUihrLEhqTy2vUDgvYihaTocbWyI1BnJvWEf0IpG','pc9WpG','y2XHC3nmAxn0','A2v5','mZC1','DgvZDa','BgvUz3rO','phaGy2XHC3m9iNrLEhqTBgCGDgv4Dc1YzwqTnJaWig1IltiIpG','CMvWBgfJzq','pgGYignSyxnZpsj0zxH0ltj4BcbMB250lwjVBgqGDgv4Dc1NCMf5ltGWmcbTyI00iJ7qNTgi0lJqSDc60laG0lFqSncZ0ydrG9c30lRqUdWVAdi+','mJGYqLLzu3ne','nJiXBhjfve9g','y2XPy2S','phbHDgGGC3rYB2TLlwXPBMvJyxa9iNjVDw5KiIbZDhjVA2uTBgLUzwPVAw49iNjVDw5KiIbZDhjVA2uTD2LKDgG9iJiI','y29UDgfPBNm','pc9ZDMC+','rxnJyxbL','mZuWnxfwExziqG','pgj1DhrVBIbVBMnSAwnRpsjSB2nHDgLVBI5YzwXVywqOksi','Aw5Uzxjive1m','A2v5zg93BG','C2XPy2u','kZm3nq','mtzWuM9sDhG','mta2mZmYovvluMXNyW','0j/qVTc/0ydqVTcX0l7qSTcW0ylrJcdrGDc90l7qSTcW','pgrPDIbJBgfZCZ0IDY0YmcbOltiWigjNlxjLzc0XmdaGCM91BMrLzc0YEgWGzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwiTnIi+','phaGy2XHC3m9iNrLEhqTBgCGDgv4Dc01mdaTyMX1zsbTyI0YiJ4','nduWotmWmLjqz0zfvW'];_0xb2d7=function(){return _0x21bb74;};return _0xb2d7();}modal&&modal['addEventListener'](_0x3a0b11(0xa0),_0x5c58f5=>{if(_0x5c58f5['target']===modal)closeModal();});document['addEventListener'](_0x3a0b11(0xa8),_0x211815=>{const _0x465e30=_0x3a0b11;_0x211815[_0x465e30(0x97)]===_0x465e30(0xa4)&&(modal&&!modal[_0x465e30(0x96)][_0x465e30(0xa2)]('hidden')&&closeModal());});
+  function escapeHtml(s) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&apos;' };
+    return String(s).replace(/[&<>"']/g, m => map[m]);
+  }
+
+  function normalizePhone(raw, country) {
+    if (!raw) return '';
+    country = country || 'RU';
+    let v = raw.replace(/[^\d+]/g, '');
+
+    if (country === 'BY') {
+      if (v.startsWith('+375')) {
+        v = v.slice(4);
+      } else if (v.startsWith('+8')) {
+        v = v.slice(2);
+      } else if (v.startsWith('80')) {
+        v = v.slice(2);
+      } else if (v.startsWith('+')) {
+        return '';
+      }
+      if (!/^\d{9}$/.test(v)) return '';
+      return '+375' + v;
+    }
+
+    if (v.startsWith('+7')) {
+      v = v.slice(2);
+    } else if (v.startsWith('8')) {
+      v = v.slice(1);
+    } else if (v.startsWith('+')) {
+      return '';
+    }
+
+    if (!/^\d{10}$/.test(v)) return '';
+    return '+7' + v;
+  }
+  
+  function isValidName(name) { 
+    const v = String(name).trim();
+    if (v.length < 1 || v.length > 50) return false;
+  
+    // только буквы (вкл. кириллицу), пробел, дефис, апостроф [web:21][web:24]
+    if (!/^[A-Za-zА-Яа-яЁё\s\-']+$/.test(v)) return false;
+  
+    // хотя бы одна буква
+    return /[A-Za-zА-Яа-яЁё]/.test(v);
+  }
+
+  function formatPrice(value) {
+    const num = Math.floor(Number(value) || 0);
+    return String(num);
+  }  
+  
+  function showError(message) {
+    root.innerHTML =
+      '<div class="flex flex-col items-center justify-center min-h-screen text-center p-8 pb-[65px]">' +
+        '<div class="w-20 h-20 bg-red-100 rounded-2xl flex items-center justify-center mb-6">' +
+          '<svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+            ' d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
+          '</svg>' +
+        '</div>' +
+        '<h2 class="text-2xl font-bold text-gray-800 mb-4">Ошибка загрузки</h2>' +
+        '<p class="text-lg text-red-600 mb-2">' +
+          escapeHtml(message) +
+        '</p>' +
+        '<p class="text-lg text-500-blue mb-2">' + "Для заказа через менеджера напишите @TechBex." + '</p>' +
+        '<button onclick="location.reload()"' +
+          ' class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
+          'Попробовать снова' +
+        '</button>' +
+      '</div>';
+  
+      try {
+        if (typeof trackEvent === 'function') {
+          trackEvent('showErrorFatal', {});
+        }
+      } catch (e) {}
+    tg?.showAlert?.('❌ ' + message + '\nДля заказа через менеджера напишите @TechBex.');
+  }  
+  
+  // Бэкдроп модалки
+  if (modal) {
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+  }
+  
+  // ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (modal && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    }
+  });

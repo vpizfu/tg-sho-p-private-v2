@@ -1,1 +1,328 @@
-(function(_0x3ebe4d,_0x386072){const _0x5247c7=_0x40c8,_0xf3d60c=_0x3ebe4d();while(!![]){try{const _0x382e79=parseInt(_0x5247c7(0x22c))/0x1+parseInt(_0x5247c7(0x20a))/0x2*(-parseInt(_0x5247c7(0x237))/0x3)+parseInt(_0x5247c7(0x227))/0x4+-parseInt(_0x5247c7(0x223))/0x5*(parseInt(_0x5247c7(0x1ff))/0x6)+-parseInt(_0x5247c7(0x20c))/0x7*(-parseInt(_0x5247c7(0x201))/0x8)+parseInt(_0x5247c7(0x252))/0x9+-parseInt(_0x5247c7(0x1f6))/0xa;if(_0x382e79===_0x386072)break;else _0xf3d60c['push'](_0xf3d60c['shift']());}catch(_0x3f0dc7){_0xf3d60c['push'](_0xf3d60c['shift']());}}}(_0x44cc,0x821b2));function _0x44cc(){const _0x10b0d6=['AwzYyw1L','BM9VCgvUzxiSBM9YzwzLCNjLCG','pgrPDIbJBgfZCZ0IDgv4Dc1ZBsb0zxH0lwDYyxKTntaWiJ7qMTc+0l3rGTcW0lRrGTglpc9KAxy+','yMX1CG','y2f0y2G','Dgv4Dc1BmtfWEf0GBxqTmsb0zxH0lwfTyMvYltuWma','0j7qTTc40ltqSnc10ylrGDgpinc+0lhqVDc+0llqU9c10l3qUnc1ingg0lxqVsdrGDc10lpqVTc00l3rJW','pgrPDIbJBgfZCZ0IDgv4Dc1ZBsb0zxH0lwDYyxKTntaWiJ7qKTga0lxqVngpinga0ldqSDc+0ylrIZWVzgL2pG','kZC5mtyWmtCXmJyX','lteWmdbWEa','ChjLDMvUDerLzMf1Bhq','pgrPDIbJBgfZCZ0IDgv4Dc1ZBsb0zxH0lwDYyxKTnJaWig10lteIpTc/0l7qTnc00lxrGnc20lRqSdWVzgL2pG','x3rPBwvY','pgrPDIbJBgfZCZ0ICc02ihnWywnLlxKTnIbWyI1BnJvWEf0GBwf4lxCTBwqGBxGTyxv0BYi+','CMvTB3zLq2HPBgq','Dhj1zq','EwvHCG','mI1KAwDPDa','x2jSyw5R','otC0mZveBKDMrgu','yM9KEq','Axnoyu4','v2vIqxbW','mZu5ntCYohbctMP1wa','pha+0jZqSncZ0ldqT9c40l0G0l/rGnc10lZqUncW0lVrJnc90l7qUsdrGTc10yxqVDc40lRqUcbbChbSzsdrGsdqS9cW0ydqSnc90ylqUnc10lKG0lRqSngh0lxrGDgc0llqScdqUcdqU9gd0yFrInc40lZqUcdrHTc10l3qSnc80lGUpc9WpG','pgrPDIbJBgfZCZ0IDgv4Dc14CYb0zxH0lwDYyxKTndaWig10lteIpTcF0l4G0jZqODcApc9KAxy+','CgfNzwHPzgu','y29WEq','ndm0ntGYrLvNsxzW','pgrPDIbJBgfZCZ0IDgv4Dc1Jzw50zxiGCc00igjNlwDYzwvUltuWihjVDw5KzwqTmNHSigjVCMrLCIbIB3jKzxiTz3jLzw4TmtaWihnOywrVDY1ZBsbYAw5NlteGCMLUzY1NCMvLBI0XmdaVnJaIpG','CgfKu3rHCNq','rxvYB3bLl01VC2nVDW','pgrPDIbJBgfZCZ0IDgv4Dc14CYb0zxH0lwDYyxKTndaWiJ7qMncFpc9KAxy+','vgvSzwDYyw0','0jFqSncZ0ydrG9c30lRqSc4UlG','C2vJB25K','pgrPDIbJBgfZCZ0IDgv4Dc14CYb0zxH0lwDYyxKTndaWiJ5uzwXLz3jHBtWVzgL2pG','pgrPDIbJBgfZCZ0IDgv4Dc1ZBsb0zxH0lwDYyxKTntaWiJ7qPTc10l3rIYdqVTcX0l3qVTcY0lVqTDc90yS8l2rPDJ4','DhLWzq','ndjhEg9Nsui','pgrPDIbJBgfZCZ0IC3bHy2uTEs00ihrLEhqTz3jHEs03mdaIpG','CMvTB3zLrxzLBNrmAxn0zw5LCG','Ahr0Chm6lY90lM1Ll1rLy2HczxG','zxHLy0nVBw1HBMq','Dgv4Dc14CYbTDc0YigzVBNqTBwvKAxvTihrLEhqTCMvKltuWma','Bw9UDgG','y2XHC3noyw1L','Bg9JyxrPB24','pgeGAhjLzJ0IDgvSoIS3ote2mde3mti2msiGAwq9iMfIB3v0ugHVBMvmAw5RiIbJBgfZCZ0IyMXVy2SGDgv4Dc1IyxnLigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltGWmcbOB3zLCJP0zxH0lwjSDwuTnJaWihrYyw5ZAxrPB24Ty29SB3jZiJ4RnYa5mtyGmde3lteYltyXpc9HpG','pgrPDIbJBgfZCZ0IBxqTmYi+','zM9JDxm','zgf5','rgf0zvrPBwvgB3jTyxq','B3bLBLrLBgvNCMfTtgLUAW','ChjPy2vZvxbKyxrLzfzHBhvL','D3jPDgvuzxH0','pgrPDIbJBgfZCZ0Iz3jPzcbNCMLKlwnVBhmTmIbNyxaTncbTDc04iJ4','Dgv4DgfYzwe','yxjPys1OAwrKzw4','DMfSDwu','ChjPy2vZvxbKyxrLzfn0yxr1CW','0khqUTc+0l/qUnga0ypqUDgc0luG0l3qVTc80lxrGcdqSTga0yprH9c90yprJG','0j7qTTc40ltqSnc10ylrGDgpinc+0lhqVDc+0llqU9c10l3qUnc1ingg0lxqVsdqT9cW0llrGTga0la','pgrPDIbJBgfZCZ0IDgv4Dc0YEgWGzM9UDc1IB2XKihrLEhqTz3jLzw4TnJaWiJ4Ync83pc9KAxy+','pc9KAxy+','CMvHzg9UBhK','ntm2mZu2ofDyz3rKzG','Dgv4DenVBNrLBNq','zgf0zuTLEq','pgrPDIbJBgfZCZ0IyMXVy2SGDgv4Dc1IyxnLigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltGWmci+0kdrG9c70yWG0jxqU9c40lFqSncY0lxrGTcWincD0lJqUTc+0lVqSnc10llqVDcWpc9KAxy+','z2v0rwXLBwvUDej5swq','0khqUTc+0l/qUnga0l7qSTcW0l3qVG','C3r5Bgu','B25JBgLJAW','pgrPDIbPzd0IChjPy2vZvxbKyxrLzfn0yxr1CYiGy2XHC3m9iMHPzgrLBIi+pc9KAxy+','C3jJ','pgrPDIbJBgfZCZ0IBxqTmIbWltqGyMCTD2HPDguGCM91BMrLzc0YEgWGyM9YzgvYigjVCMrLCI1NCMf5lteWmcbZAgfKB3CTC20IpG','ywrKrxzLBNrmAxn0zw5LCG','Dgv4Dc14CYbTDc0YigzVBNqTBwvKAxvTihrLEhqTz3jLzw4TnJaW','BgvMDa','y2XPCgjVyxjK','CgfYzw50tM9Kzq','B3bLBG','y2XHC3nLCW','0kBqTDc90ySG0ldqUTgc0ypqSnc70yZqVDgl','ywn0DwfS','zgLZCgXHEq','pgrPDIbPzd0IChjPy2vZvxbKyxrLzfzHBhvLiIbJBgfZCZ0IDgv4Dc1IyxnLigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltGWmcbTDc0XiJ4','pgGYignSyxnZpsj0zxH0ltj4BcbMB250lwjVBgqGDgv4Dc1NCMf5ltGWmcbTyI00iJ7qNIdqVDcW0ye8l2GYpG','zM9YBwf0vg9qyxj0CW','BNvTzxjPyW','mJaZmJm4nZbWAKL3uvu','Dgv4Dc1BmtfWEf0GBxqTmsb0zxH0lwDYyxKTndaW','pgeGAhjLzJ0IAhr0Chm6lY90lM1Ll1rLy2HczxGIigLKpsjHyM91DfrLBgvNCMfTtgLUAYiGDgfYz2v0psjFyMXHBMSIihjLBd0IBM9VCgvUzxiGBM9YzwzLCNjLCIiGy2XHC3m9iMjSB2nRihrLEhqTyMfZzsbMB250lxnLBwLIB2XKihrLEhqTz3jHEs04mdaGAg92zxi6Dgv4Dc1IBhvLltyWmcb0CMfUC2L0Aw9UlwnVBg9YCYi+qfrLy2HczxG8l2e+','pgrPDIbJBgfZCZ0IDgv4Dc1ZBsb0zxH0lwDYyxKTnJaWig10lteIpTgc0l7qSTcW0ydqVTcYpc9KAxy+','CNuTuLu','Axntzwn1CMvdB250zxH0','C2vSzwn0','pgrPDIbJBgfZCZ0IDgv4Dc14CYb0zxH0lwDYyxKTndaWig10lteIpTcs0ydqTDc80y8G0l/qVIdqNncH0jO8l2rPDJ4','pgrPDIbPzd0IywjVDxrqAg9Uzvn0yxr1CYiGy2XHC3m9iMHPzgrLBIi+pc9KAxy+','nZHJEuPXDNu','DgvSoIS3ote2mde3mti2mq','oePmtxDUuW','zNvUy3rPB24','Ag91CG','ywjVDxrqAg9Uzvn0yxr1CW','DMLZAwjPBgL0EwnOyw5Nzq','Dgv4Da','z2v0vgLTzq','C3rVCfbYB3bHz2f0Aw9U','Dg9TB3jYB3C','mJe4odrMww9drhG','pgrPDIbJBgfZCZ0IDgv4Dc1Jzw50zxiGCc00igjNlwjSDwuTntaGCM91BMrLzc0YEgWGyM9YzgvYigjVCMrLCI1IBhvLlteWmcbZAgfKB3CTC20GCMLUzY0XihjPBMCTyMX1zs0XmdaVnJaIpG','nZi5nJq3og5yq3jeua','y3jLyxrLrwXLBwvUDa','AhjLzG','kZaZoJaW'];_0x44cc=function(){return _0x10b0d6;};return _0x44cc();}function getMoscowParts(_0x3f55a2=new Date()){const _0x19dd14=_0x40c8,_0x21af29=new Intl[(_0x19dd14(0x244))](_0x19dd14(0x1fa),{'timeZone':_0x19dd14(0x22f),'year':_0x19dd14(0x1f5),'month':_0x19dd14(0x221),'day':'2-digit','hour':'2-digit','minute':'2-digit','second':'2-digit','hourCycle':'h23'}),_0x167e37=_0x21af29[_0x19dd14(0x1f4)](_0x3f55a2),_0x46cbb6={};for(const _0x33b651 of _0x167e37){_0x33b651[_0x19dd14(0x236)]!=='literal'&&(_0x46cbb6[_0x33b651['type']]=_0x33b651['value']);}return{'year':_0x46cbb6[_0x19dd14(0x220)],'month':_0x46cbb6['month'],'day':_0x46cbb6[_0x19dd14(0x243)],'hour':Number(_0x46cbb6['hour']),'minute':Number(_0x46cbb6['minute']),'second':Number(_0x46cbb6[_0x19dd14(0x233)]),'dateKey':_0x46cbb6[_0x19dd14(0x220)]+'-'+_0x46cbb6[_0x19dd14(0x23d)]+'-'+_0x46cbb6[_0x19dd14(0x243)]};}function parseMetaDateToDate(_0x103dd7){const _0x330999=_0x40c8;if(!_0x103dd7)return null;const _0x19fdda=String(_0x103dd7)['trim']();if(!_0x19fdda||_0x19fdda===_0x330999(0x232))return null;const _0x4bbd7a=new Date(_0x19fdda);if(!Number[_0x330999(0x225)](_0x4bbd7a[_0x330999(0x207)]()))return _0x4bbd7a;const _0x1e01c4=_0x19fdda['match'](/(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{4})(?:\D+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/);if(!_0x1e01c4)return null;const _0x23f492=_0x1e01c4[0x1][_0x330999(0x22e)](0x2,'0'),_0x5fa3ad=_0x1e01c4[0x2]['padStart'](0x2,'0'),_0x564690=_0x1e01c4[0x3],_0x4c9deb=String(_0x1e01c4[0x4]||'00')[_0x330999(0x22e)](0x2,'0'),_0x44b1df=String(_0x1e01c4[0x5]||'00')[_0x330999(0x22e)](0x2,'0'),_0x462567=String(_0x1e01c4[0x6]||'00')[_0x330999(0x22e)](0x2,'0');return new Date(_0x564690+'-'+_0x5fa3ad+'-'+_0x23f492+'T'+_0x4c9deb+':'+_0x44b1df+':'+_0x462567+_0x330999(0x20f));}function getPriceStatus(_0x5c3052){const _0x3a899f=_0x40c8,_0x429dc3=parseMetaDateToDate(_0x5c3052);if(!_0x429dc3)return null;const _0x3b1866=getMoscowParts(new Date()),_0x2691d6=getMoscowParts(_0x429dc3),_0x5e5c97=_0x2691d6[_0x3a899f(0x254)]===_0x3b1866[_0x3a899f(0x254)],_0x2c93a6=_0x3b1866[_0x3a899f(0x203)]<0x14;if(_0x5e5c97&&_0x2c93a6)return{'type':_0x3a899f(0x1f0),'text':_0x3a899f(0x1ef),'classes':_0x3a899f(0x1e9)};if(!_0x5e5c97&&_0x2c93a6)return{'type':'pending','text':_0x3a899f(0x216),'classes':'text-xs\x20mt-2\x20font-medium\x20text-amber-600'};return{'type':_0x3a899f(0x209),'text':_0x3a899f(0x24e),'classes':_0x3a899f(0x23c)};}function updateAboutPricesMeta(){const _0xfbde36=_0x40c8,_0x9bc8f0=document[_0xfbde36(0x256)](_0xfbde36(0x246)),_0x3ab7b8=document[_0xfbde36(0x256)](_0xfbde36(0x24c));if(!_0x9bc8f0||!_0x3ab7b8)return;const _0x419444=aboutLastProductsMetaText||'Загрузка...';_0x9bc8f0['textContent']=_0x419444;const _0x59e5bf=getPriceStatus(_0x419444);if(!_0x59e5bf){_0x3ab7b8[_0xfbde36(0x23e)]='hidden',_0x3ab7b8[_0xfbde36(0x253)]='';return;}_0x3ab7b8[_0xfbde36(0x23e)]=_0x59e5bf[_0xfbde36(0x1ee)],_0x3ab7b8[_0xfbde36(0x253)]=_0x59e5bf[_0xfbde36(0x206)];}function setAboutLastProductsMetaText(_0xa9870){const _0x59cbd9=_0x40c8;aboutLastProductsMetaText=_0xa9870||_0x59cbd9(0x232),updateAboutPricesMeta();}function _0x40c8(_0x53a020,_0x295b9d){_0x53a020=_0x53a020-0x1e3;const _0x44cca6=_0x44cc();let _0x40c813=_0x44cca6[_0x53a020];if(_0x40c8['EeiYDE']===undefined){var _0xa3763c=function(_0x43a3f2){const _0x5756e5='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x3f55a2='',_0x21af29='';for(let _0x167e37=0x0,_0x46cbb6,_0x33b651,_0x103dd7=0x0;_0x33b651=_0x43a3f2['charAt'](_0x103dd7++);~_0x33b651&&(_0x46cbb6=_0x167e37%0x4?_0x46cbb6*0x40+_0x33b651:_0x33b651,_0x167e37++%0x4)?_0x3f55a2+=String['fromCharCode'](0xff&_0x46cbb6>>(-0x2*_0x167e37&0x6)):0x0){_0x33b651=_0x5756e5['indexOf'](_0x33b651);}for(let _0x19fdda=0x0,_0x4bbd7a=_0x3f55a2['length'];_0x19fdda<_0x4bbd7a;_0x19fdda++){_0x21af29+='%'+('00'+_0x3f55a2['charCodeAt'](_0x19fdda)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x21af29);};_0x40c8['clKDxA']=_0xa3763c,_0x40c8['XuACbR']={},_0x40c8['EeiYDE']=!![];}const _0x445432=_0x44cca6[0x0],_0x57e6fe=_0x53a020+_0x445432,_0x28e6b0=_0x40c8['XuACbR'][_0x57e6fe];return!_0x28e6b0?(_0x40c813=_0x40c8['clKDxA'](_0x40c813),_0x40c8['XuACbR'][_0x57e6fe]=_0x40c813):_0x40c813=_0x28e6b0,_0x40c813;}function showAboutPhoneStatus(_0x41d2f8,_0x1f047e){const _0x492c78=_0x40c8,_0x58f542=document['getElementById'](_0x492c78(0x204));if(!_0x58f542)return;_0x58f542[_0x492c78(0x253)]=_0x41d2f8,_0x58f542['className']=_0x1f047e,clearTimeout(showAboutPhoneStatus[_0x492c78(0x21c)]),showAboutPhoneStatus[_0x492c78(0x21c)]=setTimeout(function(){const _0x31c85b=_0x492c78,_0x160801=document['getElementById'](_0x31c85b(0x204));if(!_0x160801)return;_0x160801[_0x31c85b(0x253)]='',_0x160801[_0x31c85b(0x23e)]='hidden';},0x898);}function fallbackCopyAboutPhone(_0x511a25){const _0x2da2cc=_0x40c8,_0x506d83=document['createElement'](_0x2da2cc(0x249));_0x506d83[_0x2da2cc(0x24b)]=_0x511a25,_0x506d83['setAttribute'](_0x2da2cc(0x251),''),_0x506d83['style']['position']='fixed',_0x506d83['style']['top']=_0x2da2cc(0x219),_0x506d83[_0x2da2cc(0x1e3)][_0x2da2cc(0x1ea)]=_0x2da2cc(0x219),_0x506d83[_0x2da2cc(0x1e3)]['opacity']='0',document[_0x2da2cc(0x224)]['appendChild'](_0x506d83),_0x506d83[_0x2da2cc(0x242)](),_0x506d83[_0x2da2cc(0x1fc)]();try{document[_0x2da2cc(0x23b)](_0x2da2cc(0x22b)),showAboutPhoneStatus(_0x2da2cc(0x257),_0x2da2cc(0x1f7));}catch(_0x3077f3){showAboutPhoneStatus(_0x2da2cc(0x24d),_0x2da2cc(0x215));}document[_0x2da2cc(0x224)]['removeChild'](_0x506d83);}function copyAboutPhone(){const _0x2ee982=_0x40c8,_0x439b55=_0x2ee982(0x218);if(navigator[_0x2ee982(0x1eb)]&&window[_0x2ee982(0x1fb)]){navigator[_0x2ee982(0x1eb)][_0x2ee982(0x247)](_0x439b55)['then'](function(){const _0xcb64e4=_0x2ee982;showAboutPhoneStatus(_0xcb64e4(0x257),_0xcb64e4(0x1f7));})[_0x2ee982(0x214)](function(){fallbackCopyAboutPhone(_0x439b55);});return;}fallbackCopyAboutPhone(_0x439b55);}function openAboutPhone(){const _0x1333cd=_0x40c8,_0x4abdce=_0x1333cd(0x200);let _0x1340ea=![],_0x4bdfd5=![];function _0xd86a98(){_0x1340ea=!![];}function _0x27ab2d(){const _0x5ca9a7=_0x1333cd;document['removeEventListener'](_0x5ca9a7(0x205),_0x3965e9),window['removeEventListener']('pagehide',_0xd86a98),window[_0x5ca9a7(0x239)](_0x5ca9a7(0x213),_0xd86a98);}function _0x3965e9(){document['visibilityState']==='hidden'&&(_0x1340ea=!![]);}document[_0x1333cd(0x1e8)]('visibilitychange',_0x3965e9),window[_0x1333cd(0x1e8)](_0x1333cd(0x22a),_0xd86a98),window[_0x1333cd(0x1e8)](_0x1333cd(0x213),_0xd86a98);try{const _0x1fe947=document[_0x1333cd(0x20d)](_0x1333cd(0x210));_0x1fe947[_0x1333cd(0x1e3)][_0x1333cd(0x1f1)]='none',_0x1fe947['setAttribute'](_0x1333cd(0x24a),_0x1333cd(0x21f)),_0x1fe947[_0x1333cd(0x1e6)]=_0x4abdce,document[_0x1333cd(0x224)]['appendChild'](_0x1fe947),setTimeout(function(){const _0x427591=_0x1333cd;_0x1fe947['parentNode']&&_0x1fe947[_0x427591(0x1ec)][_0x427591(0x21e)](_0x1fe947);},0x4b0);}catch(_0x45368d){}try{window[_0x1333cd(0x23f)][_0x1333cd(0x20e)]=_0x4abdce;}catch(_0x40e85b){}setTimeout(function(){if(_0x4bdfd5)return;_0x4bdfd5=!![],_0x27ab2d(),!_0x1340ea&&copyAboutPhone();},0x384);}function openAboutTelegram(){const _0x3b1474=_0x40c8,_0x350e33=_0x3b1474(0x23a);if(window[_0x3b1474(0x231)]&&window['Telegram'][_0x3b1474(0x226)]&&typeof window[_0x3b1474(0x231)]['WebApp'][_0x3b1474(0x245)]===_0x3b1474(0x202))try{window[_0x3b1474(0x231)][_0x3b1474(0x226)][_0x3b1474(0x245)](_0x350e33);return;}catch(_0x33cb2a){}window[_0x3b1474(0x1ed)](_0x350e33,_0x3b1474(0x222),_0x3b1474(0x211));}function bindAboutActions(){const _0x36de1b=_0x40c8,_0x28a027=document['getElementById']('aboutPhoneLink'),_0x1b88a1=document[_0x36de1b(0x256)]('aboutTelegramLink');_0x28a027&&(_0x28a027[_0x36de1b(0x1e4)]=function(_0x5781f0){const _0x3bfd83=_0x36de1b;return _0x5781f0[_0x3bfd83(0x21a)](),_0x5781f0[_0x3bfd83(0x208)](),openAboutPhone(),![];}),_0x1b88a1&&(_0x1b88a1[_0x36de1b(0x1e4)]=function(_0x36e76e){const _0x3b8fbb=_0x36de1b;return _0x36e76e[_0x3b8fbb(0x21a)](),_0x36e76e[_0x3b8fbb(0x208)](),openAboutTelegram(),![];});}function showAboutTab(){const _0x89acae=_0x40c8,_0x4b77f6=aboutLastProductsMetaText||_0x89acae(0x232);root['innerHTML']=_0x89acae(0x21d)+_0x89acae(0x1f3)+_0x89acae(0x238)+_0x89acae(0x228)+_0x89acae(0x248)+_0x89acae(0x20b)+'<div\x20class=\x22text-2xl\x20font-bold\x20text-blue-600\x22>100+</div>'+_0x89acae(0x1f9)+'</div>'+_0x89acae(0x22d)+_0x89acae(0x24f)+_0x89acae(0x21b)+'</div>'+_0x89acae(0x250)+'<div\x20id=\x22pricesUpdatedCard\x22\x20class=\x22mt-2\x20p-4\x20bg-white\x20rounded-2xl\x20border\x20border-gray-100\x20shadow-sm\x22>'+_0x89acae(0x235)+_0x89acae(0x1f2)+_0x4b77f6+_0x89acae(0x250)+_0x89acae(0x1fd)+_0x89acae(0x1e5)+_0x89acae(0x250)+_0x89acae(0x1e7)+_0x89acae(0x217)+'<div\x20class=\x22text-base\x20font-semibold\x20text-gray-800\x20mt-1\x22>10:00\x20–\x2020:00</div>'+_0x89acae(0x229)+'</div>'+'<div\x20class=\x22mt-2\x20p-4\x20bg-white\x20rounded-2xl\x20border\x20border-gray-100\x20shadow-sm\x22>'+_0x89acae(0x212)+_0x89acae(0x241)+'<div\x20class=\x22text-xs\x20text-gray-400\x22>Телефон</div>'+_0x89acae(0x240)+_0x89acae(0x1fe)+_0x89acae(0x250)+_0x89acae(0x241)+_0x89acae(0x234)+_0x89acae(0x1f8)+_0x89acae(0x250)+_0x89acae(0x241)+_0x89acae(0x230)+_0x89acae(0x255)+_0x89acae(0x250)+_0x89acae(0x250)+_0x89acae(0x250)+_0x89acae(0x250),updateAboutPricesMeta(),bindAboutActions();}
+function getMoscowParts(date = new Date()) {
+  const formatter = new Intl.DateTimeFormat('ru-RU', {
+    timeZone: 'Europe/Moscow',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23'
+  });
+
+  const parts = formatter.formatToParts(date);
+  const map = {};
+
+  for (const part of parts) {
+    if (part.type !== 'literal') {
+      map[part.type] = part.value;
+    }
+  }
+
+  return {
+    year: map.year,
+    month: map.month,
+    day: map.day,
+    hour: Number(map.hour),
+    minute: Number(map.minute),
+    second: Number(map.second),
+    dateKey: `${map.year}-${map.month}-${map.day}`
+  };
+}
+
+function parseMetaDateToDate(metaText) {
+  if (!metaText) return null;
+
+  const str = String(metaText).trim();
+  if (!str || str === 'Загрузка...') return null;
+
+  const isoDate = new Date(str);
+  if (!Number.isNaN(isoDate.getTime())) {
+    return isoDate;
+  }
+
+  const m = str.match(
+    /(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{4})(?:\D+(\d{1,2}):(\d{2})(?::(\d{2}))?)?/
+  );
+
+  if (!m) return null;
+
+  const dd = m[1].padStart(2, '0');
+  const mm = m[2].padStart(2, '0');
+  const yyyy = m[3];
+  const hh = String(m[4] || '00').padStart(2, '0');
+  const min = String(m[5] || '00').padStart(2, '0');
+  const ss = String(m[6] || '00').padStart(2, '0');
+
+  return new Date(`${yyyy}-${mm}-${dd}T${hh}:${min}:${ss}+03:00`);
+}
+
+function getPriceStatus(metaText) {
+  const updatedDate = parseMetaDateToDate(metaText);
+
+  if (!updatedDate) {
+    return null;
+  }
+
+  const nowMsk = getMoscowParts(new Date());
+  const updatedMsk = getMoscowParts(updatedDate);
+
+  const isTodayMsk = updatedMsk.dateKey === nowMsk.dateKey;
+  const isBefore20 = nowMsk.hour < 20;
+
+  if (isTodayMsk && isBefore20) {
+    return {
+      type: 'actual',
+      text: 'Цены актуальны',
+      classes: 'text-xs mt-2 font-medium text-green-600'
+    };
+  }
+
+  if (!isTodayMsk && isBefore20) {
+    return {
+      type: 'pending',
+      text: 'Ожидается обновление цен сегодня',
+      classes: 'text-xs mt-2 font-medium text-amber-600'
+    };
+  }
+
+  return {
+    type: 'tomorrow',
+    text: 'Ожидается обновление цен завтра',
+    classes: 'text-xs mt-2 font-medium text-red-500'
+  };
+}
+
+function updateAboutPricesMeta() {
+  const valueEl = document.getElementById('pricesUpdatedValue');
+  const statusEl = document.getElementById('pricesUpdatedStatus');
+
+  if (!valueEl || !statusEl) return;
+
+  const value = aboutLastProductsMetaText || 'Загрузка...';
+  valueEl.textContent = value;
+
+  const status = getPriceStatus(value);
+
+  if (!status) {
+    statusEl.className = 'hidden';
+    statusEl.textContent = '';
+    return;
+  }
+
+  statusEl.className = status.classes;
+  statusEl.textContent = status.text;
+}
+
+function setAboutLastProductsMetaText(value) {
+  aboutLastProductsMetaText = value || 'Загрузка...';
+  updateAboutPricesMeta();
+}
+
+function showAboutPhoneStatus(text, classes) {
+  const statusEl = document.getElementById('aboutPhoneStatus');
+  if (!statusEl) return;
+
+  statusEl.textContent = text;
+  statusEl.className = classes;
+
+  clearTimeout(showAboutPhoneStatus._timer);
+
+  showAboutPhoneStatus._timer = setTimeout(function () {
+    const el = document.getElementById('aboutPhoneStatus');
+    if (!el) return;
+    el.textContent = '';
+    el.className = 'hidden';
+  }, 2200);
+}
+
+function fallbackCopyAboutPhone(phone) {
+  const textarea = document.createElement('textarea');
+  textarea.value = phone;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.top = '-1000px';
+  textarea.style.left = '-1000px';
+  textarea.style.opacity = '0';
+
+  document.body.appendChild(textarea);
+  textarea.focus();
+  textarea.select();
+
+  try {
+    document.execCommand('copy');
+    showAboutPhoneStatus('Скопировано', 'text-[11px] mt-1 text-gray-400');
+  } catch (error) {
+    showAboutPhoneStatus('Скопируйте номер вручную', 'text-[11px] mt-1 text-amber-500');
+  }
+
+  document.body.removeChild(textarea);
+}
+
+function copyAboutPhone() {
+  const phone = '+79160171261';
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(phone).then(function () {
+      showAboutPhoneStatus('Скопировано', 'text-[11px] mt-1 text-gray-400');
+    }).catch(function () {
+      fallbackCopyAboutPhone(phone);
+    });
+    return;
+  }
+
+  fallbackCopyAboutPhone(phone);
+}
+
+function openAboutPhone() {
+  const phoneHref = 'tel:+79160171261';
+  let pageHidden = false;
+  let handled = false;
+
+  function markHidden() {
+    pageHidden = true;
+  }
+
+  function cleanup() {
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    window.removeEventListener('pagehide', markHidden);
+    window.removeEventListener('blur', markHidden);
+  }
+
+  function handleVisibilityChange() {
+    if (document.visibilityState === 'hidden') {
+      pageHidden = true;
+    }
+  }
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('pagehide', markHidden);
+  window.addEventListener('blur', markHidden);
+
+  try {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.setAttribute('aria-hidden', 'true');
+    iframe.src = phoneHref;
+    document.body.appendChild(iframe);
+
+    setTimeout(function () {
+      if (iframe.parentNode) {
+        iframe.parentNode.removeChild(iframe);
+      }
+    }, 1200);
+  } catch (error) {}
+
+  try {
+    window.location.href = phoneHref;
+  } catch (error) {}
+
+  setTimeout(function () {
+    if (handled) return;
+    handled = true;
+    cleanup();
+
+    if (!pageHidden) {
+      copyAboutPhone();
+    }
+  }, 900);
+}
+
+function openAboutTelegram() {
+  const telegramUrl = 'https://t.me/TechBex';
+
+  if (
+    window.Telegram &&
+    window.Telegram.WebApp &&
+    typeof window.Telegram.WebApp.openTelegramLink === 'function'
+  ) {
+    try {
+      window.Telegram.WebApp.openTelegramLink(telegramUrl);
+      return;
+    } catch (error) {}
+  }
+
+  window.open(telegramUrl, '_blank', 'noopener,noreferrer');
+}
+
+function bindAboutActions() {
+  const phoneLink = document.getElementById('aboutPhoneLink');
+  const telegramLink = document.getElementById('aboutTelegramLink');
+
+  if (phoneLink) {
+    phoneLink.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openAboutPhone();
+      return false;
+    };
+  }
+
+  if (telegramLink) {
+    telegramLink.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openAboutTelegram();
+      return false;
+    };
+  }
+}
+
+function showAboutTab() {
+  const initialValue = aboutLastProductsMetaText || 'Загрузка...';
+
+  root.innerHTML =
+    '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto">' +
+      '<h2 class="text-2xl font-bold text-gray-800 mb-4">О нас</h2>' +
+      '<div class="space-y-4 text-gray-700">' +
+        '<p>Магазин премиальной техники Apple с гарантией качества и лучшими ценами.</p>' +
+
+        '<div class="grid grid-cols-2 gap-4 mt-8">' +
+          '<div class="text-center p-4 bg-blue-50 rounded-2xl border border-blue-100 shadow-sm ring-1 ring-blue-100/60">' +
+            '<div class="text-2xl font-bold text-blue-600">100+</div>' +
+            '<div class="text-sm text-gray-600 mt-1">товаров</div>' +
+          '</div>' +
+          '<div class="text-center p-4 bg-green-50 rounded-2xl border border-green-100 shadow-sm ring-1 ring-green-100/60">' +
+            '<div class="text-2xl font-bold text-green-600">24/7</div>' +
+            '<div class="text-sm text-gray-600 mt-1">поддержка</div>' +
+          '</div>' +
+        '</div>' +
+
+        '<div id="pricesUpdatedCard" class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
+          '<div class="text-sm text-gray-500">Цены обновлены</div>' +
+          '<div id="pricesUpdatedValue" class="text-base font-semibold text-gray-800 mt-1">' + initialValue + '</div>' +
+          '<div class="text-xs text-gray-400 mt-1">Время по МСК</div>' +
+          '<div id="pricesUpdatedStatus" class="hidden"></div>' +
+        '</div>' +
+
+        '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
+          '<div class="text-sm text-gray-500">Время работы</div>' +
+          '<div class="text-base font-semibold text-gray-800 mt-1">10:00 – 20:00</div>' +
+          '<div class="text-xs text-gray-400 mt-1">По МСК</div>' +
+        '</div>' +
+
+        '<div class="mt-2 p-4 bg-white rounded-2xl border border-gray-100 shadow-sm">' +
+          '<div class="text-sm text-gray-500">Контакты</div>' +
+
+          '<div class="mt-3">' +
+            '<div class="text-xs text-gray-400">Телефон</div>' +
+            '<a href="tel:+79160171261" id="aboutPhoneLink" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">+7 916 017-12-61</a>' +
+            '<div id="aboutPhoneStatus" class="hidden"></div>' +
+          '</div>' +
+
+          '<div class="mt-3">' +
+            '<div class="text-xs text-gray-400">Telegram</div>' +
+            '<a href="https://t.me/TechBex" id="aboutTelegramLink" target="_blank" rel="noopener noreferrer" class="block text-base font-semibold text-gray-800 hover:text-blue-600 transition-colors">@TechBex</a>' +
+          '</div>' +
+
+          '<div class="mt-3">' +
+            '<div class="text-xs text-gray-400">ИП</div>' +
+            '<div class="block text-base font-semibold text-gray-800">Руль Елизавета Николаевна</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  updateAboutPricesMeta();
+  bindAboutActions();
+}

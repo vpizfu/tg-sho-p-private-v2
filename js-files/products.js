@@ -1,1 +1,1737 @@
-const _0x95122d=_0x1f37;(function(_0x5f4a66,_0x1f8041){const _0x15411e=_0x1f37,_0x1b9e10=_0x5f4a66();while(!![]){try{const _0x14289a=parseInt(_0x15411e(0x1f8))/0x1*(-parseInt(_0x15411e(0x270))/0x2)+parseInt(_0x15411e(0x2b4))/0x3+parseInt(_0x15411e(0x269))/0x4+-parseInt(_0x15411e(0x309))/0x5*(parseInt(_0x15411e(0x338))/0x6)+parseInt(_0x15411e(0x322))/0x7*(-parseInt(_0x15411e(0x242))/0x8)+-parseInt(_0x15411e(0x2c3))/0x9*(parseInt(_0x15411e(0x30e))/0xa)+parseInt(_0x15411e(0x20a))/0xb*(parseInt(_0x15411e(0x324))/0xc);if(_0x14289a===_0x1f8041)break;else _0x1b9e10['push'](_0x1b9e10['shift']());}catch(_0x178843){_0x1b9e10['push'](_0x1b9e10['shift']());}}}(_0x2b59,0xdcf30));const VARIANT_TECH_FIELDS=[_0x95122d(0x268),'id',_0x95122d(0x343)];function makeVariantUserKeyWithoutPrice(_0x28647b){const _0x5e4da0=_0x95122d,_0xb301fe=Object[_0x5e4da0(0x231)](_0x28647b)['filter'](([_0x11f753])=>!VARIANT_TECH_FIELDS[_0x5e4da0(0x287)](_0x11f753)&&_0x11f753!==_0x5e4da0(0x295))[_0x5e4da0(0x227)](([_0x4f09fa],[_0xe38515])=>_0x4f09fa[_0x5e4da0(0x30f)](_0xe38515));return JSON[_0x5e4da0(0x342)](_0xb301fe);}function getCategoriesFromProducts(){const _0xb4be2c=_0x95122d;if(!productsData||!productsData['length'])return['Все\x20товары'];const _0x3f4de7=new Set();productsData[_0xb4be2c(0x2b7)](_0xf3076e=>{const _0xa90c93=_0xb4be2c;if(!_0xf3076e)return;if(!_0xf3076e[_0xa90c93(0x2a9)])return;let _0x11fe12=_0xf3076e[_0xa90c93(0x282)]!=null?String(_0xf3076e[_0xa90c93(0x282)])[_0xa90c93(0x24d)]():'';!_0x11fe12&&(_0x11fe12=_0xa90c93(0x2d8)),_0x3f4de7['add'](_0x11fe12);});const _0x2e6ede=Array[_0xb4be2c(0x2a6)](_0x3f4de7)[_0xb4be2c(0x227)]((_0x4e7a04,_0x15c29d)=>_0x4e7a04[_0xb4be2c(0x30f)](_0x15c29d,'ru'));return[_0xb4be2c(0x294),..._0x2e6ede];}function dedupeIdenticalVariants(_0x4b976e){const _0x1c9e55=_0x95122d,_0x5c13d8=new Map();return _0x4b976e[_0x1c9e55(0x2b7)](_0x5ac1f6=>{const _0x3c218e=_0x1c9e55,_0x3df2fc=makeVariantUserKeyWithoutPrice(_0x5ac1f6),_0x855a7=_0x5c13d8[_0x3c218e(0x24e)](_0x3df2fc);if(!_0x855a7){_0x5c13d8[_0x3c218e(0x323)](_0x3df2fc,_0x5ac1f6);return;}const _0xce8739=Number(_0x855a7[_0x3c218e(0x295)]||0x0),_0x3ab30c=Number(_0x5ac1f6[_0x3c218e(0x295)]||0x0);_0x3ab30c>_0xce8739&&_0x5c13d8[_0x3c218e(0x323)](_0x3df2fc,_0x5ac1f6);}),Array[_0x1c9e55(0x2a6)](_0x5c13d8[_0x1c9e55(0x1f1)]());}function _0x2b59(){const _0x1d8e5a=['0jtqUncW0lZqTDgc0ya','z2v0q2fYDenVDw50CNK','w3jLBMrLCLnOB3bDigDYAwqGDxbKyxrLzcaOzNvSBcbYzxjLBMrLCIKSihjLBMrLCMvKigL0zw1Zid0','pgrPDIbJBgfZCZ0IDY00ncbIzY13AgL0zsbYB3vUzgvKltj4BcbZAgfKB3CGChGTmYbWEs0YiJ4','lcbZAg93q291BNqGpq','0jRqSngc0lxqS9c+0ydqUngp','y2fYDeL0zw1ZoG','pc9ZDMC+','C3zNlwzHzguTB3v0','y2fYB3vZzwXF','mJCZqNjJyxfz','C2v0','mZi0mduWntjQCw9mALy','pgrPDIbJBgfZCZ0IDY1MDwXSigGTmZiGCM91BMrLzc14BcbTyI0ZigLTywDLlwnHCM91C2vSign1CNnVCI1WB2LUDgvYig92zxjMBg93lwHPzgrLBIbYzwXHDgL2zsi+','yMCTCMvKltuWihrLEhqTCMvKltuWmcbYAw5NlteGCMLUzY1YzwqTmtaW','ChvZAa','pgrPDIbPzd0Iy291BNrYEvbPy2TLCIiGy2XHC3m9iMHPzgrLBIbHyNnVBhv0zsb0B3aTzNvSBcbSzwz0lteVmIaTDhjHBNnSyxrLlxGTms8Yig10ltiGyMCTD2HPDguGCM91BMrLzc14BcbZAgfKB3CTBgCGyM9YzgvYigjVCMrLCI1NCMf5ltiWmcbWltiGEI01mcbTAw4TDY1BmtyWChHDiJ4','w3jLBMrLCLnOB3bDiejfrK9srsbNzxrwAxnPyMXLuhjVzhvJDhmSihf1zxj5id0','y2XHC3nmAxn0','zxzLCNK','pgrPDIbJBgfZCZ0IDgv4Dc1IBhvLltyWmcbMB250lwjSywnRihrLEhqTEgWGBwiTmsi+','lcbJB3vUDca9','pgrPDIbJBgfZCZ0IAw5SAw5LlwzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYihjVDw5KzwqTzNvSBcbWEc0Zihb5lteGDgv4Dc1BmtbWEf0GzM9UDc1TzwrPDw0G','phn2zYbJBgfZCZ0IDY00igGTncb0zxH0lwDYyxKTntaWig1YltiIigzPBgW9iM5VBMuIihn0CM9Rzt0Iy3vYCMvUDenVBg9YiIb2Awv3qM94psiWidaGmJqGmJqIpG','yMfUzfnPEMu','Dg9tDhjPBMC','zM9YBwf0uhjPy2vgB3jdB3vUDhj5','C29Tzq','yMCTyw1IzxiTntaGDgv4Dc1HBwjLCI02mdaGCMLUzY0XihjPBMCTyw1IzxiTmtaW','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiIpG','rxnJyxbL','pgrPDIbPzd0IC2HVCfbYAwnLu3rHDhvZqMfKz2uIignSyxnZpsjPBMXPBMuTzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGCM91BMrLzc1MDwXSihb4ltmGChKTmsb0zxH0lvSXmhb4xsbMB250lw1LzgL1Bsa','odGWmde0AgrwB3DQ','y2f0zwDVCNLtzwXLy3rcDxr0B24','C2v0sxrLBq','w25VCM1HBgL6zvbYB2r1y3rZxsbTAxnZAw5NigLKigzVCIbWCM9KDwn0','0kBqSTc10yi','C2vHCMnOx2nOyw5Nzq','D2fYBG','BgvUz3rO','jYWGjW','y3b1','C3rYAw5NAwz5','u0Tv','ignSyxnZpsj3lwz1BgWGDgv4Dc1ZBsbWEc0Zihb5lteUnsbYB3vUzgvKlxHSigjNlwDYyxKTntaGzM9JDxm6yMCTD2HPDgu','lcb0B3rHBcb2yxjPyw50CYa9','0jJqT9c+0lhrGncW0lBqTDc90lJrJW','w2DLDfzPC2LIBgvqCM9KDwn0C10Gywz0zxiGAw5tDg9JAYaMigDYB3vWAw5NlcbJB3vUDca9','igq9iK0ZidrOmMWXlJuGmtfOmtaUnuWYmca3sdCIic8+','DhjHBNnMB3jT','BwLU','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Izxr3zwvUigDHCc0Zig1PBI13ltaIpG','pc9VChrPB24+','C2nYB2XSu2vUDgLUzwW','Dg9W','rw50zxi','ywn0DwfS','BwfW','zgf0yxnLDa','DMfSDwvZ','yM9KEq','0j7qSDc90l7qSTc40ylrJcdrGTc+0llqSnga0yS','Bwf0y2G','pc9ZCgfUpG','BMfTzq','ls0Tls0Tls0Tls0Tls0TlsbBCMvUzgvYu2HVCf0Gls0Tls0Tls0Tls0Tls0Tlq','mtiZmZy4mNvqCLjcBq','iIbWBgfJzwHVBgrLCJ0I0j/qVTc40yhqUI4UlIiGy2XHC3m9iNCTzNvSBcbIzY10CMfUC3bHCMvUDcbVDxrSAw5Llw5VBMuGDgv4Dc1ZBsb0zxH0lwDYyxKTotaWiIaVpG','yMX1CG','pgeGAhjLzJ0IiYiGy2XHC3m9iM5HDI1SB2DVigzSzxGTC2HYAw5RltaIpLrLy2G8C3bHBJ5czxG8l3nWyw4+pc9HpG','BgvMDa','phnWyw4Gy2XHC3m9iMnHDgvNB3j5lw9WDgLVBI1SywjLBci+','C2v0q291BNrYEufUzfjLzNjLC2G','igq9iK0YmsaYmwWTnc4Zns00lJm1tteWide4ytGGocaWideWmc0XnIa4idGGmcaWmdaGmtz6iI8+','y2f0zwDVCNK','phnLBgvJDcbPzd0Iy2f0zwDVCNKIignSyxnZpsj3lwz1BgWGyMCTDhjHBNnWyxjLBNqGyM9YzgvYlw5VBMuGzM9UDc1Zzw1PyM9Szcb0zxH0lwjHC2uGzM9JDxm6B3v0BgLUzs1UB25LigfWCgvHCMfUy2uTBM9Uzsb0zxH0lwXLzNqIpG','y2XHC3noyw1L','ignSyxnZpsj3lwz1BgWGDgv4Dc1Szwz0ihb4ltmGChKTmIb0zxH0lxnTigzSzxGGAxrLBxmTy2vUDgvYigDHCc0YigP1C3rPzNKTC3rHCNqGAg92zxi6yMCTz3jHEs0Xmda','y2fYB3vZzwXozxH0xW','zgLZCgXHEq','CMLNAhq','z2v0qxr0CMLIDxrL','zgLHBwv0zxi','w2rHDgeTChjVzhvJDc1Uyw1Lxq','mtfzBhLrCxi','A2v5CW','A2v5zg93BG','Aw1Hz2vZ','y291BNrYEvjLBg9HzeXVywrLCG','z3b1','zMfKzs1PBI1PBwfNzq','Aw5Zzxj0qwrQywnLBNrive1m','C2vSzwn0zwrdB3vUDhj5','C3bSAxq','AM9PBG','C2vSzwn0zwrdB3vUDhj5oG','pgnPCMnSzsbJEd0ImtyIign5psiXosiGCJ0Ims41iIbZDhjVA2uTD2LKDgG9iJiIic8+','yMCTz3jLzw4TntaGDgv4Dc1NCMvLBI02mdaGCMLUzY0XihjPBMCTz3jLzw4TmtaW','pgrPDIbJBgfZCZ0IChjVzhvJDc1NCMLKiIbPzd0IChjVzhvJDeDYAwqIpJWVzgL2pG','CMfT','zgf0ys1JB3vUDhj5','CxvLCNLtzwXLy3rVCG','pgrPDIbJBgfZCZ0IAw1Hz2uTCgXHy2vOB2XKzxiTy29UDgfPBMvYihjLBgf0AxzLihCTzNvSBcbOlwz1BgWIpG','pgXHyMvSignSyxnZpsj0zxH0lxHZihrLEhqTz3jHEs01mdaGyMXVy2SGBwiTmsi+0jRqSngc0lxqS9c+0ydqUngppc9SywjLBd4','pgrPDIbJBgfZCZ0IDY1MDwXSiJ4','iIbKyxrHlwnVDw50CNK9iLjviJ4','ignSyxnZpsj3lwz1BgWGDgv4Dc1Szwz0igzVBNqTC2vTAwjVBgqGDgv4Dc1IyxnLigzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTyMv0D2vLBIbNyxaTmIi+','igrHDgeTChjVzhvJDc1Uyw1Lpsi','BgfZDfvWzgf0zwrbDa','w2DLDfzPC2LIBgvqCM9KDwn0C10Gywz0zxiGy2f0zwDVCNKGzMLSDgvYlcbJyxrLz29YEsa9','pgrPDIbJBgfZCZ0IAw1Hz2uTCgXHy2vOB2XKzxiTC3zNigfIC29SDxrLigLUC2v0ltaIpG','C2v0q291BNrYEq','DhLWzq','C29YDa','ignSyxnZpsjHyNnVBhv0zsbSzwz0ltaGCMLNAhqTmcbTDc0XigjNlxDOAxrLigjVCMrLCIbIB3jKzxiTz3jHEs0YmdaGCM91BMrLzc0YEgWGC2HHzg93lwXNihOTmZaGBwf4lwGTodaGB3zLCMzSB3CTAgLKzgvUigHPzgrLBIi+','0j7qL9cJ','zMXHzW','w3nLyxjJAc5VBMLUChv0xsborvCGCxvLCNKGpq','y2fYB3vZzwW','ywrKrxzLBNrmAxn0zw5LCG','lcbVBgqGCxvLCNKGpq','ywn0AxzLrwXLBwvUDa','zgf0ys12ywX1zq','zw50CMLLCW','y291BNrYEvbPy2TLCG','pgj1DhrVBIb0ExbLpsjIDxr0B24IignSyxnZpsj3lwz1BgWGDgv4Dc1Szwz0ihb4ltmGChKTmIb0zxH0lxnTigzSzxGGAxrLBxmTy2vUDgvYigDHCc0YigHVDMvYoMjNlwDYyxKTmtaWihjVDw5KzwqTBgCG','y2f0u2vHCMnOqM91BMq','y2HPBgrYzw4','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltiIpG','phaGy2XHC3m9iNrLEhqTC20GDgv4Dc1NCMf5ltuWmcbTyI00ig1HEc13lxHZihrLEhqTy2vUDgvYiJ7qN9ga0l7qSTc10ydrJngc0luG0yhqVTc10ltqUnc90lxqVDc40luG0lGG0l/qVTc/0ydqVTcX0ypqUDgc0luG0l7qSDc90l7qSTc40ylrJcdrGDc/0lJrGDc+0lOG0ylqVTcY0ldrGnc+0liUincu0lVrJYdqT9cW0lRqSnc30laG0yFqTDga0lxqTYdqVnc10l3qTDc00lBqTDga0laG0l3qSnc/0lJrInc40ylqTsbavgvJAejLEc48l3a+','yxj0AwnSzq','y2fYDenVDw50CNK6','C2XPy2u','0j/qTDga0lxqUTc70y7rH9cW0lxqVcdqVncW0lpqSnc30lJqVs4UlG','phnWyw4Gy2XHC3m9iNrLEhqTyMX1zs01mdaIpUkCKZWVC3bHBJ4','x2rLBgvNyxrLqM91BMq','ChjLDMLLD19UzxC','ChjLDMvUDerLzMf1Bhq','pgrPDIbJBgfZCZ0IAc00ihCTmY80ig14lwf1Dg8GBwiTmIbYB3vUzgvKihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','ChjPy2u','mJm3mZuYy2LHy214','C3rVCMfNzq','Dhj1zq','yNv0Dg9Uw2rHDgeTDMfSDwvD','pgnPCMnSzsbJEd0IociGy3K9iJe5iIbYpsiXlJuIihn0CM9Rzs13Awr0Ad0ImIiGlZ4','ihbSywnLAg9SzgvYpslqNDcW0lNrGTc4inc60ldrGTc10lpqVTga0lJrJI4UlIi','lM10ltmUDgv4Dc14CY50zxH0lwDYyxKTntaW','8j+hT/cFH7O','lMLTywDLlxbSywnLAg9SzgvYlwnVBNrHAw5LCG','phnWyw4GAwq9iMnVDw50CNLgBgfNiJ4','x19JB3vUDhj5ugLJA2vYrgvSzwDHDgLVBKjVDw5K','DhjPBq','z2v0','Aw5SAw5LlwzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYihjVDw5KzwqTzNvSBcbWEc0Zihb5lteGDgv4Dc1BmtbWEf0GzM9UDc1TzwrPDw0G','w3nLyxjJAc5VBMTLEwrVD25Dievovevslcb2ywX1zsa9','jYKIia','y2fYDa','zM9JDxm','B3bLBKnHCNrbzNrLCLjLBg9Hza','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltiGCMvSyxrPDMuGBwiTmIi+','ChjVzhvJDe5HBwu','0j3qSnc30llqSnc90lJqTq','w3jLBMrLCLnOB3bDigDYAwqGzwXLBwvUDcbot1qGrK9vtKq','Dg9Nz2XL','AgfZ','y3vYC29Y','y2XPy2S','pc9ZCgfUpIdqUnc3ia','y291BNrYEvnLBgvJDg9Y','pgLUChv0igLKpsjZzwfYy2GIihzHBhvLpsi','C2vHCMnOugfYyw1Z','zgf0ys1ZCMm9iG','DgfYz2v0','pgrPDIbJBgfZCZ0IChGTmYbWEs0YihrLEhqTEhmGDgv4Dc1NCMf5ltuWmcbIB3jKzxiTyIbIB3jKzxiTz3jHEs0XmdaIpTcsinc60ldqUTgd0y4G0yhrGTga0ldqVDgdinc30ldqUTcW0lC8l2rPDJ4','y29UDgfPBNm','pgrPDIbJBgfZCZ0IBxqTmYb0zxH0lxHZihrLEhqTz3jHEs01mdaIpG','w3nLyxjJAc5VBMTLEwrVD25Die5fvYbXDwvYEsa9','C3rVCfbYB3bHz2f0Aw9U','0jdrGngc0lJqUTgd0lS','mtyYnZa4mhH3CMLMza','B25SB2fK','C2v0u2vSzwn0Aw9UuMfUz2u','ywn0AxzL','lcbSB2fKzwrdB3vUDcbYzxnLDcb0BW','zMLSDgvY','CgfYzw50rwXLBwvUDa','mLnMCML0za','lMLTywDLlwnHCM91C2vSlwLUBMvYw2rHDgeTy2fYB3vZzwXD','DgL0Bgu','ignSyxnZpsjTyxGTAc02ncbVDMvYzMXVDY15lwf1Dg8GChKTmsi+','y2fYB3vZzwXqCMv2xW','0klqUnc/inga0lxqVnc10yJqUTcW','C3rHCNrZv2L0Aa','z2v0q3vYCMvUDenVDw50CNLdB25MAwC','yMCTz3jLzw4TntaGDgv4Dc1NCMvLBI02mda','pgrPDIbJBgfZCZ0IzMXLEc0XigjNlxDOAxrLihjVDw5KzwqTmNHSihnOywrVDYbWEc0Zihb5ltiIpG','DhjHBNnSyxrLwcGT','pc9KAxy+','CgLSBenSyxnZzxm','y2f0zwDVCNLpChrPB25Zq29UDgfPBMvY','zgL2','CMvKDwnL','0j7qSDgj0ldrJYdqUTcW0ydrGTc40l3qUTcW','lMLTywDLlxbSywnLAg9SzgvYlxn2zW','y2f0','C2vHCMnOx3n1yM1PDa','x19JyxrLz29YEu91DhnPzgvdBgLJA0jVDw5K','Dgv4DenVBNrLBNq','phnWyw4Gy2XHC3m9iMzVBNqTBwvKAxvTihrLEhqTEhmGDgv4Dc1NCMf5ltuWmci+0kdqTDcZ0lJqVTc9oJWVC3bHBJ4','Aw5JBhvKzxm','CMvTB3zL','Dg9Nz2XLq291BNrYEvbPy2TLCG','0j/qVTc60ldqT9cW0l3qVJOGphnWyw4Gy2XHC3m9iMzVBNqTC2vTAwjVBgqIpG','ywX0psjqCM9KDwn0iIa','pgj1DhrVBIbVBMnSAwnRpsjYzwzYzxnOuhjVzhvJDhmOksi','y2XVC2vZDa','C2vSzwn0Aw9Uq2HHBMDLza','incY0ldrGnc40ldqVDgc0l7qSG','w2DLDfzPC2LIBgvqCM9KDwn0C10Gru5elcbYzxn1BhqGy291BNqGpq','phbHDgGGC3rYB2TLlwXPBMvJyxa9iNjVDw5KiIbZDhjVA2uTBgLUzwPVAw49iNjVDw5KiIbZDhjVA2uTD2LKDgG9iJiI','y3vYCMvUDfrHyG','C3rYAw5N','0jlrGDc1ingc0l7qSTcW0ydrIW','0kBqTDc90la','Bg9JyxrPB24','Dw5KzwzPBMvK','pgrPDIbPzd0Iy291BNrYEvnLBgvJDg9YiIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWlteGChGTmIbWEs0XihjVDw5KzwqTzNvSBcbIzY1NCMf5lteWmcb0zxH0lwDYyxKTnZaWigjVCMrLCIbIB3jKzxiTz3jHEs0YmdaGy3vYC29YlxbVAw50zxiGzMXLEc1ZAhjPBMSTmciGB25JBgLJAZ0IzxzLBNqUC3rVCfbYB3bHz2f0Aw9UkcK7ihrVz2DSzunVDw50CNLqAwnRzxiOksiGDgL0Bgu9iTcs0yVqSDga0ldrGTgminga0lxqS9c40l7qVsi+','Aw5Uzxjive1m','y2f0zwDVCNLFy2HHBMDL','C3nK','w3jLBMrLCLnOB3bDiefgvevsigDLDfzPC2LIBgvqCM9KDwn0CYWGy2fYDeL0zw1ZoG','y2fYB3vZzwXhB1rVxW','igf1Dg9JB21WBgv0zt0IB2zMiG','w3nLyxjJAc5VBMLUChv0xsbYyxCGDMfSDwuGpq','zNvUy3rPB24','CxvLCNLtzwXLy3rVCKfSBa','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwLUlwGTwZCWDMHDihrLEhqTy2vUDgvYihaTocbWyI1BnJvWEf0GBwf4lxCTBwqGBxGTyxv0BYi+','B25RzxLKB3DU','ywrK','idXZCgfUignSyxnZpsj0zxH0lwjSDwuTntaWiJ7INjm8l3nWyw4+','zNjVBq','w3rVz2DSzunVDw50CNLqAwnRzxjDihbPy2TLCIbUB3qGzM91BMqH','y3vYCMvUy3K','Aw5tDg9JAW','0kBqSTc10yiG0lRqVTga0l/rG9gb0la','0kBqSTc10yiG0ydqTDc80lxrInc60la','r1bv','y291BNrYEq','zgLHz29UywW','B2jQzwn0','idXZCgfUignSyxnZpsj0zxH0lwDYzwvUltuWmci+4PYtpc9ZCgfUpG','BM9Uzq','Bg9N','iIbKyxrHlwn1CNjLBNq9iJaIpG','mZuZnty4m3DjyxDouW','y2fYB3vZzwXqCMv2','lcbZzwXLy3rLzenHDgvNB3j5id0','zM9YrwfJAa','pc9ZCgfUpIaVia','AxnqCMv2Awv3','phbHDgGGzd0IttyGogW0idqGnc00iIbZDhjVA2uTD2LKDgG9iJeUnsiGC3rYB2TLlwXPBMvJyxa9iNjVDw5KiIbZDhjVA2uTBgLUzwPVAw49iNjVDw5KiIaVpG','zxjYB3i','pg9WDgLVBIb2ywX1zt0I','ChjVzhvJDeDYAwq','B25SB2fKpsjOyw5KBgvqCM9KDwn0sw1Hz2vtzxf1zw50AwfStg9HzcH0AgLZlcaN','ihrLEhqTz3jHEs04mda','yM9VBgvHBG','incY0ldrGnc40ldqVDgc0la','y2fZzunVBg9Y','ntr3DLbyANu','CMfUzg9T','yMfUzfr5Cgu','Dgv4Da','ihr5Cgu9iNrLEhqI','igrHDgeTDMfSDwu9iG','C2HVCa','Dg9vChbLCKnHC2u','ignSyxnZpsj3lwz1BgWGDgv4Dc1Szwz0ihb4ltmGChKTmIb0zxH0lxnTigzSzxGGAxrLBxmTy2vUDgvYigDHCc0YigP1C3rPzNKTC3rHCNqGAg92zxi6yMCTz3jHEs0XmdaGCM91BMrLzc1SzW','ChjVzhvJDf92Awv3','uLvcia','Aw5WDxq','BwvKAxvT','C3r5Bgu','pgrPDIbJBgfZCZ0IBwiTnsi+','Aw1Wywn0t2nJDxjYzwq','w3rVz2DSzunVDw50CNLqAwnRzxjDihnLBgvJDg9YihjLy3q6','C2vHCMnO','y2f0zwDVCNLtzwfYy2HjBNb1Da','DMfSDwu','pgrPDIbPzd0Iy2f0zwDVCNLtzwXLy3qIignSyxnZpsjYzwXHDgL2zsi+','0jhqTDc3inc60ldrGTc10lpqVTga0lJqUa','z2v0qM91BMrPBMDdBgLLBNrszwn0','pgrPDIbJBgfZCZ0IAw1Hz2uTy2fYB3vZzwWTAw5UzxiGCMvSyxrPDMuGDY1MDwXSigGTzNvSBciGzgf0ys1JyxjVDxnLBd0I','pgrPDIbJBgfZCZ0ICgiTwZy1ChHDiJ4','yMfUzenVBg9Y','phnWyw4Gy2XHC3m9iMzVBNqTC2vTAwjVBgqIpG','uLvc','phnWyw4Gy2XHC3m9iNCTnci+pc9ZCgfUpG','B25PBNb1Da','y29TBw9Usw1Hz2u','w3rVz2DSzunVDw50CNLqAwnRzxjDihrVz2DSzwqSigHPzgrLBJO','u1ne','BwfPBKLTywDL','lMrVDa','B25JBgLJAW','yw5PBwf0ywjSzq','Cg9ZAxrPB246zML4zwq7Dg9WoJa7BgvMDdOWo3jPz2H0oJa7yM90Dg9ToJa7yMfJA2DYB3vUzdPYz2jHkdi1nsWYntuSmJu1ldaUosK7EI1PBMrLEdO5otK5o2rPC3bSyxK6zMXLEdTHBgLNBI1PDgvTCZPJzw50zxi7ANvZDgLMEs1JB250zw50oMnLBNrLCJTMB250lxnPEMu6mtzWEdTJB2XVCJOJmdi4ngm3oW','y2XHC3m9iMnHCM91C2vSlwLTzYbWCM9KDwn0lwLTywDLigfIC29SDxrLigLUC2v0ltaGB2jQzwn0lwnVBNrHAw4G','AxnbCNjHEq','pgrPDIbPzd0IC2HVCfbYAwnLu3rHDhvZv3jHCciGy2XHC3m9iM10lteIpG','0kdqSngb0lRqU9cW0ltqUTcW','A2v5yM9HCMq','sgfWDgLJrMvLzgjHy2S','pgj1DhrVBIb0ExbLpsjIDxr0B24I','C2vSzwn0B3i6','ignSyxnZpsj3lwz1BgWGyMCTDhjHBNnWyxjLBNqGB3v0BgLUzs1UB25LihrLEhqTC20GDgv4Dc1NCMf5ltKWmciGlZ4','AxbOB25L','y29Kzq','Dg9mB3DLCKnHC2u','0kdqVTgb0yhqUngp','phn2zYbJBgfZCZ0IDY0ZigGTmYb0zxH0lwDYyxKTntaWigzSzxGTC2HYAw5RltaIigzPBgW9iM5VBMuIihn0CM9Rzt0Iy3vYCMvUDenVBg9YiIb2Awv3qM94psiWidaGmJqGmJqIpJXWyxrOihn0CM9Rzs1SAw5Ly2fWpsjYB3vUzciGC3rYB2TLlwXPBMvQB2LUpsjYB3vUzciGC3rYB2TLlxDPzhrOpsiYiIbKpsjnmtKGowWTnYa3ltCTnYiVpJWVC3zNpG','iIbKyxrHlwnVDw50CNK9iKjziJ4','pgrPDIbJBgfZCZ0IyMCTD2HPDguGCM91BMrLzc0YEgWGCc00ihnOywrVDY1SzYbNCM91CcbJDxjZB3iTCg9PBNrLCIbYzwXHDgL2zsb3lwz1BgWI','w2DLDfzPC2LIBgvqCM9KDwn0C10GChjVzhvJDhneyxrHigLZig51BgWSihf1zxj5id0','y2fYB3vZzwXhB1rV','Dg91y2HZDgfYDa','w3rVz2DSzunVDw50CNLqAwnRzxjDihbPy2TLCJO','B25LCNjVCG','zMXVB3i','yMCTyMX1zs01mcb0zxH0lwjSDwuTnJaW','w3jLBMrLCLnOB3bDigjYyw5JAdOGzNvSBcbYzxjLBMrLCG','lcbSB2fKzwrdB3vUDca9','pgrPDIbJBgfZCZ0IAc00ihCTms8Yig14lwf1Dg8GCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','pc9IDxr0B24+','z2v0rwXLBwvUDej5swq','Dg9TB3jYB3C','CgvUzgLUzW','ig91DgXPBMuTBM9Uzsi','C2vSzwn0zwq','mJvAqKf4Dhy','AgLKzgvU','pgrPDIbJBgfZCZ0IAw5SAw5LlwzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYihjVDw5KzwqTzNvSBcbWEc0Zihb5lteGDgv4Dc1BmtbWEf0GzM9UDc1TzwrPDw0GD2HPDgvZCgfJzs1UB3DYyxaG','A2v5','C2HVCf9SB2fKzwq','ndi3nZeWDfz2zLHt','Bg9JywXLq29TCgfYzq','C291CMnLu2HLzxq','DxbKyxrLzef0','0kdqSnc30lZqTDgainga0lxqVnc10yJqUTcW','ls0Tls0Tls0Tls0Tls0TlsbBl3jLBMrLCLnOB3bDic0Tls0Tls0Tls0Tls0Tls0','pgrPDIbPzd0Iy2f0zwDVCNLpChrPB25Zq29UDgfPBMvYiG','phnWyw4+8j+hP/cFH748l3nWyw4+phnWyw4Gy2XHC3m9iMzVBNqTBwvKAxvTiJ7qKDc10lVqSnga0yprGDgmpc9ZCgfUpG','w3jLBMrLCLnOB3bDihnLBgvJDgvKq291BNrYEtO','C2HVCfbYAwnLu3rHDhvZv3jHCa'];_0x2b59=function(){return _0x1d8e5a;};return _0x2b59();}function getFilterOrderForProduct(_0x422544){return FILTER_ORDER_BY_CAT[_0x422544]||[];}function getActiveTypesForProduct(_0x1a0849,_0x5d12e5){const _0x20e0dc=_0x95122d,_0x395944=getFilterOrderForProduct(_0x1a0849['cat']);return _0x395944[_0x20e0dc(0x26e)](_0x41d843=>_0x5d12e5[_0x20e0dc(0x333)](_0x381896=>_0x381896[_0x41d843]!==undefined&&_0x381896[_0x41d843]!==null&&_0x381896[_0x41d843]!==''));}function getFilteredVariants(_0x59fc5a){const _0x2747eb=_0x95122d;if(!_0x59fc5a[_0x2747eb(0x33f)])return[];const _0x3ea085=getFilterOrderForProduct(_0x59fc5a[0x0]['cat']);return _0x59fc5a[_0x2747eb(0x26e)](_0x3460c4=>_0x3ea085['every'](_0x3178b3=>{const _0x3b6d5b=selectedOption[_0x3178b3];if(!_0x3b6d5b)return!![];const _0x569a71=_0x3460c4[_0x3178b3];return String(_0x569a71)===String(_0x3b6d5b);}));}function getAvailableOptions(_0x3b8b1a,_0x12259a){const _0x148e13=_0x95122d,_0x28f733=getFilteredVariants(_0x12259a),_0x432d6e=[...new Set(_0x28f733[_0x148e13(0x1ef)](_0x26dbe6=>_0x26dbe6[_0x3b8b1a])[_0x148e13(0x26e)](Boolean))],_0x4af5f0=_0x432d6e[_0x148e13(0x333)](_0x434bc5=>{const _0x3db91e=_0x148e13,_0x5cd318=String(_0x434bc5)[_0x3db91e(0x2ca)]();return _0x5cd318['includes']('GB')||_0x5cd318[_0x3db91e(0x287)]('ГБ')||_0x5cd318[_0x3db91e(0x287)]('TB')||_0x5cd318[_0x3db91e(0x287)]('ТБ');});if(_0x4af5f0)return _0x432d6e[_0x148e13(0x227)](compareCapacity);return _0x432d6e['sort']();}function normalizeProducts(_0x295618){const _0x155d90=_0x95122d;if(!Array[_0x155d90(0x2ea)](_0x295618))return console[_0x155d90(0x33e)]('[normalizeProducts]\x20products\x20is\x20not\x20an\x20array',_0x295618),[];const _0x1da5f6=_0x559439=>_0x559439===null||_0x559439===undefined?'':String(_0x559439)['trim'](),_0x2880f8=_0x3e5968=>{const _0x613edb=Number(_0x3e5968);return Number['isFinite'](_0x613edb)?_0x613edb:0x0;},_0x9c1d29=_0x414f8e=>{const _0x1fa2d0=_0x155d90;if(typeof _0x414f8e===_0x1fa2d0(0x2c0))return _0x414f8e;const _0x5775fb=String(_0x414f8e||'')[_0x1fa2d0(0x24d)]();if(!_0x5775fb)return![];return _0x5775fb===_0x1fa2d0(0x244)||_0x5775fb==='1'||_0x5775fb['indexOf']('✅')!==-0x1;},_0xe13624=_0x18a898=>{const _0x13d2bd=_0x155d90;if(Array['isArray'](_0x18a898))return _0x18a898[_0x13d2bd(0x1ef)](_0x1da5f6)[_0x13d2bd(0x26e)](Boolean);if(typeof _0x18a898===_0x13d2bd(0x293))return _0x18a898[_0x13d2bd(0x213)](',')[_0x13d2bd(0x1ef)](_0x1b9ad9=>_0x1b9ad9[_0x13d2bd(0x24d)]())[_0x13d2bd(0x26e)](Boolean);return[];};return _0x295618['map']((_0x5599f1,_0x4c4431)=>{const _0x9339cd=_0x155d90,_0x1a7cfc=_0x5599f1&&typeof _0x5599f1===_0x9339cd(0x2af)?_0x5599f1:{},_0x288ca2=_0x1da5f6(_0x1a7cfc['id']||_0x1a7cfc[_0x9339cd(0x2f3)]||_0x1a7cfc[_0x9339cd(0x238)]||_0x1a7cfc['sku']||''),_0x3304bd=_0x1da5f6(_0x1a7cfc['name']||_0x1a7cfc[_0x9339cd(0x272)]||''),_0x564788=_0x1da5f6(_0x1a7cfc['cat']||_0x1a7cfc[_0x9339cd(0x200)]||''),_0x370228=_0x2880f8(_0x1a7cfc[_0x9339cd(0x241)]),_0x21ca10=_0x1da5f6(_0x1a7cfc['memory']||_0x1a7cfc[_0x9339cd(0x243)]),_0x4487b1=_0x1da5f6(_0x1a7cfc['region']),_0x2d2c02=_0x1da5f6(_0x1a7cfc['sim']||_0x1a7cfc['simType']),_0x209578=_0x1da5f6(_0x1a7cfc['color']),_0x21d0d5=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x208)]),_0x1d2047=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x2c2)]),_0x5985ac=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x2dc)]),_0x321306=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x2c5)]),_0x43870a=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x330)]),_0x569ba9=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x2ae)]),_0xf891f5=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x219)]),_0x531dbb=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x29b)]),_0x3cc2d8=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x2ed)]),_0x9ea59=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x341)]),_0x23d3d0=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x20f)]),_0x44d017=_0x9c1d29(_0x1a7cfc[_0x9339cd(0x2a9)]),_0x173310=_0x1da5f6(_0x1a7cfc[_0x9339cd(0x2e1)]||_0x1a7cfc[_0x9339cd(0x2e4)]||''),_0xbc5320=_0xe13624(_0x1a7cfc['images']);return!_0x288ca2&&_0x3304bd&&console[_0x9339cd(0x33e)](_0x9339cd(0x33b),_0x4c4431,_0x3304bd),{'id':_0x288ca2,'name':_0x3304bd,'price':_0x370228,'cat':_0x564788,'code':_0x288ca2,'storage':_0x21ca10,'region':_0x4487b1,'simType':_0x2d2c02,'color':_0x209578,'diameter':_0x21d0d5,'caseColor':_0x1d2047,'bandColor':_0x5985ac,'bandType':_0x321306,'bandSize':_0x43870a,'diagonal':_0x569ba9,'ram':_0xf891f5,'ssd':_0x531dbb,'keyboard':_0x3cc2d8,'cpu':_0x9ea59,'gpu':_0x23d3d0,'inStock':_0x44d017,'commonImage':_0x173310,'images':_0xbc5320};});}function getFilteredProductImages(_0x4e0377){const _0x513a81=_0x95122d,_0x1b7f8c=new Set();return _0x4e0377[_0x513a81(0x2b7)](_0x5833fa=>{const _0x27846a=_0x513a81,_0x5c2245=_0x5833fa[_0x27846a(0x346)];_0x5c2245&&Array[_0x27846a(0x2ea)](_0x5c2245)&&_0x5c2245[_0x27846a(0x2b7)](_0x53ffa6=>{const _0x5a9798=_0x27846a;if(_0x53ffa6&&String(_0x53ffa6)['trim']())_0x1b7f8c[_0x5a9798(0x2a4)](String(_0x53ffa6)[_0x5a9798(0x24d)]());});}),sortAdapterImageLast(Array[_0x513a81(0x2a6)](_0x1b7f8c));}function getProductVariants(_0x5196cb){const _0x133c44=_0x95122d;return productsData?productsData[_0x133c44(0x26e)](_0x1b7a3e=>_0x1b7a3e[_0x133c44(0x257)]===_0x5196cb):[];}function isCompleteSelection(){const _0x542c16=_0x95122d;if(!currentProduct)return![];const _0x23e7b5=getProductVariants(currentProduct['Название'])[_0x542c16(0x26e)](_0x2cc59e=>_0x2cc59e['inStock']);if(!_0x23e7b5[_0x542c16(0x33f)])return![];const _0x58b979=getFilteredVariants(_0x23e7b5);if(!_0x58b979['length'])return![];if(_0x58b979['length']>0x1){const _0x1811bc=getActiveTypesForProduct(currentProduct,_0x23e7b5),_0x4bd5ea=_0x58b979[0x0],_0x4d5f0a=_0x58b979[_0x542c16(0x32b)](_0xaa6931=>_0x1811bc[_0x542c16(0x32b)](_0x24c86e=>String(_0xaa6931[_0x24c86e]??'')===String(_0x4bd5ea[_0x24c86e]??'')));if(!_0x4d5f0a)return![];}const _0x439e9b=_0x58b979[0x0],_0x4860da=getActiveTypesForProduct(currentProduct,_0x23e7b5),_0x248d69=_0x4860da['filter'](_0x47e217=>_0x58b979['some'](_0x145986=>_0x145986[_0x47e217]!==undefined&&_0x145986[_0x47e217]!==null&&_0x145986[_0x47e217]!==''));return _0x248d69[_0x542c16(0x32b)](_0x372ba1=>{const _0x439548=_0x439e9b[_0x372ba1];if(_0x439548===undefined||_0x439548===null||_0x439548==='')return!![];return!!selectedOption[_0x372ba1];});}function getCurrentSectionIndex(){const _0x5b70c=_0x95122d;if(!currentProduct)return 0x0;const _0x5d55ef=getProductVariants(currentProduct[_0x5b70c(0x257)])[_0x5b70c(0x26e)](_0x5558f7=>_0x5558f7['inStock']);if(!_0x5d55ef[_0x5b70c(0x33f)])return 0x0;const _0x300814=getFilteredVariants(_0x5d55ef),_0x4cb92a=getActiveTypesForProduct(currentProduct,_0x5d55ef),_0x3cffc8=_0x4cb92a[_0x5b70c(0x26e)](_0x219c8f=>_0x300814['some'](_0x29367f=>_0x29367f[_0x219c8f]!==undefined&&_0x29367f[_0x219c8f]!==null&&_0x29367f[_0x219c8f]!==''));for(let _0x4909ba=0x0;_0x4909ba<_0x3cffc8[_0x5b70c(0x33f)];_0x4909ba++){if(!selectedOption[_0x3cffc8[_0x4909ba]])return _0x4909ba;}return _0x3cffc8[_0x5b70c(0x33f)];}function getVariantCountText(_0x3adc0e){const _0x491b9a=_0x95122d,_0x226152=_0x3adc0e%0xa,_0x3e9b1d=_0x3adc0e%0x64;if(_0x226152===0x1&&_0x3e9b1d!==0xb)return _0x3adc0e+'\x20вариант';if(_0x226152>=0x2&&_0x226152<=0x4&&!(_0x3e9b1d>=0xc&&_0x3e9b1d<=0xe))return _0x3adc0e+_0x491b9a(0x2c1);return _0x3adc0e+_0x491b9a(0x28f);}function getRequiredTypesForProduct(_0x8314d){const _0xc04667=_0x95122d,_0x29f266=getProductVariants(_0x8314d[_0xc04667(0x257)])['filter'](_0x1daf0b=>_0x1daf0b[_0xc04667(0x2a9)]);if(!_0x29f266[_0xc04667(0x33f)])return[];const _0x194675=getFilterOrderForProduct(_0x8314d[_0xc04667(0x282)]);return _0x194675[_0xc04667(0x26e)](_0x529183=>{const _0x3ba375=_0xc04667,_0x174b5d=_0x29f266[_0x3ba375(0x1ef)](_0x1a50a2=>_0x1a50a2[_0x529183])['filter'](_0x5b56ca=>_0x5b56ca!==undefined&&_0x5b56ca!==null&&_0x5b56ca!=='');if(!_0x174b5d[_0x3ba375(0x33f)])return![];const _0x1c1de0=Array[_0x3ba375(0x2a6)](new Set(_0x174b5d[_0x3ba375(0x1ef)](String)));return _0x1c1de0[_0x3ba375(0x33f)]>0x1;});}function shuffleArray(_0x2b5953){const _0x2b84a0=_0x95122d,_0x2eeff6=_0x2b5953[_0x2b84a0(0x23a)]();for(let _0x50377e=_0x2eeff6[_0x2b84a0(0x33f)]-0x1;_0x50377e>0x0;_0x50377e--){const _0x4939e5=Math[_0x2b84a0(0x2fe)](Math[_0x2b84a0(0x2c4)]()*(_0x50377e+0x1));[_0x2eeff6[_0x50377e],_0x2eeff6[_0x4939e5]]=[_0x2eeff6[_0x4939e5],_0x2eeff6[_0x50377e]];}return _0x2eeff6;}function getMaxNumberFromName(_0x6d1343){const _0xca1127=_0x95122d;if(!_0x6d1343)return 0x0;const _0x1376c3=String(_0x6d1343)[_0xca1127(0x1f4)](/\d+/g);if(!_0x1376c3)return 0x0;return Math['max'](..._0x1376c3['map'](_0x4c734c=>parseInt(_0x4c734c,0xa)||0x0));}function parseCapacity(_0x531ff0){const _0x46aabe=_0x95122d;if(!_0x531ff0)return null;const _0xa94c98=String(_0x531ff0)[_0x46aabe(0x24d)]()[_0x46aabe(0x2ca)](),_0x408e79=_0xa94c98['match'](/(\d+(?:\.\d+)?)\s*(TB|TБ|T|GB|G|ГБ|ТБ)/i);if(!_0x408e79)return null;const _0x4c3505=parseFloat(_0x408e79[0x1]),_0x47d976=_0x408e79[0x2][_0x46aabe(0x2ca)]();if(_0x47d976==='TB'||_0x47d976==='TБ'||_0x47d976==='T'||_0x47d976==='ТБ')return _0x4c3505*0x400;return _0x4c3505;}function compareCapacity(_0x1be1b1,_0x3c16c4){const _0x672eb9=_0x95122d,_0x5338b8=parseCapacity(_0x1be1b1),_0x1a4705=parseCapacity(_0x3c16c4);if(_0x5338b8==null&&_0x1a4705==null)return String(_0x1be1b1)[_0x672eb9(0x30f)](String(_0x3c16c4),'ru');if(_0x5338b8==null)return 0x1;if(_0x1a4705==null)return-0x1;return _0x5338b8-_0x1a4705;}function getVisibleProducts(){const _0x371a2e=_0x95122d;if(!productsData)return console[_0x371a2e(0x2b2)](_0x371a2e(0x2f9),query),[];console[_0x371a2e(0x2b2)]('[getVisibleProducts]\x20START,\x20query\x20=',JSON['stringify'](query),_0x371a2e(0x2b6),selectedCategory,_0x371a2e(0x345),productsData[_0x371a2e(0x33f)]);const _0x1f187e={};productsData[_0x371a2e(0x2b7)](_0x5e159e=>{const _0x1cae8c=_0x371a2e,_0x5e58da=_0x5e159e[_0x1cae8c(0x257)];if(!_0x1f187e[_0x5e58da])_0x1f187e[_0x5e58da]=[];_0x1f187e[_0x5e58da]['push'](_0x5e159e);});let _0x132590=Object['values'](_0x1f187e)[_0x371a2e(0x26e)](_0x22040d=>_0x22040d[_0x371a2e(0x333)](_0x5c3776=>_0x5c3776[_0x371a2e(0x2a9)]))[_0x371a2e(0x1ef)](_0x50a04e=>{const _0x3a5ce6=_0x371a2e,_0x255e43=_0x50a04e[_0x3a5ce6(0x26e)](_0x1c6c25=>_0x1c6c25[_0x3a5ce6(0x2a9)]),_0x11a36b=_0x255e43[_0x3a5ce6(0x27f)]((_0x223430,_0x45ffbd)=>_0x45ffbd['Цена']<_0x223430[_0x3a5ce6(0x295)]?_0x45ffbd:_0x223430,_0x255e43[0x0]),_0x3b9c89=resolveCategoryForVariants(_0x50a04e);return{..._0x11a36b,'cat':_0x3b9c89};});console[_0x371a2e(0x2b2)](_0x371a2e(0x347),_0x132590['length']);selectedCategory!==_0x371a2e(0x294)&&(_0x132590=_0x132590['filter'](_0x142d94=>_0x142d94[_0x371a2e(0x282)]===selectedCategory),console[_0x371a2e(0x2b2)](_0x371a2e(0x223),selectedCategory,_0x371a2e(0x32d),_0x132590[_0x371a2e(0x33f)]));if(query['trim']()){const _0x5ed26c=query[_0x371a2e(0x24d)]()[_0x371a2e(0x2f4)]();_0x132590=_0x132590[_0x371a2e(0x26e)](_0x2eefeb=>_0x2eefeb[_0x371a2e(0x257)]&&String(_0x2eefeb[_0x371a2e(0x257)])[_0x371a2e(0x2f4)]()[_0x371a2e(0x287)](_0x5ed26c)||_0x2eefeb[_0x371a2e(0x282)]&&String(_0x2eefeb['cat'])['toLowerCase']()['includes'](_0x5ed26c));}return _0x132590[_0x371a2e(0x227)]((_0x5673b0,_0x1b268f)=>{const _0x2f25b1=_0x371a2e,_0x343bab=!!_0x5673b0[_0x2f25b1(0x2b9)]||String(_0x5673b0[_0x2f25b1(0x310)]||'')['toLowerCase']()===_0x2f25b1(0x23e),_0xcb81b6=!!_0x1b268f[_0x2f25b1(0x2b9)]||String(_0x1b268f[_0x2f25b1(0x310)]||'')[_0x2f25b1(0x2f4)]()===_0x2f25b1(0x23e);if(_0x343bab!==_0xcb81b6)return _0x343bab?-0x1:0x1;const _0x10cf54=String(_0x5673b0['cat']||'')['toLowerCase']()[_0x2f25b1(0x287)](_0x2f25b1(0x2f2)),_0x23edc4=String(_0x1b268f[_0x2f25b1(0x282)]||'')[_0x2f25b1(0x2f4)]()[_0x2f25b1(0x287)](_0x2f25b1(0x2f2));if(_0x10cf54!==_0x23edc4)return _0x10cf54?-0x1:0x1;const _0x47ecc8=getMaxNumberFromName(_0x5673b0[_0x2f25b1(0x1f6)]),_0x2f4512=getMaxNumberFromName(_0x1b268f[_0x2f25b1(0x1f6)]);if(_0x47ecc8!==_0x2f4512)return _0x2f4512-_0x47ecc8;return String(_0x5673b0['name'])[_0x2f25b1(0x30f)](String(_0x1b268f[_0x2f25b1(0x1f6)]),'ru');}),console[_0x371a2e(0x2b2)](_0x371a2e(0x290),_0x132590[_0x371a2e(0x33f)]),_0x132590;}function preloadAllImages(_0x404b68){const _0xb20dfa=_0x95122d;_0x404b68[_0xb20dfa(0x2b7)](_0x168686=>{const _0xd3e751=_0xb20dfa,_0x2b7b5c=getProductVariants(_0x168686[_0xd3e751(0x1f6)])[_0xd3e751(0x26e)](_0x375b7a=>_0x375b7a[_0xd3e751(0x2a9)]),_0x5bd1ff=getFilteredProductImages(_0x2b7b5c);_0x5bd1ff['forEach'](_0x507ecc=>{const _0x5f22aa=_0xd3e751;if(!imageCache[_0x5f22aa(0x25a)](_0x507ecc)&&_0x507ecc){const _0x2a6e9b=new Image();_0x2a6e9b[_0x5f22aa(0x26a)]=()=>imageCache[_0x5f22aa(0x323)](_0x507ecc,!![]),_0x2a6e9b[_0x5f22aa(0x2fd)]=()=>imageCache[_0x5f22aa(0x323)](_0x507ecc,![]),_0x2a6e9b['src']=_0x507ecc;}});});}function getLabel(_0x2c9eab){const _0x5423c2=_0x95122d,_0x5ee52c={'simType':'SIM/eSIM','storage':'Память','color':_0x5423c2(0x33c),'region':'Регион','diameter':_0x5423c2(0x318),'caseColor':_0x5423c2(0x2aa),'bandColor':_0x5423c2(0x2ab),'bandType':_0x5423c2(0x275),'bandSize':_0x5423c2(0x312),'diagonal':'Диагональ','ram':_0x5423c2(0x229),'ssd':_0x5423c2(0x2e3),'gpu':_0x5423c2(0x2ac),'cpu':'CPU','keyboard':_0x5423c2(0x2ec)};return _0x5ee52c[_0x2c9eab]||_0x2c9eab;}function getShopPriceStatusMeta(){const _0x2b14a4=_0x95122d;if(typeof getPriceStatus!==_0x2b14a4(0x2a0))return null;if(!aboutLastProductsMeta||!aboutLastProductsMeta[_0x2b14a4(0x222)])return null;const _0x183493=getPriceStatus(aboutLastProductsMetaText);if(!_0x183493||!_0x183493[_0x2b14a4(0x2c6)])return null;let _0x4bfcf7='bg-gray-100\x20text-gray-600';if(_0x183493[_0x2b14a4(0x226)]===_0x2b14a4(0x1ee))_0x4bfcf7=_0x2b14a4(0x217);else{if(_0x183493[_0x2b14a4(0x226)]===_0x2b14a4(0x306))_0x4bfcf7=_0x2b14a4(0x334);else _0x183493[_0x2b14a4(0x226)]===_0x2b14a4(0x305)&&(_0x4bfcf7=_0x2b14a4(0x326));}return{'text':_0x183493[_0x2b14a4(0x2c6)],'pillClasses':_0x4bfcf7};}function renderShopPriceStatusBadge(){const _0x38d082=_0x95122d,_0x112e28=getShopPriceStatusMeta();if(!_0x112e28)return'';return _0x38d082(0x2eb)+_0x38d082(0x337)+_0x112e28['pillClasses']+'\x22>'+escapeHtml(_0x112e28[_0x38d082(0x2c6)])+_0x38d082(0x27b)+_0x38d082(0x27b);}function updateShopPriceStatusBadge(){const _0x376db3=_0x95122d,_0x544141=document[_0x376db3(0x304)](_0x376db3(0x317)),_0x342e4d=document[_0x376db3(0x304)]('shopPriceStatusBadge'),_0x17c087=getShopPriceStatusMeta();if(!_0x17c087){if(_0x544141)_0x544141[_0x376db3(0x288)]();return;}if(!_0x342e4d){const _0x5ddc70=document[_0x376db3(0x21b)]('.nav-logo')?.['parentElement'];_0x5ddc70&&_0x5ddc70[_0x376db3(0x211)]('beforeend',renderShopPriceStatusBadge());return;}_0x342e4d[_0x376db3(0x202)]=_0x376db3(0x24f)+_0x17c087[_0x376db3(0x27c)],_0x342e4d['textContent']=_0x17c087['text'];}function renderShopPriceStatusInline(){const _0xce7f2e=_0x95122d,_0x2e1d3f=getShopPriceStatusMeta();if(!_0x2e1d3f)return'';return _0xce7f2e(0x30b)+_0x2e1d3f['pillClasses']+'\x22>'+escapeHtml(_0x2e1d3f[_0xce7f2e(0x2c6)])+_0xce7f2e(0x27b);}function renderShopPriceStatusPill(){const _0x5a90af=_0x95122d,_0x3506b9=getShopPriceStatusMeta();if(!_0x3506b9)return'';return'<div\x20class=\x22mt-1\x22>'+_0x5a90af(0x32e)+_0x3506b9['pillClasses']+'\x22>'+escapeHtml(_0x3506b9['text'])+'</div>'+_0x5a90af(0x27b);}function renderShopHeader(_0x3a2e7a,_0x203580){const _0x294552=_0x95122d,_0x1d408b=getCategoriesFromProducts(),_0x307b5f=getShopPriceStatusMeta(),_0x380ba8=window['getCurrentCountryConfig']?window[_0x294552(0x277)]():{'flag':_0x294552(0x249),'currency':'RUB','name':'Россия'};let _0x1dcb16='';for(let _0x84092a=0x0;_0x84092a<_0x1d408b[_0x294552(0x33f)];_0x84092a++){const _0x447102=_0x1d408b[_0x84092a];_0x1dcb16+=_0x294552(0x2bc)+escapeHtml(_0x447102)+'\x22\x20'+(_0x447102===selectedCategory?_0x294552(0x308):'')+'>'+escapeHtml(_0x447102)+_0x294552(0x34c);}return _0x294552(0x2d1)+'<div\x20class=\x22flex\x20items-center\x20justify-between\x20gap-3\x20min-w-0\x22>'+'<a\x20href=\x22#\x22\x20class=\x22nav-logo\x20flex-shrink-0\x22>Tech<span>Bex</span></a>'+'<div\x20class=\x22flex-shrink-0\x20ml-2\x22>'+renderShopPriceStatusInline()+'</div>'+'</div>'+_0x294552(0x255)+_0x294552(0x286)+_0x294552(0x298)+_0x294552(0x24b)+_0x380ba8[_0x294552(0x22a)]+_0x294552(0x1f5)+_0x294552(0x2f6)+_0x294552(0x27b)+'<div\x20id=\x22countryPicker\x22\x20class=\x22hidden\x20absolute\x20top-full\x20left-1/2\x20-translate-x-1/2\x20mt-2\x20bg-white\x20rounded-xl\x20shadow-lg\x20border\x20border-gray-200\x20p-2\x20z-50\x20min-w-[160px]\x22>'+'<div\x20class=\x22px-3\x20py-2\x20text-xs\x20text-gray-500\x20border-b\x20border-gray-100\x22>В\x20какую\x20страну\x20заказ</div>'+_0x294552(0x233)+(selectedCountry==='RU'?_0x294552(0x2ff):'')+_0x294552(0x21f)+'<span>🇷🇺</span><span\x20class=\x22font-medium\x22>Россия</span>'+(selectedCountry==='RU'?_0x294552(0x2a5):'')+'</button>'+_0x294552(0x233)+(selectedCountry==='BY'?'bg-green-50\x20text-green-600':'')+'\x22\x20data-country=\x22BY\x22>'+_0x294552(0x315)+(selectedCountry==='BY'?'\x20<span\x20class=\x22text-green-500\x22>✓</span>':'')+'</button>'+_0x294552(0x27b)+_0x294552(0x27b)+_0x294552(0x236)+_0x294552(0x279)+_0x294552(0x21d)+_0x294552(0x201)+_0x1dcb16+'</select>'+_0x294552(0x27b)+'<div\x20class=\x22w-44\x20bg-white\x20rounded-2xl\x20shadow\x20px-3\x20py-2\x22>'+'<label\x20class=\x22text-xs\x20text-gray-500\x20block\x20mb-1\x22>Поиск</label>'+'<div\x20class=\x22flex\x20items-center\x22>'+_0x294552(0x32f)+'<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20stroke-width=\x222\x22\x20d=\x22M21\x2021l-4.35-4.35M10\x2018a8\x208\x200\x20100-16\x208\x208\x200\x20000\x2016z\x22></path>'+_0x294552(0x31f)+_0x294552(0x25f)+escapeHtml(query)+_0x294552(0x1f9)+_0x294552(0x27b)+_0x294552(0x27b)+'</div>'+_0x294552(0x265)+_0x294552(0x2dd)+_0x203580+_0x294552(0x2b8)+_0x3a2e7a[_0x294552(0x33f)]+_0x294552(0x27b)+_0x294552(0x27b);}window[_0x95122d(0x289)]=function(){const _0x491cc2=_0x95122d,_0x51df68=document[_0x491cc2(0x304)](_0x491cc2(0x232)),_0x30070e=document[_0x491cc2(0x304)]('countrySelector');console[_0x491cc2(0x2b2)](_0x491cc2(0x2fc),_0x51df68,_0x491cc2(0x2f0),_0x30070e);if(!_0x51df68){console[_0x491cc2(0x2bb)](_0x491cc2(0x2a7));return;}const _0x9c65f3=_0x51df68[_0x491cc2(0x32a)][_0x491cc2(0x264)](_0x491cc2(0x30a));_0x51df68['classList']['toggle'](_0x491cc2(0x30a)),console[_0x491cc2(0x2b2)](_0x491cc2(0x2e2),_0x51df68[_0x491cc2(0x32a)][_0x491cc2(0x264)](_0x491cc2(0x30a)));if(!_0x51df68[_0x491cc2(0x32a)][_0x491cc2(0x264)](_0x491cc2(0x30a))){const _0xd26581=document[_0x491cc2(0x304)](_0x491cc2(0x25e));if(_0xd26581){const _0x93d4b0=_0xd26581[_0x491cc2(0x2d9)]();console[_0x491cc2(0x2b2)](_0x491cc2(0x2d3),_0x93d4b0),_0x51df68[_0x491cc2(0x2d0)][_0x491cc2(0x1fc)]='',_0x51df68[_0x491cc2(0x2d0)][_0x491cc2(0x206)]='',_0x51df68[_0x491cc2(0x2d0)][_0x491cc2(0x34e)]='',_0x51df68[_0x491cc2(0x2d0)][_0x491cc2(0x1fc)]='',_0x51df68[_0x491cc2(0x2d0)][_0x491cc2(0x349)]='';}}},window[_0x95122d(0x1fe)]=function(_0x11014e){const _0x1301a1=_0x95122d;if(window[_0x1301a1(0x212)]===_0x11014e){console['log']('[setCountryAndRefresh]\x20same\x20country,\x20skipping\x20reload');const _0x2ace6b=document[_0x1301a1(0x304)](_0x1301a1(0x232));if(_0x2ace6b)_0x2ace6b[_0x1301a1(0x32a)]['add'](_0x1301a1(0x30a));return;}if(window[_0x1301a1(0x225)]&&window['setCountry'](_0x11014e)){const _0x3e8046=document[_0x1301a1(0x304)](_0x1301a1(0x232));if(_0x3e8046)_0x3e8046['classList'][_0x1301a1(0x2a4)](_0x1301a1(0x30a));window[_0x1301a1(0x292)]===_0x1301a1(0x252)&&sessionStorage[_0x1301a1(0x33a)](_0x1301a1(0x254),_0x1301a1(0x244));const _0x223947=new URL(window[_0x1301a1(0x296)]['href']);_0x223947[_0x1301a1(0x260)][_0x1301a1(0x323)](_0x1301a1(0x2ad),_0x11014e),document[_0x1301a1(0x1f2)]['style'][_0x1301a1(0x25b)]='wait';const _0x1f2edc=document['createElement'](_0x1301a1(0x27e));_0x1f2edc['id']=_0x1301a1(0x20e),_0x1f2edc['style']['cssText']=_0x1301a1(0x2e8),_0x1f2edc[_0x1301a1(0x285)]=_0x1301a1(0x23b),document[_0x1301a1(0x1f2)]['appendChild'](_0x1f2edc),window['location']['href']=_0x223947[_0x1301a1(0x331)]();}};!document['__countryPickerDelegationBound']&&(document[_0x95122d(0x24c)]=!![],document[_0x95122d(0x22d)](_0x95122d(0x25c),function(_0x3c047d){const _0x68ca61=_0x95122d,_0x1b7c06=_0x3c047d[_0x68ca61(0x262)][_0x68ca61(0x28d)]('#countryPicker\x20button[data-country]');if(!_0x1b7c06)return;_0x3c047d[_0x68ca61(0x267)]();const _0x51c5f6=_0x1b7c06[_0x68ca61(0x207)](_0x68ca61(0x21a));_0x51c5f6&&setCountryAndRefresh(_0x51c5f6);}));;let sessionImageLoads=new Map();function handleProductImageSequentialLoad(_0x15b333,_0x473039,_0x22249e,_0x5022c4){const _0x18bcf3=_0x95122d;if(typeof failedImageUrls!==_0x18bcf3(0x297)&&failedImageUrls[_0x18bcf3(0x25a)](_0x473039)){handleProductImageError(_0x15b333,_0x473039);return;}if(typeof markImageAsLoaded===_0x18bcf3(0x2a0)&&_0x22249e)markImageAsLoaded(_0x22249e);else typeof loadedImageUrls!==_0x18bcf3(0x297)&&_0x473039&&loadedImageUrls['add'](_0x473039);if(_0x22249e){const _0x134634=sessionImageLoads[_0x18bcf3(0x24e)](_0x22249e)||0x0,_0x1b97dc=_0x134634+0x1;sessionImageLoads[_0x18bcf3(0x323)](_0x22249e,_0x1b97dc);}const _0x3b8be4=_0x15b333[_0x18bcf3(0x28d)](_0x18bcf3(0x24a));if(!_0x3b8be4){_0x15b333[_0x18bcf3(0x32a)][_0x18bcf3(0x2a4)](_0x18bcf3(0x210));return;}const _0x4a0163=_0x3b8be4[_0x18bcf3(0x21b)](_0x18bcf3(0x281));if(!_0x4a0163){_0x15b333[_0x18bcf3(0x32a)]['add']('fade-in-image');return;}_0x4a0163[_0x18bcf3(0x32a)]['add'](_0x18bcf3(0x320)),setTimeout(()=>{const _0x4f0404=_0x18bcf3;_0x15b333[_0x4f0404(0x32a)]['add'](_0x4f0404(0x210));},0x1f4);}function handleProductImageError(_0x13a881,_0x2056d1){const _0xf3543a=_0x95122d;typeof failedImageUrls!==_0xf3543a(0x297)&&failedImageUrls[_0xf3543a(0x2a4)](_0x2056d1),_0x13a881['style'][_0xf3543a(0x205)]=_0xf3543a(0x2b1);}function productCard(_0x1ed759){const _0x12a3c3=_0x95122d,_0x5a16ed=getProductVariants(_0x1ed759[_0x12a3c3(0x257)]),_0x1b9532=_0x5a16ed[_0x12a3c3(0x26e)](_0x5d5901=>_0x5d5901[_0x12a3c3(0x2a9)]);if(!_0x1b9532['length'])return'';const _0x5ce4bc=dedupeIdenticalVariants(_0x1b9532),_0x19f5b1=_0x5ce4bc[_0x12a3c3(0x27f)]((_0x1a4c4d,_0x1e63c2)=>_0x1e63c2[_0x12a3c3(0x295)]<_0x1a4c4d[_0x12a3c3(0x295)]?_0x1e63c2:_0x1a4c4d,_0x5ce4bc[0x0]),_0x4c296b=_0x1ed759[_0x12a3c3(0x280)]||_0x5ce4bc[0x0]?.[_0x12a3c3(0x280)]||'',_0x91d923=!!_0x4c296b,_0x42c9a1=_0x91d923?_0x4c296b['replace'](/'/g,'\x5c\x27'):'',_0x5d4230=_0x12a3c3(0x321)+Math[_0x12a3c3(0x2c4)]()['toString'](0x24)['substr'](0x2,0x9),_0x5261b0=_0x91d923?getImageCacheKey(_0x1ed759,_0x42c9a1):'',_0x1859fc=_0x91d923&&_0x5261b0&&typeof loadedImageCacheKeys!==_0x12a3c3(0x297)&&loadedImageCacheKeys[_0x12a3c3(0x25a)](_0x5261b0),_0x3c866d=_0x5261b0?sessionImageLoads[_0x12a3c3(0x24e)](_0x5261b0)||0x0:0x0,_0x56458f=_0x1859fc&&_0x3c866d>0x0,_0x1fd5b3=_0x91d923&&typeof failedImageUrls!==_0x12a3c3(0x297)&&failedImageUrls[_0x12a3c3(0x25a)](_0x42c9a1);return console[_0x12a3c3(0x2b2)]('[persist-debug]',{'name':_0x1ed759['Название'],'hasImage':_0x91d923,'cacheKey':_0x5261b0,'cacheSetDefined':typeof loadedImageCacheKeys!==_0x12a3c3(0x297),'inSet':typeof loadedImageCacheKeys!==_0x12a3c3(0x297)?loadedImageCacheKeys[_0x12a3c3(0x25a)](_0x5261b0):null,'isLoadedPersistently':_0x1859fc}),_0x12a3c3(0x2f8)+_0x12a3c3(0x221)+escapeHtml(_0x1ed759[_0x12a3c3(0x257)])+'\x22'+'\x20data-carousel-id=\x22'+_0x5d4230+'\x22>'+_0x12a3c3(0x325)+_0x12a3c3(0x21c)+(!_0x91d923?_0x12a3c3(0x224)+getPlainSvgPlaceholder()+_0x12a3c3(0x27b):!_0x56458f&&!_0x1859fc||_0x1fd5b3?'<div\x20class=\x22image-placeholder-svg\x20absolute\x20inset-0\x22>'+getPlainSvgPlaceholder()+_0x12a3c3(0x27b):'')+(!_0x91d923||_0x1fd5b3?'':'<img\x20src=\x22'+_0x4c296b+'\x22\x20'+_0x12a3c3(0x2e9)+(_0x56458f?'':_0x12a3c3(0x2e7))+'\x22\x20'+_0x12a3c3(0x28b)+_0x12a3c3(0x261)+_0x42c9a1+'\x22\x20'+(_0x56458f?'':_0x12a3c3(0x2be)+_0x42c9a1+_0x12a3c3(0x340)+_0x5261b0+'\x27)\x22\x20')+'onerror=\x22handleProductImageError(this,\x20\x27'+_0x42c9a1+_0x12a3c3(0x251)+'/>')+'</div>'+_0x12a3c3(0x2da)+_0x5d4230+_0x12a3c3(0x2b3)+_0x12a3c3(0x27b)+'</div>'+'<div\x20class=\x22font-bold\x20text-base\x20mb-1\x20product-title\x22>'+escapeHtml(_0x1ed759[_0x12a3c3(0x257)])+_0x12a3c3(0x27b)+_0x12a3c3(0x32c)+(window[_0x12a3c3(0x332)]?window['getCurrentCountryConfig']?(function(){const _0x4e4b84=_0x12a3c3,_0x4f89c3=window[_0x4e4b84(0x277)]();return _0x4f89c3[_0x4e4b84(0x2a8)]+'\x20'+window['formatPriceForCountry'](_0x19f5b1['Цена'],window[_0x4e4b84(0x212)]);}()):window[_0x12a3c3(0x332)](_0x19f5b1[_0x12a3c3(0x295)],window[_0x12a3c3(0x212)]):_0x12a3c3(0x2cd)+formatPrice(_0x19f5b1['Цена']))+_0x12a3c3(0x27b)+'<div\x20class=\x22text-xs\x20text-gray-500\x20mb-4\x22>'+getVariantCountText(_0x5ce4bc[_0x12a3c3(0x33f)])+_0x12a3c3(0x27b)+_0x12a3c3(0x27b);}function renderShopList(_0x499cfb,_0x18bc6f){const _0x315919=_0x95122d;return _0x499cfb[_0x315919(0x23a)](0x0,_0x18bc6f)[_0x315919(0x1ef)](productCard)[_0x315919(0x214)]('');}let isFirstShopRender=!![];function getImageCacheKey(_0x156552,_0x5d3f15){const _0x139098=_0x95122d,_0x3f9bf8=_0x156552['imageVersion']||_0x156552[_0x139098(0x311)]||'';return _0x5d3f15+'|'+_0x3f9bf8;}function resolveCategoryForVariants(_0x4adba4){const _0x40b940=_0x95122d,_0x5b437d=new Map();let _0x2806b3=![];_0x4adba4[_0x40b940(0x2b7)](_0x811fab=>{const _0x406717=_0x40b940;let _0x2c0544=_0x811fab[_0x406717(0x282)]!=null?String(_0x811fab['cat'])[_0x406717(0x24d)]():'';_0x2c0544==='Без\x20категории'&&(_0x2c0544='');if(!_0x2c0544)return;_0x2806b3=!![],_0x5b437d[_0x406717(0x323)](_0x2c0544,(_0x5b437d[_0x406717(0x24e)](_0x2c0544)||0x0)+0x1);});if(!_0x2806b3)return _0x40b940(0x2d8);let _0x5148c2=0x0,_0x2d92a3=[];_0x5b437d[_0x40b940(0x2b7)]((_0x370989,_0xc8d030)=>{const _0x8b8ea=_0x40b940;if(_0x370989>_0x5148c2)_0x5148c2=_0x370989,_0x2d92a3=[_0xc8d030];else _0x370989===_0x5148c2&&_0x2d92a3[_0x8b8ea(0x327)](_0xc8d030);});if(_0x2d92a3[_0x40b940(0x33f)]===0x1)return _0x2d92a3[0x0];const _0x599a06=_0x4adba4[0x0]&&_0x4adba4[0x0][_0x40b940(0x257)]?String(_0x4adba4[0x0][_0x40b940(0x257)]):'',_0xd6813e=_0x599a06[_0x40b940(0x2f4)]();for(let _0x955f28=0x0;_0x955f28<_0x2d92a3[_0x40b940(0x33f)];_0x955f28++){const _0x4e5608=_0x2d92a3[_0x955f28];if(!_0x4e5608)continue;if(_0xd6813e[_0x40b940(0x287)](String(_0x4e5608)[_0x40b940(0x2f4)]()))return _0x4e5608;}return _0x2d92a3[0x0];}function rerenderShopPreserveSearchFocus(){const _0x1ee139=_0x95122d,_0x520fe7=document[_0x1ee139(0x304)](_0x1ee139(0x2d4))?.[_0x1ee139(0x2d6)]||query||'',_0x280567=document[_0x1ee139(0x22f)]&&document[_0x1ee139(0x22f)]['id']===_0x1ee139(0x2d4);renderShop();const _0x266960=document[_0x1ee139(0x304)](_0x1ee139(0x2d4));if(_0x266960){_0x266960[_0x1ee139(0x2d6)]=_0x520fe7;if(_0x280567){_0x266960[_0x1ee139(0x253)]();const _0x12844e=_0x266960['value']['length'];_0x266960[_0x1ee139(0x26b)](_0x12844e,_0x12844e);}}}function getMainProductImage(_0x3a342a){const _0x519195=_0x95122d;if(!_0x3a342a)return'';if(_0x3a342a[_0x519195(0x280)])return String(_0x3a342a[_0x519195(0x280)])[_0x519195(0x24d)]();if(_0x3a342a[_0x519195(0x2e1)])return String(_0x3a342a[_0x519195(0x2e1)])[_0x519195(0x24d)]();return'';}function getAllProductImages(_0xedbe41){const _0x522203=_0x95122d,_0x1239e1=new Set(),_0x2f79bd=getMainProductImage(_0xedbe41);if(_0x2f79bd)_0x1239e1[_0x522203(0x2a4)](_0x2f79bd);const _0x2c4444=_0xedbe41['Изображения']||_0xedbe41[_0x522203(0x20d)];if(Array[_0x522203(0x2ea)](_0x2c4444))_0x2c4444[_0x522203(0x2b7)](_0x6b665f=>{const _0x6c4658=_0x522203;if(_0x6b665f)_0x1239e1[_0x6c4658(0x2a4)](String(_0x6b665f)['trim']());});else typeof _0x2c4444==='string'&&_0x2c4444[_0x522203(0x213)](',')[_0x522203(0x2b7)](_0x14b1a0=>{const _0x148334=_0x522203,_0x2216a3=_0x14b1a0[_0x148334(0x24d)]();if(_0x2216a3)_0x1239e1['add'](_0x2216a3);});return Array[_0x522203(0x2a6)](_0x1239e1);}function buildSeparatedPreloadQueues(_0x742781){const _0x8eef3=_0x95122d,_0x2a1c75=[],_0x3a7649=[],_0x3ef88e=[];if(!_0x742781||!_0x742781[_0x8eef3(0x33f)])return{'mainQueue':_0x2a1c75,'otherQueue':[]};_0x742781[_0x8eef3(0x2b7)](_0x259a94=>{const _0x1f4714=_0x8eef3;if(!_0x259a94||!_0x259a94[_0x1f4714(0x2a9)])return;const _0xd5f67a=getMainProductImage(_0x259a94);if(_0xd5f67a)_0x2a1c75[_0x1f4714(0x327)](_0xd5f67a);const _0x4e220b=getAllProductImages(_0x259a94),_0x5615fb=(_0x259a94[_0x1f4714(0x282)]||_0x259a94[_0x1f4714(0x31d)]||'')[_0x1f4714(0x331)]()['toLowerCase'](),_0x3c2a71=_0x5615fb[_0x1f4714(0x287)](_0x1f4714(0x2f2))?_0x3a7649:_0x3ef88e;_0x4e220b[_0x1f4714(0x2b7)](_0x355350=>{if(!_0x355350)return;if(_0x355350===_0xd5f67a)return;_0x3c2a71['push'](_0x355350);});});const _0xf86392=new Set(),_0xe1dade=[];_0x2a1c75[_0x8eef3(0x2b7)](_0x552772=>{const _0x5985f6=_0x8eef3;if(!_0x552772)return;if(_0xf86392[_0x5985f6(0x25a)](_0x552772))return;_0xf86392[_0x5985f6(0x2a4)](_0x552772),_0xe1dade[_0x5985f6(0x327)](_0x552772);});const _0x44fbbf=new Set(),_0x5d790a=[];return[..._0x3a7649,..._0x3ef88e][_0x8eef3(0x2b7)](_0x46efc0=>{const _0x449eb1=_0x8eef3;if(!_0x46efc0)return;if(_0x44fbbf['has'](_0x46efc0))return;_0x44fbbf[_0x449eb1(0x2a4)](_0x46efc0),_0x5d790a[_0x449eb1(0x327)](_0x46efc0);}),{'mainQueue':_0xe1dade,'otherQueue':_0x5d790a};}function getFilteredCategoriesList(_0x59a848,_0x18ecad){const _0x3b6949=_0x95122d,_0x9dc91c=(_0x59a848||'')[_0x3b6949(0x24d)]()[_0x3b6949(0x2f4)]();if(!_0x9dc91c)return _0x18ecad;return _0x18ecad[_0x3b6949(0x26e)](_0x537618=>String(_0x537618)[_0x3b6949(0x2f4)]()[_0x3b6949(0x287)](_0x9dc91c));}function _0x1f37(_0x2c8000,_0x24d5c2){_0x2c8000=_0x2c8000-0x1ed;const _0x2b5992=_0x2b59();let _0x1f3783=_0x2b5992[_0x2c8000];if(_0x1f37['mEOjow']===undefined){var _0x1231df=function(_0x1f6abe){const _0x22c8c3='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x28647b='',_0xb301fe='';for(let _0x11f753=0x0,_0x4f09fa,_0xe38515,_0x3f4de7=0x0;_0xe38515=_0x1f6abe['charAt'](_0x3f4de7++);~_0xe38515&&(_0x4f09fa=_0x11f753%0x4?_0x4f09fa*0x40+_0xe38515:_0xe38515,_0x11f753++%0x4)?_0x28647b+=String['fromCharCode'](0xff&_0x4f09fa>>(-0x2*_0x11f753&0x6)):0x0){_0xe38515=_0x22c8c3['indexOf'](_0xe38515);}for(let _0x2e6ede=0x0,_0xf3076e=_0x28647b['length'];_0x2e6ede<_0xf3076e;_0x2e6ede++){_0xb301fe+='%'+('00'+_0x28647b['charCodeAt'](_0x2e6ede)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0xb301fe);};_0x1f37['BkjBvT']=_0x1231df,_0x1f37['TkUYQB']={},_0x1f37['mEOjow']=!![];}const _0x471f6b=_0x2b5992[0x0],_0x36a267=_0x2c8000+_0x471f6b,_0x331f10=_0x1f37['TkUYQB'][_0x36a267];return!_0x331f10?(_0x1f3783=_0x1f37['BkjBvT'](_0x1f3783),_0x1f37['TkUYQB'][_0x36a267]=_0x1f3783):_0x1f3783=_0x331f10,_0x1f3783;}function renderCategoryOptionsIntoContainer(_0x125c83,_0x111cf2,_0x5259ca){const _0x29185a=_0x95122d;if(!_0x111cf2)return;_0x111cf2[_0x29185a(0x299)]=_0x125c83[_0x29185a(0x1ef)](_0x6376b1=>_0x29185a(0x2ef)+_0x29185a(0x203)+(_0x6376b1===_0x5259ca?'\x20text-blue-600\x20font-semibold':_0x29185a(0x2bf))+'\x22'+'\x20data-value=\x22'+escapeHtml(_0x6376b1)+'\x22'+'>'+(_0x6376b1===_0x5259ca?'<span\x20class=\x22text-blue-500\x22>✓</span>':_0x29185a(0x2df))+'<span\x20class=\x22category-option-label\x22>'+escapeHtml(_0x6376b1)+'</span>'+'</button>')['join']('');}function renderShop(){const _0x3fab4f=_0x95122d;console[_0x3fab4f(0x2b2)](_0x3fab4f(0x1f7)),console[_0x3fab4f(0x2b2)](_0x3fab4f(0x316),window[_0x3fab4f(0x212)],_0x3fab4f(0x239),window[_0x3fab4f(0x319)]?.(),_0x3fab4f(0x31e),cartItems?.[_0x3fab4f(0x33f)]),console[_0x3fab4f(0x2b2)](_0x3fab4f(0x329),JSON[_0x3fab4f(0x342)](query),_0x3fab4f(0x2b6),selectedCategory,',\x20loadedCount\x20=',loadedCount);const _0x542dda=getCategoriesFromProducts();if(!productsData||productsData['length']===0x0){root[_0x3fab4f(0x299)]=_0x3fab4f(0x2a2)+'<div\x20class=\x22w-24\x20h-24\x20bg-gray-100\x20rounded-3xl\x20flex\x20items-center\x20justify-center\x20mb-4\x22>'+'<svg\x20class=\x22w-12\x20h-12\x20text-gray-400\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20viewBox=\x220\x200\x2024\x2024\x22>'+_0x3fab4f(0x291)+_0x3fab4f(0x348)+_0x3fab4f(0x246)+_0x3fab4f(0x216)+_0x3fab4f(0x31f)+_0x3fab4f(0x27b)+'<h2\x20class=\x22text-xl\x20font-bold\x20text-gray-800\x20mb-2\x22>Нет\x20товаров</h2>'+_0x3fab4f(0x237)+_0x3fab4f(0x28c)+'\x20class=\x22bg-blue-500\x20hover:bg-blue-600\x20text-white\x20font-semibold\x20py-2.5\x20px-6\x20rounded-2xl\x20shadow-lg\x20\x20text-sm\x22>'+_0x3fab4f(0x1f3)+'</button>'+_0x3fab4f(0x27b);return;}const _0x3fd613=getVisibleProducts();console[_0x3fab4f(0x2b2)](_0x3fab4f(0x29c),cartItems?.[_0x3fab4f(0x33f)],_0x3fab4f(0x215),window[_0x3fab4f(0x212)],'cartCountry:',window[_0x3fab4f(0x319)]?.());let _0x5bf6d2;query[_0x3fab4f(0x24d)]()?_0x5bf6d2=_0x3fd613[_0x3fab4f(0x33f)]:_0x5bf6d2=Math[_0x3fab4f(0x34a)](loadedCount,_0x3fd613[_0x3fab4f(0x33f)]);console[_0x3fab4f(0x2b2)]('[renderShop]\x20AFTER\x20getVisibleProducts,\x20query\x20=',JSON[_0x3fab4f(0x342)](query),',\x20list.length\x20=',_0x3fd613['length'],_0x3fab4f(0x301),loadedCount,_0x3fab4f(0x31c),_0x5bf6d2);const _0x5777ca=document[_0x3fab4f(0x22f)],_0x104b0b=_0x5777ca&&_0x5777ca['id']===_0x3fab4f(0x2d4);if(_0x104b0b&&document[_0x3fab4f(0x304)]('productGrid')){const _0x55c6a5=document[_0x3fab4f(0x304)](_0x3fab4f(0x2bd)),_0xf97a1b=document[_0x3fab4f(0x304)](_0x3fab4f(0x34d));if(_0x55c6a5){_0x55c6a5['innerHTML']=renderShopList(_0x3fd613,_0x5bf6d2);const _0x3df473=document[_0x3fab4f(0x21b)](_0x3fab4f(0x248));_0x3df473&&(_0x3df473[_0x3fab4f(0x299)]=_0x3fab4f(0x28a)+_0x5bf6d2+'</span>\x20из\x20'+_0x3fd613[_0x3fab4f(0x33f)]),setupHandlers(),setupImageCarousels(),setupInfiniteScroll();}_0xf97a1b&&(_0xf97a1b['innerHTML']=_0x5bf6d2<_0x3fd613[_0x3fab4f(0x33f)]?_0x3fab4f(0x21e)+_0x3fab4f(0x240)+_0x3fab4f(0x302)+_0x3fab4f(0x27b):'');return;}console['log'](_0x3fab4f(0x300));const _0x590166=window['getCurrentCountryConfig']?window[_0x3fab4f(0x277)]():{'flag':_0x3fab4f(0x249),'currency':_0x3fab4f(0x2de),'name':_0x3fab4f(0x2f5)};root['innerHTML']=_0x3fab4f(0x2db)+'<div\x20class=\x22mb-5\x22>'+_0x3fab4f(0x34b)+_0x3fab4f(0x1fb)+renderShopPriceStatusInline()+'</div>'+_0x3fab4f(0x255)+'<span\x20class=\x22font-medium\x20text-xs\x20text-gray-500\x22>Регион:</span>'+_0x3fab4f(0x298)+_0x3fab4f(0x24b)+_0x590166[_0x3fab4f(0x22a)]+'</span>'+_0x3fab4f(0x2f6)+_0x3fab4f(0x27b)+_0x3fab4f(0x328)+_0x3fab4f(0x263)+_0x3fab4f(0x233)+(selectedCountry==='RU'?_0x3fab4f(0x2ff):'')+_0x3fab4f(0x21f)+'<span>🇷🇺</span><span\x20class=\x22font-medium\x22>Россия</span>'+(selectedCountry==='RU'?_0x3fab4f(0x2a5):'')+'</button>'+_0x3fab4f(0x233)+(selectedCountry==='BY'?_0x3fab4f(0x278):'')+_0x3fab4f(0x2f7)+_0x3fab4f(0x315)+(selectedCountry==='BY'?_0x3fab4f(0x2b0):'')+_0x3fab4f(0x303)+'</div>'+'</div>'+'<div\x20class=\x22flex\x20items-center\x20gap-2\x22>'+'<div\x20class=\x22flex-1\x20bg-white\x20rounded-2xl\x20shadow\x20px-3\x20py-2\x20relative\x22>'+_0x3fab4f(0x21d)+_0x3fab4f(0x2d7)+_0x3fab4f(0x2ef)+'\x20id=\x22categorySelectButton\x22'+_0x3fab4f(0x220)+'<span\x20id=\x22categorySelectLabel\x22>'+escapeHtml(selectedCategory)+_0x3fab4f(0x1f5)+'<svg\x20class=\x22w-4\x20h-4\x20text-gray-400\x20flex-shrink-0\x22\x20viewBox=\x220\x200\x2020\x2020\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22>'+_0x3fab4f(0x2ba)+'</svg>'+_0x3fab4f(0x303)+'<div\x20id=\x22categorySelectDropdown\x22'+_0x3fab4f(0x228)+'<div\x20class=\x22border-b\x20border-gray-100\x20px-3\x20py-2\x22>'+'<input'+'\x20id=\x22categorySearchInput\x22'+_0x3fab4f(0x2c7)+_0x3fab4f(0x344)+'\x20border\x20border-gray-200\x20focus:border-blue-500\x20focus:ring-1\x20focus:ring-blue-400'+_0x3fab4f(0x307)+_0x3fab4f(0x247)+_0x3fab4f(0x29e)+'/>'+_0x3fab4f(0x27b)+_0x3fab4f(0x314)+_0x3fab4f(0x273)+_0x542dda[_0x3fab4f(0x1ef)](_0x3caab8=>'<button\x20type=\x22button\x22'+_0x3fab4f(0x2cb)+(_0x3caab8===selectedCategory?'\x20text-blue-600\x20font-semibold':_0x3fab4f(0x2bf))+'\x22'+_0x3fab4f(0x2c8)+escapeHtml(_0x3caab8)+'\x22'+'>'+(_0x3caab8===selectedCategory?_0x3fab4f(0x23c):_0x3fab4f(0x2df))+_0x3fab4f(0x1fd)+escapeHtml(_0x3caab8)+'</span>'+_0x3fab4f(0x303))[_0x3fab4f(0x214)]('')+_0x3fab4f(0x27b)+_0x3fab4f(0x27b)+_0x3fab4f(0x27b)+_0x3fab4f(0x27b)+_0x3fab4f(0x31b)+'<label\x20class=\x22text-xs\x20text-gray-500\x20block\x20mb-1\x22>Поиск</label>'+_0x3fab4f(0x335)+'<svg\x20class=\x22w-4\x20h-4\x20text-gray-500\x20mr-2\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20viewBox=\x220\x200\x2024\x2024\x22>'+'<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20stroke-width=\x222\x22'+_0x3fab4f(0x1ff)+_0x3fab4f(0x31f)+_0x3fab4f(0x25f)+escapeHtml(query)+'\x22\x20placeholder=\x22Поиск...\x22'+_0x3fab4f(0x2f1)+'</div>'+_0x3fab4f(0x27b)+_0x3fab4f(0x27b)+_0x3fab4f(0x265)+_0x3fab4f(0x28a)+_0x5bf6d2+_0x3fab4f(0x25d)+_0x3fd613[_0x3fab4f(0x33f)]+_0x3fab4f(0x27b)+'</div>'+_0x3fab4f(0x218)+'<div\x20id=\x22scrollSentinel\x22\x20class=\x22h-10\x20flex\x20items-center\x20justify-center\x20mt-4\x22>'+(_0x5bf6d2<_0x3fd613['length']?_0x3fab4f(0x21e)+_0x3fab4f(0x240)+_0x3fab4f(0x302)+_0x3fab4f(0x27b):'')+'</div>'+_0x3fab4f(0x27b);const _0x2641e2=document[_0x3fab4f(0x304)](_0x3fab4f(0x2bd));_0x2641e2?(_0x2641e2['innerHTML']=renderShopList(_0x3fd613,_0x5bf6d2),console['log'](_0x3fab4f(0x31a),_0x5bf6d2)):console['log'](_0x3fab4f(0x258));setupHandlers(),setupImageCarousels(),setupInfiniteScroll(),isFirstShopRender=![],console[_0x3fab4f(0x2b2)](_0x3fab4f(0x313));if(!hasShopLoadedOnce){hasShopLoadedOnce=!![];try{typeof trackEvent===_0x3fab4f(0x2a0)&&trackEvent(_0x3fab4f(0x30d),{'products_count':Array[_0x3fab4f(0x2ea)](productsData)?productsData[_0x3fab4f(0x33f)]:0x0},{'sync':!![]});}catch(_0x59cebf){}}}function setupHandlers(){const _0x408124=_0x95122d,_0x3b73ab=document[_0x408124(0x304)](_0x408124(0x339)),_0x2604f6=document[_0x408124(0x304)]('categorySelectDropdown'),_0x41575d=document[_0x408124(0x304)]('categorySelectLabel'),_0x295027=document[_0x408124(0x304)](_0x408124(0x2d5)),_0x407212=document[_0x408124(0x304)](_0x408124(0x27d)),_0xe2af4=document['getElementById'](_0x408124(0x2d4)),_0x4d712f=getCategoriesFromProducts();function _0xc28e45(){const _0x53340e=_0x408124;if(!_0x2604f6)return;_0x2604f6[_0x53340e(0x32a)][_0x53340e(0x288)](_0x53340e(0x30a)),_0x295027&&(_0x295027[_0x53340e(0x2d6)]='',renderCategoryOptionsIntoContainer(_0x4d712f,_0x407212,selectedCategory));}function _0x35cca0(){const _0x569cf6=_0x408124;if(!_0x2604f6)return;_0x2604f6[_0x569cf6(0x32a)][_0x569cf6(0x2a4)]('hidden');}_0x3b73ab&&_0x2604f6&&(_0x3b73ab['onclick']=function(_0x343e4d){const _0x97e7c9=_0x408124;_0x343e4d[_0x97e7c9(0x267)](),_0x2604f6[_0x97e7c9(0x32a)][_0x97e7c9(0x264)](_0x97e7c9(0x30a))?_0xc28e45():_0x35cca0();},_0x407212&&!_0x407212['_delegateBound']&&(_0x407212[_0x408124(0x23d)]=!![],_0x407212[_0x408124(0x22d)](_0x408124(0x25c),function(_0x4e5b4e){const _0x19262c=_0x408124,_0x374fe1=_0x4e5b4e[_0x19262c(0x262)][_0x19262c(0x28d)](_0x19262c(0x245));if(!_0x374fe1)return;_0x4e5b4e['stopPropagation']();const _0x4e28c3=_0x374fe1[_0x19262c(0x207)](_0x19262c(0x230))||_0x19262c(0x294);selectedCategory=_0x4e28c3,loadedCount=0xa;try{typeof trackEvent===_0x19262c(0x2a0)&&trackEvent(_0x19262c(0x29a),{'category':_0x4e28c3});}catch(_0xd1954f){}_0x41575d&&(_0x41575d[_0x19262c(0x285)]=_0x4e28c3),_0x35cca0(),currentTab===_0x19262c(0x2c9)&&renderShop();})),_0x295027&&_0x407212&&(!_0x295027[_0x408124(0x1f0)][_0x408124(0x234)]&&(_0x295027[_0x408124(0x1f0)][_0x408124(0x234)]='1',_0x295027[_0x408124(0x22d)](_0x408124(0x2fb),()=>{const _0x174c8e=_0x408124;setTimeout(()=>_0x295027[_0x174c8e(0x253)](),0x0);},{'passive':!![]}),_0x295027[_0x408124(0x22d)]('mousedown',()=>{setTimeout(()=>_0x295027['focus'](),0x0);}),_0x295027[_0x408124(0x22d)](_0x408124(0x2ce),()=>{const _0x1f6415=getFilteredCategoriesList(_0x295027['value']||'',_0x4d712f);renderCategoryOptionsIntoContainer(_0x1f6415,_0x407212,selectedCategory);}),_0x295027[_0x408124(0x22d)](_0x408124(0x20c),_0x2b1ada=>{const _0x3018b6=_0x408124;if(_0x2b1ada[_0x3018b6(0x30c)]==='Enter'){_0x2b1ada[_0x3018b6(0x23f)]();const _0x929e5b=getFilteredCategoriesList(_0x295027[_0x3018b6(0x2d6)]||'',_0x4d712f);if(!_0x929e5b['length'])return;const _0x2d99aa=_0x929e5b[0x0];selectedCategory=_0x2d99aa,loadedCount=0xa;try{typeof trackEvent===_0x3018b6(0x2a0)&&trackEvent('category_search_select',{'category':_0x2d99aa});}catch(_0x42e493){}_0x41575d&&(_0x41575d[_0x3018b6(0x285)]=_0x2d99aa),_0x35cca0(),currentTab===_0x3018b6(0x2c9)&&renderShop();}else _0x2b1ada[_0x3018b6(0x30c)]===_0x3018b6(0x336)&&(_0x2b1ada['preventDefault'](),_0x35cca0());}))),!document[_0x408124(0x284)]&&(document[_0x408124(0x284)]=!![],document[_0x408124(0x22d)](_0x408124(0x25c),function(_0x3937b2){const _0x2dc9b1=_0x408124;if(!_0x2604f6)return;const _0x36c19b=document[_0x2dc9b1(0x304)]('categorySelect');if(!_0x36c19b)return;!_0x36c19b[_0x2dc9b1(0x264)](_0x3937b2[_0x2dc9b1(0x262)])&&_0x35cca0();}))),_0xe2af4&&(_0xe2af4['onfocus']=()=>hideTabBar(),_0xe2af4['onblur']=()=>showTabBar(),_0xe2af4[_0x408124(0x2e0)]=function(){const _0x44206a=_0x408124,_0xfe9e63=_0xe2af4[_0x44206a(0x2d6)]||'';console[_0x44206a(0x2b2)](_0x44206a(0x29f),JSON[_0x44206a(0x342)](_0xfe9e63),_0x44206a(0x22e),JSON[_0x44206a(0x342)](query)),query=_0xfe9e63;try{typeof trackEvent===_0x44206a(0x2a0)&&trackEvent(_0x44206a(0x33d),{'query':_0xfe9e63,'has_text':!!_0xfe9e63[_0x44206a(0x24d)]()});}catch(_0x5eb1f0){}loadedCount=0xa,console['log'](_0x44206a(0x22b),JSON['stringify'](query),',\x20loadedCount\x20reset\x20to',loadedCount),currentTab===_0x44206a(0x2c9)&&rerenderShopPreserveSearchFocus();},_0xe2af4[_0x408124(0x2a3)]=function(_0x3cc0d7){const _0x1c100e=_0x408124;if(_0x3cc0d7[_0x1c100e(0x30c)]===_0x1c100e(0x1ed)){_0x3cc0d7[_0x1c100e(0x23f)]();const _0x17d4d9=_0xe2af4['value']||'';console[_0x1c100e(0x2b2)](_0x1c100e(0x250),JSON[_0x1c100e(0x342)](_0x17d4d9),_0x1c100e(0x22e),JSON[_0x1c100e(0x342)](query)),query=_0x17d4d9;try{typeof trackEvent===_0x1c100e(0x2a0)&&trackEvent(_0x1c100e(0x283),{'query':_0x17d4d9[_0x1c100e(0x24d)](),'length':_0x17d4d9[_0x1c100e(0x24d)]()[_0x1c100e(0x33f)]});}catch(_0x60f097){}loadedCount=0xa,console[_0x1c100e(0x2b2)](_0x1c100e(0x266),JSON['stringify'](query),_0x1c100e(0x26d),loadedCount),currentTab===_0x1c100e(0x2c9)&&rerenderShopPreserveSearchFocus();}}),document[_0x408124(0x2a1)](_0x408124(0x209))[_0x408124(0x2b7)](_0x4e14ef=>{const _0x5bac48=_0x408124;_0x4e14ef[_0x5bac48(0x2e6)]=function(_0x14dd0a){const _0x3d1c33=_0x5bac48;if(_0x14dd0a[_0x3d1c33(0x262)][_0x3d1c33(0x28d)]('button')||_0x14dd0a[_0x3d1c33(0x262)][_0x3d1c33(0x28d)](_0x3d1c33(0x2e5)))return;const _0x39c456=document['activeElement'];if(_0x39c456&&_0x39c456['blur'])_0x39c456[_0x3d1c33(0x1fa)]();const _0x5b6dbc=_0x4e14ef[_0x3d1c33(0x1f0)][_0x3d1c33(0x256)],_0x760497=productsData['find'](_0x556656=>_0x556656[_0x3d1c33(0x257)]===_0x5b6dbc);if(!_0x760497)return;selectedOption={},selectedQuantity=0x1;try{typeof trackEvent===_0x3d1c33(0x2a0)&&trackEvent(_0x3d1c33(0x2cc),{'product_name':_0x760497[_0x3d1c33(0x257)]||null,'category':_0x760497[_0x3d1c33(0x282)]||null});}catch(_0x1855fa){}setTimeout(()=>{const _0x53a58a=_0x3d1c33;showModal(_0x760497),tg?.['HapticFeedback']?.[_0x53a58a(0x2d2)](_0x53a58a(0x2cf));},0x32);};});}function setupImageCarousels(){const _0x96bf92=_0x95122d;Object[_0x96bf92(0x20b)](window)[_0x96bf92(0x26e)](_0x3c281a=>_0x3c281a[_0x96bf92(0x276)](_0x96bf92(0x204))||_0x3c281a['startsWith'](_0x96bf92(0x274))||_0x3c281a[_0x96bf92(0x276)](_0x96bf92(0x29d)))[_0x96bf92(0x2b7)](_0x2dbcf1=>delete window[_0x2dbcf1]),document[_0x96bf92(0x2a1)](_0x96bf92(0x271))[_0x96bf92(0x2b7)](_0x62500a=>{const _0x1741d7=_0x96bf92,_0x2e968e=_0x62500a[_0x1741d7(0x26f)][_0x1741d7(0x2a1)](_0x1741d7(0x2e5)),_0x3b26f0=_0x62500a[_0x1741d7(0x1f0)][_0x1741d7(0x22c)];let _0xd611c6=0x0;function _0x424412(){const _0x26dea9=_0x1741d7;_0x62500a[_0x26dea9(0x2d0)][_0x26dea9(0x349)]=_0x26dea9(0x27a)+_0xd611c6*0x64+'%)',_0x2e968e[_0x26dea9(0x2b7)]((_0x537423,_0x1a6173)=>{const _0x2196d0=_0x26dea9;_0x537423[_0x2196d0(0x32a)][_0x2196d0(0x259)](_0x2196d0(0x26c),_0x1a6173===_0xd611c6);});}window['carouselNext_'+_0x3b26f0]=function(){const _0xe2dd96=_0x1741d7;_0xd611c6=(_0xd611c6+0x1)%_0x62500a[_0xe2dd96(0x235)][_0xe2dd96(0x33f)],_0x424412(),tg?.[_0xe2dd96(0x2ee)]?.[_0xe2dd96(0x28e)]();},window[_0x1741d7(0x274)+_0x3b26f0]=function(){const _0xd97cf2=_0x1741d7;_0xd611c6=_0xd611c6===0x0?_0x62500a['children'][_0xd97cf2(0x33f)]-0x1:_0xd611c6-0x1,_0x424412(),tg?.['HapticFeedback']?.[_0xd97cf2(0x28e)]();},window[_0x1741d7(0x29d)+_0x3b26f0]=function(_0x5312d6){const _0x26a5fb=_0x1741d7;_0xd611c6=_0x5312d6,_0x424412(),tg?.[_0x26a5fb(0x2ee)]?.[_0x26a5fb(0x28e)]();},_0x2e968e['forEach']((_0x5ed291,_0x6d1d8e)=>{_0x5ed291['onclick']=function(_0x344b03){const _0x24de63=_0x1f37;_0x344b03[_0x24de63(0x267)](),_0xd611c6=_0x6d1d8e,_0x424412(),tg?.[_0x24de63(0x2ee)]?.['selectionChanged']();};}),_0x424412();});}window['carouselNext']=function(_0x459106){const _0x4ab59b=_0x95122d;if(window[_0x4ab59b(0x204)+_0x459106])window[_0x4ab59b(0x204)+_0x459106]();},window[_0x95122d(0x2b5)]=function(_0x2d42dc){const _0xfaeb6b=_0x95122d;if(window[_0xfaeb6b(0x274)+_0x2d42dc])window['carouselPrev_'+_0x2d42dc]();},window[_0x95122d(0x2fa)]=function(_0x430c1a,_0x48cf9e){const _0x501549=_0x95122d;if(window[_0x501549(0x29d)+_0x430c1a])window['carouselGoTo_'+_0x430c1a](_0x48cf9e);};
+// ===== ДЕДУПЛИКАЦИЯ ВАРИАНТОВ (ОБЩАЯ) =====
+
+const VARIANT_TECH_FIELDS = ['Артикул', 'id', 'SKU'];
+
+function makeVariantUserKeyWithoutPrice(variant) {
+  const entries = Object.entries(variant)
+    .filter(
+      ([key]) => !VARIANT_TECH_FIELDS.includes(key) && key !== 'Цена'
+    )
+    .sort(([a], [b]) => a.localeCompare(b));
+
+  return JSON.stringify(entries);
+}
+
+function getCategoriesFromProducts() {
+  if (!productsData || !productsData.length) {
+    return ['Все товары'];
+  }
+
+  const categoriesSet = new Set();
+
+  productsData.forEach(p => {
+    if (!p) return;
+    if (!p.inStock) return;
+
+    let cat = p.cat != null ? String(p.cat).trim() : '';
+
+    if (!cat) {
+      cat = 'Без категории';
+    }
+
+    categoriesSet.add(cat);
+  });
+
+  const cats = Array.from(categoriesSet).sort((a, b) =>
+    a.localeCompare(b, 'ru')
+  );
+
+  return ['Все товары', ...cats];
+}
+
+function dedupeIdenticalVariants(variants) {
+  const map = new Map();
+
+  variants.forEach(v => {
+    const key = makeVariantUserKeyWithoutPrice(v);
+    const existing = map.get(key);
+
+    if (!existing) {
+      map.set(key, v);
+      return;
+    }
+
+    const prevPrice = Number(existing['Цена'] || 0);
+    const nextPrice = Number(v['Цена'] || 0);
+
+    if (nextPrice > prevPrice) {
+      map.set(key, v);
+    }
+  });
+
+  return Array.from(map.values());
+}
+
+function getFilterOrderForProduct(productCat) {
+  return FILTER_ORDER_BY_CAT[productCat] || [];
+}
+
+function getActiveTypesForProduct(product, variants) {
+  const order = getFilterOrderForProduct(product.cat);
+  return order.filter(type =>
+    variants.some(
+      v => v[type] !== undefined && v[type] !== null && v[type] !== ''
+    )
+  );
+}
+
+function getFilteredVariants(variants) {
+  if (!variants.length) return [];
+  const order = getFilterOrderForProduct(variants[0].cat);
+  return variants.filter(variant =>
+    order.every(type => {
+      const selectedValue = selectedOption[type];
+      if (!selectedValue) return true;
+      const v = variant[type];
+      return String(v) === String(selectedValue);
+    })
+  );
+}
+
+function getAvailableOptions(type, variants) {
+  const filteredVariants = getFilteredVariants(variants);
+  const options = [
+    ...new Set(filteredVariants.map(v => v[type]).filter(Boolean))
+  ];
+
+  // если хотя бы одно значение похоже на ёмкость (GB/TB/ГБ/ТБ) — включаем capacity-сортировку
+  const hasCapacityLike = options.some(val => {
+    const s = String(val).toUpperCase();
+    return s.includes('GB') || s.includes('ГБ') || s.includes('TB') || s.includes('ТБ');
+  });
+
+  if (hasCapacityLike) {
+    return options.sort(compareCapacity); // или compareStorage, если оставишь старое имя
+  }
+
+  return options.sort();
+}
+
+function normalizeProducts(products) {
+  if (!Array.isArray(products)) {
+    console.warn('[normalizeProducts] products is not an array', products);
+    return [];
+  }
+
+  const toStr = v =>
+    v === null || v === undefined ? '' : String(v).trim();
+
+  const toNum = v => {
+    const n = Number(v);
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  const toBool = v => {
+    if (typeof v === 'boolean') return v;
+    const s = String(v || '').trim();
+    if (!s) return false;
+    return s === 'true' || s === '1' || s.indexOf('✅') !== -1;
+  };
+
+  const toImagesArray = v => {
+    if (Array.isArray(v)) {
+      return v.map(toStr).filter(Boolean);
+    }
+    if (typeof v === 'string') {
+      return v
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
+    }
+    return [];
+  };
+
+  return products.map((row, idx) => {
+    const safe = row && typeof row === 'object' ? row : {};
+
+    const id = toStr(
+      safe.id || safe.code || safe.article || safe.sku || ''
+    );
+    const name = toStr(safe.name || safe.title || '');
+    const cat = toStr(safe.cat || safe.category || '');
+    const price = toNum(safe.price);
+
+    const storage = toStr(safe.memory || safe.storage);
+    const region = toStr(safe.region);
+    const simType = toStr(safe.sim || safe.simType);
+    const color = toStr(safe.color);
+
+    const diameter = toStr(safe.diameter);
+    const caseColor = toStr(safe.caseColor);
+    const bandColor = toStr(safe.bandColor);
+    const bandType = toStr(safe.bandType);
+    const bandSize = toStr(safe.bandSize);
+
+    const diagonal = toStr(safe.diagonal);
+    const ram = toStr(safe.ram);
+    const ssd = toStr(safe.ssd);
+    const keyboard = toStr(safe.keyboard);
+    const cpu = toStr(safe.cpu);
+    const gpu = toStr(safe.gpu);
+
+    const inStock = toBool(safe.inStock);
+    const commonImage = toStr(
+      safe.commonImage || safe.mainImage || ''
+    );
+    const images = toImagesArray(safe.images);
+
+    if (!id && name) {
+      console.warn(
+        '[normalizeProducts] missing id for product',
+        idx,
+        name
+      );
+    }
+
+    return {
+      id,
+      name,
+      price,
+      cat,
+
+      code: id,
+
+      storage,
+      region,
+      simType,
+      color,
+
+      diameter,
+      caseColor,
+      bandColor,
+      bandType,
+      bandSize,
+
+      diagonal,
+      ram,
+      ssd,
+      keyboard,
+      cpu,
+      gpu,
+
+      inStock,
+      commonImage,
+      images
+    };
+  });
+}
+
+function getFilteredProductImages(variants) {
+  const images = new Set();
+  variants.forEach(variant => {
+    const arr = variant['Изображения'];
+    if (arr && Array.isArray(arr)) {
+      arr.forEach(img => {
+        if (img && String(img).trim()) images.add(String(img).trim());
+      });
+    }
+  });
+  return sortAdapterImageLast(Array.from(images));
+}
+
+// все варианты по имени товара
+function getProductVariants(productName) {
+  return productsData
+    ? productsData.filter(p => p['Название'] === productName)
+    : [];
+}
+
+function isCompleteSelection() {
+  if (!currentProduct) return false;
+
+  const allVariants = getProductVariants(
+    currentProduct['Название']
+  ).filter(v => v.inStock);
+  if (!allVariants.length) return false;
+
+  const filtered = getFilteredVariants(allVariants);
+  if (!filtered.length) return false;
+
+  if (filtered.length > 1) {
+    const activeTypes = getActiveTypesForProduct(
+      currentProduct,
+      allVariants
+    );
+    const first = filtered[0];
+
+    const allSame = filtered.every(v =>
+      activeTypes.every(
+        type =>
+          String(v[type] ?? '') === String(first[type] ?? '')
+      )
+    );
+
+    if (!allSame) return false;
+  }
+  const v = filtered[0];
+
+  const activeTypes = getActiveTypesForProduct(
+    currentProduct,
+    allVariants
+  );
+  const finalTypes = activeTypes.filter(type =>
+    filtered.some(
+      variant =>
+        variant[type] !== undefined &&
+        variant[type] !== null &&
+        variant[type] !== ''
+    )
+  );
+
+  return finalTypes.every(type => {
+    const value = v[type];
+    if (value === undefined || value === null || value === '')
+      return true;
+    return !!selectedOption[type];
+  });
+}
+
+function getCurrentSectionIndex() {
+  if (!currentProduct) return 0;
+
+  const variants = getProductVariants(
+    currentProduct['Название']
+  ).filter(v => v.inStock);
+  if (!variants.length) return 0;
+
+  const filtered = getFilteredVariants(variants);
+  const activeTypes = getActiveTypesForProduct(
+    currentProduct,
+    variants
+  );
+
+  const finalTypes = activeTypes.filter(type =>
+    filtered.some(
+      v =>
+        v[type] !== undefined &&
+        v[type] !== null &&
+        v[type] !== ''
+    )
+  );
+
+  for (let i = 0; i < finalTypes.length; i++) {
+    if (!selectedOption[finalTypes[i]]) return i;
+  }
+  return finalTypes.length;
+}
+
+function getVariantCountText(count) {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return count + ' вариант';
+  if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) {
+    return count + ' варианта';
+  }
+  return count + ' вариантов';
+}
+
+function getRequiredTypesForProduct(product) {
+  const variants = getProductVariants(
+    product['Название']
+  ).filter(v => v.inStock);
+  if (!variants.length) return [];
+
+  const order = getFilterOrderForProduct(product.cat);
+
+  return order.filter(type => {
+    const values = variants
+      .map(v => v[type])
+      .filter(v => v !== undefined && v !== null && v !== '');
+    if (!values.length) return false;
+
+    const unique = Array.from(new Set(values.map(String)));
+    return unique.length > 1;
+  });
+}
+
+function shuffleArray(items) {
+  const arr = items.slice();
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function getMaxNumberFromName(name) {
+  if (!name) return 0;
+  const matches = String(name).match(/\d+/g);
+  if (!matches) return 0;
+  return Math.max(...matches.map(n => parseInt(n, 10) || 0));
+}
+
+function parseCapacity(value) {
+  if (!value) return null;
+  const str = String(value).trim().toUpperCase();
+  const match = str.match(/(\d+(?:\.\d+)?)\s*(TB|TБ|T|GB|G|ГБ|ТБ)/i);
+  if (!match) return null;
+
+  const num = parseFloat(match[1]);
+  const unit = match[2].toUpperCase();
+
+  // всё приводим к гигабайтам
+  if (unit === 'TB' || unit === 'TБ' || unit === 'T' || unit === 'ТБ') {
+    return num * 1024;
+  }
+  // GB / G / ГБ
+  return num;
+}
+
+function compareCapacity(a, b) {
+  const ca = parseCapacity(a);
+  const cb = parseCapacity(b);
+
+  if (ca == null && cb == null) {
+    return String(a).localeCompare(String(b), 'ru');
+  }
+  if (ca == null) return 1;
+  if (cb == null) return -1;
+
+  return ca - cb;
+}
+
+// список товаров для отображения в магазине
+function getVisibleProducts() {
+  if (!productsData) {
+    console.log(
+      '[getVisibleProducts] productsData is null, query =',
+      query
+    );
+    return [];
+  }
+
+  console.log(
+    '[getVisibleProducts] START, query =',
+    JSON.stringify(query),
+    ', selectedCategory =',
+    selectedCategory,
+    ', total variants =',
+    productsData.length
+  );
+
+  const groupedByName = {};
+
+  productsData.forEach(p => {
+    const title = p['Название'];
+    if (!groupedByName[title]) groupedByName[title] = [];
+    groupedByName[title].push(p);
+  });
+
+  let groupedVisible = Object.values(groupedByName)
+    .filter(arr => arr.some(v => v.inStock))
+    .map(arr => {
+      const inStockVariants = arr.filter(v => v.inStock);
+      const cheapestVariant = inStockVariants.reduce(
+        (min, p) => (p['Цена'] < min['Цена'] ? p : min),
+        inStockVariants[0]
+      );
+      const resolvedCat = resolveCategoryForVariants(arr);
+      return {
+        ...cheapestVariant,
+        cat: resolvedCat
+      };
+    });
+
+  console.log(
+    '[getVisibleProducts] after inStock & grouping, count =',
+    groupedVisible.length
+  );
+
+  if (selectedCategory !== 'Все товары') {
+    groupedVisible = groupedVisible.filter(
+      p => p.cat === selectedCategory
+    );
+    console.log(
+      '[getVisibleProducts] after category filter, category =',
+      selectedCategory,
+      ', count =',
+      groupedVisible.length
+    );
+  }
+
+  if (query.trim()) {
+    const q = query.trim().toLowerCase();
+    groupedVisible = groupedVisible.filter(
+      p =>
+        (p['Название'] &&
+          String(p['Название']).toLowerCase().includes(q)) ||
+        (p.cat && String(p.cat).toLowerCase().includes(q))
+    );
+  }
+
+  groupedVisible.sort((a, b) => {
+    const aPreview = !!a.isPreview || String(a.sourceSheet || '').toLowerCase() === 'preview_new';
+    const bPreview = !!b.isPreview || String(b.sourceSheet || '').toLowerCase() === 'preview_new';
+  
+    if (aPreview !== bPreview) {
+      return aPreview ? -1 : 1;
+    }
+  
+    const aIphone = String(a.cat || '').toLowerCase().includes('iphone');
+    const bIphone = String(b.cat || '').toLowerCase().includes('iphone');
+  
+    if (aIphone !== bIphone) {
+      return aIphone ? -1 : 1;
+    }
+  
+    const na = getMaxNumberFromName(a.name);
+    const nb = getMaxNumberFromName(b.name);
+    if (na !== nb) return nb - na;
+  
+    return String(a.name).localeCompare(String(b.name), 'ru');
+  });
+
+  console.log(
+    '[getVisibleProducts] END, result count =',
+    groupedVisible.length
+  );
+
+  return groupedVisible;
+}
+
+// предзагрузка картинок карточек (старый код, сейчас не используется отдельно)
+function preloadAllImages(products) {
+  products.forEach(product => {
+    const variants = getProductVariants(product.name).filter(
+      v => v.inStock
+    );
+    const allImages = getFilteredProductImages(variants);
+    allImages.forEach(imgSrc => {
+      if (!imageCache.has(imgSrc) && imgSrc) {
+        const img = new Image();
+        img.onload = () => imageCache.set(imgSrc, true);
+        img.onerror = () => imageCache.set(imgSrc, false);
+        img.src = imgSrc;
+      }
+    });
+  });
+}
+
+function getLabel(type) {
+  const labels = {
+    simType: 'SIM/eSIM',
+    storage: 'Память',
+    color: 'Цвет',
+    region: 'Регион',
+
+    diameter: 'Диаметр',
+    caseColor: 'Цвет корпуса',
+    bandColor: 'Цвет ремешка',
+    bandType: 'Тип ремешка',
+    bandSize: 'Размер ремешка',
+
+    diagonal: 'Диагональ',
+    ram: 'ОЗУ',
+    ssd: 'SSD',
+    gpu: 'GPU',
+    cpu: 'CPU',
+    keyboard: 'Раскладка'
+  };
+  return labels[type] || type;
+}
+
+// ---------- рендер магазина ----------
+function getShopPriceStatusMeta() {
+  if (typeof getPriceStatus !== 'function') return null;
+
+  // Check if meta is loaded and has a valid date
+  if (!aboutLastProductsMeta || !aboutLastProductsMeta.lastUpdatedAt) {
+    return null;
+  }
+
+  const status = getPriceStatus(aboutLastProductsMetaText);
+  if (!status || !status.text) {
+    return null;
+  }
+
+  let pillClasses = 'bg-gray-100 text-gray-600';
+
+  if (status.type === 'actual') {
+    pillClasses = 'bg-green-50 text-green-600 ring-1 ring-green-100';
+  } else if (status.type === 'pending') {
+    pillClasses = 'bg-amber-50 text-amber-600 ring-1 ring-amber-100';
+  } else if (status.type === 'tomorrow') {
+    pillClasses = 'bg-red-50 text-red-500 ring-1 ring-red-100';
+  }
+
+  return {
+    text: status.text,
+    pillClasses
+  };
+}
+
+function renderShopPriceStatusBadge() {
+  const shopPriceStatus = getShopPriceStatusMeta();
+  if (!shopPriceStatus) return '';
+
+  return (
+    '<div id="shopPriceStatusWrap" class="mt-1">' +
+      '<div id="shopPriceStatusBadge" class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' + shopPriceStatus.pillClasses + '">' +
+        escapeHtml(shopPriceStatus.text) +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function updateShopPriceStatusBadge() {
+  const wrap = document.getElementById('shopPriceStatusWrap');
+  const badge = document.getElementById('shopPriceStatusBadge');
+  const shopPriceStatus = getShopPriceStatusMeta();
+
+  if (!shopPriceStatus) {
+    if (wrap) wrap.remove();
+    return;
+  }
+
+  if (!badge) {
+    const logoWrap = document.querySelector('.nav-logo')?.parentElement;
+    if (logoWrap) {
+      logoWrap.insertAdjacentHTML('beforeend', renderShopPriceStatusBadge());
+    }
+    return;
+  }
+
+  badge.className =
+    'inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' +
+    shopPriceStatus.pillClasses;
+
+  badge.textContent = shopPriceStatus.text;
+}
+
+function renderShopPriceStatusInline() {
+  const shopPriceStatus = getShopPriceStatusMeta();
+  if (!shopPriceStatus) return '';
+
+  return (
+    '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium whitespace-nowrap ' + shopPriceStatus.pillClasses + '">' +
+      escapeHtml(shopPriceStatus.text) +
+    '</div>'
+  );
+}
+
+
+function renderShopPriceStatusPill() {
+  const shopPriceStatus = getShopPriceStatusMeta();
+  if (!shopPriceStatus) return '';
+
+  return (
+    '<div class="mt-1">' +
+      '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium ' + shopPriceStatus.pillClasses + '">' +
+        escapeHtml(shopPriceStatus.text) +
+      '</div>' +
+    '</div>'
+  );
+}
+
+function renderShopHeader(list, showCount) {
+  const categories = getCategoriesFromProducts();
+  const shopPriceStatus = getShopPriceStatusMeta();
+  const config = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { flag: '🇷🇺', currency: 'RUB', name: 'Россия' };
+
+  let optionsHtml = '';
+  for (let i = 0; i < categories.length; i++) {
+    const c = categories[i];
+    optionsHtml +=
+      '<option value="' + escapeHtml(c) + '" ' + (c === selectedCategory ? 'selected' : '') + '>' +
+        escapeHtml(c) +
+      '</option>';
+  }
+
+return (
+    '<div class="mb-5">' +
+      '<div class="flex items-center justify-between gap-3 min-w-0">' +
+        '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
+        '<div class="flex-shrink-0 ml-2">' +
+          renderShopPriceStatusInline() +
+        '</div>' +
+      '</div>' +
+'<div class="flex items-center gap-2 relative mb-2">' +
+        '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
+        '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
+          '<span id="countryFlag">' + config.flag + '</span>' +
+          '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+        '</div>' +
+'<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[160px]">' +
+          '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
+            '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
+            (selectedCountry === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
+          '</button>' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
+            '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
+            (selectedCountry === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="flex items-center gap-2">' +
+        '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2">' +
+          '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
+          '<select id="category" class="w-full bg-transparent border-none font-semibold text-base focus:outline-none appearance-none text-left">' +
+            optionsHtml +
+          '</select>' +
+        '</div>' +
+
+        '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
+          '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
+          '<div class="flex items-center">' +
+            '<svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"></path>' +
+            '</svg>' +
+            '<input id="search" value="' + escapeHtml(query) + '" placeholder="Поиск..." class="w-full bg-transparent outline-none text-sm text-gray-900" />' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<div class="mt-3 text-xs text-gray-500">' +
+        '<span class="font-semibold">' + showCount + '</span> / ' + list.length +
+      '</div>' +
+    '</div>'
+  );
+}
+
+// Country picker functions
+// Country picker functions
+window.toggleCountryPicker = function() {
+  const picker = document.getElementById('countryPicker');
+  const selector = document.getElementById('countrySelector');
+  console.log('[toggleCountryPicker] picker:', picker, 'selector:', selector);
+  if (!picker) {
+    console.error('[toggleCountryPicker] picker not found!');
+    return;
+  }
+  const wasHidden = picker.classList.contains('hidden');
+  picker.classList.toggle('hidden');
+  console.log('[toggleCountryPicker] toggled, hidden:', picker.classList.contains('hidden'));
+  if (!picker.classList.contains('hidden')) {
+    // Ensure picker is positioned correctly relative to selector
+    const selector = document.getElementById('countrySelector');
+    if (selector) {
+      const rect = selector.getBoundingClientRect();
+      console.log('[toggleCountryPicker] selector rect:', rect);
+      // Force picker to be positioned correctly
+      picker.style.left = '';
+      picker.style.right = '';
+      picker.style.top = '';
+      picker.style.left = '';
+      picker.style.transform = '';
+    }
+  }
+};
+
+window.setCountryAndRefresh = function(country) {
+  // Don't reload if the same country is already selected
+  if (window.selectedCountry === country) {
+    console.log('[setCountryAndRefresh] same country, skipping reload');
+    const picker = document.getElementById('countryPicker');
+    if (picker) picker.classList.add('hidden');
+    return;
+  }
+
+  if (window.setCountry && window.setCountry(country)) {
+    const picker = document.getElementById('countryPicker');
+    if (picker) picker.classList.add('hidden');
+    // Set flag to return to cart tab if we're currently on cart tab
+    if (window.currentTab === 'cart') {
+      sessionStorage.setItem('openCartAfterReload', 'true');
+    }
+    // Reload page with new country query param for full price recalculation
+    const url = new URL(window.location.href);
+    url.searchParams.set('country', country);
+    // Show loader
+    document.body.style.cursor = 'wait';
+    const loader = document.createElement('div');
+    loader.id = 'countryReloadLoader';
+    loader.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:16px;color:#0284c7;';
+    loader.textContent = 'Переключаем магазин...';
+    document.body.appendChild(loader);
+    window.location.href = url.toString();
+  }
+};
+
+// Delegation for country picker buttons (like category dropdown)
+if (!document.__countryPickerDelegationBound) {
+  document.__countryPickerDelegationBound = true;
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('#countryPicker button[data-country]');
+    if (!btn) return;
+    e.stopPropagation();
+    const country = btn.getAttribute('data-country');
+    if (country) {
+      setCountryAndRefresh(country);
+    }
+  });
+};
+
+let sessionImageLoads = new Map();
+
+function handleProductImageSequentialLoad(
+  img,
+  imageSrc,
+  cacheKey,
+  animation
+) {
+  if (
+    typeof failedImageUrls !== 'undefined' &&
+    failedImageUrls.has(imageSrc)
+  ) {
+    handleProductImageError(img, imageSrc);
+    return;
+  }
+
+  if (typeof markImageAsLoaded === 'function' && cacheKey) {
+    markImageAsLoaded(cacheKey);
+  } else if (
+    typeof loadedImageUrls !== 'undefined' &&
+    imageSrc
+  ) {
+    loadedImageUrls.add(imageSrc);
+  }
+
+  if (cacheKey) {
+    const prev = sessionImageLoads.get(cacheKey) || 0;
+    const current = prev + 1;
+    sessionImageLoads.set(cacheKey, current);
+  }
+
+  const container = img.closest('.image-placeholder-container');
+  if (!container) {
+    img.classList.add('fade-in-image');
+    return;
+  }
+
+  const svg = container.querySelector('.image-placeholder-svg');
+  if (!svg) {
+    img.classList.add('fade-in-image');
+    return;
+  }
+
+  svg.classList.add('svg-fade-out');
+
+  setTimeout(() => {
+    img.classList.add('fade-in-image');
+  }, 500);
+}
+
+function handleProductImageError(img, imageSrc) {
+  if (typeof failedImageUrls !== 'undefined') {
+    failedImageUrls.add(imageSrc);
+  }
+
+  img.style.display = 'none';
+}
+
+function productCard(product) {
+  const allVariants = getProductVariants(product['Название']);
+  const variants = allVariants.filter(v => v.inStock);
+  if (!variants.length) return '';
+
+  const uniqueVariants = dedupeIdenticalVariants(variants);
+
+  const cheapestVariant = uniqueVariants.reduce(
+    (min, p) => (p['Цена'] < min['Цена'] ? p : min),
+    uniqueVariants[0]
+  );
+
+  const commonImage =
+    product['Общая картинка'] ||
+    uniqueVariants[0]?.['Общая картинка'] ||
+    '';
+  const hasImage = !!commonImage;
+  const safeMainImage = hasImage ? commonImage.replace(/'/g, "\\'") : '';
+  const carouselId =
+    'carousel_' + Math.random().toString(36).substr(2, 9);
+
+  const cacheKey = hasImage
+    ? getImageCacheKey(product, safeMainImage)
+    : '';
+
+  const isLoadedPersistently =
+    hasImage &&
+    cacheKey &&
+    typeof loadedImageCacheKeys !== 'undefined' &&
+    loadedImageCacheKeys.has(cacheKey);
+
+  const sessionCount = cacheKey
+    ? sessionImageLoads.get(cacheKey) || 0
+    : 0;
+  const isInstant = isLoadedPersistently && sessionCount > 0;
+
+  const isFailed =
+    hasImage &&
+    typeof failedImageUrls !== 'undefined' &&
+    failedImageUrls.has(safeMainImage);
+
+  console.log('[persist-debug]', {
+    name: product['Название'],
+    hasImage,
+    cacheKey,
+    cacheSetDefined:
+      typeof loadedImageCacheKeys !== 'undefined',
+    inSet:
+      typeof loadedImageCacheKeys !== 'undefined'
+        ? loadedImageCacheKeys.has(cacheKey)
+        : null,
+    isLoadedPersistently
+  });
+
+  return (
+    '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full"' +
+    ' data-product-name="' +
+    escapeHtml(product['Название']) +
+    '"' +
+    ' data-carousel-id="' +
+    carouselId +
+    '">' +
+    '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative">' +
+    '<div class="image-placeholder-container relative w-full h-full">' +
+    (!hasImage
+      ? '<div class="image-placeholder-svg absolute inset-0">' +
+        getPlainSvgPlaceholder() +
+        '</div>'
+      : (!isInstant && !isLoadedPersistently) || isFailed
+      ? '<div class="image-placeholder-svg absolute inset-0">' +
+        getPlainSvgPlaceholder() +
+        '</div>'
+      : '') +
+    (!hasImage || isFailed
+      ? ''
+      : '<img src="' +
+        commonImage +
+        '" ' +
+        'class="carousel-img product-image absolute inset-0 object-contain ' +
+        (isInstant ? '' : 'animatable') +
+        '" ' +
+        'alt="Product" ' +
+        'data-src="' +
+        safeMainImage +
+        '" ' +
+        (isInstant
+          ? ''
+          : 'onload="handleProductImageSequentialLoad(this, \'' +
+            safeMainImage +
+            '\', \'' +
+            cacheKey +
+            '\')" ') +
+        'onerror="handleProductImageError(this, \'' +
+        safeMainImage +
+        '\')" ' +
+        '/>') +
+    '</div>' +
+    '<div class="image-carousel-inner relative w-full h-full" data-carousel="' +
+    carouselId +
+    '" data-current="0">' +
+    '</div>' +
+    '</div>' +
+    '<div class="font-bold text-base mb-1 product-title">' +
+    escapeHtml(product['Название']) +
+    '</div>' +
+    '<div class="text-blue-600 font-black text-xl mb-1">' +
+    (window.formatPriceForCountry
+      ? (window.getCurrentCountryConfig
+          ? (function() {
+              const cfg = window.getCurrentCountryConfig();
+              return cfg.currency + ' ' + window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry);
+            })()
+          : window.formatPriceForCountry(cheapestVariant['Цена'], window.selectedCountry))
+      : 'RUB ' + formatPrice(cheapestVariant['Цена'])) +
+    '</div>' +
+    '<div class="text-xs text-gray-500 mb-4">' +
+    getVariantCountText(uniqueVariants.length) +
+    '</div>' +
+    '</div>'
+  );
+}
+
+function renderShopList(list, showCount) {
+  return list
+    .slice(0, showCount)
+    .map(productCard)
+    .join('');
+}
+
+let isFirstShopRender = true;
+
+function getImageCacheKey(product, url) {
+  const version = product.imageVersion || product.updatedAt || '';
+  return url + '|' + version;
+}
+
+// итоговая категория для группы вариантов
+function resolveCategoryForVariants(variants) {
+  const counts = new Map();
+  let hasNonEmptyCategory = false;
+
+  variants.forEach(v => {
+    let raw = v.cat != null ? String(v.cat).trim() : '';
+    if (raw === 'Без категории') {
+      raw = '';
+    }
+    if (!raw) {
+      return;
+    }
+    hasNonEmptyCategory = true;
+    counts.set(raw, (counts.get(raw) || 0) + 1);
+  });
+
+  if (!hasNonEmptyCategory) {
+    return 'Без категории';
+  }
+
+  let bestCount = 0;
+  let candidates = [];
+
+  counts.forEach((cnt, cat) => {
+    if (cnt > bestCount) {
+      bestCount = cnt;
+      candidates = [cat];
+    } else if (cnt === bestCount) {
+      candidates.push(cat);
+    }
+  });
+
+  if (candidates.length === 1) {
+    return candidates[0];
+  }
+
+  const productName =
+    variants[0] && variants[0]['Название']
+      ? String(variants[0]['Название'])
+      : '';
+
+  const nameLower = productName.toLowerCase();
+
+  for (let i = 0; i < candidates.length; i++) {
+    const cat = candidates[i];
+    if (!cat) continue;
+    if (nameLower.includes(String(cat).toLowerCase())) {
+      return cat;
+    }
+  }
+
+  return candidates[0];
+}
+
+function rerenderShopPreserveSearchFocus() {
+  const prevValue =
+    document.getElementById('search')?.value || query || '';
+  const hadFocus =
+    document.activeElement &&
+    document.activeElement.id === 'search';
+
+  renderShop();
+
+  const newSearch = document.getElementById('search');
+  if (newSearch) {
+    newSearch.value = prevValue;
+    if (hadFocus) {
+      newSearch.focus();
+      const len = newSearch.value.length;
+      newSearch.setSelectionRange(len, len);
+    }
+  }
+}
+
+// ------- ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ДЛЯ НОВОЙ СХЕМЫ ПРОГРЕВА -------
+
+// main-изображение для товара (предпросмотр карточки)
+function getMainProductImage(p) {
+  if (!p) return '';
+  if (p['Общая картинка']) return String(p['Общая картинка']).trim();
+  if (p.commonImage) return String(p.commonImage).trim();
+  return '';
+}
+
+// все изображения товара (main + галереи)
+function getAllProductImages(p) {
+  const urls = new Set();
+
+  const main = getMainProductImage(p);
+  if (main) urls.add(main);
+
+  const rawImages = p['Изображения'] || p.images;
+  if (Array.isArray(rawImages)) {
+    rawImages.forEach(u => {
+      if (u) urls.add(String(u).trim());
+    });
+  } else if (typeof rawImages === 'string') {
+    rawImages.split(',').forEach(u => {
+      const s = u.trim();
+      if (s) urls.add(s);
+    });
+  }
+
+  return Array.from(urls);
+}
+
+// сбор отдельных очередей main/other с приоритетом iPhone
+function buildSeparatedPreloadQueues(allProducts) {
+  const mainQueue = [];
+  const otherQueueIphone = [];
+  const otherQueueOther = [];
+
+  if (!allProducts || !allProducts.length) {
+    return { mainQueue, otherQueue: [] };
+  }
+
+  allProducts.forEach(p => {
+    if (!p || !p.inStock) return;
+
+    const mainUrl = getMainProductImage(p);
+    if (mainUrl) mainQueue.push(mainUrl);
+
+    const urls = getAllProductImages(p);
+    const cat = (p.cat || p['Категория'] || '')
+      .toString()
+      .toLowerCase();
+    const targetArr = cat.includes('iphone')
+      ? otherQueueIphone
+      : otherQueueOther;
+
+    urls.forEach(u => {
+      if (!u) return;
+      if (u === mainUrl) return;
+      targetArr.push(u);
+    });
+  });
+
+  const seenMain = new Set();
+  const finalMain = [];
+  mainQueue.forEach(u => {
+    if (!u) return;
+    if (seenMain.has(u)) return;
+    seenMain.add(u);
+    finalMain.push(u);
+  });
+
+  const seenOther = new Set();
+  const finalOther = [];
+  [...otherQueueIphone, ...otherQueueOther].forEach(u => {
+    if (!u) return;
+    if (seenOther.has(u)) return;
+    seenOther.add(u);
+    finalOther.push(u);
+  });
+
+  return { mainQueue: finalMain, otherQueue: finalOther };
+}
+
+// --------- Рендер магазина ---------
+
+function getFilteredCategoriesList(term, allCategories) {
+  const q = (term || '').trim().toLowerCase();
+  if (!q) return allCategories;
+
+  return allCategories.filter(c =>
+    String(c).toLowerCase().includes(q)
+  );
+}
+
+function renderCategoryOptionsIntoContainer(categories, container, selected) {
+  if (!container) return;
+
+  container.innerHTML = categories
+    .map(c =>
+      '<button type="button"' +
+      ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 justify-start hover:bg-gray-100' +
+      (c === selected
+        ? ' text-blue-600 font-semibold'
+        : ' text-gray-800') +
+      '"' +
+      ' data-value="' + escapeHtml(c) + '"' +
+      '>' +
+      (c === selected
+        ? '<span class="text-blue-500">✓</span>'
+        : '<span class="w-4"></span>') +
+      '<span class="category-option-label">' +
+        escapeHtml(c) +
+      '</span>' +
+      '</button>'
+    )
+    .join('');
+}
+
+function renderShop() {
+  console.log('---------------- [renderShop] ----------------');
+  console.log('[renderShop] selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.(), 'cartItems:', cartItems?.length);
+  console.log(
+    '[renderShop] BEFORE getVisibleProducts, query =',
+    JSON.stringify(query),
+    ', selectedCategory =',
+    selectedCategory,
+    ', loadedCount =',
+    loadedCount
+  );
+  const categories = getCategoriesFromProducts();
+  if (!productsData || productsData.length === 0) {
+    root.innerHTML =
+      '<div class="flex flex-col items-center justify-center min-h-[70vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
+      '<div class="w-24 h-24 bg-gray-100 rounded-3xl flex items-center justify-center mb-4">' +
+      '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+      ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
+      '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
+      '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
+      '</svg>' +
+      '</div>' +
+      '<h2 class="text-xl font-bold text-gray-800 mb-2">Нет товаров</h2>' +
+      '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">Проверьте соединение и попробуйте обновить список товаров. Для заказа через менеджера напишите @TechBex.</p>' +
+      '<button onclick="refreshProducts()"' +
+      ' class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg  text-sm">' +
+      'Обновить товары' +
+      '</button>' +
+      '</div>';
+    return;
+  }
+
+  const list = getVisibleProducts();
+
+  console.log('[renderShop] AFTER getVisibleProducts, cartItems:', cartItems?.length, 'selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.());
+
+  let showCount;
+  if (query.trim()) {
+    showCount = list.length;
+  } else {
+    showCount = Math.min(loadedCount, list.length);
+  }
+
+  console.log(
+    '[renderShop] AFTER getVisibleProducts, query =',
+    JSON.stringify(query),
+    ', list.length =',
+    list.length,
+    ', loadedCount =',
+    loadedCount,
+    ', showCount =',
+    showCount
+  );
+
+  const activeEl = document.activeElement;
+  const isSearchFocused =
+    activeEl && activeEl.id === 'search';
+
+  if (isSearchFocused && document.getElementById('productGrid')) {
+    const grid = document.getElementById('productGrid');
+    const sentinelEl = document.getElementById('scrollSentinel');
+
+    if (grid) {
+      grid.innerHTML = renderShopList(list, showCount);
+
+      const counterEl = document.querySelector(
+        '.mt-3.text-xs.text-gray-500'
+      );
+      if (counterEl) {
+        counterEl.innerHTML =
+          'Показано: <span class="font-semibold">' +
+          showCount +
+          '</span> из ' +
+          list.length;
+      }
+
+      setupHandlers();
+      setupImageCarousels();
+      setupInfiniteScroll();
+    }
+
+    if (sentinelEl) {
+      sentinelEl.innerHTML =
+        showCount < list.length
+          ? '<div class="w-full">' +
+            '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
+            '</div>'
+          : '';
+    }
+
+    return;
+  }
+
+  console.log('[renderShop] branch: full rerender');
+
+  const config = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { flag: '🇷🇺', currency: 'RUB', name: 'Россия' };
+
+root.innerHTML =
+  '<div class="pb-[65px]">' +
+'<div class="mb-5">' +
+  '<div class="flex items-center justify-between gap-3 min-w-0">' +
+    '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
+    renderShopPriceStatusInline() +
+  '</div>' +
+  '<div class="flex items-center gap-2 relative mb-2">' +
+    '<span class="font-medium text-xs text-gray-500">Регион:</span>' +
+    '<div id="countrySelector" class="flex items-center gap-1 px-2 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200 cursor-pointer flex-shrink-0" onclick="event.stopPropagation(); toggleCountryPicker()" title="Выбрать регион">' +
+      '<span id="countryFlag">' + config.flag + '</span>' +
+      '<svg class="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>' +
+    '</div>' +
+'<div id="countryPicker" class="hidden absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-xl shadow-lg border border-gray-200 p-2 z-50 min-w-[160px]">' +
+          '<div class="px-3 py-2 text-xs text-gray-500 border-b border-gray-100">В какую страну заказ</div>' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'RU' ? 'bg-blue-50 text-blue-600' : '') + '" data-country="RU">' +
+            '<span>🇷🇺</span><span class="font-medium">Россия</span>' +
+            (selectedCountry === 'RU' ? ' <span class="text-blue-500">✓</span>' : '') +
+          '</button>' +
+          '<button type="button" class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 hover:bg-gray-100 rounded-lg ' +
+            (selectedCountry === 'BY' ? 'bg-green-50 text-green-600' : '') + '" data-country="BY">' +
+            '<span>🇧🇾</span><span class="font-medium">Беларусь</span>' +
+            (selectedCountry === 'BY' ? ' <span class="text-green-500">✓</span>' : '') +
+          '</button>' +
+        '</div>' +
+    '</div>' +
+
+      '<div class="flex items-center gap-2">' +
+
+        // ВЕСЬ блок селекта категорий
+        '<div class="flex-1 bg-white rounded-2xl shadow px-3 py-2 relative">' +
+          '<label class="text-xs text-gray-500 block mb-1">Категория</label>' +
+          '<div id="categorySelect" class="relative">' +
+            '<button type="button"' +
+              ' id="categorySelectButton"' +
+              ' class="w-full text-left font-semibold text-base flex items-center justify-between gap-2">' +
+              '<span id="categorySelectLabel">' +
+                escapeHtml(selectedCategory) +
+              '</span>' +
+              '<svg class="w-4 h-4 text-gray-400 flex-shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor">' +
+                '<path d="M6 8l4 4 4-4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />' +
+              '</svg>' +
+            '</button>' +
+
+            // СЮДА вставляем dropdown с поиском
+            '<div id="categorySelectDropdown"' +
+              ' class="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-2xl shadow-lg z-30 max-h-80 overflow-hidden hidden">' +
+
+              // строка поиска по категориям
+              '<div class="border-b border-gray-100 px-3 py-2">' +
+                '<input' +
+                  ' id="categorySearchInput"' +
+                  ' type="text"' +
+                  ' class="w-full text-sm px-3 py-1.5 rounded-xl bg-gray-50 focus:bg-white' +
+                  ' border border-gray-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-400' +
+                  ' outline-none"' +
+                  ' placeholder="Найти категорию..."' +
+                  ' autocomplete="off"' +
+                '/>' +
+              '</div>' +
+
+              // список категорий (фильтруемый)
+              '<div id="categoryOptionsContainer"' +
+                ' class="max-h-64 overflow-y-auto py-1">' +
+                categories
+                  .map(
+                    c =>
+'<button type="button"' +
+                        ' class="w-full text-left px-3 py-2 text-sm flex items-center gap-2 justify-start hover:bg-gray-100 rounded-lg' +
+                        (c === selectedCategory
+                          ? ' text-blue-600 font-semibold'
+                          : ' text-gray-800') +
+                        '"' +
+                        ' data-value="' + escapeHtml(c) + '"' +
+                      '>' +
+                        (c === selectedCategory
+                          ? '<span class="text-blue-500">✓</span>'
+                          : '<span class="w-4"></span>') +
+                        '<span class="category-option-label">' +
+                          escapeHtml(c) +
+                        '</span>' +
+                      '</button>'
+                  )
+                  .join('') +
+              '</div>' +
+            '</div>' + // /#categorySelectDropdown
+          '</div>' +   // /#categorySelect
+        '</div>' +     // /обёртка селекта
+
+        // блок поиска как был
+        '<div class="w-44 bg-white rounded-2xl shadow px-3 py-2">' +
+          '<label class="text-xs text-gray-500 block mb-1">Поиск</label>' +
+          '<div class="flex items-center">' +
+            '<svg class="w-4 h-4 text-gray-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+              '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+                ' d="M21 21l-4.35-4.35M10 18a8 8 0 100-16 8 8 0 000 16z"/>' +
+            '</svg>' +
+            '<input id="search" value="' +
+              escapeHtml(query) +
+              '" placeholder="Поиск..."' +
+              ' class="w-full bg-transparent outline-none text-sm text-gray-900" />' +
+          '</div>' +
+        '</div>' +
+
+      '</div>' + // flex items-center gap-3
+      '<div class="mt-3 text-xs text-gray-500">' +
+        'Показано: <span class="font-semibold">' +
+          showCount +
+        '</span> из ' +
+        list.length +
+      '</div>' +
+    '</div>' +
+    '<div class="product-grid" id="productGrid"></div>' +
+    '<div id="scrollSentinel" class="h-10 flex items-center justify-center mt-4">' +
+      (showCount < list.length
+        ? '<div class="w-full">' +
+            '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
+          '</div>'
+        : '') +
+    '</div>' +
+  '</div>';
+
+  const grid = document.getElementById('productGrid');
+  if (grid) {
+    grid.innerHTML = renderShopList(list, showCount);
+    console.log(
+      '[renderShop] grid updated (full rerender), rendered items =',
+      showCount
+    );
+  } else {
+    console.log('[renderShop] grid element NOT FOUND');
+  }
+
+  setupHandlers();
+  setupImageCarousels();
+  setupInfiniteScroll();
+
+  isFirstShopRender = false;
+  console.log('---------------- [/renderShop] ----------------');
+  if (!hasShopLoadedOnce) {
+    hasShopLoadedOnce = true;
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('shop_loaded', {
+          products_count: Array.isArray(productsData) ? productsData.length : 0
+        }, {
+          sync: true
+        });        
+      }
+    } catch (e) {}
+  }  
+}
+
+// ---------- навешивание обработчиков ----------
+
+function setupHandlers() {
+  const categoryButton = document.getElementById('categorySelectButton');
+  const categoryDropdown = document.getElementById('categorySelectDropdown');
+  const categoryLabel = document.getElementById('categorySelectLabel');
+  const categorySearchInput = document.getElementById('categorySearchInput');
+  const categoryOptionsContainer = document.getElementById('categoryOptionsContainer');
+  const searchEl = document.getElementById('search');
+
+  const categories = getCategoriesFromProducts();
+
+  // ─── CATEGORY SELECT ───────────────────────────────────────────────────────
+
+  function openCategoryDropdown() {
+    if (!categoryDropdown) return;
+    categoryDropdown.classList.remove('hidden');
+
+    if (categorySearchInput) {
+      categorySearchInput.value = '';
+      renderCategoryOptionsIntoContainer(
+        categories,
+        categoryOptionsContainer,
+        selectedCategory
+      );
+    }
+  }
+
+  function closeCategoryDropdown() {
+    if (!categoryDropdown) return;
+    categoryDropdown.classList.add('hidden');
+  }
+
+  if (categoryButton && categoryDropdown) {
+
+    // кнопка «открыть/закрыть дроп»
+    categoryButton.onclick = function (e) {
+      e.stopPropagation();
+      if (categoryDropdown.classList.contains('hidden')) {
+        openCategoryDropdown();
+      } else {
+        closeCategoryDropdown();
+      }
+    };
+
+    // ── ДЕЛЕГИРОВАНИЕ: один обработчик на весь контейнер ─────────────────────
+    // Работает при любом перерендере содержимого — обработчик на родителе,
+    // а не на каждой кнопке, поэтому перерисовка кнопок не ломает логику.
+    if (categoryOptionsContainer && !categoryOptionsContainer._delegateBound) {
+      categoryOptionsContainer._delegateBound = true;
+
+      categoryOptionsContainer.addEventListener('click', function (e) {
+        const btn = e.target.closest('button[data-value]');
+        if (!btn) return;
+        e.stopPropagation();
+
+        const value = btn.getAttribute('data-value') || 'Все товары';
+        selectedCategory = value;
+        loadedCount = 10;
+
+        try {
+          if (typeof trackEvent === 'function') {
+            trackEvent('category_change', { category: value });
+          }
+        } catch (_) {}
+
+        if (categoryLabel) {
+          categoryLabel.textContent = value;
+        }
+
+        closeCategoryDropdown();
+
+        if (currentTab === 'shop') {
+          renderShop();
+        }
+      });
+    }
+
+    // ── ПОИСК ПО КАТЕГОРИЯМ ──────────────────────────────────────────────────
+    if (categorySearchInput && categoryOptionsContainer) {
+      if (!categorySearchInput.dataset.catSearchBound) {
+        categorySearchInput.dataset.catSearchBound = '1';
+
+        // фокус только по явному тапу/клику, не при открытии дропа
+        categorySearchInput.addEventListener('touchstart', () => {
+          setTimeout(() => categorySearchInput.focus(), 0);
+        }, { passive: true });
+
+        categorySearchInput.addEventListener('mousedown', () => {
+          setTimeout(() => categorySearchInput.focus(), 0);
+        });
+
+        categorySearchInput.addEventListener('input', () => {
+          const filtered = getFilteredCategoriesList(
+            categorySearchInput.value || '',
+            categories
+          );
+          renderCategoryOptionsIntoContainer(
+            filtered,
+            categoryOptionsContainer,
+            selectedCategory
+          );
+          // делегирование не требует повторного bindCategoryOptionButtons
+        });
+
+        categorySearchInput.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            const filtered = getFilteredCategoriesList(
+              categorySearchInput.value || '',
+              categories
+            );
+            if (!filtered.length) return;
+
+            const value = filtered[0];
+            selectedCategory = value;
+            loadedCount = 10;
+
+            try {
+              if (typeof trackEvent === 'function') {
+                trackEvent('category_search_select', { category: value });
+              }
+            } catch (_) {}
+
+            if (categoryLabel) {
+              categoryLabel.textContent = value;
+            }
+
+            closeCategoryDropdown();
+
+            if (currentTab === 'shop') {
+              renderShop();
+            }
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            closeCategoryDropdown();
+          }
+        });
+      }
+    }
+
+    // клик вне селекта — закрываем дроп
+    if (!document.__categoryOutsideClickBound) {
+      document.__categoryOutsideClickBound = true;
+      document.addEventListener('click', function (e) {
+        if (!categoryDropdown) return;
+        const selectRoot = document.getElementById('categorySelect');
+        if (!selectRoot) return;
+        if (!selectRoot.contains(e.target)) {
+          closeCategoryDropdown();
+        }
+      });
+    }
+  }
+
+  // ─── SEARCH ────────────────────────────────────────────────────────────────
+
+  if (searchEl) {
+    searchEl.onfocus = () => hideTabBar();
+    searchEl.onblur = () => showTabBar();
+
+    searchEl.oninput = function () {
+      const value = searchEl.value || '';
+      console.log(
+        '[search.oninput] raw value =', JSON.stringify(value),
+        ', old query =', JSON.stringify(query)
+      );
+
+      query = value;
+
+      try {
+        if (typeof trackEvent === 'function') {
+          trackEvent('search_change', {
+            query: value,
+            has_text: !!value.trim()
+          });
+        }
+      } catch (e2) {}
+
+      loadedCount = 10;
+
+      console.log(
+        '[search.oninput] NEW query =', JSON.stringify(query),
+        ', loadedCount reset to', loadedCount
+      );
+
+      if (currentTab === 'shop') {
+        rerenderShopPreserveSearchFocus();
+      }
+    };
+
+    searchEl.onkeydown = function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const value = searchEl.value || '';
+        console.log(
+          '[search.onkeydown] ENTER, value =', JSON.stringify(value),
+          ', old query =', JSON.stringify(query)
+        );
+
+        query = value;
+
+        try {
+          if (typeof trackEvent === 'function') {
+            trackEvent('search_submit', {
+              query: value.trim(),
+              length: value.trim().length
+            });
+          }
+        } catch (e2) {}
+
+        loadedCount = 10;
+
+        console.log(
+          '[search.onkeydown] NEW query =', JSON.stringify(query),
+          ', loadedCount reset to', loadedCount
+        );
+
+        if (currentTab === 'shop') {
+          rerenderShopPreserveSearchFocus();
+        }
+      }
+    };
+  }
+
+  // ─── КАРТОЧКИ ТОВАРОВ ──────────────────────────────────────────────────────
+
+  document.querySelectorAll('[data-product-name]').forEach(card => {
+    card.onclick = function (e) {
+      if (e.target.closest('button') || e.target.closest('.dot')) return;
+
+      const active = document.activeElement;
+      if (active && active.blur) active.blur();
+
+      const productName = card.dataset.productName;
+      const product = productsData.find(p => p['Название'] === productName);
+      if (!product) return;
+
+      selectedOption = {};
+      selectedQuantity = 1;
+
+      try {
+        if (typeof trackEvent === 'function') {
+          trackEvent('product_view', {
+            product_name: product['Название'] || null,
+            category: product.cat || null
+          });
+        }
+      } catch (e2) {}
+
+      setTimeout(() => {
+        showModal(product);
+        tg?.HapticFeedback?.impactOccurred('medium');
+      }, 50);
+    };
+  });
+}
+
+// ---------- карусели на карточках ----------
+
+function setupImageCarousels() {
+  // чистим старые глобальные функции каруселей перед перерендером
+  Object.keys(window)
+    .filter(k =>
+      k.startsWith('carouselNext_') ||
+      k.startsWith('carouselPrev_') ||
+      k.startsWith('carouselGoTo_')
+    )
+    .forEach(k => delete window[k]);
+
+  document
+    .querySelectorAll('.image-carousel-inner[data-carousel]')
+    .forEach(inner => {
+      const dots = inner.parentElement.querySelectorAll('.dot');
+      const carouselId = inner.dataset.carousel;
+      let currentIndex = 0;
+
+      function updateCarousel() {
+        inner.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
+        dots.forEach((dot, idx) => {
+          dot.classList.toggle('active', idx === currentIndex);
+        });
+      }
+
+      window['carouselNext_' + carouselId] = function () {
+        currentIndex = (currentIndex + 1) % inner.children.length;
+        updateCarousel();
+        tg?.HapticFeedback?.selectionChanged();
+      };
+
+      window['carouselPrev_' + carouselId] = function () {
+        currentIndex =
+          currentIndex === 0
+            ? inner.children.length - 1
+            : currentIndex - 1;
+        updateCarousel();
+        tg?.HapticFeedback?.selectionChanged();
+      };
+
+      window['carouselGoTo_' + carouselId] = function (index) {
+        currentIndex = index;
+        updateCarousel();
+        tg?.HapticFeedback?.selectionChanged();
+      };
+
+      dots.forEach((dot, idx) => {
+        dot.onclick = function (e) {
+          e.stopPropagation();
+          currentIndex = idx;
+          updateCarousel();
+          tg?.HapticFeedback?.selectionChanged();
+        };
+      });
+
+      updateCarousel();
+    });
+}
+
+window.carouselNext = function (id) {
+  if (window['carouselNext_' + id]) window['carouselNext_' + id]();
+};
+window.carouselPrev = function (id) {
+  if (window['carouselPrev_' + id]) window['carouselPrev_' + id]();
+};
+window.carouselGoTo = function (id, index) {
+  if (window['carouselGoTo_' + id]) window['carouselGoTo_' + id](index);
+};

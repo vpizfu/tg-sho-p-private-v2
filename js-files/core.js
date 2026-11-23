@@ -1,1 +1,2104 @@
-const _0x46b2d7=_0xc49f;(function(_0x1fb57a,_0x438fca){const _0x27a89d=_0xc49f,_0x20790b=_0x1fb57a();while(!![]){try{const _0x466aff=-parseInt(_0x27a89d(0x196))/0x1*(parseInt(_0x27a89d(0x127))/0x2)+-parseInt(_0x27a89d(0x1af))/0x3+parseInt(_0x27a89d(0x1df))/0x4+-parseInt(_0x27a89d(0x112))/0x5*(parseInt(_0x27a89d(0x279))/0x6)+parseInt(_0x27a89d(0x272))/0x7*(parseInt(_0x27a89d(0x1f6))/0x8)+-parseInt(_0x27a89d(0x139))/0x9*(parseInt(_0x27a89d(0x111))/0xa)+parseInt(_0x27a89d(0x244))/0xb;if(_0x466aff===_0x438fca)break;else _0x20790b['push'](_0x20790b['shift']());}catch(_0x4b2c8a){_0x20790b['push'](_0x20790b['shift']());}}}(_0x343b,0x40486));const tgRaw=window['Telegram']?.['WebApp'],isRealMiniApp=!!tgRaw&&!!tgRaw[_0x46b2d7(0x1fe)];let hasShopLoadedOnce=![];if(!isRealMiniApp){try{_0x46b2d7(0x117)in history&&(history[_0x46b2d7(0x117)]='manual');}catch(_0x462494){}window['addEventListener'](_0x46b2d7(0x1d5),()=>{window['scrollTo'](0x0,0x1);});}(function patchTelegramAlertFallback(){const _0x43d53f=_0x46b2d7,_0x2df6c7=window[_0x43d53f(0x123)]?.[_0x43d53f(0x106)],_0x46ae8b=!!_0x2df6c7&&!!_0x2df6c7['initData'];function _0x4adc0b(_0x2f7c81,_0x37a5d5){const _0x31cd89=_0x43d53f;_0x2f7c81[_0x31cd89(0x11e)][_0x31cd89(0x19c)]=_0x31cd89(0x1c6),_0x2f7c81[_0x31cd89(0x11e)][_0x31cd89(0x16b)]='0',setTimeout(()=>{const _0x571229=_0x31cd89;_0x2f7c81[_0x571229(0x275)]=String(_0x37a5d5),_0x2f7c81[_0x571229(0x11e)][_0x571229(0x16b)]='1';},0x5a);}function _0x222065(_0x31dac0,_0x4e3e52){const _0x4930f5=_0x43d53f;try{const _0xdb670b=document[_0x4930f5(0x271)](_0x4930f5(0x12b)),_0x1d907f=document[_0x4930f5(0x271)]('globalErrorText');if(!_0xdb670b||!_0x1d907f)return;const _0x3739d7=_0xdb670b['style'][_0x4930f5(0x138)]==='none'||_0xdb670b[_0x4930f5(0x11e)][_0x4930f5(0x138)]===''||_0xdb670b[_0x4930f5(0x11e)][_0x4930f5(0x16b)]==='0';let _0x42c7a8=0x352;if(_0x4e3e52)_0x42c7a8=0x3b6;_0xdb670b[_0x4930f5(0x11e)]['zIndex']=String(_0x42c7a8),_0xdb670b[_0x4930f5(0x11e)][_0x4930f5(0x138)]=_0x4930f5(0x222),_0x3739d7?(_0x1d907f['textContent']=String(_0x31dac0),requestAnimationFrame(()=>{const _0x5afe30=_0x4930f5;_0xdb670b[_0x5afe30(0x11e)][_0x5afe30(0x16b)]='1';})):(_0x4adc0b(_0x1d907f,_0x31dac0),_0xdb670b['style'][_0x4930f5(0x16b)]='1'),clearTimeout(window[_0x4930f5(0x1b5)]),window[_0x4930f5(0x1b5)]=setTimeout(()=>{const _0x15ff85=_0x4930f5;_0xdb670b[_0x15ff85(0x11e)]['opacity']='0',setTimeout(()=>{const _0x1e81da=_0x15ff85;_0xdb670b[_0x1e81da(0x11e)][_0x1e81da(0x16b)]==='0'&&(_0xdb670b[_0x1e81da(0x11e)][_0x1e81da(0x138)]=_0x1e81da(0x1be));},0xc8);},0x1388);}catch(_0x41c568){}}function _0x467c92(){const _0x27e1e0=_0x43d53f,_0x246959=document[_0x27e1e0(0x271)]('productModal');if(!_0x246959)return![];return!_0x246959[_0x27e1e0(0x252)][_0x27e1e0(0x1d8)]('hidden');}(function _0x1c9138(){const _0x73802f=_0x43d53f;try{const _0x9d00cc=document[_0x73802f(0x271)](_0x73802f(0x12b)),_0x4e98a9=document[_0x73802f(0x271)](_0x73802f(0x1bd));if(!_0x9d00cc||!_0x4e98a9)return;_0x4e98a9[_0x73802f(0x121)](_0x73802f(0x1f5),()=>{const _0x1ea859=_0x73802f;clearTimeout(window['__globalErrorBoxTimer']),_0x9d00cc[_0x1ea859(0x11e)][_0x1ea859(0x16b)]='0',setTimeout(()=>{const _0x3a8ccd=_0x1ea859;_0x9d00cc[_0x3a8ccd(0x11e)][_0x3a8ccd(0x16b)]==='0'&&(_0x9d00cc[_0x3a8ccd(0x11e)][_0x3a8ccd(0x138)]=_0x3a8ccd(0x1be));},0xc8);});}catch(_0x1453ee){}}());if(!_0x46ae8b){if(!window['Telegram'])window['Telegram']={};if(!window['Telegram'][_0x43d53f(0x106)])window[_0x43d53f(0x123)][_0x43d53f(0x106)]={};window['Telegram'][_0x43d53f(0x106)][_0x43d53f(0x25c)]=function(_0x20b4ad){const _0x18b7ec=String(_0x20b4ad),_0x1a17c1=_0x467c92();_0x222065(_0x18b7ec,_0x1a17c1);},window['tg']=window[_0x43d53f(0x123)]['WebApp'];return;}typeof window[_0x43d53f(0x123)][_0x43d53f(0x106)][_0x43d53f(0x25c)]!==_0x43d53f(0x1dc)&&(window[_0x43d53f(0x123)][_0x43d53f(0x106)][_0x43d53f(0x25c)]=function(_0x33c8a3){_0x222065(String(_0x33c8a3),![]);}),window['tg']=window[_0x43d53f(0x123)][_0x43d53f(0x106)];}());const tg=window[_0x46b2d7(0x123)]?.['WebApp'];try{tg?.[_0x46b2d7(0x194)](),tg?.[_0x46b2d7(0x18c)](),tg?.[_0x46b2d7(0x145)]?.(_0x46b2d7(0x1ca));}catch(_0x2b1c90){console[_0x46b2d7(0x172)](_0x46b2d7(0x12c),_0x2b1c90);}const BACKEND_BASE_URL=_0x46b2d7(0x115),PRODUCTS_API_URL=BACKEND_BASE_URL+_0x46b2d7(0x207),PRODUCTS_META_API_URL=BACKEND_BASE_URL+_0x46b2d7(0x1bb),ORDERS_API_URL=BACKEND_BASE_URL+'/orders',BACKEND_ORDER_URL=BACKEND_BASE_URL+_0x46b2d7(0x167);let APP_CONFIG={};async function loadAppConfig(){const _0x5ecb82=_0x46b2d7;console[_0x5ecb82(0x172)](_0x5ecb82(0x212));}function _0xc49f(_0x42cd82,_0x3df47d){_0x42cd82=_0x42cd82-0x104;const _0x343b8a=_0x343b();let _0xc49f6c=_0x343b8a[_0x42cd82];if(_0xc49f['oyVnKj']===undefined){var _0x382442=function(_0x21b4a1){const _0x8a8399='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x462494='',_0x2df6c7='';for(let _0x46ae8b=0x0,_0x4adc0b,_0x222065,_0x467c92=0x0;_0x222065=_0x21b4a1['charAt'](_0x467c92++);~_0x222065&&(_0x4adc0b=_0x46ae8b%0x4?_0x4adc0b*0x40+_0x222065:_0x222065,_0x46ae8b++%0x4)?_0x462494+=String['fromCharCode'](0xff&_0x4adc0b>>(-0x2*_0x46ae8b&0x6)):0x0){_0x222065=_0x8a8399['indexOf'](_0x222065);}for(let _0x2f7c81=0x0,_0x37a5d5=_0x462494['length'];_0x2f7c81<_0x37a5d5;_0x2f7c81++){_0x2df6c7+='%'+('00'+_0x462494['charCodeAt'](_0x2f7c81)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x2df6c7);};_0xc49f['KdjmkZ']=_0x382442,_0xc49f['XQvdqN']={},_0xc49f['oyVnKj']=!![];}const _0x149836=_0x343b8a[0x0],_0x10f2b8=_0x42cd82+_0x149836,_0x469663=_0xc49f['XQvdqN'][_0x10f2b8];return!_0x469663?(_0xc49f6c=_0xc49f['KdjmkZ'](_0xc49f6c),_0xc49f['XQvdqN'][_0x10f2b8]=_0xc49f6c):_0xc49f6c=_0x469663,_0xc49f6c;}function getApiUrl(){return PRODUCTS_API_URL;}function getProductsMetaApiUrl(){return PRODUCTS_META_API_URL;}async function fetchProductsMeta(){const _0x312354=_0x46b2d7;console[_0x312354(0x172)](_0x312354(0x1c1),getProductsMetaApiUrl());const _0x108bb8=await fetch(getProductsMetaApiUrl(),{'method':_0x312354(0x1ee),'headers':{'Accept':_0x312354(0x16d)}});console[_0x312354(0x172)](_0x312354(0x202),_0x108bb8[_0x312354(0x1a0)]);if(!_0x108bb8['ok'])throw new Error(_0x312354(0x1f9)+_0x108bb8[_0x312354(0x1a0)]);const _0x295613=await _0x108bb8[_0x312354(0x186)]();return console[_0x312354(0x172)]('[meta]\x20response\x20data:',_0x295613),_0x295613;}function formatProductsUpdatedMsk(_0x3da707){const _0x153cea=_0x46b2d7;if(!_0x3da707||typeof _0x3da707!==_0x153cea(0x104))return _0x153cea(0x1f2);if(_0x3da707[_0x153cea(0x171)]){const _0x1cae3b=new Date(_0x3da707[_0x153cea(0x171)]);if(!Number[_0x153cea(0x1a3)](_0x1cae3b[_0x153cea(0x256)]()))return new Intl[(_0x153cea(0x23d))]('ru-RU',{'timeZone':_0x153cea(0x1ab),'day':_0x153cea(0x24e),'month':'2-digit','year':_0x153cea(0x26b),'hour':_0x153cea(0x24e),'minute':_0x153cea(0x24e),'second':'2-digit'})[_0x153cea(0x14d)](_0x1cae3b);}if(_0x3da707[_0x153cea(0x10c)])return String(_0x3da707[_0x153cea(0x10c)]);return _0x153cea(0x1f2);}async function refreshAboutMetaFromBackend(){const _0x1bb57d=_0x46b2d7;try{console[_0x1bb57d(0x172)](_0x1bb57d(0x1e1),currentTab);const _0xa1eced=await fetchProductsMeta(),_0x38dc08=formatProductsUpdatedMsk(_0xa1eced);console[_0x1bb57d(0x172)]('[meta]\x20meta\x20received:',_0xa1eced),console[_0x1bb57d(0x172)](_0x1bb57d(0x1a7),_0x38dc08);if(_0xa1eced&&typeof _0xa1eced==='object'){if(_0xa1eced[_0x1bb57d(0x1cc)]!==undefined){exchangeRateUsdRub=Number(_0xa1eced['exchangeRateUsdRub'])||exchangeRateUsdRub;try{localStorage[_0x1bb57d(0x1b6)](_0x1bb57d(0x1cc),String(exchangeRateUsdRub));}catch(_0x134b67){}console[_0x1bb57d(0x172)](_0x1bb57d(0x17a),exchangeRateUsdRub);}if(_0xa1eced[_0x1bb57d(0x1d9)]){byRounding[_0x1bb57d(0x245)]=Number(_0xa1eced[_0x1bb57d(0x1d9)]['step'])||byRounding[_0x1bb57d(0x245)],byRounding['mode']=_0xa1eced['byRounding']['mode']||byRounding[_0x1bb57d(0x259)];try{localStorage[_0x1bb57d(0x1b6)](_0x1bb57d(0x1d9),JSON[_0x1bb57d(0x251)](byRounding));}catch(_0xef5014){}console[_0x1bb57d(0x172)](_0x1bb57d(0x225),byRounding);}}aboutLastProductsMeta=_0xa1eced,aboutLastProductsMetaText=formatProductsUpdatedMsk(_0xa1eced);if(currentTab==='about'){const _0x35d68e=document[_0x1bb57d(0x271)](_0x1bb57d(0x155));_0x35d68e&&_0x35d68e['textContent']!==aboutLastProductsMetaText&&(_0x35d68e[_0x1bb57d(0x275)]=aboutLastProductsMetaText);}currentTab===_0x1bb57d(0x1f7)&&typeof updateShopPriceStatusBadge===_0x1bb57d(0x1dc)?(console['log']('[meta]\x20calling\x20updateShopPriceStatusBadge'),updateShopPriceStatusBadge()):console[_0x1bb57d(0x172)]('[meta]\x20not\x20calling\x20updateShopPriceStatusBadge,\x20currentTab:',currentTab,_0x1bb57d(0x20b),typeof updateShopPriceStatusBadge===_0x1bb57d(0x1dc));}catch(_0x52ad7c){console['error'](_0x1bb57d(0x132),_0x52ad7c);}}const isMobileDevice=navigator[_0x46b2d7(0x1c9)]&&navigator[_0x46b2d7(0x1c9)][_0x46b2d7(0x24f)]||/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobi/i['test'](navigator[_0x46b2d7(0x157)]||'');let CATEGORIES=[_0x46b2d7(0x258)],isOrdersLoading=![],FILTER_ORDER_BY_CAT={};const EXCLUDE_FILTER_FIELDS=new Set(['id',_0x46b2d7(0x19e),'inStock',_0x46b2d7(0x16e),'Цена',_0x46b2d7(0x1d4),_0x46b2d7(0x234),'Статус',_0x46b2d7(0x20a),'Изображения','Входная\x20цена',_0x46b2d7(0x215),_0x46b2d7(0x278),_0x46b2d7(0x254),_0x46b2d7(0x1bc),_0x46b2d7(0x146)]);function sortAdapterImageLast(_0x4e6a23){const _0x3fc9fc=_0x46b2d7;if(!_0x4e6a23||_0x4e6a23['length']<=0x1)return _0x4e6a23;const _0x169658=_0xef3e43=>/adapter|переходник|euro.?plug|plug/i[_0x3fc9fc(0x23a)](String(_0xef3e43)),_0x285c3d=_0x4e6a23[_0x3fc9fc(0x23c)](_0x5db9e6=>!_0x169658(_0x5db9e6)),_0x437d50=_0x4e6a23[_0x3fc9fc(0x23c)](_0x5b8559=>_0x169658(_0x5b8559));return _0x285c3d['concat'](_0x437d50);}let selectedCategory=_0x46b2d7(0x258),query='',loadedCount=0xa,imageCache=new Map(),productsData=null,currentProduct=null,selectedOption={},selectedQuantity=0x1,searchTimeout=null,currentTab=_0x46b2d7(0x1f7),cartItems=[],savedAddresses=[],previousOrders=[],aboutLastProductsMeta=null,aboutLastProductsMetaText='',savedProfile={'name':'','phone':'','confirmed':![]},paymentType=_0x46b2d7(0x1cd),pickupMode=![],pickupLocation='';const PICKUP_LOCATIONS={'RU':[_0x46b2d7(0x1a9)],'BY':[_0x46b2d7(0x17e)]},COUNTRY_CONFIG={'RU':{'currency':_0x46b2d7(0x10e),'symbol':'₽','flag':'🇷🇺','locale':_0x46b2d7(0x231),'name':_0x46b2d7(0x14a)},'BY':{'currency':_0x46b2d7(0x17b),'symbol':'$','flag':_0x46b2d7(0x175),'locale':_0x46b2d7(0x1e7),'name':_0x46b2d7(0x10f)}};let selectedCountry='RU',exchangeRateUsdRub=0x5a,byRounding={'step':0x1,'mode':'ceil'};function getCountryConfig(_0x808eec){return COUNTRY_CONFIG[_0x808eec]||COUNTRY_CONFIG['RU'];}function getCurrentCountryConfig(){return getCountryConfig(selectedCountry);}function setCountry(_0x2ea65d){if(!COUNTRY_CONFIG[_0x2ea65d])return![];selectedCountry=_0x2ea65d;try{localStorage['setItem']('selectedCountry',_0x2ea65d);}catch(_0x29fd77){}return!![];}let cartCountry='RU';function getCartCountry(){return cartCountry;}function setCartCountry(_0x43711f){const _0x398d88=_0x46b2d7;if(!COUNTRY_CONFIG[_0x43711f])return![];cartCountry=_0x43711f;try{localStorage[_0x398d88(0x1b6)](_0x398d88(0x1f3),_0x43711f);}catch(_0x22932f){}return!![];}function loadCartCountry(){const _0x63a003=_0x46b2d7;try{const _0x3867d3=new URLSearchParams(window[_0x63a003(0x269)][_0x63a003(0x1a5)])['get'](_0x63a003(0x168));if(_0x3867d3&&COUNTRY_CONFIG[_0x3867d3]){cartCountry=_0x3867d3,localStorage[_0x63a003(0x1b6)](_0x63a003(0x1f3),_0x3867d3);return;}const _0x2b629f=localStorage[_0x63a003(0x15c)](_0x63a003(0x1f3));_0x2b629f&&COUNTRY_CONFIG[_0x2b629f]?cartCountry=_0x2b629f:cartCountry=selectedCountry;}catch(_0x31ce28){cartCountry=selectedCountry;}cartCountry!==selectedCountry&&(cartCountry=selectedCountry,localStorage['setItem'](_0x63a003(0x1f3),selectedCountry));}function convertPrice(_0x13d1fb,_0xd48a30,_0x4663fa){const _0x1527e9=_0x46b2d7;if(_0xd48a30===_0x4663fa)return _0x13d1fb;const _0x441af9=getCountryConfig(_0x4663fa);if(_0x441af9[_0x1527e9(0x162)]==='USD'){const _0x257357=_0x13d1fb/exchangeRateUsdRub;if(byRounding[_0x1527e9(0x259)]===_0x1527e9(0x176))return Math[_0x1527e9(0x176)](_0x257357/byRounding['step'])*byRounding[_0x1527e9(0x245)];return Math[_0x1527e9(0x184)](_0x257357/byRounding['step'])*byRounding[_0x1527e9(0x245)];}return _0x13d1fb;}function formatPriceForCountry(_0x50992d,_0x1de156){const _0x55bebc=_0x46b2d7,_0x162bab=getCountryConfig(_0x1de156),_0x38586a=convertPrice(_0x50992d,'RU',_0x1de156),_0x474797=Math[_0x55bebc(0x188)](Number(_0x38586a)||0x0);return String(_0x474797);}function getStorageKey(_0x51457c){const _0x34e018=_0x46b2d7;if(_0x51457c===_0x34e018(0x273))return _0x51457c;return _0x51457c+'_'+selectedCountry;}function loadSelectedCountryFromStorage(){const _0x5292af=_0x46b2d7;try{const _0x1c4705=new URLSearchParams(window[_0x5292af(0x269)][_0x5292af(0x1a5)])[_0x5292af(0x11c)](_0x5292af(0x168));if(_0x1c4705&&COUNTRY_CONFIG[_0x1c4705]){selectedCountry=_0x1c4705,localStorage[_0x5292af(0x1b6)](_0x5292af(0x265),_0x1c4705);return;}const _0x33ec4e=localStorage['getItem'](_0x5292af(0x265));_0x33ec4e&&COUNTRY_CONFIG[_0x33ec4e]&&(selectedCountry=_0x33ec4e);}catch(_0x2956ff){console['log'](_0x5292af(0x1fd),_0x2956ff);}}function setExchangeRate(_0x406ed1){const _0x1aff87=_0x46b2d7;exchangeRateUsdRub=Number(_0x406ed1)||0x5a;try{localStorage[_0x1aff87(0x1b6)](_0x1aff87(0x1cc),String(exchangeRateUsdRub));}catch(_0x3f2c5f){}}function setByRounding(_0x167540,_0x19cac3){const _0xdcde8f=_0x46b2d7;byRounding[_0xdcde8f(0x245)]=Number(_0x167540)||0x1,byRounding['mode']=_0x19cac3||_0xdcde8f(0x176);try{localStorage[_0xdcde8f(0x1b6)](_0xdcde8f(0x1d9),JSON[_0xdcde8f(0x251)](byRounding));}catch(_0x47e14b){}}function loadExchangeRateAndRounding(){const _0x224526=_0x46b2d7;try{const _0x423aac=localStorage[_0x224526(0x15c)](_0x224526(0x1cc));if(_0x423aac)exchangeRateUsdRub=Number(_0x423aac);const _0x3b484f=localStorage['getItem'](_0x224526(0x1d9));if(_0x3b484f)byRounding=JSON[_0x224526(0x26f)](_0x3b484f);}catch(_0x45d36e){console[_0x224526(0x172)](_0x224526(0x1e4),_0x45d36e);}}window[_0x46b2d7(0x1c4)]=getCountryConfig,window[_0x46b2d7(0x11b)]=getCurrentCountryConfig,window[_0x46b2d7(0x23f)]=setCountry,window[_0x46b2d7(0x23b)]=convertPrice,window[_0x46b2d7(0x152)]=formatPriceForCountry,window[_0x46b2d7(0x122)]=getStorageKey,window[_0x46b2d7(0x1c0)]=loadSelectedCountryFromStorage,window['setExchangeRate']=setExchangeRate,window[_0x46b2d7(0x268)]=setByRounding,window[_0x46b2d7(0x136)]=loadExchangeRateAndRounding,window[_0x46b2d7(0x21f)]=PICKUP_LOCATIONS,window['COUNTRY_CONFIG']=COUNTRY_CONFIG,window['getCartCountry']=getCartCountry,window['setCartCountry']=setCartCountry,window[_0x46b2d7(0x1de)]=loadCartCountry,Object[_0x46b2d7(0x1ea)](window,_0x46b2d7(0x265),{'get':function(){return selectedCountry;},'set':function(_0x57b473){selectedCountry=_0x57b473;},'configurable':!![]});let isAddingToCart=![],isPlacingOrder=![],isRefreshingProducts=![],isTabChanging=![],placeOrderTimeoutId=null,modalWasOpenOnShop=![],modalSavedScrollTop=0x0,modalClosedAfterTabReturn=![],cartFormState={'addressText':'','comment':'','contactName':'','contactPhone':'','savedAddressValue':'','pickupLocationValue':'','contactConfirmed':![],'contactEditedManually':![]};const root=document[_0x46b2d7(0x271)](_0x46b2d7(0x1d6)),modal=document[_0x46b2d7(0x271)]('productModal');let globalWarmupState=_0x46b2d7(0x1ad);const GLOBAL_MAX_PARALLEL=0x3;let modalState='closed',globalPhaseBeforePause=_0x46b2d7(0x141),globalMainQueue=[],globalOtherQueue=[],globalMainIndex=0x0,globalOtherIndex=0x0,modalAllQueue=[],modalAllIndex=0x0,modalProductQueue=[],modalProductIndex=0x0,preloadRunning=![];const preloadedOnce=new Set();function preloadOneImage(_0x379991){return new Promise(_0x1bcbd8=>{const _0x5635f4=_0xc49f;if(!_0x379991)return _0x1bcbd8();if(preloadedOnce[_0x5635f4(0x1f0)](_0x379991))return _0x1bcbd8();const _0x266d39=new Image();let _0x2922cc=![];_0x266d39['onload']=()=>{const _0x442999=_0x5635f4;if(_0x2922cc)return;_0x2922cc=!![],preloadedOnce[_0x442999(0x21b)](_0x379991),_0x1bcbd8();},_0x266d39[_0x5635f4(0x11f)]=()=>{if(_0x2922cc)return;_0x2922cc=!![],_0x1bcbd8();},setTimeout(()=>{if(_0x2922cc)return;_0x2922cc=!![],_0x1bcbd8();},0x1f40),_0x266d39[_0x5635f4(0x224)]=_0x379991;});}let globalPreloadStop=![];async function runPreloadLoop(){const _0x1c7cc2=_0x46b2d7;if(preloadRunning)return;preloadRunning=!![],globalPreloadStop=![];try{if(globalWarmupState===_0x1c7cc2(0x141)&&globalMainQueue['length']){await runParallelPreload(globalMainQueue,GLOBAL_MAX_PARALLEL,_0x1c7cc2(0x141),()=>globalPreloadStop||globalWarmupState==='paused');if(globalPreloadStop)return;while(globalWarmupState===_0x1c7cc2(0x129)){await new Promise(_0xbacf4b=>setTimeout(_0xbacf4b,0xc8));if(globalPreloadStop)return;}globalWarmupState=_0x1c7cc2(0x266);}while(globalWarmupState===_0x1c7cc2(0x129)){await new Promise(_0x2165b3=>setTimeout(_0x2165b3,0xc8));if(globalPreloadStop)return;}if(globalWarmupState===_0x1c7cc2(0x266)&&globalOtherQueue[_0x1c7cc2(0x1c8)]){await runParallelPreload(globalOtherQueue,GLOBAL_MAX_PARALLEL,_0x1c7cc2(0x266),()=>globalPreloadStop||globalWarmupState===_0x1c7cc2(0x129));if(globalPreloadStop)return;while(globalWarmupState===_0x1c7cc2(0x129)){await new Promise(_0x18e9b1=>setTimeout(_0x18e9b1,0xc8));if(globalPreloadStop)return;}}globalWarmupState=_0x1c7cc2(0x124);}catch(_0x1b84ba){}finally{preloadRunning=![];}}async function runParallelPreload(_0x409f90,_0x46f854,_0xc6639f,_0x2c5dd1){const _0x373475=_0x46b2d7;let _0x2b7e85=0x0;async function _0x4d5992(_0x5538e1){const _0x5e8ed0=_0xc49f;while(_0x2b7e85<_0x409f90['length']){while(_0x2c5dd1()){await new Promise(_0xbd7fcd=>setTimeout(_0xbd7fcd,0xc8));}if(_0x2b7e85>=_0x409f90['length'])break;const _0x228e1e=_0x409f90[_0x2b7e85++];if(!_0x228e1e)continue;console[_0x5e8ed0(0x172)]();try{await preloadOneImage(_0x228e1e);}catch(_0xcef895){console[_0x5e8ed0(0x137)]();}}}const _0x5049aa=Array[_0x373475(0x263)]({'length':Math[_0x373475(0x218)](_0x46f854,_0x409f90[_0x373475(0x1c8)])},(_0xf15870,_0x68860a)=>_0x4d5992(_0x68860a));await Promise[_0x373475(0x13c)](_0x5049aa);}function stopGlobalPreload(){globalPreloadStop=!![];}function initGlobalWarmupQueues(){const _0x130a38=_0x46b2d7;if(!productsData||!productsData[_0x130a38(0x1c8)]){globalMainQueue=[],globalOtherQueue=[],globalMainIndex=0x0,globalOtherIndex=0x0,globalWarmupState='idle';return;}const _0x2149e5=buildSeparatedPreloadQueues(productsData);globalMainQueue=_0x2149e5[_0x130a38(0x192)],globalOtherQueue=_0x2149e5[_0x130a38(0x11d)],globalMainIndex=0x0,globalOtherIndex=0x0,globalMainQueue[_0x130a38(0x1c8)]||globalOtherQueue[_0x130a38(0x1c8)]?globalWarmupState=_0x130a38(0x141):globalWarmupState='done';}function buildShimmerHTML(){const _0x2a4e68=_0x46b2d7;return _0x2a4e68(0x143)+_0x2a4e68(0x179)+_0x2a4e68(0x183)+_0x2a4e68(0x270)+_0x2a4e68(0x1c5)+_0x2a4e68(0x248)+_0x2a4e68(0x1a6)+_0x2a4e68(0x201)+'<div\x20class=\x22w-44\x20bg-white\x20rounded-2xl\x20px-3\x20py-2\x22>'+_0x2a4e68(0x197)+_0x2a4e68(0x1a6)+_0x2a4e68(0x201)+_0x2a4e68(0x201)+_0x2a4e68(0x22b)+_0x2a4e68(0x17d)+'Обычно\x20это\x20занимает\x20до\x2015\x20секунд.'+_0x2a4e68(0x201)+_0x2a4e68(0x201)+_0x2a4e68(0x118)+Array[_0x2a4e68(0x263)]({'length':0x6})[_0x2a4e68(0x20e)](()=>'<div\x20class=\x22bg-white\x20rounded-2xl\x20p-4\x20shadow-lg\x22>'+'<div\x20class=\x22h-32\x20mb-3\x20rounded-xl\x20overflow-hidden\x22>'+_0x2a4e68(0x125)+_0x2a4e68(0x201)+'<div\x20class=\x22h-4\x20w-3/4\x20mb-2\x20rounded\x20placeholder-shimmer\x22></div>'+_0x2a4e68(0x25e)+'<div\x20class=\x22h-3\x20w-1/3\x20rounded\x20placeholder-shimmer\x22></div>'+_0x2a4e68(0x201))[_0x2a4e68(0x18f)]('')+_0x2a4e68(0x201)+'</div>';}function setLoadingStatus(_0x391c29){const _0x59f7a1=_0x46b2d7;try{const _0x35b41c=document[_0x59f7a1(0x271)]('loadingStatus');if(!_0x35b41c)return;_0x35b41c['innerHTML']=String(_0x391c29);}catch(_0x41a218){console[_0x59f7a1(0x172)](_0x59f7a1(0x229),_0x41a218);}}function startBackgroundPreload(){const _0x3c2281=_0x46b2d7;try{initGlobalWarmupQueues();if(globalWarmupState===_0x3c2281(0x124)){console[_0x3c2281(0x172)](_0x3c2281(0x208));return;}console[_0x3c2281(0x172)]('[preload]\x20mainQueue\x20=',globalMainQueue[_0x3c2281(0x1c8)],_0x3c2281(0x1ba),globalOtherQueue[_0x3c2281(0x1c8)]),!preloadRunning&&runPreloadLoop();}catch(_0x4f0591){console[_0x3c2281(0x24a)]('[preload]\x20startBackgroundPreload\x20error',_0x4f0591);}}function startModalWarmupAll(_0x36914d){const _0x56a092=_0x46b2d7,_0x249c10=_0x36914d['filter'](_0x13981b=>!preloadedOnce[_0x56a092(0x1f0)](_0x13981b));modalAllQueue=Array[_0x56a092(0x263)](new Set(_0x249c10))['filter'](Boolean),modalAllIndex=0x0,modalProductQueue=[],modalProductIndex=0x0,modalAllQueue[_0x56a092(0x1c8)]>0x0?modalState=_0x56a092(0x133):modalState=_0x56a092(0x177),console[_0x56a092(0x172)]('[modal-preload]\x20modalAll\x20state=',modalState);}function startModalWarmupProduct(_0x1c338e){const _0x342527=_0x46b2d7,_0x5719d4=_0x1c338e['filter'](_0x4a52f8=>!preloadedOnce['has'](_0x4a52f8));modalProductQueue=Array[_0x342527(0x263)](new Set(_0x5719d4))['filter'](Boolean),modalProductIndex=0x0,modalProductQueue[_0x342527(0x1c8)]>0x0?(modalState=_0x342527(0x243),console[_0x342527(0x172)](_0x342527(0x19f),modalProductQueue[_0x342527(0x1c8)])):(modalState=_0x342527(0x177),console[_0x342527(0x172)](_0x342527(0x228)));}function isModalWarmupFinished(){const _0x338f19=_0x46b2d7,_0x34d65b=(!modalAllQueue['length']||modalAllIndex>=modalAllQueue[_0x338f19(0x1c8)])&&(!modalProductQueue[_0x338f19(0x1c8)]||modalProductIndex>=modalProductQueue['length']);return _0x34d65b;}async function runModalWarmupLoopOnce(){const _0xcf8a2f=_0x46b2d7;if(modalState==='closed'){console[_0xcf8a2f(0x172)](_0xcf8a2f(0x19d));return;}if(modalWarmupPaused){console['log'](_0xcf8a2f(0x159));return;}if(modalAllQueue['length']&&modalAllIndex<modalAllQueue['length']){const _0x17c528=modalAllQueue[modalAllIndex++];console[_0xcf8a2f(0x172)](_0xcf8a2f(0x22c),modalAllIndex,'/',modalAllQueue[_0xcf8a2f(0x1c8)],_0x17c528);try{await preloadOneImage(_0x17c528);}catch(_0x13083c){console[_0xcf8a2f(0x137)]('[modal-preload]\x20error\x20loading',_0x17c528);}return;}console[_0xcf8a2f(0x172)]('[modal-preload]\x20nothing\x20to\x20preload,\x20modalState\x20=',modalState,_0xcf8a2f(0x25a),modalAllIndex,'/',modalAllQueue[_0xcf8a2f(0x1c8)]);}let modalWarmupRunning=![];async function runModalWarmupLoop(){const _0x2325c8=_0x46b2d7;if(modalWarmupRunning)return;modalWarmupRunning=!![];try{while(modalState===_0x2325c8(0x133)||modalState==='warmingProduct'){await runModalWarmupLoopOnce();if(isModalWarmupFinished()){finishModalWarmupAndResumeGlobal();break;}await new Promise(_0x352eb4=>setTimeout(_0x352eb4,0x32));}}finally{modalWarmupRunning=![],console[_0x2325c8(0x172)]('[modal-preload]\x20loop\x20COMPLETED');}}function finishModalWarmupAndResumeGlobal(){const _0x46c143=_0x46b2d7;if(!isModalWarmupFinished())return;modalState='warmed',modalAllQueue=[],modalProductQueue=[],modalAllIndex=0x0,modalProductIndex=0x0,globalWarmupState===_0x46c143(0x129)&&(globalWarmupState=globalPhaseBeforePause||_0x46c143(0x141)),console[_0x46c143(0x172)](_0x46c143(0x22f));}window['onerror']=function(_0x5b109f,_0x1f8dad,_0x4e7546,_0xb6936a,_0x44e9c1){const _0x84fd11=_0x46b2d7;try{console[_0x84fd11(0x24a)]('Global\x20error:',_0x5b109f,_0x1f8dad,_0x4e7546,_0xb6936a,_0x44e9c1);}catch(_0x1199fd){}try{tg?.[_0x84fd11(0x25c)]?.('Произошла\x20ошибка\x20в\x20приложении.\x20Попробуйте\x20обновить\x20Mini\x20App.\x0aДля\x20заказа\x20через\x20менеджера\x20напишите\x20@TechBex.');}catch(_0x54df25){}try{typeof trackEvent===_0x84fd11(0x1dc)&&trackEvent(_0x84fd11(0x24c),{});}catch(_0x26863f){}return!![];};function saveCartToStorage(){const _0x5f4422=_0x46b2d7;try{const _0x428584=getStorageKey(_0x5f4422(0x273));console[_0x5f4422(0x172)](_0x5f4422(0x203),_0x428584,_0x5f4422(0x18b),cartItems[_0x5f4422(0x1c8)],cartItems[_0x5f4422(0x20e)](_0x2c218c=>({'key':_0x2c218c[_0x5f4422(0x166)],'name':_0x2c218c[_0x5f4422(0x135)],'price':_0x2c218c[_0x5f4422(0x1d3)],'qty':_0x2c218c[_0x5f4422(0x147)]}))),localStorage[_0x5f4422(0x1b6)](_0x428584,JSON[_0x5f4422(0x251)](cartItems));}catch(_0x11cdf4){console[_0x5f4422(0x172)](_0x5f4422(0x19a),_0x11cdf4);}}function loadCartFromStorage(){const _0x3401f1=_0x46b2d7;try{const _0x130e3a=getStorageKey('cartItems');console[_0x3401f1(0x172)](_0x3401f1(0x10a),_0x130e3a);const _0x30c9b1=localStorage[_0x3401f1(0x15c)](_0x130e3a);cartItems=_0x30c9b1?JSON[_0x3401f1(0x26f)](_0x30c9b1):[];const _0x1e9bd0=cartItems['length'];cartItems=cartItems[_0x3401f1(0x23c)](_0x4c9c24=>!!_0x4c9c24[_0x3401f1(0x166)]),cartItems[_0x3401f1(0x1c8)]!==_0x1e9bd0&&(console[_0x3401f1(0x172)](_0x3401f1(0x140),_0x1e9bd0-cartItems[_0x3401f1(0x1c8)],'legacy\x20items\x20without\x20cartKey'),saveCartToStorage());}catch(_0xe9a4a9){console[_0x3401f1(0x172)]('[core]\x20loadCartFromStorage\x20error',_0xe9a4a9),cartItems=[];}console[_0x3401f1(0x172)](_0x3401f1(0x14e),cartItems[_0x3401f1(0x20e)](_0x459315=>({'key':_0x459315[_0x3401f1(0x166)],'name':_0x459315[_0x3401f1(0x135)],'price':_0x459315['price'],'qty':_0x459315[_0x3401f1(0x147)]}))),updateCartBadge();}function saveAddressesToStorage(){const _0x24c496=_0x46b2d7;try{localStorage[_0x24c496(0x1b6)](getStorageKey(_0x24c496(0x1e6)),JSON[_0x24c496(0x251)](savedAddresses));}catch(_0x4c38bf){console['log'](_0x24c496(0x247),_0x4c38bf);}}function loadAddressesFromStorage(){const _0x943e08=_0x46b2d7;try{const _0x4b5518=localStorage[_0x943e08(0x15c)](getStorageKey(_0x943e08(0x1e6)));savedAddresses=_0x4b5518?JSON[_0x943e08(0x26f)](_0x4b5518):[];}catch(_0x41e11e){console[_0x943e08(0x172)](_0x943e08(0x21c),_0x41e11e),savedAddresses=[];}console[_0x943e08(0x172)]('[core]\x20savedAddresses\x20loaded',savedAddresses);}function saveProfileToStorage(){const _0x18a2c9=_0x46b2d7;try{localStorage[_0x18a2c9(0x1b6)](getStorageKey(_0x18a2c9(0x242)),JSON[_0x18a2c9(0x251)](savedProfile));}catch(_0x31b65b){console['log'](_0x18a2c9(0x1dd),_0x31b65b);}}function buildFilterOrderByCat(_0x1b820e){const _0x282e17=_0x46b2d7,_0x349c0d={};_0x1b820e['forEach'](_0x8e3261=>{const _0x42d4b0=_0xc49f,_0x2ceefe=_0x8e3261[_0x42d4b0(0x19e)]||_0x42d4b0(0x1ed);if(!_0x349c0d[_0x2ceefe])_0x349c0d[_0x2ceefe]=new Set();Object[_0x42d4b0(0x128)](_0x8e3261)[_0x42d4b0(0x274)](_0x1512e7=>{const _0x573dbd=_0x42d4b0;if(EXCLUDE_FILTER_FIELDS[_0x573dbd(0x1f0)](_0x1512e7))return;const _0x1b4685=_0x8e3261[_0x1512e7];if(_0x1b4685===undefined||_0x1b4685===null||_0x1b4685==='')return;_0x349c0d[_0x2ceefe][_0x573dbd(0x21b)](_0x1512e7);});});const _0x238471={};return Object['keys'](_0x349c0d)[_0x282e17(0x274)](_0x5e4ecd=>{_0x238471[_0x5e4ecd]=Array['from'](_0x349c0d[_0x5e4ecd]);}),_0x238471;}const DELIVERY_PREFS_KEY=_0x46b2d7(0x195);function getDeliveryPrefsKey(){return DELIVERY_PREFS_KEY+'_'+selectedCountry;}let deliveryPrefs={'paymentType':_0x46b2d7(0x1cd),'pickupMode':![],'pickupLocation':'','savedAddressValue':''};function loadDeliveryPrefs(){const _0x451a67=_0x46b2d7;try{const _0x304d3a=localStorage[_0x451a67(0x15c)](getDeliveryPrefsKey());if(!_0x304d3a)return;const _0x410d17=JSON['parse'](_0x304d3a);if(!_0x410d17||typeof _0x410d17!=='object')return;deliveryPrefs[_0x451a67(0x236)]=_0x410d17[_0x451a67(0x236)]??_0x451a67(0x1cd),deliveryPrefs[_0x451a67(0x264)]=!!_0x410d17['pickupMode'],deliveryPrefs[_0x451a67(0x205)]=_0x410d17[_0x451a67(0x205)]||'',deliveryPrefs[_0x451a67(0x20d)]=_0x410d17[_0x451a67(0x20d)]||'',paymentType=deliveryPrefs[_0x451a67(0x236)],pickupMode=deliveryPrefs['pickupMode'];const _0x2b227d=PICKUP_LOCATIONS[selectedCountry]||PICKUP_LOCATIONS['RU'];pickupLocation=_0x2b227d['includes'](deliveryPrefs[_0x451a67(0x205)])?deliveryPrefs[_0x451a67(0x205)]:'',cartFormState['savedAddressValue']=deliveryPrefs['savedAddressValue'];}catch(_0x363443){console[_0x451a67(0x172)](_0x451a67(0x1cf),_0x363443);}}function saveDeliveryPrefs(){const _0x4cad7f=_0x46b2d7;try{const _0x4e6c8d={'paymentType':paymentType,'pickupMode':pickupMode,'pickupLocation':pickupLocation,'savedAddressValue':cartFormState[_0x4cad7f(0x20d)]||''};localStorage[_0x4cad7f(0x1b6)](getDeliveryPrefsKey(),JSON[_0x4cad7f(0x251)](_0x4e6c8d));}catch(_0x2a003b){console[_0x4cad7f(0x172)]('[core]\x20saveDeliveryPrefs\x20error',_0x2a003b);}}function loadProfileFromStorage(){const _0x140eb2=_0x46b2d7;try{const _0x36ef35=localStorage[_0x140eb2(0x15c)](getStorageKey(_0x140eb2(0x242)));if(!_0x36ef35){savedProfile={'name':'','phone':'','confirmed':![]};return;}const _0x3c3071=JSON['parse'](_0x36ef35);_0x3c3071&&typeof _0x3c3071===_0x140eb2(0x104)&&(savedProfile={'name':_0x3c3071['name']||'','phone':_0x3c3071['phone']||'','confirmed':!!_0x3c3071[_0x140eb2(0x1d1)]});}catch(_0x3276a1){console[_0x140eb2(0x172)](_0x140eb2(0x142),_0x3276a1),savedProfile={'name':'','phone':'','confirmed':![]};}console[_0x140eb2(0x172)]('[core]\x20savedProfile\x20loaded',savedProfile);}function saveOrdersToStorage(){}function loadOrdersFromStorage(){const _0x9f79cf=_0x46b2d7;previousOrders=[],console[_0x9f79cf(0x172)](_0x9f79cf(0x206));}document[_0x46b2d7(0x121)](_0x46b2d7(0x217),_0x11c5a2=>_0x11c5a2[_0x46b2d7(0x239)]()),document[_0x46b2d7(0x121)](_0x46b2d7(0x13e),_0x3312ab=>_0x3312ab[_0x46b2d7(0x239)]()),document[_0x46b2d7(0x121)]('gestureend',_0x44d2fc=>_0x44d2fc['preventDefault']()),document['addEventListener'](_0x46b2d7(0x180),_0x36dcce=>{const _0x38bc44=_0x46b2d7;if(_0x36dcce[_0x38bc44(0x1f8)]['length']>0x1)_0x36dcce[_0x38bc44(0x239)]();},{'passive':![]});let lastTouchEnd=0x0;document[_0x46b2d7(0x121)](_0x46b2d7(0x1e5),_0xb4dc27=>{const _0x430949=_0x46b2d7,_0x41e5a2=Date[_0x430949(0x161)]();if(_0x41e5a2-lastTouchEnd<=0x12c)_0xb4dc27[_0x430949(0x239)]();lastTouchEnd=_0x41e5a2;},{'passive':![]});function setTabBarDisabled(_0x1fea6d){const _0x597fd1=_0x46b2d7,_0x4d64dc=document[_0x597fd1(0x271)](_0x597fd1(0x1db));if(!_0x4d64dc)return;_0x1fea6d?_0x4d64dc[_0x597fd1(0x252)][_0x597fd1(0x21b)]('pointer-events-none'):_0x4d64dc[_0x597fd1(0x252)]['remove'](_0x597fd1(0x25d));}function hideTabBar(){const _0x30a1f7=_0x46b2d7;if(!isMobileDevice)return;const _0x4ed19e=document[_0x30a1f7(0x271)](_0x30a1f7(0x1db));if(!_0x4ed19e)return;_0x4ed19e['style']['opacity']='0',_0x4ed19e['style']['pointerEvents']='none';}function showTabBar(){const _0x4b6c5b=_0x46b2d7;if(!isMobileDevice)return;const _0x1792be=document['getElementById'](_0x4b6c5b(0x1db));if(!_0x1792be)return;_0x1792be[_0x4b6c5b(0x11e)][_0x4b6c5b(0x16b)]='1',_0x1792be['style']['pointerEvents']=_0x4b6c5b(0x250);}function resetUiAfterOrderSuccessIfCart(){const _0x18463a=_0x46b2d7;if(currentTab!==_0x18463a(0x15b))return;try{document[_0x18463a(0x211)]&&document[_0x18463a(0x211)][_0x18463a(0x1eb)]&&document['activeElement'][_0x18463a(0x1eb)]();window[_0x18463a(0x15f)](0x0,0x0);const _0x29ce45=document['getElementById'](_0x18463a(0x1db));_0x29ce45&&(_0x29ce45[_0x18463a(0x11e)][_0x18463a(0x16b)]='1',_0x29ce45[_0x18463a(0x11e)]['pointerEvents']=_0x18463a(0x250),_0x29ce45[_0x18463a(0x252)]['remove'](_0x18463a(0x25d)));}catch(_0x16969e){}}function updateTabBarActive(){const _0x501f72=_0x46b2d7;document[_0x501f72(0x173)](_0x501f72(0x144))[_0x501f72(0x274)](_0x376350=>_0x376350[_0x501f72(0x252)][_0x501f72(0x238)]('active'));const _0x429db2=document[_0x501f72(0x13d)](_0x501f72(0x174)+currentTab+'\x22]');if(_0x429db2)_0x429db2['classList']['add']('active');}function _0x343b(){const _0x29d95d=['w2nVCMvDigLUAxrbChaGBg9HzgLUzYbSB2nHBfn0B3jHz2u','DgHLBG','AM9PBG','Aw5PDerHDgfvBNnHzMuUDxnLCJO','zMLUza','BwfPBLf1zxvL','w2rHDgeTC2TLBgv0B249iMLTywDLiL0','CMvHzhK','zgvSAxzLCNLqCMvMC192mq','ndLjqNrtrfa','pgrPDIbJBgfZCZ0IAc0ZihCTmtyGBwiTmIbYB3vUzgvKihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','CMvTB3zLsxrLBq','AxngAw5PDgu','w2nVCMvDihnHDMvdyxj0vg9tDg9YywDLigvYCM9Y','w2rLBgL2zxj5uhjLzNnDigrYB3aGAw52ywXPzcbZyxzLzefKzhjLC3nwywX1zsa9','DhjHBNnPDgLVBG','w21VzgfSlxbYzwXVywrDiefmuKvbrfKGq0Xpu0velcbLEgL0','y2f0','w21VzgfSlxbYzwXVywrDihDHCM1PBMDqCM9KDwn0ie5fvZO','C3rHDhvZ','0j7qSDgl0yFqVDc+ingn0ylqVIdqT9cW0l3qUnc80ldqTDgcinc00l4GmtuG0yhqTDc60ypqVDc0lJXICJ4','AgfUzgXLuhjVzhvJDeLTywDLrxjYB3i','Axnoyu4','w21VzgfSxsbOAwrLig9UihrHyIbZD2L0y2GSihnHDMvKig1VzgfSihnJCM9SBca9','C2vHCMnO','pgrPDIbJBgfZCZ0IAc00ihCTzNvSBcbYB3vUzgvKihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','w21LDgfDigzVCM1HDhrLzcb0zxH0oG','w29YzgvYC10GChjLDMLVDxnpCMrLCNmGDxbKyxrLza','0lmUincC0l7rGDc60llqScWG0ypqUY4G0jhqSnga0lRqU9cW0y8SidGSincr0lJqT9c90lxrGsdrHTc10l3rGTgaincG0ypqSDc40l0','Dhj1zq','rxvYB3bLl01VC2nVDW','pgj1DhrVBIbVBMnSAwnRpsjYzwzYzxnOuhjVzhvJDhmOksi','AwrSzq','0j/rGnc+0llqTDga0y/qTDc8ingb0llqTDc20lJqTsdrHTc10l3rIYdqUcdqVDcW0lVqUngh0lJqTs4UlJXICJ4','ote5otq3vK9oDLDT','Aw5Uzxjive1m','Aw5PDerHDgeGC3rYAw5NoG','w2LTywDLC10Gyxr0ywnOsw1Hz2vuAw1LB3v0igvYCM9Y','lNbSywnLAg9SzgvYlxDYyxbWzxi','Bg9HzfrPBwvVDxrjza','x19NBg9IywXfCNjVCKjVEfrPBwvY','C2v0sxrLBq','i21VzgfSq29UDgvUDcaUzMXLEc0X','lNbYB2r1y3qTz3jPzcbPBwCUChjVzhvJDc1PBwfNzq','0kBqTDc90la','B3rOzxjrDwv1zsa9','l3bYB2r1y3rZl21LDge','C291CMnLu2HLzxq','z2XVyMfSrxjYB3jdBg9Zzq','BM9Uzq','CMvMCMvZAf9WCM9KDwn0C19IDxr0B25Fy2XPy2TLza','Bg9HzfnLBgvJDgvKq291BNrYEuzYB21tDg9YywDL','w21LDgfDigzLDgnOAw5Nig1LDgeGzNjVBtO','ywn0AxzL','AxnbCNjHEq','z2v0q291BNrYEunVBMzPzW','pgrPDIbJBgfZCZ0IzMXLEc0XigjNlxDOAxrLihjVDw5KzwqTmNHSihb4ltmGChKTmIi+','B3bHy2L0Esa5mg1ZigvHC2uTB3v0','Aw1Wywn0t2nJDxjYzwq','BgvUz3rO','DxnLCKfNzw50rgf0yq','i2yZzJrMnG','w2nVCMvDigLUAxrbChaGC3rHCNq','zxHJAgfUz2vsyxrLvxnKuNvI','y2fZAa','w29YzgvYC10Gzgf0ys5VAZ0','w2nVCMvDigXVywrezwXPDMvYEvbYzwzZigvYCM9Y','w2nVCMvDief1Dg8TCMvMCMvZAcbLEgnLChrPB24','y29UzMLYBwvK','pgrPDIbJBgfZCZ0IAc00ihCTmY80ig1IltiGCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','ChjPy2u','0jRqSngc0lxqS9c+0ydqUngp','Bg9Hza','CM9VDa','pc9ZCgfUpG','y29UDgfPBNm','yNLsB3vUzgLUzW','phaGy2XHC3m9iNrLEhqTC20GDgv4Dc1NCMf5ltuWmcbTyI00ig1HEc13lxHZihrLEhqTy2vUDgvYiJ4','DgfIqMfY','zNvUy3rPB24','w2nVCMvDihnHDMvqCM9MAwXLvg9tDg9YywDLigvYCM9Y','Bg9HzenHCNrdB3vUDhj5','mJaWmde0mgnjAMX6qW','zMfKzs1PBI1VBMnL','w21LDgfDihjLzNjLC2HbyM91De1LDgfgCM9TqMfJA2vUzcbJywXSzwqSign1CNjLBNruywi6','w2LTywDLC10GAgfUzgXLuhjVzhvJDeLTywDLtg9HzcbLCNjVCG','zgvSzxrL','w2nVCMvDigXVywrfEgnOyw5NzvjHDgvbBMrsB3vUzgLUzYbLCNjVCG','Dg91y2HLBMq','ywrKCMvZC2vZ','yMuTqLK','ywz0zxiGAw5PDgLHBcb0ywiGCMvUzgvY','pgrPDIbJBgfZCZ0IDY1MDwXSiJ4','zgvMAw5LuhjVCgvYDhK','yMX1CG','0jpqVTgc0l7qSTc40lWG0llqUngc0ydqUnc90ypIGky8yNi+','zgvMyxvSDa','r0vu','phnWyw4Gy2XHC3m9iNrLEhqTwZeXChHDihrLEhqTz3jHEs00mdaIpG','AgfZ','ChjVzhvJDhnFyxbPx2vYCM9Y','0j3qTDgcinc00ldqVDc90yVrHq','y2fYDenVDw50CNK','C3rVCfbYB3bHz2f0Aw9U','y2XPy2S','nZqXmdq4Cwndv25A','C2HVCa','Dg91y2HLCW','tuvuqv9srvfvrvnux0zbsuXfrf8','igq9iK00ide2BdqUntG2ltqUntG2ytiGmIaWidaXmI44mJGGmeWXnIaXnM0TmI0YBdeUntG2lteUntG2ytiGmIaWidaXmI44mJGGmeWYmcaXng0TnI02Ac4Wmu02idiWAdeYytiGmIaWidaWmI0YvJzHmIaYidaGmdaTmI0YsdzHmIaYidaGmdaTmIaYDJeYytiGmIaWidaWmIaYEIiVpG','C2nYB2XSu2vUDgLUzwW','DgfYz2v0','w2nVCMvDigXVywrtzwXLy3rLzenVDw50CNLgCM9Tu3rVCMfNzsbLCNjVCG','Aw5PDerHDge','zgLZy29UBMvJDa','lM10ltmUDgv4Dc14CY50zxH0lwDYyxKTntaWihnWyw4UzM9UDc1Zzw1PyM9Sza','pc9KAxy+','w21LDgfDihjLC3bVBNnLihn0yxr1CZO','w2nVCMvDihnHDMvdyxj0vg9tDg9YywDLigTLEtO','ywz0zxiGzMv0y2HbBMrvCgrHDgvqCM9KDwn0CW','CgLJA3vWtg9JyxrPB24','w2nVCMvDihbYzxzPB3vZt3jKzxjZihjLC2v0ihrVifTD','l3bYB2r1y3rZ','w3bYzwXVywrDig5VDgHPBMCGDg8GChjLBg9Hza','pgGYignSyxnZpsj0zxH0lxHSigzVBNqTyM9Szcb0zxH0lwDYyxKTodaWig1IltiIpTcD0luG0ypqTncW0lVqVTgb0yWG0lFqSncZ0ydrG9c30lJrGTgmingc0l7qSTcW0ydrIZWVAdi+','0j7qSDgj0ldrJYdqUTcW0ydrGTc40l3qUTcW','DxbKyxrLu2HVCfbYAwnLu3rHDhvZqMfKz2uGzxHPC3rZoG','w2nVCMvDihn3AxrJAfrHyIbLCNjVCG','C2f2zwrbzgrYzxnZvMfSDwu','BwfW','w2nVCMvDihbYB2r1y3rZihjLC3bVBNnLihn0yxr1CW','0j7qSDc90l7qSTc40ylrJcdrGTc+0llqSnga0yS','ywn0AxzLrwXLBwvUDa','w2nVBMzPz10GC2TPCcWGDxnPBMCGzgLYzwn0ihbYB2r1y3rZifvsta','BM8GyxjYyxK','y2fYDeL0zw1ZoG','0j3qSngg0lxqVDc60la','ywjZ','z2vZDhvYzxn0yxj0','BwLU','DgfIpq','ywjVDxq','ywrK','w2nVCMvDigXVywrbzgrYzxnZzxngCM9Tu3rVCMfNzsbLCNjVCG','w2nVCMvDief1Dg8TCMvMCMvZAcbLCNjVCG','BM8TzMfKzq','ueLds1vqx0Xpq0fusu9ouW','C2fSzq','phn2zYbJBgfZCZ0IDY0XmcbOlteWihrLEhqTz3jHEs0ZmdaIigzPBgW9iM5VBMuIihn0CM9Rzt0Iy3vYCMvUDenVBg9YiIb2Awv3qM94psiWidaGmJqGmJqIpG','yMXVy2S','w2nVCMvDihnHDMvqzxjZAxn0zw50sw1Hz2vdywnOzsbLCNjVCG','C3jJ','w21LDgfDihvWzgf0zwqGyNLsB3vUzgLUzZO','Aw5tDg9JAW','ChjVzhvJDeDYAwq','w21VzgfSlxbYzwXVywrDihbYB2r1y3qGquXsrufewsbxqvjnruq','w2nVCMvDihnLDeXVywrPBMDtDgf0DxmGzxjYB3i','yMCTz3jHEs0Xmda','pgrPDIbPzd0IBg9HzgLUz1n0yxr1CYiGy2XHC3m9iM10ltmGDgv4Dc14CYb0zxH0lwDYyxKTntaWihrLEhqTy2vUDgvYigXLywrPBMCTC251zYi+','w21VzgfSlxbYzwXVywrDigfSBcbPBwfNzq','lMLTywDLlwnHCM91C2vSlwLUBMvY','y2XPzw50wq','w21VzgfSxsdIHPiGD2fYBwvKlcbNBg9IywWGCMvZDw1Lza','AgfUzgXLuhjVzhvJDeLTywDLtg9Hza','CNuTuLu','B3jKzxjZ','w2nVCMvDihjLzNjLC2HqCM9KDwn0CYbJBgLJA2vK','0jdrGngc0lJqUTgd0lS','y2XPy2TcB3vUza','Cgf5BwvUDfr5Cgu','w2nVCMvDigLUAxrbChaGBg9HzgLUzYbJB3vUDhj5ignVBMzPzW','CMvTB3zL','ChjLDMvUDerLzMf1Bhq','DgvZDa','y29UDMvYDfbYAwnL','zMLSDgvY','rgf0zvrPBwvgB3jTyxq','phnWyw4Gy2XHC3m9iMXVywrLCI1JAxjJBguGAgLKzgvUiIbPzd0ICMvMCMvZAfnWAw5UzxiIpJWVC3bHBJ4','C2v0q291BNrYEq','phn2zYbJBgfZCZ0IDY0XmIbOlteYihrLEhqTCMvKltuWmciGzMLSBd0IBM9UzsiGC3rYB2TLpsjJDxjYzw50q29SB3iIihzPzxDcB3G9iJaGmcaYncaYnci+','0j7qSDgl0yFqVDc+inc30ldqS9ga0ypqT9c60laG0lFqSnc90lJqVncW0lxrGIdqTnc+ideWingb0lxqUTgd0l3qTcdWN5Ik','ChjVzMLSzq','D2fYBwLUz1bYB2r1y3q','mta4nJuXndb6zND6C3O','C3rLCa','CMvMCMvZAfnWAw5Uzxi','w2nVCMvDihnHDMvbzgrYzxnZzxnuB1n0B3jHz2uGzxjYB3i','pgrPDIbJBgfZCZ0IAc0ZihCTmJaGBwiTmIbYB3vUzgvKihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','Aw5PDerHDgfvBNnHzMu','zxjYB3i','Aw5PDerHDgfvBNnHzMuGB2jQzwn0oG','z2XVyMfSx2vYCM9Y','w3bYzwXVywrDigLUAxqGzxjYB3i','mI1KAwDPDa','Bw9IAwXL','yxv0BW','C3rYAw5NAwz5','y2XHC3nmAxn0','0j7qSDc90l7qSTc70y/qTDc8lI4U','Aw1Hz2vZ','lMrVDa','z2v0vgLTzq','pgrPDIbJBgfZCZ0IAc00ihCTms8Yig14lwf1Dg8GCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','0jlrGDc1ingc0l7qSTcW0ydrIW','Bw9Kzq','ywXSsw5KzxG9','y2f0y2G','C2HVD0fSzxj0','Cg9PBNrLCI1LDMvUDhmTBM9Uzq','pgrPDIbJBgfZCZ0IAc01ihCTms8Yig1IltiGCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','DgCGB2jQzwn0oG','pgrPDIbJBgfZCZ0IyMCTD2HPDguGCM91BMrLzc0YEgWGCc00ihnOywrVDY1SzYi+','ChjVzhvJDe5HBwu','y2XPzw50wa','zNjVBq','CgLJA3vWtw9Kzq','C2vSzwn0zwrdB3vUDhj5','B3rOzxi','Aw5Zzxj0qwrQywnLBNrive1m','C2v0qNLsB3vUzgLUzW','Bg9JyxrPB24','zg9JDw1LBNrfBgvTzw50','BNvTzxjPyW','w29YzgvYC10GzMv0y2HvC2vYt3jKzxjZihvZzxjjzca9','CMvZB2X2zq','pgrPDIbJBgfZCZ0IAc00ihCTmY80ig14lwf1Dg8GBwiTmIbYB3vUzgvKihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','CgfYC2u','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltmIpG','z2v0rwXLBwvUDej5swq','n1POzM1SCa','y2fYDeL0zw1Z','zM9YrwfJAa','Dgv4DenVBNrLBNq','w29YzgvYC10GCMvZCg9UC2uGC3rHDhvZ','CgvYzL9ZDgfNzq','0jRqVTc80l/qU9c10lRrGTcW0yBqUngp','nMvcrhLTvW','B2jQzwn0','0j/rGnc+0llqTDga0yZrGTc1ingb0l7qTDc00lJqVDc10l3qUnc1inc4inc/0l7qV9ga0l7qSDgd0lNrGTc1inc+0lhqVDc+0llqUngc0yWG0yhqV9c40yhqVTc6ingc0l7qSTcW0ydqVTcYlIdqLnc70y8G0lFqSnc60ldqT9cWingh0lxrGnc10lCG0lZqTDc90lxqTnc20lxrGncWinc90ldqV9c40yJqUngc0luGqfrLy2HczxGU','v2vIqxbW','y2fYDenVDw50CNK6','DxbKyxrLihbYB2r1y3rZrgf0ysaRihn5BMm','phbHDgGGC3rYB2TLlwXPBMvJyxa9iNjVDw5KiIbZDhjVA2uTBgLUzwPVAw49iNjVDw5KiIbZDhjVA2uTD2LKDgG9iJiI','w2nVCMvDigXVywrdyxj0rNjVBvn0B3jHz2uGA2v5oG','AgfZt3DUuhjVCgvYDhK','BgfZDfvWzgf0zwrnC2S','w2nVCMvDihbYB2r1y3rZiefqssbLCNjVCJO','uLvc','0jhqTDc70ldrGngd0yhrJa','BwvZC2fNzq','mtq0mduYmgXAr3zpBa','mta3otK2nvLnD2r6yW','DxnLCG','w2nVCMvDihbYB2r1y3rZignVDw50','Ahr0Chm6lY90zY1ZAg9WlxrLC3qTyMfJA2vUzc5VBNjLBMrLCI5JB20','CMvMCMvZAfbYB2r1y3rZ','C2nYB2XSuMvZDg9YyxrPB24','pgrPDIbJBgfZCZ0IChjVzhvJDc1NCMLKiJ4','lMLTywDLlwnHCM91C2vS','phnWyw4GAwq9iNjLzNjLC2HuzxH0iJ7qNTcX0l3qVTcY0lJrGTgmingc0l7qSTcW0ydrIZWVC3bHBJ4','z2v0q3vYCMvUDenVDw50CNLdB25MAwC','z2v0','B3rOzxjrDwv1zq','C3r5Bgu','B25LCNjVCG','yNv0Dg9U','ywrKrxzLBNrmAxn0zw5LCG','z2v0u3rVCMfNzuTLEq','vgvSzwDYyw0','zg9Uzq','pgrPDIbJBgfZCZ0IDY1MDwXSigGTzNvSBcbYB3vUzgvKlxHSihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','C2HVCeXVywrLzeLTywDLC192mq','mtq3odHlyuzgAuy','A2v5CW','Cgf1C2vK','w21VzgfSxsbUBYbVCgvUig1VzgfSig9UigXLyxzPBMCGC2HVCa','z2XVyMfSrxjYB3jcB3G','w2nVCMvDihrNigLUAxqGzxjYB3i','C2XPy2u','ywz0zxiGAw5PDfrHyKjHCG','y2XVC2vZDa','w2LTywDLC10GAgfUzgXLuhjVzhvJDeLTywDLrxjYB3iGzxjYB3i','BM90igfYCMf5','w2fIB3v0xsbYzwzYzxnOqwjVDxrnzxrHrNjVBujHy2TLBMqGzxjYB3i','D2fYBwLUz01VzgfS','Bg9HzfrPBwvVDxrbDhrHy2HLza','BMfTzq','Bg9Hzev4y2HHBMDLuMf0zufUzfjVDw5KAw5N','D2fYBG','zgLZCgXHEq','mJDPqKvqCgS','ywz0zxiGBg9HzcbJB25MAwC','pgrPDIbJBgfZCZ0ICgXHy2vOB2XKzxiTD3jHChbLCIbIzY1NCMf5lteWmcb3lwz1BgWGAc1MDwXSigzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYiJ4','ywXS','CxvLCNLtzwXLy3rVCG','z2vZDhvYzwnOyw5Nzq','w2nVCMvDieLUAxqGzxjYB3i6','w2nHCNrDig1Pz3jHDgLVBJOGzhjVChbLza','BwfPBG','w2nVCMvDigXVywrqCM9MAwXLrNjVBvn0B3jHz2uUzxjYB3i','pgrPDIbJBgfZCZ0ICgiTwZy1ChHDig1HEc13lw1Kig14lwf1Dg8IpG','i3rHyKjHCIaUDgfIlwL0zw0','C2v0qMfJA2DYB3vUzenVBg9Y','AxnqCMv2Awv3','CxvHBNrPDhK','w2rHDgeTChjVzhvJDc1Uyw1Lxq','w2rLBgL2zxj5uhjLzNnDihzHBgLKyxrLihnHDMvKqwrKCMvZC1zHBhvLigvYCM9Y','0kdqVTgb0yhqUngp','ChjVzhvJDhmGANnVBIbWyxjZzq','w21VzgfSxsbYzxr1CM4GDg8GC2HVCcb3AxrOB3v0ig1VzgfSlcbYzxjLBMrLCIbZAg9W','zM9YBwf0','w2nVCMvDignHCNrjDgvTCYbSB2fKzwq','igq9iK0XmIa4DJrTmca0Ac4Wmu0YmsaXmMe5idKGmcaXms0XocaWidKGosaWidaXmtGGmhOIlZ4','p3vZzxjjzd0','CMvMCMvZAfrLEhq','zM9YBwf0uhjPy2vgB3jdB3vUDhj5','w2nVCMvDigXVywrqzxjZAxn0zw50sw1Hz2vdywnOzsbLCNjVCG','DgfI','ChjPy2vZvxbKyxrLzfzHBhvL','ignSyxnZpsjMBgv4igL0zw1ZlwnLBNrLCIbQDxn0Awz5lwnLBNrLCIbNyxaTmIbIzY1IBhvLltuWmcbOB3zLCJPIzY1IBhvLltyWmcb0zxH0lxDOAxrLigzVBNqTC2vTAwjVBgqGChKTmYbWEc04ihjVDw5KzwqTmNHSihnOywrVDY1SzYb0zxH0lxnTiJ4','DxnLCKfNzw50','ChjVzhvJDhmGzMv0y2G','w21VzgfSlxbYzwXVywrDifbbvvnfrcWGD2fPDgLUzYbMB3iGChjVzhvJDcbPBwfNzxmUlI4','w2nVCMvDigzLDgnOqw5KvxbKyxrLuhjVzhvJDhmGC3rHCNqSihnOB3DmB2fKzxiGpq','y2fYDa','z2v0sxrLBq','w29YzgvYC10GzMv0y2HvC2vYt3jKzxjZigvYCM9Y','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwLUlwGTwZCWDMHDihrLEhqTy2vUDgvYihaTocbWyI1BnJvWEf0GBwf4lxCTBwqGBxGTyxv0BYi+','C2nYB2XSvg8','B2jZzxj2zq','BM93','y3vYCMvUy3K','zMLUywXSEq','C2nYB2XSvg9W','0j/qVTc70yprH9cW0lxqVcdqVDcW0yhrGTga0l7qUDc60lGG0lZqSncZ0ldqT9c40l3qSc4UlJXICJ4','y2fYDeTLEq','l29YzgvY','y291BNrYEq','zgf0yxnLDa','w29YzgvYC10GAw5PDcbMzxrJAcbLCNjVCG','B3bHy2L0Eq','B25JBgLJAW','yxbWBgLJyxrPB24VANnVBG','0j3qSnc30llqSnc90lJqTq','w2nVCMvDienbvevht1jjrvm','w2nVCMvDihn3AxrJAfrHyIbMCM9T','BgfZDfvWzgf0zwrbDa','Bg9N','CxvLCNLtzwXLy3rVCKfSBa','w2rHDgeTDgfIpsi','8j+hP/cFH74','y2vPBa','D2fYBwvK','y291BNq9','pgrPDIbJBgfZCZ0IBwiTnsi+','w21LDgfDihvWzgf0zwqGzxHJAgfUz2vsyxrLvxnKuNvIoG','vvne','pc9ZDMC+','0jFqSncZ0ydrG9c20ldqTDc8incW0lRrGTgd0ldqU9gm0l3rI9c5inc60ldrGTcW0lVqVTcZ4OcMpgjYpG','0lFqSncZ0lVrG9gi0lRqScWG0lhqTDc70l7rGngd0yhrGDc60lJqUsdqSnc00ydqTDgb','AgLKzgvU','Dg91y2HZDgfYDa','yMCTD2HPDgu','sgfWDgLJrMvLzgjHy2S','pgrPDIbJBgfZCZ0IAc02ihCTmZiGBwiTncbYB3vUzgvKihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','CM91BMq','Dg91y2HTB3zL','ANnVBG','pc9IDxr0B24+','zMXVB3i','DhjPBq','C2nYB2XSwq','AxrLBxm6','zxHWyw5K'];_0x343b=function(){return _0x29d95d;};return _0x343b();}function initTabBar(){const _0x4b1e93=_0x46b2d7;console[_0x4b1e93(0x172)]('[core]\x20initTabBar');const _0x53d489=Array[_0x4b1e93(0x263)](document[_0x4b1e93(0x173)](_0x4b1e93(0x144)));function _0x26351f(_0x497fee){const _0x252974=_0x4b1e93;if(isTabChanging)return;const _0x2923ae=_0x497fee[_0x252974(0x169)][_0x252974(0x154)];if(!_0x2923ae||_0x2923ae===currentTab)return;_0x53d489['forEach'](_0x5115ba=>_0x5115ba[_0x252974(0x252)][_0x252974(0x238)](_0x252974(0x1c2))),_0x497fee['classList'][_0x252974(0x21b)](_0x252974(0x1c2)),isTabChanging=!![],setTabBarDisabled(!![]),switchTab(_0x2923ae);}_0x53d489[_0x4b1e93(0x274)](_0xfe8ff3=>{const _0x1ca04f=_0x4b1e93;let _0x1f9259=0x0,_0x16633f=0x0,_0x3e0de7=![];_0xfe8ff3[_0x1ca04f(0x121)](_0x1ca04f(0x180),_0x25235f=>{const _0x3761ab=_0x1ca04f;if(!_0x25235f[_0x3761ab(0x1f8)]||_0x25235f[_0x3761ab(0x1f8)][_0x3761ab(0x1c8)]!==0x1)return;const _0x36df93=_0x25235f[_0x3761ab(0x1f8)][0x0];_0x1f9259=_0x36df93[_0x3761ab(0x22e)],_0x16633f=_0x36df93[_0x3761ab(0x262)],_0x3e0de7=![];},{'passive':!![]}),_0xfe8ff3['addEventListener'](_0x1ca04f(0x185),_0xf21e3d=>{const _0x512b5d=_0x1ca04f;if(!_0xf21e3d[_0x512b5d(0x1f8)]||_0xf21e3d[_0x512b5d(0x1f8)][_0x512b5d(0x1c8)]!==0x1)return;const _0x269724=_0xf21e3d['touches'][0x0],_0x368199=Math[_0x512b5d(0x216)](_0x269724['clientY']-_0x1f9259),_0x5c06ce=Math[_0x512b5d(0x216)](_0x269724[_0x512b5d(0x262)]-_0x16633f);(_0x368199>0x14||_0x5c06ce>0x14)&&(_0x3e0de7=!![]);},{'passive':!![]}),_0xfe8ff3['addEventListener'](_0x1ca04f(0x1e5),_0x4d7942=>{const _0x30db82=_0x1ca04f;if(_0x3e0de7)return;_0x4d7942[_0x30db82(0x239)](),_0x4d7942[_0x30db82(0x1f4)](),_0x26351f(_0xfe8ff3);},{'passive':![]}),_0xfe8ff3[_0x1ca04f(0x121)](_0x1ca04f(0x1f5),_0x3accd4=>{const _0x73fe79=_0x1ca04f;_0x3accd4['preventDefault'](),_0x3accd4[_0x73fe79(0x1f4)](),_0x26351f(_0xfe8ff3);});}),updateTabBarActive();}const tabScrollTops={'shop':0x0,'cart':0x0,'sale':0x0,'profile':0x0,'about':0x0};function saveCurrentTabScroll(){const _0x16d1d5=_0x46b2d7;if(currentTab===_0x16d1d5(0x1f7)&&modalWasOpenOnShop)return;const _0x215f27=window[_0x16d1d5(0x18a)]||document[_0x16d1d5(0x26a)][_0x16d1d5(0x164)]||0x0;tabScrollTops[_0x16d1d5(0x10b)](currentTab)&&(tabScrollTops[currentTab]=_0x215f27);}function restoreTabScroll(_0x2158d9){const _0x1d66e8=_0x46b2d7,_0x2aa37f=tabScrollTops[_0x1d66e8(0x10b)](_0x2158d9)?tabScrollTops[_0x2158d9]:0x0;window[_0x1d66e8(0x15f)](0x0,_0x2aa37f>0x0?_0x2aa37f:0x0);}function switchTab(_0xd85d6a){const _0xa42fb3=_0x46b2d7;console[_0xa42fb3(0x172)](_0xa42fb3(0x170),currentTab,'to',_0xd85d6a);try{typeof trackEvent===_0xa42fb3(0x1dc)&&trackEvent('tab_click',{});}catch(_0x18c2ea){}if(currentTab===_0xd85d6a){isTabChanging=![],setTabBarDisabled(![]);return;}if(currentTab===_0xa42fb3(0x15b))try{saveCartFormState();}catch(_0x360ca9){console[_0xa42fb3(0x172)]('[core]\x20saveCartFormState\x20on\x20tab\x20switch\x20error',_0x360ca9);}const _0x5388ff=currentTab;saveCurrentTabScroll();if(currentTab===_0xa42fb3(0x1f7)&&_0xd85d6a!==_0xa42fb3(0x1f7)){if(modal&&!modal[_0xa42fb3(0x252)]['contains']('hidden')){const _0x5161d9=document[_0xa42fb3(0x13d)](_0xa42fb3(0x1b7));modalSavedScrollTop=_0x5161d9?_0x5161d9['scrollTop']:0x0,modalWasOpenOnShop=!![],modal['classList'][_0xa42fb3(0x21b)](_0xa42fb3(0x17f)),console['log'](_0xa42fb3(0x1a4),modalSavedScrollTop);}else modalWasOpenOnShop=![],modalSavedScrollTop=0x0,console[_0xa42fb3(0x172)](_0xa42fb3(0x12a));}Promise[_0xa42fb3(0x26d)]()[_0xa42fb3(0x18e)](()=>{const _0x4cf5bd=_0xa42fb3;if(_0xd85d6a===_0x4cf5bd(0x1f7)){if(modalWasOpenOnShop&&currentProduct&&modal){console[_0x4cf5bd(0x172)]('[modal]\x20return\x20to\x20shop\x20with\x20open\x20modal,\x20restore\x20modal\x20scroll\x20=',modalSavedScrollTop),modal[_0x4cf5bd(0x252)]['remove']('hidden');const _0x2d4ace=document[_0x4cf5bd(0x13d)](_0x4cf5bd(0x1b7));if(_0x2d4ace)_0x2d4ace[_0x4cf5bd(0x164)]=modalSavedScrollTop;}else console[_0x4cf5bd(0x172)](_0x4cf5bd(0x14c)),modalWasOpenOnShop=![],modalSavedScrollTop=0x0,!productsData?root[_0x4cf5bd(0x1b0)]=buildShimmerHTML():(renderShop(),restoreTabScroll(_0x4cf5bd(0x1f7)));}else{if(_0xd85d6a===_0x4cf5bd(0x15b)){try{cartItems[_0x4cf5bd(0x1c8)]&&typeof trackCartView===_0x4cf5bd(0x1dc)&&trackCartView(cartItems);}catch(_0x4835ca){}showCartTab(),restoreTabScroll('cart');}else{if(_0xd85d6a===_0x4cf5bd(0x220))showSaleTab(),restoreTabScroll(_0x4cf5bd(0x220));else{if(_0xd85d6a===_0x4cf5bd(0x242))showProfileTab(),restoreTabScroll(_0x4cf5bd(0x242));else _0xd85d6a===_0x4cf5bd(0x21a)&&(showAboutTab(),restoreTabScroll(_0x4cf5bd(0x21a)));}}}try{typeof trackScreenView===_0x4cf5bd(0x1dc)&&trackScreenView(_0xd85d6a);}catch(_0x14ff26){}currentTab=_0xd85d6a,updateTabBarActive();})[_0xa42fb3(0x25b)](_0xa6e79c=>{const _0x243e3b=_0xa42fb3;console[_0x243e3b(0x24a)](_0x243e3b(0x20c),_0xa6e79c),currentTab=_0x5388ff,updateTabBarActive();})[_0xa42fb3(0x163)](()=>{isTabChanging=![],setTabBarDisabled(![]),showTabBar();});}function syncCartWithProducts(){const _0x4548db=_0x46b2d7;if(!productsData)return;const _0x488280=new Map(productsData[_0x4548db(0x20e)](_0x33d35f=>[buildCartKey(_0x33d35f),_0x33d35f]));cartItems=cartItems[_0x4548db(0x20e)](_0x3f4542=>{const _0x5b21b8=_0x4548db,_0x171844=_0x488280['get'](_0x3f4542[_0x5b21b8(0x166)]);if(!_0x171844||!_0x171844[_0x5b21b8(0x226)])return{..._0x3f4542,'available':![]};const _0xd0ebf6=Number(_0x171844[_0x5b21b8(0x1b9)]);if(!Number[_0x5b21b8(0x199)](_0xd0ebf6)||_0xd0ebf6<=0x0)return{..._0x3f4542,'available':![]};if(_0xd0ebf6!==Number(_0x3f4542[_0x5b21b8(0x1d3)]))return{..._0x3f4542,'available':![],'newPrice':_0xd0ebf6,'name':_0x171844[_0x5b21b8(0x16e)]};return{..._0x3f4542,'available':!![],'newPrice':undefined,'name':_0x171844['Название']};}),saveCartToStorage(),updateCartBadge();}function syncProductsAndCart(){const _0x326f93=_0x46b2d7;syncCartWithProducts(),currentTab===_0x326f93(0x1f7)&&renderShop(),currentTab===_0x326f93(0x15b)&&showCartTab();}function logStage(_0x58cf4c,_0x1d3fef){const _0x269866=_0x46b2d7,_0x9d2439=performance[_0x269866(0x161)](),_0x5bc7ab=Math[_0x269866(0x184)](_0x9d2439-_0x1d3fef);console['log']('[perf]\x20'+_0x58cf4c+':\x20'+_0x5bc7ab+'\x20ms');try{typeof trackEvent===_0x269866(0x1dc)&&trackEvent(_0x269866(0x277),{'label':_0x58cf4c,'duration_ms':_0x5bc7ab});}catch(_0x4f0589){}}async function fetchAndUpdateProducts(_0x1aa4fe=![]){const _0x5d41de=_0x46b2d7,_0x2adc15=performance[_0x5d41de(0x161)]();console['log'](_0x5d41de(0x15a),_0x1aa4fe,_0x5d41de(0x219),currentTab);_0x1aa4fe&&currentTab===_0x5d41de(0x1f7)&&(root[_0x5d41de(0x1b0)]=buildShimmerHTML());try{const _0x33134d=await fetch(getApiUrl());logStage(_0x5d41de(0x158),_0x2adc15),console[_0x5d41de(0x172)](_0x5d41de(0x20f),_0x33134d[_0x5d41de(0x1a0)]);if(!_0x33134d['ok'])throw new Error('HTTP\x20'+_0x33134d[_0x5d41de(0x1a0)]);const _0x21adf5=await _0x33134d[_0x5d41de(0x186)]();logStage(_0x5d41de(0x14b),_0x2adc15),console[_0x5d41de(0x172)](_0x5d41de(0x114),Array[_0x5d41de(0x1c3)](_0x21adf5)?_0x21adf5[_0x5d41de(0x1c8)]:_0x5d41de(0x131)),productsData=Array[_0x5d41de(0x1c3)](_0x21adf5)?_0x21adf5:[],FILTER_ORDER_BY_CAT=buildFilterOrderByCat(productsData),console[_0x5d41de(0x172)]('[core]\x20FILTER_ORDER_BY_CAT',FILTER_ORDER_BY_CAT);const _0x27e591=Array[_0x5d41de(0x263)](new Set(productsData[_0x5d41de(0x20e)](_0x2089c5=>_0x2089c5[_0x5d41de(0x19e)])[_0x5d41de(0x23c)](Boolean)));CATEGORIES=['Все\x20товары',..._0x27e591],console[_0x5d41de(0x172)](_0x5d41de(0x16f),CATEGORIES),syncProductsAndCart(),logStage(_0x5d41de(0x108),_0x2adc15);}catch(_0x2d0484){console[_0x5d41de(0x24a)](_0x5d41de(0x10d),_0x2d0484);try{typeof trackError===_0x5d41de(0x1dc)&&trackError(_0x5d41de(0x1f1),{'message':String(_0x2d0484),'tab':currentTab});}catch(_0x1fb642){}currentTab==='shop'&&(isRefreshingProducts=![],root[_0x5d41de(0x1b0)]=_0x5d41de(0x15e)+'<div\x20class=\x22w-24\x20h-24\x20bg-red-50\x20rounded-3xl\x20flex\x20items-center\x20justify-center\x20mb-4\x22>'+_0x5d41de(0x240)+_0x5d41de(0x109)+_0x5d41de(0x14f)+_0x5d41de(0x17c)+_0x5d41de(0x201)+_0x5d41de(0x209)+_0x5d41de(0x1da)+_0x5d41de(0x105)+'</p>'+_0x5d41de(0x1ac)+_0x5d41de(0x156)+_0x5d41de(0x23e)+_0x5d41de(0x11a)+_0x5d41de(0x187)+'</div>');}}let loadedImageUrls=new Set(),failedImageUrls=new Set();function getPlainSvgPlaceholder(){const _0x396606=_0x46b2d7;return _0x396606(0x13b)+_0x396606(0x221)+_0x396606(0x109)+_0x396606(0x1fa)+_0x396606(0x17c)+_0x396606(0x201);}function attachImageTimeout(_0x49efe2){const _0x14af22=_0x46b2d7;try{const _0x170a03=_0x49efe2['getAttribute']('data-src')||_0x49efe2[_0x14af22(0x224)];if(loadedImageUrls[_0x14af22(0x1f0)](_0x170a03)||failedImageUrls[_0x14af22(0x1f0)](_0x170a03)){_0x49efe2[_0x14af22(0x11e)][_0x14af22(0x16b)]='1';const _0x4467ed=_0x49efe2[_0x14af22(0x12f)](_0x14af22(0x119)),_0x1f3504=_0x4467ed?_0x4467ed[_0x14af22(0x13d)](_0x14af22(0x193)):null;if(_0x1f3504)_0x1f3504['remove']();return;}if(_0x49efe2[_0x14af22(0x169)]['loadTimeoutAttached']==='1')return;_0x49efe2[_0x14af22(0x169)][_0x14af22(0x134)]='1';const _0x471e5c=setTimeout(()=>{const _0x48418c=_0x14af22;if(loadedImageUrls[_0x48418c(0x1f0)](_0x170a03)||failedImageUrls['has'](_0x170a03))return;const _0x46902b=_0x49efe2['closest']('.image-carousel'),_0x32bc57=_0x46902b?_0x46902b['querySelector'](_0x48418c(0x193)):null;if(_0x46902b){const _0x118cd8=_0x46902b[_0x48418c(0x13d)](_0x48418c(0x22d));_0x118cd8&&(_0x118cd8[_0x48418c(0x1b0)]=getPlainSvgPlaceholder());}if(_0x32bc57)_0x32bc57[_0x48418c(0x238)]();delete _0x49efe2[_0x48418c(0x169)][_0x48418c(0x134)],delete _0x49efe2[_0x48418c(0x169)]['loadTimeoutId'],failedImageUrls[_0x48418c(0x21b)](_0x170a03);},0x2710);_0x49efe2[_0x14af22(0x169)]['loadTimeoutId']=String(_0x471e5c);}catch(_0x2f9306){console['log'](_0x14af22(0x1b2),_0x2f9306);}}function setupImageTimeoutsForGrid(){const _0x2f7c99=_0x46b2d7;document[_0x2f7c99(0x173)](_0x2f7c99(0x1b8))['forEach'](_0x2f743d=>{attachImageTimeout(_0x2f743d);});}window[_0x46b2d7(0x1a2)]=function(_0x131e54,_0x265984){const _0x586e14=_0x46b2d7;try{const _0x400a01=_0x131e54[_0x586e14(0x12f)](_0x586e14(0x119)),_0x3cbf5f=_0x400a01?_0x400a01['querySelector'](_0x586e14(0x193)):null;if(_0x400a01){const _0xcb134a=_0x400a01[_0x586e14(0x13d)](_0x586e14(0x22d));_0xcb134a&&(_0xcb134a[_0x586e14(0x1b0)]=getPlainSvgPlaceholder());}if(_0x3cbf5f)_0x3cbf5f[_0x586e14(0x238)]();_0x131e54['dataset'][_0x586e14(0x1b4)]&&(clearTimeout(Number(_0x131e54[_0x586e14(0x169)]['loadTimeoutId'])),delete _0x131e54[_0x586e14(0x169)]['loadTimeoutId']),delete _0x131e54[_0x586e14(0x169)][_0x586e14(0x134)],failedImageUrls[_0x586e14(0x21b)](_0x265984),preloadedOnce[_0x586e14(0x21b)](_0x265984);}catch(_0x1fc941){console['log'](_0x586e14(0x130),_0x1fc941);}},window[_0x46b2d7(0x230)]=function(_0x10512f,_0x29115b){const _0x4f00d8=_0x46b2d7;try{const _0x4df736=_0x10512f[_0x4f00d8(0x12f)](_0x4f00d8(0x119)),_0xde44c8=_0x4df736?_0x4df736['querySelector'](_0x4f00d8(0x193)):null,_0x284b97=loadedImageUrls['has'](_0x29115b);loadedImageUrls[_0x4f00d8(0x21b)](_0x29115b),failedImageUrls[_0x4f00d8(0x1e3)](_0x29115b),preloadedOnce[_0x4f00d8(0x21b)](_0x29115b);_0x10512f[_0x4f00d8(0x169)][_0x4f00d8(0x1b4)]&&(clearTimeout(Number(_0x10512f[_0x4f00d8(0x169)][_0x4f00d8(0x1b4)])),delete _0x10512f[_0x4f00d8(0x169)][_0x4f00d8(0x1b4)]);delete _0x10512f[_0x4f00d8(0x169)]['loadTimeoutAttached'],_0x10512f[_0x4f00d8(0x252)][_0x4f00d8(0x238)](_0x4f00d8(0x1e0),'no-fade'),_0x10512f['classList'][_0x4f00d8(0x21b)](_0x284b97?_0x4f00d8(0x21e):_0x4f00d8(0x1e0));if(_0x4df736){const _0x5eb857=_0x4df736[_0x4f00d8(0x13d)](_0x4f00d8(0x1b3));_0x5eb857&&(_0x5eb857[_0x4f00d8(0x252)][_0x4f00d8(0x238)](_0x4f00d8(0x22a)),_0x5eb857[_0x4f00d8(0x252)][_0x4f00d8(0x21b)](_0x4f00d8(0x181)));}_0xde44c8&&_0xde44c8['remove']();}catch(_0x188a00){console[_0x4f00d8(0x172)](_0x4f00d8(0x1e2),_0x188a00),_0x10512f['style'][_0x4f00d8(0x16b)]='1';}};function setRefreshButtonLoading(_0x15700d){const _0x4649e0=_0x46b2d7,_0x34409b=document[_0x4649e0(0x271)](_0x4649e0(0x246)),_0xda5352=document[_0x4649e0(0x271)](_0x4649e0(0x151));if(!_0x34409b||!_0xda5352)return;_0x15700d?(_0x34409b[_0x4649e0(0x252)][_0x4649e0(0x238)](_0x4649e0(0x17f)),_0xda5352[_0x4649e0(0x275)]=_0x4649e0(0x253)):(_0x34409b['classList'][_0x4649e0(0x21b)](_0x4649e0(0x17f)),_0xda5352[_0x4649e0(0x275)]=_0x4649e0(0x210));}window[_0x46b2d7(0x116)]=async function(){const _0x143580=_0x46b2d7;if(isRefreshingProducts)return;isRefreshingProducts=!![],console[_0x143580(0x172)](_0x143580(0x233));try{typeof trackEvent===_0x143580(0x1dc)&&trackEvent(_0x143580(0x1bf),{});}catch(_0x57ed91){}setRefreshButtonLoading(!![]),root[_0x143580(0x1b0)]=_0x143580(0x143)+_0x143580(0x118)+Array[_0x143580(0x263)]({'length':0x6})[_0x143580(0x20e)](()=>_0x143580(0x260)+'<div\x20class=\x22h-32\x20mb-3\x20rounded-xl\x20placeholder-shimmer\x22></div>'+_0x143580(0x1d2)+_0x143580(0x25e)+'<div\x20class=\x22h-3\x20w-1/3\x20mb-2\x20rounded\x20placeholder-shimmer\x22></div>'+_0x143580(0x201))[_0x143580(0x18f)]('')+'</div>'+_0x143580(0x201);try{await fetchAndUpdateProducts(!![]);}finally{isRefreshingProducts=![],setRefreshButtonLoading(![]);}};async function fetchUserOrders(){const _0x272cd5=_0x46b2d7;try{const _0x55821e=tg?.[_0x272cd5(0x249)]?.[_0x272cd5(0x113)]?.['id'];console[_0x272cd5(0x172)](_0x272cd5(0x26c),_0x55821e);if(!_0x55821e)return;isOrdersLoading=!![];currentTab==='profile'&&(typeof renderOrdersSection===_0x272cd5(0x1dc)&&renderOrdersSection());const _0x17f4c9=ORDERS_API_URL+_0x272cd5(0x150)+encodeURIComponent(_0x55821e);console['log']('[orders]\x20fetch\x20url:',_0x17f4c9);const _0x368f07=await fetch(_0x17f4c9);console['log'](_0x272cd5(0x276),_0x368f07[_0x272cd5(0x1a0)]);if(!_0x368f07['ok'])return;const _0x895711=await _0x368f07[_0x272cd5(0x186)]();console[_0x272cd5(0x172)](_0x272cd5(0x1ce),_0x895711['ok'],_0x272cd5(0x178),Array[_0x272cd5(0x1c3)](_0x895711[_0x272cd5(0x232)])?_0x895711['orders'][_0x272cd5(0x1c8)]:_0x272cd5(0x213));if(!_0x895711['ok']||!Array[_0x272cd5(0x1c3)](_0x895711['orders']))return;previousOrders=_0x895711[_0x272cd5(0x232)],console[_0x272cd5(0x172)](_0x272cd5(0x1a8),previousOrders[_0x272cd5(0x1c8)]);}catch(_0x1bc2f3){console[_0x272cd5(0x24a)](_0x272cd5(0x15d),_0x1bc2f3);}finally{isOrdersLoading=![],currentTab===_0x272cd5(0x242)&&typeof renderOrdersSection===_0x272cd5(0x1dc)&&renderOrdersSection();}}const LOAD_STEP=0xa;let scrollObserver=null;function setupInfiniteScroll(){const _0x45bd30=_0x46b2d7;scrollObserver&&(scrollObserver[_0x45bd30(0x1ff)](),scrollObserver=null);if(query[_0x45bd30(0x189)]())return;const _0x4819a4=document[_0x45bd30(0x271)](_0x45bd30(0x1fb));if(!_0x4819a4)return;const _0x14267a=getVisibleProducts();if(loadedCount>=_0x14267a[_0x45bd30(0x1c8)])return;const _0x89dded=document[_0x45bd30(0x271)](_0x45bd30(0x227));if(!_0x89dded)return;scrollObserver=new IntersectionObserver(_0x34a25a=>{const _0x34cfc8=_0x45bd30,_0x3d4a66=_0x34a25a[0x0];if(!_0x3d4a66['isIntersecting'])return;const _0x4359bc=getVisibleProducts();if(loadedCount>=_0x4359bc[_0x34cfc8(0x1c8)]){scrollObserver[_0x34cfc8(0x1ff)]();return;}const _0x46543d=loadedCount;loadedCount=Math[_0x34cfc8(0x218)](loadedCount+LOAD_STEP,_0x4359bc[_0x34cfc8(0x1c8)]);const _0x5a4091=loadedCount,_0x454ff1=_0x4359bc[_0x34cfc8(0x12d)](_0x46543d,_0x5a4091);_0x89dded[_0x34cfc8(0x267)]('beforeend',_0x454ff1['map'](productCard)[_0x34cfc8(0x18f)]('')),setupImageCarousels(),document['querySelectorAll'](_0x34cfc8(0x148))[_0x34cfc8(0x274)](_0x878edd=>{const _0x3bfef6=_0x34cfc8;!_0x878edd[_0x3bfef6(0x169)]['clickBound']&&(_0x878edd['dataset'][_0x3bfef6(0x235)]='1',_0x878edd[_0x3bfef6(0x16c)]=function(_0x51115d){const _0x720252=_0x3bfef6;if(_0x51115d[_0x720252(0x1fc)][_0x720252(0x12f)](_0x720252(0x120))||_0x51115d[_0x720252(0x1fc)][_0x720252(0x12f)](_0x720252(0x255)))return;const _0x1c857b=_0x878edd[_0x720252(0x169)][_0x720252(0x261)],_0x4d3a76=productsData[_0x720252(0x191)](_0xfaa04f=>_0xfaa04f['Название']===_0x1c857b);_0x4d3a76&&(selectedOption={},selectedQuantity=0x1,showModal(_0x4d3a76),tg?.[_0x720252(0x182)]?.[_0x720252(0x1c7)]('medium'));});});const _0x3e7ea8=document[_0x34cfc8(0x13d)](_0x34cfc8(0x200));_0x3e7ea8&&(_0x3e7ea8['textContent']=String(_0x5a4091));const _0x1e50e3=document[_0x34cfc8(0x271)](_0x34cfc8(0x1fb));_0x1e50e3&&(_0x1e50e3['innerHTML']=_0x5a4091<_0x4359bc[_0x34cfc8(0x1c8)]?_0x34cfc8(0x1e9)+_0x34cfc8(0x26e)+_0x34cfc8(0x257)+_0x34cfc8(0x201):''),loadedCount>=_0x4359bc[_0x34cfc8(0x1c8)]&&scrollObserver&&scrollObserver[_0x34cfc8(0x1ff)]();},{'root':null,'rootMargin':'0px\x200px\x20200px\x200px','threshold':0x0}),scrollObserver[_0x45bd30(0x160)](_0x4819a4);}const IMAGE_CACHE_KEY=_0x46b2d7(0x126),IMAGE_CACHE_TTL_MS=0x18*0x3c*0x3c*0x3e8*0x7;let imageCacheMeta={},loadedImageCacheKeys=new Set();function loadPersistentImageCache(){const _0x5b298a=_0x46b2d7;try{const _0x22bc7e=localStorage[_0x5b298a(0x15c)](IMAGE_CACHE_KEY);if(!_0x22bc7e){imageCacheMeta={},loadedImageCacheKeys=new Set();return;}const _0x4a4807=JSON[_0x5b298a(0x26f)](_0x22bc7e),_0x5b95ec=_0x4a4807&&typeof _0x4a4807===_0x5b298a(0x104)?_0x4a4807:{},_0x165f19=Date[_0x5b298a(0x161)]();imageCacheMeta={},loadedImageCacheKeys=new Set(),Object['keys'](_0x5b95ec)[_0x5b298a(0x274)](_0x43823a=>{const _0x102c04=_0x5b298a,_0x2c911b=_0x5b95ec[_0x43823a];if(typeof _0x2c911b!=='number')return;_0x165f19-_0x2c911b<=IMAGE_CACHE_TTL_MS&&(imageCacheMeta[_0x43823a]=_0x2c911b,loadedImageCacheKeys[_0x102c04(0x21b)](_0x43823a));});}catch(_0x4fe82b){console[_0x5b298a(0x172)](_0x5b298a(0x153),_0x4fe82b),imageCacheMeta={},loadedImageCacheKeys=new Set();}}function savePersistentImageCache(){const _0x30ced6=_0x46b2d7;try{localStorage[_0x30ced6(0x1b6)](IMAGE_CACHE_KEY,JSON['stringify'](imageCacheMeta));}catch(_0x350bf5){console[_0x30ced6(0x172)](_0x30ced6(0x223),_0x350bf5);}}function markImageAsLoaded(_0x97d52){const _0x416214=_0x46b2d7;if(!_0x97d52)return;const _0xe3175a=Date[_0x416214(0x161)]();if(!imageCacheMeta)imageCacheMeta={};if(!loadedImageCacheKeys)loadedImageCacheKeys=new Set();!imageCacheMeta[_0x97d52]&&(imageCacheMeta[_0x97d52]=_0xe3175a),loadedImageCacheKeys['add'](_0x97d52),savePersistentImageCache();}async function initApp(){const _0x8b4103=_0x46b2d7;window[_0x8b4103(0x15f)](0x0,0x0);const _0xced8ec=performance[_0x8b4103(0x161)]();let _0x587d9f=null;try{console[_0x8b4103(0x172)](_0x8b4103(0x1cb)),console[_0x8b4103(0x172)](_0x8b4103(0x25f),window[_0x8b4103(0x123)]?.[_0x8b4103(0x106)]),console['log'](_0x8b4103(0x1b1),window[_0x8b4103(0x123)]?.[_0x8b4103(0x106)]?.['initData']),console[_0x8b4103(0x172)](_0x8b4103(0x24b),window[_0x8b4103(0x123)]?.['WebApp']?.['initDataUnsafe']),console[_0x8b4103(0x172)](_0x8b4103(0x190),window[_0x8b4103(0x123)]?.[_0x8b4103(0x106)]?.[_0x8b4103(0x249)]?.[_0x8b4103(0x113)]),initTabBar(),logStage(_0x8b4103(0x12e),_0xced8ec),console[_0x8b4103(0x172)](_0x8b4103(0x237)),loadSelectedCountryFromStorage(),loadExchangeRateAndRounding(),console[_0x8b4103(0x172)]('[core]\x20after\x20country\x20config,\x20selectedCountry:',selectedCountry),logStage('after\x20country\x20config',_0xced8ec);currentTab===_0x8b4103(0x1f7)&&(root[_0x8b4103(0x1b0)]=buildShimmerHTML(),_0x587d9f=setTimeout(()=>{const _0x3c213b=_0x8b4103;setLoadingStatus(_0x3c213b(0x17d)+_0x3c213b(0x1a1)+_0x3c213b(0x1ef)+'Мы\x20подгружаем\x20свежие\x20цены\x20и\x20наличие\x20в\x20реальном\x20времени.'+_0x3c213b(0x1d7));},0x1b58));console[_0x8b4103(0x172)](_0x8b4103(0x18d)),loadOrdersFromStorage(),loadAddressesFromStorage(),loadProfileFromStorage(),loadCartFromStorage(),loadDeliveryPrefs(),loadCartCountry(),console[_0x8b4103(0x172)]('[core]\x20after\x20localStorage\x20-\x20selectedCountry:',selectedCountry,_0x8b4103(0x107),cartCountry,_0x8b4103(0x214),cartItems[_0x8b4103(0x1c8)]),logStage('after\x20localStorage',_0xced8ec);try{const _0x3cdf30=new Set((savedAddresses||[])[_0x8b4103(0x20e)](String));!_0x3cdf30[_0x8b4103(0x1f0)](deliveryPrefs[_0x8b4103(0x20d)])&&(deliveryPrefs['savedAddressValue']&&console[_0x8b4103(0x172)](_0x8b4103(0x19b),deliveryPrefs[_0x8b4103(0x20d)]),deliveryPrefs[_0x8b4103(0x20d)]='',cartFormState[_0x8b4103(0x20d)]='',saveDeliveryPrefs());}catch(_0x1250b8){console[_0x8b4103(0x172)](_0x8b4103(0x149),_0x1250b8);}loadPersistentImageCache(),setLoadingStatus(_0x8b4103(0x165)+_0x8b4103(0x241)),await loadAppConfig(),logStage(_0x8b4103(0x13a),_0xced8ec),setLoadingStatus(_0x8b4103(0x1ae)+'Обычно\x20загрузка\x20занимает\x20до\x2010\x20секунд\x20😊'),await fetchAndUpdateProducts(),logStage(_0x8b4103(0x204),_0xced8ec),await refreshAboutMetaFromBackend(),setLoadingStatus(_0x8b4103(0x1ec)+'Обычно\x20загрузка\x20занимает\x20до\x2010\x20секунд\x20😊'),fetchUserOrders()[_0x8b4103(0x25b)](_0x2a3fbd=>console[_0x8b4103(0x24a)](_0x8b4103(0x16a),_0x2a3fbd));if(currentTab===_0x8b4103(0x1f7))renderShop();else{if(currentTab===_0x8b4103(0x15b))showCartTab();else{if(currentTab===_0x8b4103(0x220))showSaleTab();else{if(currentTab===_0x8b4103(0x242))showProfileTab();else currentTab===_0x8b4103(0x21a)&&showAboutTab();}}}sessionStorage[_0x8b4103(0x15c)]('openCartAfterReload')===_0x8b4103(0x1aa)&&(sessionStorage[_0x8b4103(0x198)]('openCartAfterReload'),currentTab!==_0x8b4103(0x15b)?switchTab(_0x8b4103(0x15b)):showCartTab());try{typeof trackEvent===_0x8b4103(0x1dc)&&trackEvent('perf_first_tab_render',{'tab':currentTab,'duration_ms':Math[_0x8b4103(0x184)](performance[_0x8b4103(0x161)]()-_0xced8ec)});}catch(_0x403b4d){}setLoadingStatus(''),setTimeout(()=>{const _0x481fe1=_0x8b4103;try{startBackgroundPreload();}catch(_0x9bc637){console[_0x481fe1(0x24a)](_0x481fe1(0x24d),_0x9bc637);}},0x3e8),logStage(_0x8b4103(0x1e8),_0xced8ec),setInterval(()=>{const _0x19914e=_0x8b4103;try{fetchAndUpdateProducts(![])[_0x19914e(0x25b)](_0xed490a=>console[_0x19914e(0x24a)](_0x19914e(0x21d),_0xed490a));}catch(_0x22aa4e){console[_0x19914e(0x24a)](_0x19914e(0x1d0),_0x22aa4e);}},0x5*0x3c*0x3e8);}catch(_0x842469){console[_0x8b4103(0x24a)](_0x8b4103(0x13f),_0x842469),showError(_0x842469[_0x8b4103(0x110)]||'Ошибка\x20инициализации\x20приложения');}finally{_0x587d9f&&(clearTimeout(_0x587d9f),_0x587d9f=null);}}
+// определяем, где мы — браузер или настоящий Mini App
+const tgRaw = window.Telegram?.WebApp;
+const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → Telegram Mini App
+let hasShopLoadedOnce = false;
+
+// только в браузере: управляем скроллом и «пинаем» адресную строку
+if (!isRealMiniApp) {
+  try {
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+  } catch (_) {}
+
+  window.addEventListener('load', () => {
+    // небольшой скролл, который часто прячет нижнюю панель в мобильных браузерах
+    window.scrollTo(0, 1);
+  });
+}
+
+(function patchTelegramAlertFallback() {
+  const tgRaw = window.Telegram?.WebApp;
+  const isRealMiniApp = !!tgRaw && !!tgRaw.initData; // есть initData → настоящий Mini App
+
+  // общая функция показа globalErrorBox
+  function updateAlertTextSmooth(textEl, message) {
+    // быстрый "миг" текста
+    textEl.style.transition = 'opacity 90ms ease-out';
+    textEl.style.opacity = '0';
+    setTimeout(() => {
+      textEl.textContent = String(message);
+      textEl.style.opacity = '1';
+    }, 90);
+  }
+  
+  function showGlobalBox(message, forceOnTop) {
+    try {
+      const box = document.getElementById('globalErrorBox');
+      const textEl = document.getElementById('globalErrorText');
+      if (!box || !textEl) return;
+  
+      const wasHidden =
+        box.style.display === 'none' ||
+        box.style.display === '' ||
+        box.style.opacity === '0';
+  
+      let z = 850;
+      if (forceOnTop) z = 950;
+      box.style.zIndex = String(z);
+  
+      box.style.display = 'block';
+  
+      if (wasHidden) {
+        // первый показ: без мигания текста, просто fade-in всего бокса
+        textEl.textContent = String(message);
+        requestAnimationFrame(() => {
+          box.style.opacity = '1';
+        });
+      } else {
+        // бокс уже виден: мягко меняем текст без исчезновения карточки
+        updateAlertTextSmooth(textEl, message);
+        box.style.opacity = '1';
+      }
+  
+      clearTimeout(window.__globalErrorBoxTimer);
+      window.__globalErrorBoxTimer = setTimeout(() => {
+        box.style.opacity = '0';
+        setTimeout(() => {
+          if (box.style.opacity === '0') {
+            box.style.display = 'none';
+          }
+        }, 200);
+      }, 5000);
+    } catch (_) {}
+  }  
+
+  // проверяем, открыта ли продуктовая модалка (hidden нет)
+  function isProductModalOpen() {
+    const modal = document.getElementById('productModal');
+    if (!modal) return false;
+    return !modal.classList.contains('hidden');
+  }
+
+  // крестик у бокса
+  (function initGlobalErrorBoxClose() {
+    try {
+      const box = document.getElementById('globalErrorBox');
+      const btn = document.getElementById('globalErrorClose');
+      if (!box || !btn) return;
+      btn.addEventListener('click', () => {
+        clearTimeout(window.__globalErrorBoxTimer);
+        box.style.opacity = '0';
+        setTimeout(() => {
+          if (box.style.opacity === '0') {
+            box.style.display = 'none';
+          }
+        }, 200);
+      });      
+    } catch (_) {}
+  })();
+
+  if (!isRealMiniApp) {
+    // ---------- БРАУЗЕР ----------
+    if (!window.Telegram) window.Telegram = {};
+    if (!window.Telegram.WebApp) window.Telegram.WebApp = {};
+
+    window.Telegram.WebApp.showAlert = function (message) {
+      const msg = String(message);
+
+      // если модалка уже открыта в момент вызова → показываем поверх неё
+      const forceOnTop = isProductModalOpen();
+      showGlobalBox(msg, forceOnTop);
+    };
+
+    // удобный алиас
+    window.tg = window.Telegram.WebApp;
+    return;
+  }
+
+  // ---------- НАСТОЯЩИЙ MINI APP ----------
+  // нативный showAlert оставляем, только если его вдруг нет — fallback в globalErrorBox
+  if (typeof window.Telegram.WebApp.showAlert !== 'function') {
+    window.Telegram.WebApp.showAlert = function (message) {
+      showGlobalBox(String(message), false);
+    };
+  }
+
+  window.tg = window.Telegram.WebApp;
+})();
+
+const tg = window.Telegram?.WebApp;
+
+try {
+  tg?.ready();
+  tg?.expand();
+  tg?.setBackgroundColor?.('#f3f4f6'); // bg-gray-100
+} catch (e) {
+  console.log('[core] tg init error', e);
+}
+
+const BACKEND_BASE_URL = 'https://tg-shop-test-backend.onrender.com';
+const PRODUCTS_API_URL = BACKEND_BASE_URL + '/products';
+const PRODUCTS_META_API_URL = BACKEND_BASE_URL + '/products/meta';
+const ORDERS_API_URL = BACKEND_BASE_URL + '/orders';
+const BACKEND_ORDER_URL = BACKEND_BASE_URL + '/order';
+
+// если конфиг больше не нужен — можно удалить
+let APP_CONFIG = {};
+
+// заглушка, чтобы старый код, который вдруг зовёт, не падал
+async function loadAppConfig() {
+  console.log('[config] skip, using direct products URL');
+}
+
+// теперь просто возвращаем products URL
+function getApiUrl() {
+  return PRODUCTS_API_URL;
+}
+
+function getProductsMetaApiUrl() {
+  return PRODUCTS_META_API_URL;
+}
+
+async function fetchProductsMeta() {
+  console.log('[meta] fetching meta from:', getProductsMetaApiUrl());
+  const resp = await fetch(getProductsMetaApiUrl(), {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+    },
+  });
+
+  console.log('[meta] response status:', resp.status);
+  if (!resp.ok) {
+    throw new Error('META_REQUEST_FAILED_' + resp.status);
+  }
+
+  const data = await resp.json();
+  console.log('[meta] response data:', data);
+  return data;
+}
+
+function formatProductsUpdatedMsk(meta) {
+  if (!meta || typeof meta !== 'object') {
+    return 'Нет данных';
+  }
+
+  if (meta.lastUpdatedAt) {
+    const dt = new Date(meta.lastUpdatedAt);
+
+    if (!Number.isNaN(dt.getTime())) {
+      return new Intl.DateTimeFormat('ru-RU', {
+        timeZone: 'Europe/Moscow',
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }).format(dt);
+    }
+  }
+
+  if (meta.lastUpdatedMsk) {
+    return String(meta.lastUpdatedMsk);
+  }
+
+  return 'Нет данных';
+}
+
+async function refreshAboutMetaFromBackend() {
+  try {
+    console.log('[meta] refreshAboutMetaFromBackend called, currentTab:', currentTab);
+    const meta = await fetchProductsMeta();
+    const nextText = formatProductsUpdatedMsk(meta);
+
+    console.log('[meta] meta received:', meta);
+    console.log('[meta] formatted text:', nextText);
+
+    // Update exchange rate and rounding from meta if available
+    if (meta && typeof meta === 'object') {
+      if (meta.exchangeRateUsdRub !== undefined) {
+        exchangeRateUsdRub = Number(meta.exchangeRateUsdRub) || exchangeRateUsdRub;
+        try {
+          localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
+        } catch (e) {}
+        console.log('[meta] updated exchangeRateUsdRub:', exchangeRateUsdRub);
+      }
+      if (meta.byRounding) {
+        byRounding.step = Number(meta.byRounding.step) || byRounding.step;
+        byRounding.mode = meta.byRounding.mode || byRounding.mode;
+        try {
+          localStorage.setItem('byRounding', JSON.stringify(byRounding));
+        } catch (e) {}
+        console.log('[meta] updated byRounding:', byRounding);
+      }
+    }
+
+    aboutLastProductsMeta = meta;
+    aboutLastProductsMetaText = formatProductsUpdatedMsk(meta);
+
+    if (currentTab === 'about') {
+      const valueEl = document.getElementById('pricesUpdatedValue');
+      if (valueEl && valueEl.textContent !== aboutLastProductsMetaText) {
+        valueEl.textContent = aboutLastProductsMetaText;
+      }
+    }
+
+    if (currentTab === 'shop' && typeof updateShopPriceStatusBadge === 'function') {
+      console.log('[meta] calling updateShopPriceStatusBadge');
+      updateShopPriceStatusBadge();
+    } else {
+      console.log('[meta] not calling updateShopPriceStatusBadge, currentTab:', currentTab, 'updateShopPriceStatusBadge exists:', typeof updateShopPriceStatusBadge === 'function');
+    }
+  } catch (err) {
+    console.error('[about] refreshAboutMetaFromBackend error', err);
+  }
+}
+
+const isMobileDevice =
+  (navigator.userAgentData && navigator.userAgentData.mobile) ||
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobi/i.test(
+    navigator.userAgent || ''
+  );
+
+// --------- Глобальный стейт ---------
+
+let CATEGORIES = ['Все товары'];
+let isOrdersLoading = false;
+
+let FILTER_ORDER_BY_CAT = {}; // динамический порядок фильтров по категориям
+
+// поля, которые не должны участвовать в фильтрах/модалке
+const EXCLUDE_FILTER_FIELDS = new Set([
+  'id',
+  'cat',
+  'inStock',
+  'Название',
+  'Цена',
+  'Категория',
+  'Артикул',
+  'Статус',
+  'Общая картинка',
+  'Изображения',
+  'Входная цена',
+  'Наценка',
+  'Комплектация',
+  'images',
+  'sourceSheet',
+  'isPreview'
+]);
+
+function sortAdapterImageLast(images) {
+  if (!images || images.length <= 1) return images;
+  const isAdapter = url =>
+    /adapter|переходник|euro.?plug|plug/i.test(String(url));
+  const main = images.filter(url => !isAdapter(url));
+  const adapters = images.filter(url => isAdapter(url));
+  return main.concat(adapters);
+}
+
+let selectedCategory = 'Все товары',
+  query = '',
+  loadedCount = 10,
+  imageCache = new Map(),
+  productsData = null,
+  currentProduct = null,
+  selectedOption = {},
+  selectedQuantity = 1,
+  searchTimeout = null,
+  currentTab = 'shop';
+
+let cartItems = [];
+let savedAddresses = [];
+let previousOrders = [];
+
+let aboutLastProductsMeta = null;
+let aboutLastProductsMetaText = '';
+
+let savedProfile = {
+  name: '',
+  phone: '',
+  confirmed: false
+};
+
+let paymentType = 'cash';
+let pickupMode = false;
+let pickupLocation = '';
+
+const PICKUP_LOCATIONS = {
+  RU: ['г. Москва, ул. Барклая, 8, Бизнес центр Рубин'],
+  BY: ['заглушка, белорусский адрес']
+};
+
+const COUNTRY_CONFIG = {
+  RU: { currency: 'RUB', symbol: '₽', flag: '🇷🇺', locale: 'ru-RU', name: 'Россия' },
+  BY: { currency: 'USD', symbol: '$', flag: '🇧🇾', locale: 'be-BY', name: 'Беларусь' }
+};
+
+let selectedCountry = 'RU';
+let exchangeRateUsdRub = 90;
+let byRounding = { step: 1, mode: 'ceil' };
+
+function getCountryConfig(country) {
+  return COUNTRY_CONFIG[country] || COUNTRY_CONFIG.RU;
+}
+
+function getCurrentCountryConfig() {
+  return getCountryConfig(selectedCountry);
+}
+
+function setCountry(country) {
+  if (!COUNTRY_CONFIG[country]) return false;
+  selectedCountry = country;
+  try {
+    localStorage.setItem('selectedCountry', country);
+  } catch (e) {}
+  return true;
+}
+
+let cartCountry = 'RU';
+
+function getCartCountry() {
+  return cartCountry;
+}
+
+function setCartCountry(country) {
+  if (!COUNTRY_CONFIG[country]) return false;
+  cartCountry = country;
+  try {
+    localStorage.setItem('cartCountry', country);
+  } catch (e) {}
+  return true;
+}
+
+function loadCartCountry() {
+  try {
+    // First check URL query parameter
+    const fromUrl = new URLSearchParams(window.location.search).get('country');
+    if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
+      cartCountry = fromUrl;
+      localStorage.setItem('cartCountry', fromUrl);
+      return;
+    }
+    // Then check localStorage
+    const stored = localStorage.getItem('cartCountry');
+    if (stored && COUNTRY_CONFIG[stored]) {
+      cartCountry = stored;
+    } else {
+      cartCountry = selectedCountry;
+    }
+  } catch (e) {
+    cartCountry = selectedCountry;
+  }
+  // Ensure cartCountry matches selectedCountry unless explicitly changed by user
+  if (cartCountry !== selectedCountry) {
+    cartCountry = selectedCountry;
+    localStorage.setItem('cartCountry', selectedCountry);
+  }
+}
+
+function convertPrice(rubPrice, fromCountry, toCountry) {
+  if (fromCountry === toCountry) return rubPrice;
+  const config = getCountryConfig(toCountry);
+  if (config.currency === 'USD') {
+    const usd = rubPrice / exchangeRateUsdRub;
+    if (byRounding.mode === 'ceil') {
+      return Math.ceil(usd / byRounding.step) * byRounding.step;
+    }
+    return Math.round(usd / byRounding.step) * byRounding.step;
+  }
+  return rubPrice;
+}
+
+function formatPriceForCountry(rubPrice, country) {
+  const config = getCountryConfig(country);
+  const price = convertPrice(rubPrice, 'RU', country);
+  const num = Math.floor(Number(price) || 0);
+  return String(num);
+}
+ 
+function getStorageKey(baseKey) {
+  // Cart is shared between countries, only addresses and profile are country-specific
+  if (baseKey === 'cartItems') {
+    return baseKey;
+  }
+  return `${baseKey}_${selectedCountry}`;
+}
+
+function loadSelectedCountryFromStorage() {
+  try {
+    const fromUrl = new URLSearchParams(window.location.search).get('country');
+    if (fromUrl && COUNTRY_CONFIG[fromUrl]) {
+      selectedCountry = fromUrl;
+      localStorage.setItem('selectedCountry', fromUrl);
+      return;
+    }
+    const stored = localStorage.getItem('selectedCountry');
+    if (stored && COUNTRY_CONFIG[stored]) {
+      selectedCountry = stored;
+    }
+  } catch (e) {
+    console.log('[core] loadSelectedCountryFromStorage error', e);
+  }
+}
+
+function setExchangeRate(rate) {
+  exchangeRateUsdRub = Number(rate) || 90;
+  try {
+    localStorage.setItem('exchangeRateUsdRub', String(exchangeRateUsdRub));
+  } catch (e) {}
+}
+
+function setByRounding(step, mode) {
+  byRounding.step = Number(step) || 1;
+  byRounding.mode = mode || 'ceil';
+  try {
+    localStorage.setItem('byRounding', JSON.stringify(byRounding));
+  } catch (e) {}
+}
+
+function loadExchangeRateAndRounding() {
+  try {
+    const storedRate = localStorage.getItem('exchangeRateUsdRub');
+    if (storedRate) exchangeRateUsdRub = Number(storedRate);
+    const storedRounding = localStorage.getItem('byRounding');
+    if (storedRounding) byRounding = JSON.parse(storedRounding);
+  } catch (e) {
+    console.log('[core] loadExchangeRateAndRounding error', e);
+  }
+}
+
+// Глобальные экспорты для использования в других модулях
+window.getCountryConfig = getCountryConfig;
+window.getCurrentCountryConfig = getCurrentCountryConfig;
+window.setCountry = setCountry;
+window.convertPrice = convertPrice;
+window.formatPriceForCountry = formatPriceForCountry;
+window.getStorageKey = getStorageKey;
+window.loadSelectedCountryFromStorage = loadSelectedCountryFromStorage;
+window.setExchangeRate = setExchangeRate;
+window.setByRounding = setByRounding;
+window.loadExchangeRateAndRounding = loadExchangeRateAndRounding;
+window.PICKUP_LOCATIONS = PICKUP_LOCATIONS;
+window.COUNTRY_CONFIG = COUNTRY_CONFIG;
+window.getCartCountry = getCartCountry;
+window.setCartCountry = setCartCountry;
+window.loadCartCountry = loadCartCountry;
+
+// Export selectedCountry getter/setter
+Object.defineProperty(window, 'selectedCountry', {
+  get: function() { return selectedCountry; },
+  set: function(val) { selectedCountry = val; },
+  configurable: true
+});
+
+let isAddingToCart = false;
+let isPlacingOrder = false;
+let isRefreshingProducts = false;
+let isTabChanging = false;
+let placeOrderTimeoutId = null;
+
+// модалка при переключении табов
+let modalWasOpenOnShop = false;
+let modalSavedScrollTop = 0;
+let modalClosedAfterTabReturn = false;
+
+// сохранение состояния формы корзины между рендерами
+let cartFormState = {
+  addressText: '',
+  comment: '',
+  contactName: '',
+  contactPhone: '',
+  savedAddressValue: '',
+  pickupLocationValue: '',
+  contactConfirmed: false,
+  contactEditedManually: false
+};
+
+const root = document.getElementById('root');
+const modal = document.getElementById('productModal');
+
+// ------- СТЕЙТЫ ПРОГРЕВА -------
+
+let globalWarmupState = 'idle';
+
+// Максимум параллельных фоновых загрузок для глобального прогрева
+const GLOBAL_MAX_PARALLEL = 3;
+
+
+let modalState = 'closed';
+
+
+let globalPhaseBeforePause = 'main';
+
+// Очереди для глобального прогрева
+let globalMainQueue = [];   // только main-картинки
+let globalOtherQueue = [];  // остальные (галереи и т.п.)
+let globalMainIndex = 0;
+let globalOtherIndex = 0;
+
+// Очереди для модалки
+let modalAllQueue = [];      // modal-all
+let modalAllIndex = 0;
+let modalProductQueue = [];  // modal-product
+let modalProductIndex = 0;
+
+// флаг выполнения общего цикла загрузки
+let preloadRunning = false;
+
+// чтобы не грузить то, что уже когда-то успешно загружалось
+const preloadedOnce = new Set();
+
+// ---------- УНИВЕРСАЛЬНЫЙ ПРЕЛОАДЕР ОДНОЙ КАРТИНКИ ----------
+
+function preloadOneImage(url) {
+  return new Promise(resolve => {
+    if (!url) return resolve();
+
+    if (preloadedOnce.has(url)) {
+      return resolve();
+    }
+
+    const img = new Image();
+    let done = false;
+
+    img.onload = () => {
+      if (done) return;
+      done = true;
+      preloadedOnce.add(url);
+      resolve();
+    };
+    img.onerror = () => {
+      if (done) return;
+      done = true;
+      resolve();
+    };
+
+    setTimeout(() => {
+      if (done) return;
+      done = true;
+      resolve();
+    }, 8000);
+
+    img.src = url;
+  });
+}
+
+// ---------- ОСНОВНОЙ ЦИКЛ ПРОГРЕВА (СТЕЙТ-МАШИНА) ----------
+
+let globalPreloadStop = false;
+
+async function runPreloadLoop() {
+  if (preloadRunning) return;
+  preloadRunning = true;
+  globalPreloadStop = false;
+
+  try {
+    // фаза main
+    if (globalWarmupState === 'main' && globalMainQueue.length) {
+      await runParallelPreload(
+        globalMainQueue,
+        GLOBAL_MAX_PARALLEL,
+        'main',
+        () => globalPreloadStop || globalWarmupState === 'paused'
+      );
+
+      if (globalPreloadStop) return;
+
+      // ждём если глобалка на паузе (открыта модалка)
+      while (globalWarmupState === 'paused') {
+        await new Promise(r => setTimeout(r, 200));
+        if (globalPreloadStop) return;
+      }
+
+      globalWarmupState = 'other';
+    }
+
+    // ждём снятия паузы если вошли уже в паузе
+    while (globalWarmupState === 'paused') {
+      await new Promise(r => setTimeout(r, 200));
+      if (globalPreloadStop) return;
+    }
+
+    // фаза other
+    if (globalWarmupState === 'other' && globalOtherQueue.length) {
+      await runParallelPreload(
+        globalOtherQueue,
+        GLOBAL_MAX_PARALLEL,
+        'other',
+        () => globalPreloadStop || globalWarmupState === 'paused'
+      );
+
+      if (globalPreloadStop) return;
+
+      // ждём снятия паузы если модалка открылась во время other
+      while (globalWarmupState === 'paused') {
+        await new Promise(r => setTimeout(r, 200));
+        if (globalPreloadStop) return;
+      }
+    }
+
+    globalWarmupState = 'done';
+    // console.log('[global-preload] COMPLETELY DONE');
+
+  } catch (e) {
+    // console.error('[global-preload] fatal error in runPreloadLoop', e);
+  } finally {
+    preloadRunning = false;
+  }
+}
+
+async function runParallelPreload(queue, maxParallel, label, shouldPause) {
+  let index = 0;
+
+  async function worker(workerId) {
+    while (index < queue.length) {
+      // пауза — ждём снятия
+      while (shouldPause()) {
+        await new Promise(r => setTimeout(r, 200));
+      }
+
+      // перепроверяем после паузы — вдруг очередь уже прошли
+      if (index >= queue.length) break;
+
+      const url = queue[index++];
+
+      if (!url) continue;
+
+      console.log(
+        // '[global-preload]', label,
+        // 'worker', workerId,
+        // 'loading', index, '/', queue.length, url
+      );
+
+      try {
+        await preloadOneImage(url);
+      } catch (e) {
+        console.warn(
+        // '[global-preload] error', label, url, e
+      );
+      }
+    }
+  }
+
+  // запускаем maxParallel воркеров одновременно
+  const workers = Array.from(
+    { length: Math.min(maxParallel, queue.length) },
+    (_, i) => worker(i)
+  );
+
+  await Promise.all(workers);
+}
+
+function stopGlobalPreload() {
+  globalPreloadStop = true;
+}
+
+// ---------- ПОДГОТОВКА ОЧЕРЕДЕЙ ДЛЯ ГЛОБАЛЬНОГО ПРОГРЕВА ----------
+
+// функции getMainProductImage и buildPreloadQueues определены в products.js,
+// но глобальные очереди/стейты — здесь, поэтому только обёртки.
+
+function initGlobalWarmupQueues() {
+  if (!productsData || !productsData.length) {
+    globalMainQueue = [];
+    globalOtherQueue = [];
+    globalMainIndex = 0;
+    globalOtherIndex = 0;
+    globalWarmupState = 'idle';
+    return;
+  }
+
+  const queues = buildSeparatedPreloadQueues(productsData);
+  globalMainQueue = queues.mainQueue;
+  globalOtherQueue = queues.otherQueue;
+  globalMainIndex = 0;
+  globalOtherIndex = 0;
+
+  if (globalMainQueue.length || globalOtherQueue.length) {
+    globalWarmupState = 'main';
+  } else {
+    globalWarmupState = 'done';
+  }
+}
+
+function buildShimmerHTML() {
+  return (
+    '<div class="pb-[65px] max-w-md mx-auto">' +
+      '<div class="mb-5">' +
+        // Заголовок / логотип (скелетон)
+        '<div class="h-6 w-32 mb-4 rounded placeholder-shimmer"></div>' +
+        '<div class="flex items-center gap-3">' +
+          '<div class="flex-1 bg-white rounded-2xl px-3 py-2">' +
+            '<div class="h-3 w-20 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+          '</div>' +
+          '<div class="w-44 bg-white rounded-2xl px-3 py-2">' +
+            '<div class="h-3 w-16 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-4 w-full rounded placeholder-shimmer"></div>' +
+          '</div>' +
+        '</div>' +
+        // Статус загрузки
+        '<div id="loadingStatus" class="mt-3 text-xs text-gray-500 text-center leading-snug">' +
+          'Загружаем актуальный каталог…<br>' +
+          'Обычно это занимает до 15 секунд.' +
+        '</div>' +
+      '</div>' +
+      '<div class="product-grid">' +
+        Array.from({ length: 6 }).map(() =>
+          '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
+            '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
+              '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
+            '</div>' +
+            '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+            '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
+          '</div>'
+        ).join('') +
+      '</div>' +
+    '</div>'
+  );
+}
+
+
+// мягкое обновление текста статуса
+function setLoadingStatus(html) {
+  try {
+    const el = document.getElementById('loadingStatus');
+    if (!el) return;
+    el.innerHTML = String(html);
+  } catch (e) {
+    console.log('[core] setLoadingStatus error', e);
+  }
+}
+
+// публичный старт прогрева после загрузки товаров
+function startBackgroundPreload() {
+  try {
+    initGlobalWarmupQueues();
+
+    if (globalWarmupState === 'done') {
+      console.log('[preload] nothing to preload');
+      return;
+    }
+
+    console.log(
+      '[preload] mainQueue =',
+      globalMainQueue.length,
+      'otherQueue =',
+      globalOtherQueue.length
+    );
+
+    if (!preloadRunning) {
+      runPreloadLoop();
+    }
+  } catch (e) {
+    console.error('[preload] startBackgroundPreload error', e);
+  }
+}
+
+// ---------- ХЕЛПЕРЫ ДЛЯ МОДАЛЬНОГО ПРОГРЕВА ----------
+
+// 3. Фиксим startModalWarmupAll() аналогично
+function startModalWarmupAll(urls) {
+  const newUrls = urls.filter(url => !preloadedOnce.has(url));
+  modalAllQueue = Array.from(new Set(newUrls)).filter(Boolean);
+  modalAllIndex = 0;
+  modalProductQueue = []; modalProductIndex = 0;
+  
+  if (modalAllQueue.length > 0) {
+    modalState = 'warmingModal';
+  } else {
+    modalState = 'warmed';  // ✅ УЖЕ ПРОГРЕТО!
+  }
+  console.log('[modal-preload] modalAll state=', modalState);
+}
+
+// 2. Фиксим startModalWarmupProduct()
+function startModalWarmupProduct(urls) {
+  // 🔥 ФИЛЬТРУЕМ ТОЛЬКО НОВЫЕ URL
+  const newUrls = urls.filter(url => !preloadedOnce.has(url));
+  modalProductQueue = Array.from(new Set(newUrls)).filter(Boolean);
+  modalProductIndex = 0;
+  
+  if (modalProductQueue.length > 0) {
+    modalState = 'warmingProduct';
+    console.log('[modal-preload] warmingProduct NEW:', modalProductQueue.length);
+  } else {
+    modalState = 'warmed';  // ✅ УЖЕ ПРОГРЕТО!
+    console.log('[modal-preload] product ALREADY WARMED');
+  }
+}
+
+function isModalWarmupFinished() {
+  // считаем, что модалка прогрета, когда обе очереди пусты/пройдены
+  const allDone =
+    (!modalAllQueue.length || modalAllIndex >= modalAllQueue.length) &&
+    (!modalProductQueue.length || modalProductIndex >= modalProductQueue.length);
+  return allDone;
+}
+
+// этот цикл вызывается из modals.js, когда модалка активна,
+// чтобы приоритетно греть modal-product, затем modal-all
+async function runModalWarmupLoopOnce() {
+  if (modalState === 'closed') {
+    console.log('[modal-preload] ALREADY CLOSED, exit');
+    return;
+  }
+
+  // пауза пока грузятся картинки текущего товара
+  if (modalWarmupPaused) {
+    console.log('[modal-preload] PAUSED, waiting for product images...');
+    return;
+  }
+
+  // убрали warmingProduct — браузер сам грузит через <img src>
+  // сразу идём в modal-all
+
+  if (
+    modalAllQueue.length &&
+    modalAllIndex < modalAllQueue.length
+  ) {
+    const url = modalAllQueue[modalAllIndex++];
+    console.log('[modal-preload] all image', modalAllIndex, '/', modalAllQueue.length, url);
+    try {
+      await preloadOneImage(url);
+    } catch (_) {
+      console.warn('[modal-preload] error loading', url);
+    }
+    return;
+  }
+
+  console.log(
+    '[modal-preload] nothing to preload, modalState =', modalState,
+    'allIndex=', modalAllIndex, '/', modalAllQueue.length
+  );
+}
+
+let modalWarmupRunning = false;
+
+async function runModalWarmupLoop() {
+  if (modalWarmupRunning) return;
+  modalWarmupRunning = true;
+
+  try {
+    while (modalState === 'warmingModal' || modalState === 'warmingProduct') {
+      await runModalWarmupLoopOnce();
+      if (isModalWarmupFinished()) {
+        finishModalWarmupAndResumeGlobal();
+        break;  // ✅ ВЫХОД ПРИ ЗАВЕРШЕНИИ
+      }
+      await new Promise(r => setTimeout(r, 50));
+    }
+  } finally {
+    modalWarmupRunning = false;
+    console.log('[modal-preload] loop COMPLETED');
+    // ✅ НЕ трогаем modalState!
+  }
+}
+
+function finishModalWarmupAndResumeGlobal() {
+  if (!isModalWarmupFinished()) return;
+  
+  modalState = 'warmed';  // ✅ ПРОГРЕТО, НО МОДАЛКА ОТКРЫТА
+  modalAllQueue = []; modalProductQueue = []; 
+  modalAllIndex = 0; modalProductIndex = 0;
+  
+  if (globalWarmupState === 'paused') {
+    globalWarmupState = globalPhaseBeforePause || 'main';
+  }
+  console.log('[modal] → warmed, global resumed');
+}
+
+
+// ---------- Глобальная обработка ошибок ----------
+
+window.onerror = function (message, source, lineno, colno, error) {
+  try {
+    console.error('Global error:', message, source, lineno, colno, error);
+  } catch (_) {}
+
+  try {
+    tg?.showAlert?.(
+      'Произошла ошибка в приложении. Попробуйте обновить Mini App.\nДля заказа через менеджера напишите @TechBex.'
+    );
+  } catch (_) {}
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('global_error', {});
+    }
+  } catch (e) {}
+
+  return true;
+};
+
+// ---------- localStorage (корзина, адреса, профиль) ----------
+
+function saveCartToStorage() {
+  try {
+    const key = getStorageKey('cartItems');
+    console.log('[core] saveCartToStorage key:', key, 'items:', cartItems.length, cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
+    localStorage.setItem(key, JSON.stringify(cartItems));
+  } catch (e) {
+    console.log('[core] saveCartToStorage error', e);
+  }
+}
+
+function loadCartFromStorage() {
+  try {
+    const key = getStorageKey('cartItems');
+    console.log('[core] loadCartFromStorage key:', key);
+    const raw = localStorage.getItem(key);
+    cartItems = raw ? JSON.parse(raw) : [];
+
+    // миграция: старые записи без cartKey восстановить невозможно — дропаем
+    const before = cartItems.length;
+    cartItems = cartItems.filter(item => !!item.cartKey);
+    if (cartItems.length !== before) {
+      console.log('[cart] migration: dropped', before - cartItems.length, 'legacy items without cartKey');
+      saveCartToStorage();
+    }
+  } catch (e) {
+    console.log('[core] loadCartFromStorage error', e);
+    cartItems = [];
+  }
+  console.log('[core] cartItems loaded', cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price, qty: i.quantity})));
+  updateCartBadge();
+}
+
+function saveAddressesToStorage() {
+  try {
+    localStorage.setItem(getStorageKey('addresses'), JSON.stringify(savedAddresses));
+  } catch (e) {
+    console.log('[core] saveAddressesToStorage error', e);
+  }
+}
+
+function loadAddressesFromStorage() {
+  try {
+    const raw = localStorage.getItem(getStorageKey('addresses'));
+    savedAddresses = raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    console.log('[core] loadAddressesFromStorage error', e);
+    savedAddresses = [];
+  }
+  console.log('[core] savedAddresses loaded', savedAddresses);
+}
+
+function saveProfileToStorage() {
+  try {
+    localStorage.setItem(getStorageKey('profile'), JSON.stringify(savedProfile));
+  } catch (e) {
+    console.log('[core] saveProfileToStorage error', e);
+  }
+}
+
+function buildFilterOrderByCat(products) {
+  const map = {};
+
+  products.forEach(p => {
+    const cat = p.cat || 'default';
+    if (!map[cat]) map[cat] = new Set();
+
+    Object.keys(p).forEach(key => {
+      if (EXCLUDE_FILTER_FIELDS.has(key)) return;
+
+      const value = p[key];
+      if (value === undefined || value === null || value === '') return;
+
+      map[cat].add(key);
+    });
+  });
+
+  const result = {};
+  Object.keys(map).forEach(cat => {
+    result[cat] = Array.from(map[cat]);
+  });
+  return result;
+}
+
+const DELIVERY_PREFS_KEY = 'deliveryPrefs_v1';
+
+function getDeliveryPrefsKey() {
+  return `${DELIVERY_PREFS_KEY}_${selectedCountry}`;
+}
+
+let deliveryPrefs = {
+  paymentType: 'cash',
+  pickupMode: false,
+  pickupLocation: '',
+  savedAddressValue: ''
+};
+
+function loadDeliveryPrefs() {
+  try {
+    const raw = localStorage.getItem(getDeliveryPrefsKey());
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return;
+
+    deliveryPrefs.paymentType = parsed.paymentType ?? 'cash';
+    deliveryPrefs.pickupMode = !!parsed.pickupMode;
+    deliveryPrefs.pickupLocation = parsed.pickupLocation || '';
+    deliveryPrefs.savedAddressValue = parsed.savedAddressValue || '';
+
+    paymentType = deliveryPrefs.paymentType;
+    pickupMode = deliveryPrefs.pickupMode;
+
+    const locations = PICKUP_LOCATIONS[selectedCountry] || PICKUP_LOCATIONS.RU;
+    pickupLocation = locations.includes(deliveryPrefs.pickupLocation)
+      ? deliveryPrefs.pickupLocation
+      : '';
+
+    cartFormState.savedAddressValue = deliveryPrefs.savedAddressValue;
+  } catch (e) {
+    console.log('[core] loadDeliveryPrefs error', e);
+  }
+}
+
+function saveDeliveryPrefs() {
+  try {
+    const data = {
+      paymentType,
+      pickupMode,
+      pickupLocation,
+      savedAddressValue: cartFormState.savedAddressValue || ''
+    };
+    localStorage.setItem(getDeliveryPrefsKey(), JSON.stringify(data));
+  } catch (e) {
+    console.log('[core] saveDeliveryPrefs error', e);
+  }
+}
+
+function loadProfileFromStorage() {
+  try {
+    const raw = localStorage.getItem(getStorageKey('profile'));
+    if (!raw) {
+      savedProfile = { name: '', phone: '', confirmed: false };
+      return;
+    }
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object') {
+      savedProfile = {
+        name: parsed.name || '',
+        phone: parsed.phone || '',
+        confirmed: !!parsed.confirmed
+      };
+    }
+  } catch (e) {
+    console.log('[core] loadProfileFromStorage.error', e);
+    savedProfile = { name: '', phone: '', confirmed: false };
+  }
+  console.log('[core] savedProfile loaded', savedProfile);
+}
+
+// заказы всегда только с сервера
+function saveOrdersToStorage() {}
+function loadOrdersFromStorage() {
+  previousOrders = [];
+  console.log('[core] previousOrders reset to []');
+}
+
+// ---------- Запрет зума ----------
+
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+document.addEventListener(
+  'touchstart',
+  e => {
+    if (e.touches.length > 1) e.preventDefault();
+  },
+  { passive: false }
+);
+let lastTouchEnd = 0;
+document.addEventListener(
+  'touchend',
+  e => {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) e.preventDefault();
+    lastTouchEnd = now;
+  },
+  { passive: false }
+);
+
+// ---------- Таббар ----------
+
+function setTabBarDisabled(disabled) {
+  const tabBar = document.getElementById('tabBar');
+  if (!tabBar) return;
+  if (disabled) {
+    tabBar.classList.add('pointer-events-none');
+  } else {
+    tabBar.classList.remove('pointer-events-none');
+  }
+}
+
+function hideTabBar() {
+  if (!isMobileDevice) return;
+  const tabBar = document.getElementById('tabBar');
+  if (!tabBar) return;
+  tabBar.style.opacity = '0';
+  tabBar.style.pointerEvents = 'none';
+}
+
+function showTabBar() {
+  if (!isMobileDevice) return;
+  const tabBar = document.getElementById('tabBar');
+  if (!tabBar) return;
+  tabBar.style.opacity = '1';
+  tabBar.style.pointerEvents = 'auto';
+}
+
+function resetUiAfterOrderSuccessIfCart() {
+  if (currentTab !== 'cart') return;
+
+  try {
+    // Скрыть клавиатуру
+    if (document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
+
+    // Сбросить скролл только на вкладке корзины
+    window.scrollTo(0, 0);
+
+    // Вернуть таббар
+    const tabBar = document.getElementById('tabBar');
+    if (tabBar) {
+      tabBar.style.opacity = '1';
+      tabBar.style.pointerEvents = 'auto';
+      tabBar.classList.remove('pointer-events-none');
+    }
+  } catch (_) {}
+}
+
+function updateTabBarActive() {
+  document
+    .querySelectorAll('#tabBar .tab-item')
+    .forEach(t => t.classList.remove('active'));
+
+  const activeEl = document.querySelector('[data-tab="' + currentTab + '"]');
+  if (activeEl) activeEl.classList.add('active');
+}
+
+function initTabBar() {
+  console.log('[core] initTabBar');
+
+  const tabs = Array.from(document.querySelectorAll('#tabBar .tab-item'));
+
+  function handleTabActivate(tab) {
+    if (isTabChanging) return;
+
+    const tabName = tab.dataset.tab;
+    if (!tabName || tabName === currentTab) return;
+
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    isTabChanging = true;
+    setTabBarDisabled(true);
+
+    switchTab(tabName);
+  }
+
+  tabs.forEach(tab => {
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchMoved = false;
+
+    tab.addEventListener(
+      'touchstart',
+      e => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        touchStartY = t.clientY;
+        touchStartX = t.clientX;
+        touchMoved = false;
+      },
+      { passive: true }
+    );
+
+    tab.addEventListener(
+      'touchmove',
+      e => {
+        if (!e.touches || e.touches.length !== 1) return;
+        const t = e.touches[0];
+        const dy = Math.abs(t.clientY - touchStartY);
+        const dx = Math.abs(t.clientX - touchStartX);
+        if (dy > 20 || dx > 20) {
+          touchMoved = true;
+        }
+      },
+      { passive: true }
+    );
+
+    tab.addEventListener(
+      'touchend',
+      e => {
+        if (touchMoved) return;
+        e.preventDefault();
+        e.stopPropagation();
+        handleTabActivate(tab);
+      },
+      { passive: false }
+    );
+
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      handleTabActivate(tab);
+    });
+  });
+
+  updateTabBarActive();
+}
+
+// ---------- Скролл по табам ----------
+
+const tabScrollTops = {
+  shop: 0,
+  cart: 0,
+  sale: 0,
+  profile: 0,
+  about: 0
+};
+
+function saveCurrentTabScroll() {
+  if (currentTab === 'shop' && modalWasOpenOnShop) {
+    return;
+  }
+
+  const y = window.scrollY || document.documentElement.scrollTop || 0;
+  if (tabScrollTops.hasOwnProperty(currentTab)) {
+    tabScrollTops[currentTab] = y;
+  }
+}
+
+function restoreTabScroll(tabName) {
+  const y = tabScrollTops.hasOwnProperty(tabName) ? tabScrollTops[tabName] : 0;
+  window.scrollTo(0, y > 0 ? y : 0);
+}
+
+// ---------- Переключение табов ----------
+
+function switchTab(tabName) {
+  console.log('[core] switchTab from', currentTab, 'to', tabName);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('tab_click', {});
+    }
+  } catch (e) {}
+
+  if (currentTab === tabName) {
+    isTabChanging = false;
+    setTabBarDisabled(false);
+    return;
+  }
+
+  if (currentTab === 'cart') {
+    try {
+      saveCartFormState();
+    } catch (e) {
+      console.log('[core] saveCartFormState on tab switch error', e);
+    }
+  }
+
+  const prevTab = currentTab;
+  saveCurrentTabScroll();
+
+  if (currentTab === 'shop' && tabName !== 'shop') {
+    if (modal && !modal.classList.contains('hidden')) {
+      const scrollContainer = document.querySelector('#modalContent .flex-1');
+      modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
+      modalWasOpenOnShop = true;
+      modal.classList.add('hidden');
+      console.log(
+        '[modal] hide on tab switch, saved modal scroll =',
+        modalSavedScrollTop
+      );
+    } else {
+      modalWasOpenOnShop = false;
+      modalSavedScrollTop = 0;
+      console.log('[modal] no open modal on leaving shop');
+    }
+  }
+
+  Promise.resolve()
+    .then(() => {
+      if (tabName === 'shop') {
+        if (modalWasOpenOnShop && currentProduct && modal) {
+          console.log(
+            '[modal] return to shop with open modal, restore modal scroll =',
+            modalSavedScrollTop
+          );
+          modal.classList.remove('hidden');
+          const scrollContainer = document.querySelector('#modalContent .flex-1');
+          if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
+        } else {
+          console.log('[modal] return to shop without modal, rerender shop');
+          modalWasOpenOnShop = false;
+          modalSavedScrollTop = 0;
+        
+          if (!productsData) {
+            // товары ещё не загружены — показываем шиммер
+            root.innerHTML = buildShimmerHTML();
+          } else {
+            renderShop();
+            restoreTabScroll('shop');
+          }
+        }        
+      } else if (tabName === 'cart') {
+        try {
+          if (cartItems.length && typeof trackCartView === 'function') {
+            trackCartView(cartItems);
+          }
+        } catch (e2) {}
+        showCartTab();
+        restoreTabScroll('cart');
+      } else if (tabName === 'sale') {
+        showSaleTab();
+        restoreTabScroll('sale');
+      } else if (tabName === 'profile') {
+        showProfileTab();
+        restoreTabScroll('profile');
+      } else if (tabName === 'about') {
+        showAboutTab();
+        restoreTabScroll('about');
+      }
+
+      try {
+        if (typeof trackScreenView === 'function') {
+          trackScreenView(tabName);
+        }
+      } catch (e) {}
+
+      currentTab = tabName;
+      updateTabBarActive();
+    })
+    .catch(err => {
+      console.error('[core] switchTab error', err);
+      currentTab = prevTab;
+      updateTabBarActive();
+    })
+    .finally(() => {
+      isTabChanging = false;
+      setTabBarDisabled(false);
+      showTabBar();
+    });
+}
+
+// ---------- Синхронизация корзины и товаров ----------
+
+function syncCartWithProducts() {
+  if (!productsData) return;
+
+  const productByKey = new Map(
+    productsData.map(p => [buildCartKey(p), p])
+  );
+
+  cartItems = cartItems.map(item => {
+    const product = productByKey.get(item.cartKey);
+
+    if (!product || !product.inStock) {
+      return { ...item, available: false };
+    }
+
+    const freshPrice = Number(product['Цена']);
+    if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
+      return { ...item, available: false };
+    }
+
+    // цена изменилась → помечаем как недоступный с newPrice
+    if (freshPrice !== Number(item.price)) {
+      return {
+        ...item,
+        available: false,
+        newPrice:  freshPrice,
+        name:      product['Название']
+      };
+    }
+
+    // всё ок
+    return {
+      ...item,
+      available: true,
+      newPrice:  undefined,
+      name:      product['Название']
+    };
+  });
+
+  saveCartToStorage();
+  updateCartBadge();
+}
+
+function syncProductsAndCart() {
+  syncCartWithProducts();
+  if (currentTab === 'shop') {
+    renderShop();
+  }
+  if (currentTab === 'cart') {
+    showCartTab();
+  }
+}
+
+// ---------- Метрики ----------
+
+function logStage(label, startTime) {
+  const now = performance.now();
+  const ms = Math.round(now - startTime);
+  console.log(`[perf] ${label}: ${ms} ms`);
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('perf_stage', {
+        label,
+        duration_ms: ms
+      });
+    }
+  } catch (e) {}
+}
+
+// ---------- Загрузка товаров с API ----------
+
+async function fetchAndUpdateProducts(showLoader = false) {
+  const t0 = performance.now();
+  console.log(
+    '[core] fetchAndUpdateProducts start, showLoader =',
+    showLoader,
+    'tab=',
+    currentTab
+  );
+
+  if (showLoader && currentTab === 'shop') {
+    root.innerHTML = buildShimmerHTML();
+  }
+
+  try {
+    const response = await fetch(getApiUrl());
+    logStage('products fetch', t0);
+    console.log('[core] products response status', response.status);
+
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+
+    const products = await response.json();
+    logStage('products json parse', t0);
+    console.log(
+      '[core] products count',
+      Array.isArray(products) ? products.length : 'not array'
+    );
+
+    productsData = Array.isArray(products) ? products : [];
+
+    FILTER_ORDER_BY_CAT = buildFilterOrderByCat(productsData);
+    console.log('[core] FILTER_ORDER_BY_CAT', FILTER_ORDER_BY_CAT);
+
+    const cats = Array.from(
+      new Set(productsData.map(p => p.cat).filter(Boolean))
+    );
+    CATEGORIES = ['Все товары', ...cats];
+    console.log('[core] CATEGORIES', CATEGORIES);
+
+    syncProductsAndCart();
+    logStage('update productsData + sync', t0);
+  } catch (error) {
+    console.error('[core] products API error:', error);
+
+    try {
+      if (typeof trackError === 'function') {
+        trackError('products_api_error', {
+          message: String(error),
+          tab: currentTab
+        });
+      }
+    } catch (e2) {}
+
+    if (currentTab === 'shop') {
+      isRefreshingProducts = false;
+      root.innerHTML =
+        '<div class="flex flex-col items-center justify-center min-h-[70vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
+        '<div class="w-24 h-24 bg-red-50 rounded-3xl flex items-center justify-center mb-4">' +
+        '<svg class="w-12 h-12 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+        ' d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>' +
+        '</svg>' +
+        '</div>' +
+        '<h2 class="text-xl font-bold text-gray-800 mb-2">Не удалось загрузить товары</h2>' +
+        '<p class="text-sm text-gray-500 mb-4 max-w-xs text-center">' +
+        'Проверьте соединение и попробуйте обновить список товаров. Для заказа через менеджера напишите @TechBex.' +
+        '</p>' +
+        '<button onclick="refreshProducts()"' +
+        ' class="flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-2xl shadow-lg text-sm">' +
+        '<span class="loader-circle hidden" id="refreshSpinner"></span>' +
+        '<span id="refreshText">Обновить товары</span>' +
+        '</button>' +
+        '</div>';
+    }
+  }
+}
+
+// ---------- Загрузка изображений с таймаутом ----------
+
+let loadedImageUrls = new Set();
+let failedImageUrls = new Set();
+
+function getPlainSvgPlaceholder() {
+  return (
+    '<div class="placeholder-wrapper bg-gray-100 w-full h-full flex items-center justify-center">' +
+      '<svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+        ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
+        '</svg>' +
+    '</div>'
+  );
+}
+
+function attachImageTimeout(img) {
+  try {
+    const url = img.getAttribute('data-src') || img.src;
+
+    if (loadedImageUrls.has(url) || failedImageUrls.has(url)) {
+      img.style.opacity = '1';
+      const wrapper = img.closest('.image-carousel');
+      const skeleton = wrapper
+        ? wrapper.querySelector('[data-skeleton="image"]')
+        : null;
+      if (skeleton) skeleton.remove();
+      return;
+    }
+
+    if (img.dataset.loadTimeoutAttached === '1') return;
+    img.dataset.loadTimeoutAttached = '1';
+
+    const timeoutId = setTimeout(() => {
+      if (loadedImageUrls.has(url) || failedImageUrls.has(url)) return;
+
+      const wrapper = img.closest('.image-carousel');
+      const skeleton = wrapper
+        ? wrapper.querySelector('[data-skeleton="image"]')
+        : null;
+
+      if (wrapper) {
+        const inner = wrapper.querySelector('.image-carousel-inner');
+        if (inner) {
+          inner.innerHTML = getPlainSvgPlaceholder();
+        }
+      }
+
+      if (skeleton) skeleton.remove();
+
+      delete img.dataset.loadTimeoutAttached;
+      delete img.dataset.loadTimeoutId;
+
+      failedImageUrls.add(url);
+    }, 10000);
+
+    img.dataset.loadTimeoutId = String(timeoutId);
+  } catch (e) {
+    console.log('[images] attachImageTimeout error', e);
+  }
+}
+
+function setupImageTimeoutsForGrid() {
+  document
+    .querySelectorAll('.product-grid img.product-image')
+    .forEach(img => {
+      attachImageTimeout(img);
+    });
+}
+
+window.handleProductImageError = function (img, url) {
+  try {
+    const wrapper = img.closest('.image-carousel');
+    const skeleton = wrapper
+      ? wrapper.querySelector('[data-skeleton="image"]')
+      : null;
+
+    if (wrapper) {
+      const inner = wrapper.querySelector('.image-carousel-inner');
+      if (inner) {
+        inner.innerHTML = getPlainSvgPlaceholder();
+      }
+    }
+
+    if (skeleton) skeleton.remove();
+
+    if (img.dataset.loadTimeoutId) {
+      clearTimeout(Number(img.dataset.loadTimeoutId));
+      delete img.dataset.loadTimeoutId;
+    }
+    delete img.dataset.loadTimeoutAttached;
+
+    failedImageUrls.add(url);
+    preloadedOnce.add(url);
+  } catch (e) {
+    console.log('[images] handleProductImageError error', e);
+  }
+};
+
+window.handleProductImageLoad = function (img, url) {
+  try {
+    const wrapper = img.closest('.image-carousel');
+    const skeleton = wrapper
+      ? wrapper.querySelector('[data-skeleton="image"]')
+      : null;
+
+    const alreadyLoaded = loadedImageUrls.has(url);
+    loadedImageUrls.add(url);
+    failedImageUrls.delete(url);
+    preloadedOnce.add(url);
+
+    if (img.dataset.loadTimeoutId) {
+      clearTimeout(Number(img.dataset.loadTimeoutId));
+      delete img.dataset.loadTimeoutId;
+    }
+    delete img.dataset.loadTimeoutAttached;
+
+    img.classList.remove('fade-in-once', 'no-fade');
+    img.classList.add(alreadyLoaded ? 'no-fade' : 'fade-in-once');
+
+    if (wrapper) {
+      const phWrapper = wrapper.querySelector('.placeholder-wrapper');
+      if (phWrapper) {
+        phWrapper.classList.remove('bg-gray-100');
+        phWrapper.classList.add('bg-white');
+      }
+    }
+
+    if (skeleton) {
+      skeleton.remove();
+    }
+  } catch (e) {
+    console.log('[images] handleProductImageLoad error', e);
+    img.style.opacity = '1';
+  }
+};
+
+// ---------- Обновление товаров вручную ----------
+
+function setRefreshButtonLoading(loading) {
+  const spinner = document.getElementById('refreshSpinner');
+  const text = document.getElementById('refreshText');
+  if (!spinner || !text) return;
+
+  if (loading) {
+    spinner.classList.remove('hidden');
+    text.textContent = 'Обновляем...';
+  } else {
+    spinner.classList.add('hidden');
+    text.textContent = 'Обновить товары';
+  }
+}
+
+window.refreshProducts = async function () {
+  if (isRefreshingProducts) return;
+  isRefreshingProducts = true;
+  console.log('[core] refreshProducts clicked');
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('refresh_products_button_clicked', {});
+    }
+  } catch (e) {}
+
+  // показать лоадер на кнопке, если она сейчас есть в DOM
+  setRefreshButtonLoading(true);
+
+  root.innerHTML =
+    '<div class="pb-[65px] max-w-md mx-auto">' +
+    '<div class="product-grid">' +
+    Array.from({ length: 6 })
+      .map(
+        () =>
+          '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
+          '<div class="h-32 mb-3 rounded-xl placeholder-shimmer"></div>' +
+          '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+          '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+          '<div class="h-3 w-1/3 mb-2 rounded placeholder-shimmer"></div>' +
+          '</div>'
+      )
+      .join('') +
+    '</div>' +
+    '</div>';
+
+  try {
+    await fetchAndUpdateProducts(true);
+  } finally {
+    isRefreshingProducts = false;
+    // на всякий случай выключаем лоадер, если кнопка ещё существует
+    setRefreshButtonLoading(false);
+  }
+};
+
+// ---------- История заказов с backend ----------
+
+async function fetchUserOrders() {
+  try {
+    const userId = tg?.initDataUnsafe?.user?.id;
+    console.log('[orders] fetchUserOrders userId =', userId);
+    if (!userId) return;
+
+    isOrdersLoading = true;
+
+    if (currentTab === 'profile') {
+      if (typeof renderOrdersSection === 'function') {
+        renderOrdersSection();
+      }
+    }
+
+    const url = ORDERS_API_URL + '?userId=' + encodeURIComponent(userId);
+    console.log('[orders] fetch url:', url);
+    const resp = await fetch(url);
+    console.log('[orders] response status', resp.status);
+    if (!resp.ok) return;
+
+    const data = await resp.json();
+    console.log(
+      '[orders] data.ok=',
+      data.ok,
+      'count=',
+      Array.isArray(data.orders) ? data.orders.length : 'no array'
+    );
+    if (!data.ok || !Array.isArray(data.orders)) return;
+
+    previousOrders = data.orders;
+    console.log('[orders] previousOrders updated', previousOrders.length);
+  } catch (e) {
+    console.error('[orders] fetchUserOrders error', e);
+  } finally {
+    isOrdersLoading = false;
+    if (currentTab === 'profile' && typeof renderOrdersSection === 'function') {
+      renderOrdersSection();
+    }
+  }
+}
+
+// ---------- Infinite scroll ----------
+
+const LOAD_STEP = 10;
+let scrollObserver = null;
+
+function setupInfiniteScroll() {
+  if (scrollObserver) {
+    scrollObserver.disconnect();
+    scrollObserver = null;
+  }
+
+  if (query.trim()) {
+    return;
+  }
+
+  const sentinel = document.getElementById('scrollSentinel');
+  if (!sentinel) return;
+
+  const list = getVisibleProducts();
+  if (loadedCount >= list.length) return;
+
+  const grid = document.getElementById('productGrid');
+  if (!grid) return;
+
+  scrollObserver = new IntersectionObserver(
+    entries => {
+      const entry = entries[0];
+      if (!entry.isIntersecting) return;
+
+      const all = getVisibleProducts();
+      if (loadedCount >= all.length) {
+        scrollObserver.disconnect();
+        return;
+      }
+
+      const prevCount = loadedCount;
+      loadedCount = Math.min(loadedCount + LOAD_STEP, all.length);
+
+      const showCount = loadedCount;
+
+      const newSlice = all.slice(prevCount, showCount);
+      grid.insertAdjacentHTML(
+        'beforeend',
+        newSlice.map(productCard).join('')
+      );
+      setupImageCarousels();
+
+      document.querySelectorAll('[data-product-name]').forEach(card => {
+        if (!card.dataset.clickBound) {
+          card.dataset.clickBound = '1';
+          card.onclick = function (e) {
+            if (e.target.closest('button') || e.target.closest('.dot')) {
+              return;
+            }
+            const productName = card.dataset.productName;
+            const product = productsData.find(
+              p => p['Название'] === productName
+            );
+            if (product) {
+              selectedOption = {};
+              selectedQuantity = 1;
+              showModal(product);
+              tg?.HapticFeedback?.impactOccurred('medium');
+            }
+          };
+        }
+      });
+
+      const counterSpan = document.querySelector(
+        '.mt-3.text-xs.text-gray-500 span.font-semibold'
+      );
+      if (counterSpan) {
+        counterSpan.textContent = String(showCount);
+      }
+
+      const sentinelEl = document.getElementById('scrollSentinel');
+      if (sentinelEl) {
+        sentinelEl.innerHTML =
+          showCount < all.length
+            ? '<div class="w-full">' +
+              '<div class="h-4 w-3/4 mx-auto mb-2 rounded placeholder-shimmer"></div>' +
+              '<div class="h-4 w-1/2 mx-auto rounded placeholder-shimmer"></div>' +
+              '</div>'
+            : '';
+      }
+
+      if (loadedCount >= all.length && scrollObserver) {
+        scrollObserver.disconnect();
+      }
+    },
+    {
+      root: null,
+      rootMargin: '0px 0px 200px 0px',
+      threshold: 0
+    }
+  );
+
+  scrollObserver.observe(sentinel);
+}
+
+// ---------- localStorage (кэш картинок) ----------
+
+const IMAGE_CACHE_KEY = 'shopLoadedImages_v1';
+const IMAGE_CACHE_TTL_MS = 24 * 60 * 60 * 1000 * 7;
+let imageCacheMeta = {};
+let loadedImageCacheKeys = new Set();
+
+function loadPersistentImageCache() {
+  try {
+    const raw = localStorage.getItem(IMAGE_CACHE_KEY);
+    if (!raw) {
+      imageCacheMeta = {};
+      loadedImageCacheKeys = new Set();
+      return;
+    }
+
+    const parsed = JSON.parse(raw);
+    const meta = parsed && typeof parsed === 'object' ? parsed : {};
+    const now = Date.now();
+
+    imageCacheMeta = {};
+    loadedImageCacheKeys = new Set();
+
+    Object.keys(meta).forEach(key => {
+      const ts = meta[key];
+      if (typeof ts !== 'number') return;
+      if (now - ts <= IMAGE_CACHE_TTL_MS) {
+        imageCacheMeta[key] = ts;
+        loadedImageCacheKeys.add(key);
+      }
+    });
+  } catch (e) {
+    console.log('[core] loadPersistentImageCache error', e);
+    imageCacheMeta = {};
+    loadedImageCacheKeys = new Set();
+  }
+}
+
+function savePersistentImageCache() {
+  try {
+    localStorage.setItem(IMAGE_CACHE_KEY, JSON.stringify(imageCacheMeta));
+  } catch (e) {
+    console.log('[core] savePersistentImageCache error', e);
+  }
+}
+
+function markImageAsLoaded(cacheKey) {
+  if (!cacheKey) return;
+  const now = Date.now();
+  if (!imageCacheMeta) imageCacheMeta = {};
+  if (!loadedImageCacheKeys) loadedImageCacheKeys = new Set();
+
+  if (!imageCacheMeta[cacheKey]) {
+    imageCacheMeta[cacheKey] = now;
+  }
+
+  loadedImageCacheKeys.add(cacheKey);
+  savePersistentImageCache();
+}
+
+// ---------- Инициализация ----------
+
+async function initApp() {
+  window.scrollTo(0, 0);
+  const t0 = performance.now();
+  let longLoadTimer = null;
+
+  try {
+    console.log('[core] initApp start');
+    console.log('tg object:', window.Telegram?.WebApp);
+    console.log('initData string:', window.Telegram?.WebApp?.initData);
+    console.log(
+      'initDataUnsafe object:',
+      window.Telegram?.WebApp?.initDataUnsafe
+    );
+    console.log(
+      'initDataUnsafe.user:',
+      window.Telegram?.WebApp?.initDataUnsafe?.user
+    );
+
+    initTabBar();
+    logStage('after initTabBar', t0);
+
+    // загружаем страну, курс и настройки округления ДО загрузки localStorage
+    console.log('[core] initApp loading country config');
+    loadSelectedCountryFromStorage();
+    loadExchangeRateAndRounding();
+    console.log('[core] after country config, selectedCountry:', selectedCountry);
+    logStage('after country config', t0);
+
+    if (currentTab === 'shop') {
+      root.innerHTML = buildShimmerHTML();
+
+      // через 7 секунд — доп. подсказка, если всё ещё грузится
+      longLoadTimer = setTimeout(() => {
+        setLoadingStatus(
+          'Загружаем актуальный каталог…<br>' +
+          'Обычно это занимает до 15 секунд.<br>' +
+          '<span class="text-[11px] text-gray-400">' +
+          'Мы подгружаем свежие цены и наличие в реальном времени.' +
+          '</span>'
+        );
+      }, 7000);
+    }
+
+    // локальное состояние
+    console.log('[core] initApp loading localStorage');
+    loadOrdersFromStorage();
+    loadAddressesFromStorage();
+    loadProfileFromStorage();
+    loadCartFromStorage();
+    loadDeliveryPrefs();
+    loadCartCountry();
+    console.log('[core] after localStorage - selectedCountry:', selectedCountry, 'cartCountry:', cartCountry, 'cartItems:', cartItems.length);
+    logStage('after localStorage', t0);
+
+    // валидация сохранённого адреса
+    try {
+      const savedSet = new Set((savedAddresses || []).map(String));
+      if (!savedSet.has(deliveryPrefs.savedAddressValue)) {
+        if (deliveryPrefs.savedAddressValue) {
+          console.log(
+            '[deliveryPrefs] drop invalid savedAddressValue =',
+            deliveryPrefs.savedAddressValue
+          );
+        }
+        deliveryPrefs.savedAddressValue = '';
+        cartFormState.savedAddressValue = '';
+        saveDeliveryPrefs();
+      }
+    } catch (e) {
+      console.log('[deliveryPrefs] validate savedAddressValue error', e);
+    }
+
+    loadPersistentImageCache();
+
+    // шаг 1 — конфиг
+    setLoadingStatus(
+      'Получаем настройки магазина...<br>' +
+      'Обычно загрузка занимает до 10 секунд 😊'
+    );
+    await loadAppConfig();
+    logStage('after load config', t0);
+
+    // шаг 2 — товары
+    setLoadingStatus(
+      'Проверяем свежие цены и наличие...<br>' +
+      'Обычно загрузка занимает до 10 секунд 😊'
+    );
+    await fetchAndUpdateProducts();
+    logStage('after fetchAndUpdateProducts', t0);
+
+    // Load meta BEFORE rendering shop so price status shows immediately
+    await refreshAboutMetaFromBackend();
+
+    // шаг 3 — финализация
+    setLoadingStatus(
+      'Готовим витрину…<br>' +
+      'Обычно загрузка занимает до 10 секунд 😊'
+    );
+
+    fetchUserOrders().catch(e =>
+      console.error('[orders] init fetch error', e)
+    );
+
+    if (currentTab === 'shop') {
+      renderShop();
+    } else if (currentTab === 'cart') {
+      showCartTab();
+    } else if (currentTab === 'sale') {
+      showSaleTab();
+    } else if (currentTab === 'profile') {
+      showProfileTab();
+    } else if (currentTab === 'about') {
+      showAboutTab();
+    }
+
+    // Check if we should open cart tab after country change reload
+    if (sessionStorage.getItem('openCartAfterReload') === 'true') {
+      sessionStorage.removeItem('openCartAfterReload');
+      if (currentTab !== 'cart') {
+        switchTab('cart');
+      } else {
+        showCartTab();
+      }
+    }
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('perf_first_tab_render', {
+          tab: currentTab,
+          duration_ms: Math.round(performance.now() - t0)
+        });
+      }
+    } catch (e) {}
+
+    // после рендера статус можно очистить
+    setLoadingStatus('');
+
+    // прогрев картинок
+    setTimeout(() => {
+      try {
+        startBackgroundPreload();
+      } catch (e) {
+        console.error('[preload] init error', e);
+      }
+    }, 1000);
+    logStage('after initial tab render', t0);
+
+    // авто-обновление товаров
+    setInterval(() => {
+      try {
+        fetchAndUpdateProducts(false).catch(err =>
+          console.error('[core] Auto-refresh error', err)
+        );
+      } catch (e) {
+        console.error('[core] Auto-refresh exception', e);
+      }
+    }, 5 * 60 * 1000);
+  } catch (e) {
+    console.error('[core] Init error:', e);
+    showError(e.message || 'Ошибка инициализации приложения');
+  } finally {
+    if (longLoadTimer) {
+      clearTimeout(longLoadTimer);
+      longLoadTimer = null;
+    }
+  }
+}

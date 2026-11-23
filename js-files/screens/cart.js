@@ -1,1 +1,1451 @@
-const _0x5a356f=_0x218c;(function(_0x3f0b9a,_0x4680c4){const _0x52dc7f=_0x218c,_0x3ed3ca=_0x3f0b9a();while(!![]){try{const _0x241722=parseInt(_0x52dc7f(0x31f))/0x1+parseInt(_0x52dc7f(0x2bd))/0x2*(-parseInt(_0x52dc7f(0x2be))/0x3)+parseInt(_0x52dc7f(0x2d4))/0x4+-parseInt(_0x52dc7f(0x29b))/0x5+parseInt(_0x52dc7f(0x33d))/0x6+parseInt(_0x52dc7f(0x29d))/0x7+-parseInt(_0x52dc7f(0x267))/0x8*(parseInt(_0x52dc7f(0x34f))/0x9);if(_0x241722===_0x4680c4)break;else _0x3ed3ca['push'](_0x3ed3ca['shift']());}catch(_0x187cc1){_0x3ed3ca['push'](_0x3ed3ca['shift']());}}}(_0x1af2,0xa5dcb));let currentOrderId=null,hasCheckoutResultForCurrent=![],lastOrderTotal=0x0;function updateCartBadge(){const _0x1a918a=_0x218c,_0x3d3504=document['getElementById'](_0x1a918a(0x26e));if(!_0x3d3504)return;const _0x33fcf8=cartItems[_0x1a918a(0x223)]((_0x3e1755,_0x431303)=>_0x3e1755+_0x431303[_0x1a918a(0x327)],0x0);_0x33fcf8>0x0?(_0x3d3504[_0x1a918a(0x21f)]=_0x33fcf8,_0x3d3504[_0x1a918a(0x296)][_0x1a918a(0x280)]=_0x1a918a(0x30d)):_0x3d3504['style']['display']=_0x1a918a(0x260),console['log'](_0x1a918a(0x25d),_0x33fcf8);}const CART_KEY_EXCLUDE=new Set(['id',_0x5a356f(0x2c9),_0x5a356f(0x343),_0x5a356f(0x2b1),_0x5a356f(0x258),_0x5a356f(0x270),_0x5a356f(0x2a8),_0x5a356f(0x2a3),_0x5a356f(0x2d1),'images','cat','Категория','sourceSheet',_0x5a356f(0x1e9)]);function buildCartKey(_0x4c9bec){const _0x511db8=_0x5a356f,_0x5c817a=Object['keys'](_0x4c9bec)[_0x511db8(0x1eb)](_0x180b35=>!CART_KEY_EXCLUDE[_0x511db8(0x2f9)](_0x180b35))['sort']()[_0x511db8(0x20e)](_0x5b3cac=>_0x5b3cac+'='+String(_0x4c9bec[_0x5b3cac]??'')['trim']()[_0x511db8(0x30f)]()),_0x3a993a=_0x5c817a['join']('||');let _0x7002d4=0x1505;for(let _0x585599=0x0;_0x585599<_0x3a993a['length'];_0x585599++){_0x7002d4=(_0x7002d4<<0x5)+_0x7002d4^_0x3a993a[_0x511db8(0x226)](_0x585599),_0x7002d4=_0x7002d4>>>0x0;}return _0x511db8(0x334)+_0x7002d4[_0x511db8(0x1fa)](0x24);}function getCartPriceStatusMeta(){const _0x805cc4=_0x5a356f;if(typeof getPriceStatus!==_0x805cc4(0x279))return null;const _0x186db2=getPriceStatus(aboutLastProductsMetaText);if(!_0x186db2||!_0x186db2[_0x805cc4(0x309)])return null;let _0x1a9e15=_0x805cc4(0x272);if(_0x186db2['type']===_0x805cc4(0x2cf))_0x1a9e15=_0x805cc4(0x1f5);else{if(_0x186db2['type']===_0x805cc4(0x213))_0x1a9e15='bg-amber-50\x20text-amber-700\x20border\x20border-amber-200';else _0x186db2[_0x805cc4(0x355)]==='tomorrow'&&(_0x1a9e15=_0x805cc4(0x32d));}return{'text':_0x186db2['text'],'wrapClasses':_0x1a9e15};}function _0x218c(_0x241b0b,_0x3da8f2){_0x241b0b=_0x241b0b-0x1e4;const _0x1af268=_0x1af2();let _0x218c0b=_0x1af268[_0x241b0b];if(_0x218c['CBmWHz']===undefined){var _0x2b961b=function(_0x5bac98){const _0xbeafaa='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x3d3504='',_0x33fcf8='';for(let _0x3e1755=0x0,_0x431303,_0x4c9bec,_0x5c817a=0x0;_0x4c9bec=_0x5bac98['charAt'](_0x5c817a++);~_0x4c9bec&&(_0x431303=_0x3e1755%0x4?_0x431303*0x40+_0x4c9bec:_0x4c9bec,_0x3e1755++%0x4)?_0x3d3504+=String['fromCharCode'](0xff&_0x431303>>(-0x2*_0x3e1755&0x6)):0x0){_0x4c9bec=_0xbeafaa['indexOf'](_0x4c9bec);}for(let _0x3a993a=0x0,_0x7002d4=_0x3d3504['length'];_0x3a993a<_0x7002d4;_0x3a993a++){_0x33fcf8+='%'+('00'+_0x3d3504['charCodeAt'](_0x3a993a)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x33fcf8);};_0x218c['iLlmmd']=_0x2b961b,_0x218c['SdPuqY']={},_0x218c['CBmWHz']=!![];}const _0x548e5f=_0x1af268[0x0],_0x11fe7c=_0x241b0b+_0x548e5f,_0x270cf1=_0x218c['SdPuqY'][_0x11fe7c];return!_0x270cf1?(_0x218c0b=_0x218c['iLlmmd'](_0x218c0b),_0x218c['SdPuqY'][_0x11fe7c]=_0x218c0b):_0x218c0b=_0x270cf1,_0x218c0b;}function captureAppPriceStatusSnapshot(){const _0xf1a870=_0x5a356f,_0x1ad1d2=typeof getPriceStatus===_0xf1a870(0x279)?getPriceStatus(aboutLastProductsMetaText):null;return{'code':_0x1ad1d2?.[_0xf1a870(0x355)]||_0xf1a870(0x2e2),'text':_0x1ad1d2?.['text']||'','capturedAt':new Date()[_0xf1a870(0x2ab)]()};}function buildFactPriceStatus(_0x137ec8,_0x2b6406){const _0x162eea=_0x5a356f;if(_0x137ec8)return{'code':_0x162eea(0x211),'text':_0x162eea(0x1f6),'capturedAt':new Date()[_0x162eea(0x2ab)]()};if(_0x2b6406)return{'code':'changed','text':_0x162eea(0x358),'capturedAt':new Date()[_0x162eea(0x2ab)]()};return{'code':_0x162eea(0x2cf),'text':_0x162eea(0x352),'capturedAt':new Date()[_0x162eea(0x2ab)]()};}function renderCartPriceStatusNote(){const _0x45462e=_0x5a356f,_0x4ed7c6=getCartPriceStatusMeta();if(!_0x4ed7c6)return'';return'<div\x20id=\x22cartPriceStatusNote\x22\x20class=\x22mb-3\x20rounded-xl\x20px-3\x20py-2\x20text-[10px]\x20leading-4\x20font-medium\x20'+_0x4ed7c6[_0x45462e(0x27b)]+'\x22>'+_0x45462e(0x1f4)+escapeHtml(_0x4ed7c6[_0x45462e(0x309)])+_0x45462e(0x333);}function resetCartStateAfterOrder(){const _0x21c8b8=_0x5a356f;cartItems=[],saveCartToStorage(),updateCartBadge(),cartFormState={'addressText':'','comment':'','contactName':'','contactPhone':'','savedAddressValue':deliveryPrefs[_0x21c8b8(0x2aa)]||'','pickupLocationValue':deliveryPrefs[_0x21c8b8(0x303)]||'','contactConfirmed':![],'contactEditedManually':![]},tabScrollTops&&typeof tabScrollTops===_0x21c8b8(0x257)&&(tabScrollTops[_0x21c8b8(0x307)]=0x0);}function addToCart(_0x2d0091,_0x3e2977){const _0x69acdb=_0x5a356f;console['log'](_0x69acdb(0x241),{'variant':_0x2d0091,'quantity':_0x3e2977,'cartItemsLen':cartItems[_0x69acdb(0x2d6)],'selectedCountry':selectedCountry,'cartCountry':window[_0x69acdb(0x282)]?.()});if(!productsData){tg?.[_0x69acdb(0x28f)]?.(_0x69acdb(0x204));return;}const _0x16d803=productsData[_0x69acdb(0x217)](_0x1e7af7=>_0x1e7af7['id']===_0x2d0091['id'])||_0x2d0091,_0x15177f=buildCartKey(_0x16d803);console[_0x69acdb(0x292)]('[cart]\x20addToCart\x20freshVariant:',_0x16d803[_0x69acdb(0x321)],_0x69acdb(0x2d2),_0x16d803[_0x69acdb(0x343)],'cartKey:',_0x15177f,'selectedCountry:',window[_0x69acdb(0x255)],_0x69acdb(0x1fc),window['getCartCountry']?.());const _0x51f2dc=cartItems['find'](_0x4eb79e=>_0x4eb79e[_0x69acdb(0x238)]===_0x15177f);if(_0x51f2dc)_0x51f2dc[_0x69acdb(0x327)]=Math[_0x69acdb(0x2e1)](_0x51f2dc[_0x69acdb(0x327)]+_0x3e2977,0x64),console['log']('[cart]\x20addToCart\x20existing\x20item,\x20new\x20qty:',_0x51f2dc[_0x69acdb(0x327)]);else{const _0x46f17b={'cartKey':_0x15177f,'name':_0x16d803[_0x69acdb(0x321)],'price':_0x16d803['Цена'],'cat':_0x16d803[_0x69acdb(0x20c)]||'','quantity':_0x3e2977,'available':!![],'options':Object[_0x69acdb(0x200)](Object[_0x69acdb(0x313)](_0x16d803)[_0x69acdb(0x1eb)](_0x3792fa=>!CART_KEY_EXCLUDE[_0x69acdb(0x2f9)](_0x3792fa))[_0x69acdb(0x20e)](_0xe05c2e=>[_0xe05c2e,_0x16d803[_0xe05c2e]]))};console['log']('[cart]\x20addToCart\x20new\x20item:',_0x46f17b),cartItems[_0x69acdb(0x2ad)](_0x46f17b);}saveCartToStorage(),updateCartBadge();try{if(typeof trackAddToCart===_0x69acdb(0x279)){const _0x3b1c21=cartItems[_0x69acdb(0x217)](_0x1a12cd=>_0x1a12cd[_0x69acdb(0x238)]===_0x15177f);_0x3b1c21&&trackAddToCart(_0x3b1c21);}}catch(_0x1c3e0c){}tg?.['HapticFeedback']?.[_0x69acdb(0x2a1)]('success'),console[_0x69acdb(0x292)](_0x69acdb(0x247),cartItems[_0x69acdb(0x2d6)]);}window[_0x5a356f(0x319)]=function(_0x14ca72,_0x143968){const _0x418050=_0x5a356f,_0xf989c2=cartItems['find'](_0x1de27d=>_0x1de27d[_0x418050(0x238)]===_0x14ca72);if(!_0xf989c2)return;const _0x57f0d7=_0xf989c2[_0x418050(0x327)];let _0x307775=_0xf989c2['quantity']+_0x143968;if(_0x307775<0x1)_0x307775=0x1;if(_0x307775>0x64)_0x307775=0x64;_0xf989c2[_0x418050(0x327)]=_0x307775,console[_0x418050(0x292)](_0x418050(0x201),_0x14ca72,_0x418050(0x34a),_0x307775);try{typeof trackCartQuantityChange===_0x418050(0x279)&&trackCartQuantityChange(_0xf989c2,_0x307775);}catch(_0x140bff){}saveCartToStorage(),updateCartBadge(),currentTab===_0x418050(0x307)&&showCartTab();},window[_0x5a356f(0x2ae)]=function(_0x53baed){const _0x46330c=_0x5a356f;console['log'](_0x46330c(0x273),_0x53baed);const _0x228304=cartItems[_0x46330c(0x217)](_0x4a455e=>_0x4a455e[_0x46330c(0x238)]===_0x53baed);try{_0x228304&&typeof trackRemoveFromCart===_0x46330c(0x279)&&trackRemoveFromCart(_0x228304);}catch(_0x12e7e6){}cartItems=cartItems['filter'](_0x555475=>_0x555475['cartKey']!==_0x53baed),saveCartToStorage(),updateCartBadge(),currentTab==='cart'&&showCartTab();},window[_0x5a356f(0x202)]=function(_0xa70a03){const _0x1fbc68=_0x5a356f,_0x2202b7=cartItems[_0x1fbc68(0x217)](_0x5cfef5=>_0x5cfef5[_0x1fbc68(0x238)]===_0xa70a03);if(!_0x2202b7||!_0x2202b7[_0x1fbc68(0x269)])return;console['log'](_0x1fbc68(0x1e6),_0xa70a03,_0x1fbc68(0x28b),_0x2202b7['price'],_0x1fbc68(0x2c0),_0x2202b7['newPrice']);try{typeof trackEvent==='function'&&trackEvent(_0x1fbc68(0x268),{'product_name':_0x2202b7[_0x1fbc68(0x22a)]||'','cart_key':_0x2202b7['cartKey']||''});}catch(_0xa0226c){}_0x2202b7[_0x1fbc68(0x1ee)]=_0x2202b7[_0x1fbc68(0x269)],_0x2202b7[_0x1fbc68(0x26a)]=!![],delete _0x2202b7[_0x1fbc68(0x269)],saveCartToStorage(),updateCartBadge();currentTab===_0x1fbc68(0x307)&&showCartTab();const _0xb5c45c=typeof getPriceStatus==='function'?getPriceStatus(aboutLastProductsMetaText):null;let _0xef4d35=_0x1fbc68(0x220);if(_0xb5c45c?.[_0x1fbc68(0x355)]===_0x1fbc68(0x213))_0xef4d35+=_0x1fbc68(0x231);else _0xb5c45c?.['type']==='tomorrow'&&(_0xef4d35+=_0x1fbc68(0x345));tg?.['showAlert']?.(_0xef4d35);},window[_0x5a356f(0x30c)]=async function(){const _0x5416f0=_0x5a356f;console[_0x5416f0(0x292)](_0x5416f0(0x2f0),{'cartItemsLen':cartItems[_0x5416f0(0x2d6)],'cartItems':cartItems['map'](_0x21b3ec=>({'key':_0x21b3ec[_0x5416f0(0x238)],'name':_0x21b3ec[_0x5416f0(0x22a)],'price':_0x21b3ec[_0x5416f0(0x1ee)]})),'selectedCountry':window['selectedCountry'],'cartCountry':window[_0x5416f0(0x282)]?.()});try{typeof trackEvent==='function'&&trackEvent(_0x5416f0(0x21b),{'items_count':cartItems['length']});}catch(_0x4106e8){}const _0x242a61=document[_0x5416f0(0x29a)](_0x5416f0(0x317)),_0x1e2c3d=document['getElementById'](_0x5416f0(0x212));_0x242a61&&(_0x242a61['disabled']=!![],_0x242a61[_0x5416f0(0x357)]['add'](_0x5416f0(0x244),_0x5416f0(0x305)));_0x1e2c3d&&_0x1e2c3d[_0x5416f0(0x357)][_0x5416f0(0x2e3)](_0x5416f0(0x2c8));try{try{await fetchAndUpdateProducts(![]);}catch(_0x3f5397){console[_0x5416f0(0x27f)](_0x5416f0(0x23d),_0x3f5397);}try{typeof refreshAboutMetaFromBackend===_0x5416f0(0x279)&&await refreshAboutMetaFromBackend();}catch(_0x578e14){console['error'](_0x5416f0(0x264),_0x578e14);}if(!productsData){tg?.['showAlert']?.(_0x5416f0(0x204));return;}let _0x59d770=0x0,_0x15d171=0x0;const _0x1a8b3=[],_0x53b05d=[],_0x8c6280=new Map(productsData['filter'](_0x5bf23c=>_0x5bf23c['inStock'])[_0x5416f0(0x20e)](_0x21e294=>[buildCartKey(_0x21e294),_0x21e294]));console['log']('[cart]\x20refreshCartPricesAndCleanup\x20productByKey\x20size:',_0x8c6280['size'],_0x5416f0(0x249),cartItems[_0x5416f0(0x2d6)]),cartItems=cartItems[_0x5416f0(0x20e)](_0x1cc65f=>{const _0x151f8c=_0x5416f0;console[_0x151f8c(0x292)](_0x151f8c(0x2c1),_0x1cc65f[_0x151f8c(0x238)],_0x151f8c(0x2d2),_0x1cc65f[_0x151f8c(0x1ee)]);const _0x516235=_0x8c6280[_0x151f8c(0x2a0)](_0x1cc65f[_0x151f8c(0x238)]);if(!_0x516235)return _0x59d770++,_0x1a8b3['push']({..._0x1cc65f}),{..._0x1cc65f,'available':![],'deleted':!![]};const _0x1c9a03=Number(_0x516235[_0x151f8c(0x343)]),_0x5d6cc8=Number(_0x1cc65f[_0x151f8c(0x1ee)]);if(!Number['isFinite'](_0x1c9a03)||_0x1c9a03<=0x0)return _0x59d770++,_0x1a8b3[_0x151f8c(0x2ad)]({..._0x1cc65f}),{..._0x1cc65f,'available':![],'deleted':!![]};if(_0x1c9a03!==_0x5d6cc8)return _0x15d171++,_0x53b05d['push']({..._0x1cc65f,'newPrice':_0x1c9a03}),{..._0x1cc65f,'available':![],'newPrice':_0x1c9a03,'deleted':![]};return{..._0x1cc65f,'available':!![],'newPrice':undefined,'deleted':![]};}),cartItems=cartItems[_0x5416f0(0x1eb)](_0x3c1605=>!_0x3c1605[_0x5416f0(0x308)]),console[_0x5416f0(0x292)]('[cart]\x20refreshCartPricesAndCleanup\x20removed=',_0x59d770,_0x5416f0(0x259),_0x15d171),saveCartToStorage(),updateCartBadge();if(!_0x59d770&&!_0x15d171){if(!isPlacingOrder){const _0x3308dc=typeof getPriceStatus==='function'?getPriceStatus(aboutLastProductsMetaText):null;let _0xd2c9d6=_0x5416f0(0x29c);if(_0x3308dc?.[_0x5416f0(0x355)]===_0x5416f0(0x2cf))_0xd2c9d6+=_0x5416f0(0x32f);else{if(_0x3308dc?.['type']===_0x5416f0(0x213))_0xd2c9d6+=_0x5416f0(0x2bc);else _0x3308dc?.[_0x5416f0(0x355)]===_0x5416f0(0x29e)&&(_0xd2c9d6+='\x0a\x0aЦены\x20сейчас\x20неактуальны\x20и\x20могут\x20быть\x20пересмотрены\x20при\x20обработке\x20заказа.');}tg?.[_0x5416f0(0x28f)]?.(_0xd2c9d6);}return;}let _0x15f214=[];_0x1a8b3[_0x5416f0(0x2d6)]&&(_0x15f214[_0x5416f0(0x2ad)](_0x5416f0(0x2ee)),_0x1a8b3['forEach'](_0x45301e=>{const _0x1220ed=_0x5416f0,_0x14e13c=getCartItemSubtitle(_0x45301e);_0x15f214['push']('-\x20'+_0x45301e[_0x1220ed(0x22a)]+(_0x14e13c?'\x20('+_0x14e13c+')':'')+_0x1220ed(0x251)+formatPrice(_0x45301e[_0x1220ed(0x1ee)]));}));if(_0x53b05d[_0x5416f0(0x2d6)]){if(_0x15f214[_0x5416f0(0x2d6)])_0x15f214['push']('');_0x15f214[_0x5416f0(0x2ad)](_0x5416f0(0x34e)),_0x53b05d['forEach'](_0x545032=>{const _0x1bdf09=_0x5416f0,_0x5c7d70=getCartItemSubtitle(_0x545032);_0x15f214[_0x1bdf09(0x2ad)]('-\x20'+_0x545032[_0x1bdf09(0x22a)]+(_0x5c7d70?'\x20('+_0x5c7d70+')':'')+':\x20RUB\x20'+formatPrice(_0x545032[_0x1bdf09(0x1ee)])+_0x1bdf09(0x306)+formatPrice(_0x545032[_0x1bdf09(0x269)]));}),_0x15f214['push'](''),_0x15f214[_0x5416f0(0x2ad)](_0x5416f0(0x27e));}tg?.[_0x5416f0(0x28f)]?.(_0x15f214[_0x5416f0(0x245)]('\x0a'));}finally{_0x242a61&&(_0x242a61['disabled']=![],_0x242a61[_0x5416f0(0x357)][_0x5416f0(0x2e3)](_0x5416f0(0x244),_0x5416f0(0x305))),_0x1e2c3d&&_0x1e2c3d['classList'][_0x5416f0(0x236)](_0x5416f0(0x2c8)),currentTab===_0x5416f0(0x307)&&showCartTab();}};function saveCartFormState(){const _0xabb8cc=_0x5a356f,_0x49033f=document['getElementById']('deliveryAddress'),_0x451deb=document[_0xabb8cc(0x29a)](_0xabb8cc(0x349)),_0xfa6de=document[_0xabb8cc(0x29a)](_0xabb8cc(0x302)),_0x1f6cf2=document['getElementById']('contactPhone'),_0x1f7f74=document[_0xabb8cc(0x29a)]('savedAddress'),_0x33de8d=document['getElementById'](_0xabb8cc(0x303)),_0x7dc6db=document[_0xabb8cc(0x29a)](_0xabb8cc(0x322));cartFormState['addressText']=_0x49033f?_0x49033f[_0xabb8cc(0x230)]:cartFormState[_0xabb8cc(0x1ed)],cartFormState['comment']=_0x451deb?_0x451deb[_0xabb8cc(0x230)]:cartFormState[_0xabb8cc(0x316)],cartFormState[_0xabb8cc(0x302)]=_0xfa6de?_0xfa6de[_0xabb8cc(0x230)]:cartFormState[_0xabb8cc(0x302)],cartFormState[_0xabb8cc(0x339)]=_0x1f6cf2?_0x1f6cf2[_0xabb8cc(0x230)]:cartFormState[_0xabb8cc(0x339)],cartFormState['savedAddressValue']=_0x1f7f74?_0x1f7f74[_0xabb8cc(0x230)]:cartFormState[_0xabb8cc(0x2aa)],cartFormState['pickupLocationValue']=_0x33de8d?_0x33de8d[_0xabb8cc(0x230)]:cartFormState[_0xabb8cc(0x293)],cartFormState[_0xabb8cc(0x322)]=_0x7dc6db?_0x7dc6db[_0xabb8cc(0x2ea)]:cartFormState[_0xabb8cc(0x322)],console[_0xabb8cc(0x292)](_0xabb8cc(0x329),cartFormState);}function restoreCartFormState(){const _0x3f62a2=_0x5a356f,_0x4cf652=document[_0x3f62a2(0x29a)](_0x3f62a2(0x25f)),_0x289b89=document['getElementById'](_0x3f62a2(0x349)),_0x42ae84=document[_0x3f62a2(0x29a)](_0x3f62a2(0x302)),_0x57e627=document[_0x3f62a2(0x29a)](_0x3f62a2(0x339)),_0x55d204=document[_0x3f62a2(0x29a)](_0x3f62a2(0x28d)),_0x19f753=document['getElementById'](_0x3f62a2(0x303)),_0x37e322=document[_0x3f62a2(0x29a)](_0x3f62a2(0x322));_0x4cf652&&(_0x4cf652[_0x3f62a2(0x230)]=cartFormState[_0x3f62a2(0x1ed)]||'');_0x289b89&&(_0x289b89[_0x3f62a2(0x230)]=cartFormState['comment']||'');_0x42ae84&&(_0x42ae84[_0x3f62a2(0x230)]=cartFormState['contactName']||'');if(_0x57e627){const _0x51288a=cartFormState[_0x3f62a2(0x339)]||'';_0x57e627[_0x3f62a2(0x230)]=formatPhoneValue(_0x51288a,cartCountry);}if(_0x55d204){const _0x522121=Array[_0x3f62a2(0x2f6)](_0x55d204['options'])[_0x3f62a2(0x20e)](_0x484fc0=>_0x484fc0['value']),_0x2b219e=cartFormState[_0x3f62a2(0x2aa)]||'';_0x55d204['value']=_0x522121[_0x3f62a2(0x33e)](_0x2b219e)?_0x2b219e:'';}_0x19f753&&(_0x19f753[_0x3f62a2(0x230)]=cartFormState[_0x3f62a2(0x293)]||''),_0x37e322&&(_0x37e322[_0x3f62a2(0x2ea)]=!!cartFormState[_0x3f62a2(0x322)]),console[_0x3f62a2(0x292)](_0x3f62a2(0x277));}window[_0x5a356f(0x263)]=function(_0x524bc4){const _0x43cf92=_0x5a356f;paymentType=_0x524bc4,console['log'](_0x43cf92(0x242),_0x524bc4);try{typeof trackEvent===_0x43cf92(0x279)&&trackEvent(_0x43cf92(0x263),{});}catch(_0x3b5a5a){}saveDeliveryPrefs(),currentTab===_0x43cf92(0x307)&&showCartTab();},window['setPickupMode']=function(_0x1686a6){const _0x3dbacc=_0x5a356f;pickupMode=!!_0x1686a6,console['log']('[cart]\x20setPickupMode',pickupMode);try{typeof trackEvent===_0x3dbacc(0x279)&&trackEvent(_0x3dbacc(0x228),{});}catch(_0x2a8166){}saveDeliveryPrefs(),currentTab===_0x3dbacc(0x307)&&showCartTab();},window[_0x5a356f(0x21e)]=function(_0x20c677){const _0x5a1b71=_0x5a356f;pickupLocation=_0x20c677,console[_0x5a1b71(0x292)](_0x5a1b71(0x221),pickupLocation);try{typeof trackEvent==='function'&&trackEvent('setPickupLocation',{});}catch(_0x4f5df2){}saveDeliveryPrefs();},window[_0x5a356f(0x351)]=function(_0x1e4aee){const _0x1c4488=_0x5a356f;console[_0x1c4488(0x292)](_0x1c4488(0x2b0),{'country':_0x1e4aee,'currentCartCountry':window['getCartCountry']?.(),'currentSelectedCountry':window['selectedCountry'],'currentTab':window['currentTab']});if(window[_0x1c4488(0x282)]&&window['getCartCountry']()===_0x1e4aee){console[_0x1c4488(0x292)]('[setCartCountryAndRefresh]\x20same\x20country,\x20skipping\x20reload');return;}if(window[_0x1c4488(0x323)]&&window['setCartCountry'](_0x1e4aee)){console['log'](_0x1c4488(0x25a),window[_0x1c4488(0x282)]?.());if(window[_0x1c4488(0x28c)])window[_0x1c4488(0x28c)](_0x1e4aee);sessionStorage[_0x1c4488(0x28e)](_0x1c4488(0x20b),_0x1c4488(0x2e4)),console['log'](_0x1c4488(0x203));const _0x294d58=new URL(window['location'][_0x1c4488(0x1ec)]);_0x294d58['searchParams'][_0x1c4488(0x2cc)]('country',_0x1e4aee),document[_0x1c4488(0x325)]['style'][_0x1c4488(0x348)]=_0x1c4488(0x2da);const _0x2fed15=document[_0x1c4488(0x32c)](_0x1c4488(0x288));_0x2fed15['id']=_0x1c4488(0x2d3),_0x2fed15[_0x1c4488(0x296)][_0x1c4488(0x34c)]='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:16px;color:#0284c7;',_0x2fed15['textContent']=_0x1c4488(0x24b),document[_0x1c4488(0x325)][_0x1c4488(0x2dd)](_0x2fed15),console[_0x1c4488(0x292)]('[setCartCountryAndRefresh]\x20reloading\x20page\x20with\x20country:',_0x1e4aee),window['location'][_0x1c4488(0x1ec)]=_0x294d58[_0x1c4488(0x1fa)]();}},window[_0x5a356f(0x276)]=function(){const _0x917e12=_0x5a356f,_0xe5be48=document[_0x917e12(0x29a)]('savedAddress'),_0x4a1a12=document['getElementById'](_0x917e12(0x271));if(!_0xe5be48||!_0x4a1a12)return;if(_0xe5be48[_0x917e12(0x230)]){_0x4a1a12[_0x917e12(0x296)][_0x917e12(0x280)]=_0x917e12(0x1f7);const _0x183543=document[_0x917e12(0x29a)](_0x917e12(0x25f));_0x183543&&(_0x183543[_0x917e12(0x230)]=_0xe5be48[_0x917e12(0x230)],_0x183543['readOnly']=!![]);}else{_0x4a1a12[_0x917e12(0x296)][_0x917e12(0x280)]=_0x917e12(0x1f7);const _0x57e5f8=document[_0x917e12(0x29a)](_0x917e12(0x25f));_0x57e5f8&&(_0x57e5f8[_0x917e12(0x229)]=![],_0x57e5f8[_0x917e12(0x230)]=cartFormState[_0x917e12(0x1ed)]||'');}cartFormState['savedAddressValue']=_0xe5be48[_0x917e12(0x230)]||'',saveDeliveryPrefs(),console['log'](_0x917e12(0x284),_0xe5be48[_0x917e12(0x230)]);};function formatPhoneInput(_0x4d3110,_0x192abe){const _0x268c20=_0x5a356f;let _0x1f21a7=_0x4d3110[_0x268c20(0x230)][_0x268c20(0x2b2)](/\D/g,'');if(_0x192abe==='BY'){!_0x1f21a7[_0x268c20(0x2ce)](_0x268c20(0x29f))&&(_0x1f21a7=_0x268c20(0x29f)+_0x1f21a7[_0x268c20(0x2b2)](/^375/,''));if(_0x1f21a7[_0x268c20(0x2d6)]>0xc)_0x1f21a7=_0x1f21a7[_0x268c20(0x2eb)](0x0,0xc);let _0x3aac9f=_0x268c20(0x336);if(_0x1f21a7[_0x268c20(0x2d6)]>0x3){_0x3aac9f+='\x20('+_0x1f21a7['slice'](0x3,0x5);if(_0x1f21a7['length']>=0x5)_0x3aac9f+=')\x20'+_0x1f21a7[_0x268c20(0x2eb)](0x5,0x8);if(_0x1f21a7[_0x268c20(0x2d6)]>=0x8)_0x3aac9f+='-'+_0x1f21a7['slice'](0x8,0xa);if(_0x1f21a7[_0x268c20(0x2d6)]>=0xa)_0x3aac9f+='-'+_0x1f21a7[_0x268c20(0x2eb)](0xa,0xc);}_0x4d3110[_0x268c20(0x230)]=_0x3aac9f;}else{!_0x1f21a7[_0x268c20(0x2ce)]('7')&&(_0x1f21a7='7'+_0x1f21a7[_0x268c20(0x2b2)](/^7/,''));if(_0x1f21a7['length']>0xb)_0x1f21a7=_0x1f21a7['slice'](0x0,0xb);let _0x4cc470='+7';if(_0x1f21a7['length']>0x1){_0x4cc470+='\x20('+_0x1f21a7[_0x268c20(0x2eb)](0x1,0x4);if(_0x1f21a7[_0x268c20(0x2d6)]>=0x4)_0x4cc470+=')\x20'+_0x1f21a7[_0x268c20(0x2eb)](0x4,0x7);if(_0x1f21a7[_0x268c20(0x2d6)]>=0x7)_0x4cc470+='-'+_0x1f21a7[_0x268c20(0x2eb)](0x7,0x9);if(_0x1f21a7[_0x268c20(0x2d6)]>=0x9)_0x4cc470+='-'+_0x1f21a7['slice'](0x9,0xb);}_0x4d3110[_0x268c20(0x230)]=_0x4cc470;}}function formatPhoneValue(_0x3d6cee,_0x2e1e99){const _0x2043e0=_0x5a356f,_0xe08a6a={'value':_0x3d6cee};return formatPhoneInput(_0xe08a6a,_0x2e1e99),_0xe08a6a[_0x2043e0(0x230)];}function getCartItemSubtitle(_0x36a0a1){const _0x2b9796=_0x5a356f;if(!_0x36a0a1[_0x2b9796(0x23e)]||typeof _0x36a0a1[_0x2b9796(0x23e)]!==_0x2b9796(0x257))return'';return Object[_0x2b9796(0x297)](_0x36a0a1[_0x2b9796(0x23e)])[_0x2b9796(0x1eb)](_0x4bc236=>_0x4bc236!==undefined&&_0x4bc236!==null&&String(_0x4bc236)[_0x2b9796(0x1fd)]()!=='')['join']('\x20|\x20');}function showCartTab(){const _0x5656f3=_0x5a356f;console[_0x5656f3(0x292)](_0x5656f3(0x24d),cartItems['length'],_0x5656f3(0x2b8),isPlacingOrder),saveCartFormState();if(!cartItems['length']){root['innerHTML']=_0x5656f3(0x2c5)+_0x5656f3(0x22e)+_0x5656f3(0x291)+'<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20stroke-width=\x222\x22'+_0x5656f3(0x2f2)+_0x5656f3(0x2af)+_0x5656f3(0x318)+_0x5656f3(0x344)+_0x5656f3(0x333)+_0x5656f3(0x1ea)+'<p\x20class=\x22text-lg\x20text-gray-600\x20mb-8\x20max-w-xs\x22>'+_0x5656f3(0x32b)+_0x5656f3(0x2a6)+_0x5656f3(0x2bf)+'\x20class=\x22empty-cta-btn\x20bg-blue-500\x20hover:bg-blue-600\x20text-white\x20font-bold\x20py-3\x20px-8\x20rounded-2xl\x20shadow-lg\x22>'+_0x5656f3(0x225)+_0x5656f3(0x310)+_0x5656f3(0x333);return;}const _0x3f07ef=window['getCartCountry']?window[_0x5656f3(0x282)]():'RU',_0x28d53e=window['getCountryConfig']?window[_0x5656f3(0x265)](_0x3f07ef):{'currency':_0x5656f3(0x25c),'symbol':'₽','flag':_0x5656f3(0x24f),'name':'Россия'},_0x5791a1=_0x28d53e['currency'],_0x42df2b=cartItems[_0x5656f3(0x223)]((_0x5d4513,_0x3689b2)=>_0x5d4513+_0x3689b2[_0x5656f3(0x1ee)]*_0x3689b2[_0x5656f3(0x327)],0x0),_0x2d9438=window['convertPrice']?window[_0x5656f3(0x341)](_0x42df2b,'RU',_0x3f07ef):_0x42df2b,_0xf43907=paymentType==='card'?Math['round'](_0x2d9438*0.15):0x0,_0x1a54d6=_0x2d9438+_0xf43907,_0x326076=formatPrice;root['innerHTML']=_0x5656f3(0x32e)+'<div\x20class=\x22flex\x20items-center\x20justify-between\x20mb-4\x22>'+_0x5656f3(0x2f7)+_0x5656f3(0x232)+_0x5656f3(0x250)+_0x5656f3(0x299)+_0x5656f3(0x275)+_0x5656f3(0x2f8)+'<span\x20class=\x22leading-tight\x22>Актуализировать\x20корзину</span>'+_0x5656f3(0x310)+'</div>'+_0x5656f3(0x2a7)+_0x5656f3(0x2fe)+'<div\x20class=\x22flex\x20gap-2\x22>'+'<label\x20class=\x22flex-1\x20flex\x20items-center\x20justify-center\x20gap-2\x20p-3\x20rounded-xl\x20border-2\x20cursor-pointer\x20'+(_0x3f07ef==='RU'?'border-blue-500\x20bg-blue-50':'border-gray-200')+'\x22'+_0x5656f3(0x248)+_0x5656f3(0x2a5)+(_0x3f07ef==='RU'?_0x5656f3(0x2ea):'')+_0x5656f3(0x326)+'<span\x20class=\x22flex\x20items-center\x20gap-1\x22>'+'<span>🇷🇺</span><span\x20class=\x22font-medium\x20text-sm\x22>Россия</span>'+_0x5656f3(0x1f9)+_0x5656f3(0x254)+'<label\x20class=\x22flex-1\x20flex\x20items-center\x20justify-center\x20gap-2\x20p-3\x20rounded-xl\x20border-2\x20cursor-pointer\x20'+(_0x3f07ef==='BY'?'border-green-500\x20bg-green-50':_0x5656f3(0x2f5))+'\x22'+_0x5656f3(0x346)+_0x5656f3(0x2fa)+(_0x3f07ef==='BY'?'checked':'')+'\x20style=\x22display:none;\x22>'+_0x5656f3(0x23f)+_0x5656f3(0x224)+'</span>'+_0x5656f3(0x254)+_0x5656f3(0x333)+_0x5656f3(0x2e7)+(_0x3f07ef!==(window[_0x5656f3(0x255)]||'RU')?_0x5656f3(0x289):'')+_0x5656f3(0x333)+renderCartPriceStatusNote()+_0x5656f3(0x2ff)+cartItems[_0x5656f3(0x20e)]((_0xa24714,_0x5c592f)=>'<div\x20class=\x22flex\x20items-center\x20justify-between\x20p-3\x20rounded-xl\x20border\x20'+(_0xa24714[_0x5656f3(0x26a)]?_0x5656f3(0x2f5):_0x5656f3(0x222))+'\x22>'+'<div\x20class=\x22text-left\x20flex-1\x20mr-3\x22>'+_0x5656f3(0x330)+escapeHtml(_0xa24714[_0x5656f3(0x22a)])+'</div>'+_0x5656f3(0x253)+escapeHtml(getCartItemSubtitle(_0xa24714))+_0x5656f3(0x333)+_0x5656f3(0x23b)+(_0xa24714[_0x5656f3(0x26a)]?'text-green-600':_0xa24714['newPrice']?_0x5656f3(0x31a):_0x5656f3(0x332))+'\x22>'+(_0xa24714[_0x5656f3(0x26a)]?_0x5656f3(0x24e):_0xa24714[_0x5656f3(0x269)]?_0x5656f3(0x294)+_0x5791a1+'\x20'+_0x326076(window[_0x5656f3(0x341)]?window[_0x5656f3(0x341)](_0xa24714[_0x5656f3(0x1ee)],'RU',_0x3f07ef):_0xa24714['price'])+',\x20новая\x20'+_0x5791a1+'\x20'+_0x326076(window['convertPrice']?window['convertPrice'](_0xa24714[_0x5656f3(0x269)],'RU',_0x3f07ef):_0xa24714[_0x5656f3(0x269)]):_0x5656f3(0x31b))+'</div>'+_0x5656f3(0x333)+'<div\x20class=\x22text-right\x20flex\x20flex-col\x20items-end\x20gap-1\x22>'+'<div\x20class=\x22flex\x20items-center\x20justify-end\x20gap-2\x22>'+_0x5656f3(0x312)+_0x5656f3(0x2de)+_0xa24714[_0x5656f3(0x238)]+_0x5656f3(0x2d0)+_0x5656f3(0x2cd)+_0xa24714[_0x5656f3(0x327)]+'</span>'+_0x5656f3(0x312)+_0x5656f3(0x2de)+_0xa24714[_0x5656f3(0x238)]+'\x27,\x201)\x22>+</button>'+'</div>'+'<div\x20class=\x22text-sm\x20font-bold\x20text-blue-600\x22>'+_0x5791a1+'\x20'+_0x326076(window[_0x5656f3(0x341)]?window[_0x5656f3(0x341)](_0xa24714[_0x5656f3(0x1ee)]*_0xa24714['quantity'],'RU',_0x3f07ef):_0xa24714['price']*_0xa24714['quantity'])+'</div>'+(_0xa24714[_0x5656f3(0x269)]?_0x5656f3(0x206)+_0xa24714[_0x5656f3(0x238)]+'\x27)\x22>Обновить\x20цену</button>':'')+_0x5656f3(0x2f3)+_0xa24714[_0x5656f3(0x238)]+'\x27)\x22>Удалить</button>'+_0x5656f3(0x333)+_0x5656f3(0x333))[_0x5656f3(0x245)]('')+_0x5656f3(0x333)+_0x5656f3(0x2f4)+_0x5656f3(0x33c)+_0x5656f3(0x23a)+_0x5656f3(0x218)+_0x5656f3(0x2c3)+_0x5656f3(0x22d)+(paymentType===_0x5656f3(0x2e5)?_0x5656f3(0x234):'')+_0x5656f3(0x2fc)+_0x5656f3(0x337)+_0x5656f3(0x254)+_0x5656f3(0x2c3)+_0x5656f3(0x356)+(paymentType===_0x5656f3(0x2ac)?_0x5656f3(0x234):'')+_0x5656f3(0x2db)+_0x5656f3(0x205)+_0x5656f3(0x254)+_0x5656f3(0x333)+_0x5656f3(0x333)+_0x5656f3(0x33c)+_0x5656f3(0x30b)+_0x5656f3(0x342)+'<label\x20class=\x22flex\x20items-center\x20gap-2\x20text-sm\x22>'+'<input\x20type=\x22radio\x22\x20name=\x22pickupMode\x22\x20value=\x22delivery\x22'+(!pickupMode?_0x5656f3(0x234):'')+_0x5656f3(0x274)+_0x5656f3(0x2ec)+_0x5656f3(0x254)+_0x5656f3(0x2c3)+'<input\x20type=\x22radio\x22\x20name=\x22pickupMode\x22\x20value=\x22pickup\x22'+(pickupMode?_0x5656f3(0x234):'')+_0x5656f3(0x26f)+'<span>Самовывоз</span>'+_0x5656f3(0x254)+_0x5656f3(0x333)+(!pickupMode?_0x5656f3(0x27a)+_0x5656f3(0x300)+'<option\x20value=\x22\x22>Выбрать\x20сохранённый\x20адрес</option>'+(savedAddresses||[])['map'](_0x339e80=>_0x5656f3(0x243)+escapeHtml(_0x339e80)+'\x22'+(cartFormState[_0x5656f3(0x2aa)]===_0x339e80?_0x5656f3(0x28a):'')+'>'+escapeHtml(_0x339e80)+_0x5656f3(0x214))[_0x5656f3(0x245)]('')+'</select>'+_0x5656f3(0x22c)+(cartFormState[_0x5656f3(0x2aa)]?_0x5656f3(0x20a):'')+'>'+_0x5656f3(0x2bb)+'\x20rows=\x223\x22\x20placeholder=\x22'+(_0x3f07ef==='BY'?_0x5656f3(0x1f8):_0x5656f3(0x301))+_0x5656f3(0x1f1)+_0x5656f3(0x333)+_0x5656f3(0x210)+_0x5656f3(0x20d)+_0x5656f3(0x27d)+_0x5656f3(0x2fd)+_0x5656f3(0x333):_0x5656f3(0x350)+_0x5656f3(0x2d5)+_0x5656f3(0x2b6)+_0x5656f3(0x25e)+(window[_0x5656f3(0x2e6)]&&window[_0x5656f3(0x2e6)][_0x3f07ef]?window[_0x5656f3(0x2e6)][_0x3f07ef]:window['PICKUP_LOCATIONS']||[])[_0x5656f3(0x20e)](_0x1f32ac=>'<option\x20value=\x22'+escapeHtml(_0x1f32ac)+'\x22'+(pickupLocation===_0x1f32ac?_0x5656f3(0x28a):'')+'>'+escapeHtml(_0x1f32ac)+_0x5656f3(0x214))['join']('')+_0x5656f3(0x2cb)+_0x5656f3(0x210)+'<label\x20class=\x22text-sm\x20font-semibold\x20text-gray-700\x20block\x20mb-1\x22>Комментарий\x20к\x20заказу</label>'+'<textarea\x20id=\x22deliveryComment\x22\x20class=\x22w-full\x20bg-white\x20border\x20border-gray-300\x20rounded-xl\x20px-3\x20py-2\x20text-sm\x22'+'\x20rows=\x222\x22\x20placeholder=\x22Например:\x20приеду\x20к\x2019:00\x22></textarea>'+_0x5656f3(0x333))+_0x5656f3(0x333)+_0x5656f3(0x33c)+_0x5656f3(0x2a4)+_0x5656f3(0x290)+_0x5656f3(0x298)+_0x5656f3(0x1fb)+_0x5656f3(0x2ba)+_0x5656f3(0x298)+'\x20placeholder=\x22'+(_0x3f07ef==='BY'?_0x5656f3(0x2c7):_0x5656f3(0x240))+'\x22>'+'<label\x20class=\x22flex\x20items-center\x20gap-2\x20text-xs\x20text-gray-600\x22>'+_0x5656f3(0x2ca)+_0x5656f3(0x328)+_0x5656f3(0x254)+_0x5656f3(0x333)+_0x5656f3(0x239)+_0x5656f3(0x215)+_0x5656f3(0x2c4)+_0x5656f3(0x1fe)+_0x5791a1+'\x20'+_0x326076(_0x2d9438)+'</span>'+_0x5656f3(0x333)+(paymentType==='card'?_0x5656f3(0x215)+'<span>Сервисный\x20сбор\x20(карта)</span>'+_0x5656f3(0x1e7)+_0x5791a1+'\x20'+_0x326076(_0xf43907)+_0x5656f3(0x1f9)+_0x5656f3(0x333):'')+'<div\x20class=\x22flex\x20items-center\x20justify-between\x20font-semibold\x20mt-1\x22>'+_0x5656f3(0x2b9)+_0x5656f3(0x1fe)+_0x5791a1+'\x20'+_0x326076(_0x1a54d6)+'</span>'+'</div>'+_0x5656f3(0x333)+_0x5656f3(0x2d8)+'<button\x20onclick=\x22placeOrder()\x22'+_0x5656f3(0x219)+_0x5656f3(0x26b)+(!cartItems[_0x5656f3(0x33f)](_0x52f73e=>!_0x52f73e['available'])&&!isPlacingOrder?_0x5656f3(0x311):_0x5656f3(0x287))+_0x5656f3(0x26c)+(cartItems[_0x5656f3(0x33f)](_0xf7c97e=>!_0xf7c97e['available'])||isPlacingOrder?'\x20disabled':'')+'>'+(cartItems[_0x5656f3(0x33f)](_0x446417=>!_0x446417[_0x5656f3(0x26a)])?_0x5656f3(0x2e8):isPlacingOrder?_0x5656f3(0x24a):_0x5656f3(0x233))+_0x5656f3(0x310)+_0x5656f3(0x333)+_0x5656f3(0x333)+_0x5656f3(0x333);const _0x187d1e=document[_0x5656f3(0x29a)]('contactName'),_0x9b9d2f=document[_0x5656f3(0x29a)]('contactPhone'),_0x29d93d=document['getElementById'](_0x5656f3(0x322));restoreCartFormState();savedProfile&&savedProfile[_0x5656f3(0x22b)]&&!cartFormState['contactEditedManually']&&(_0x187d1e&&savedProfile[_0x5656f3(0x22a)]&&(_0x187d1e[_0x5656f3(0x230)]=savedProfile[_0x5656f3(0x22a)]),_0x9b9d2f&&savedProfile[_0x5656f3(0x2ef)]&&(_0x9b9d2f[_0x5656f3(0x230)]=savedProfile[_0x5656f3(0x2ef)]));_0x29d93d&&(_0x29d93d['checked']=!!cartFormState[_0x5656f3(0x322)]);_0x9b9d2f&&(_0x9b9d2f['addEventListener'](_0x5656f3(0x335),()=>{const _0x405cc7=_0x5656f3;hideTabBar(),!_0x9b9d2f[_0x405cc7(0x230)][_0x405cc7(0x1fd)]()&&(_0x9b9d2f['value']=_0x3f07ef==='BY'?_0x405cc7(0x286):'+7\x20');}),_0x9b9d2f[_0x5656f3(0x252)](_0x5656f3(0x261),showTabBar),_0x9b9d2f['addEventListener']('input',function(){const _0x52d5df=_0x5656f3;cartFormState[_0x52d5df(0x31d)]=!![],this['value']['length']>(this['_prevLength']||0x0)&&formatPhoneInput(this,_0x3f07ef),this[_0x52d5df(0x2df)]=this[_0x52d5df(0x230)][_0x52d5df(0x2d6)];}));_0x187d1e&&(_0x187d1e[_0x5656f3(0x252)](_0x5656f3(0x335),hideTabBar),_0x187d1e[_0x5656f3(0x252)](_0x5656f3(0x261),showTabBar),_0x187d1e[_0x5656f3(0x252)](_0x5656f3(0x34b),()=>{const _0xf76b74=_0x5656f3;cartFormState[_0xf76b74(0x31d)]=!![];}));['deliveryAddress',_0x5656f3(0x349)][_0x5656f3(0x34d)](_0x18832a=>{const _0x35b95f=_0x5656f3,_0x1dfc55=document['getElementById'](_0x18832a);if(!_0x1dfc55)return;_0x1dfc55[_0x35b95f(0x252)](_0x35b95f(0x335),hideTabBar),_0x1dfc55['addEventListener'](_0x35b95f(0x261),showTabBar);});const _0x3976ab=document[_0x5656f3(0x29a)](_0x5656f3(0x303));_0x3976ab&&(pickupLocation&&PICKUP_LOCATIONS['includes'](pickupLocation)?_0x3976ab[_0x5656f3(0x230)]=pickupLocation:(_0x3976ab[_0x5656f3(0x230)]='',pickupLocation=''),_0x3976ab[_0x5656f3(0x252)]('focus',()=>{}),_0x3976ab[_0x5656f3(0x252)](_0x5656f3(0x261),showTabBar));const _0x39f51e=document[_0x5656f3(0x29a)](_0x5656f3(0x28d));_0x39f51e&&onSavedAddressChange(),currentTab===_0x5656f3(0x307)&&showTabBar();}function _0x1af2(){const _0x5b1a6a=['y3vYC29Y','zgvSAxzLCNLdB21Tzw50','CxvHBNrPDhK9','Aw5WDxq','y3nZvgv4Da','zM9YrwfJAa','8j+sSIdqNTcX0l3qVTcY0lJqU9cW0yhrJcdrHTc10l3qSdO','mty2ndfqAwDitKW','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbIBg9JAYi+0jdqTnga0lxrGsdrGDcW0lZqVTcY0yVqSTc+0lFqSdWVBgfIzwW+','C2v0q2fYDenVDw50CNLbBMrszwzYzxnO','0j/qVTgb0lVqTsdqUTc+0l3rGTga0l7qU9gm0l3qVTc5inc/0ydqVTcY0lxrGnc60lGG0l/qTDga0lxqTcdqVTge0l7rGnc80lVqTDc90lJqTDc8inc30ldqUTcW0lFqScdrHTc10l3rIYdrGDc+0llqV9cW0lVqUc4','zgvSAxzLCNK','w3bSywnLt3jKzxjDigzHAwXLzcb0BYbWDxnOig9YzgvYigLUDg8GChjLDMLVDxnpCMrLCNm','DhLWzq','pgLUChv0ihr5Cgu9iNjHzgLViIbUyw1LpsjWyxLTzw50vhLWzsiGDMfSDwu9iMnHCMqI','y2XHC3nmAxn0','0j/qVTgb0lVqTsdqUTc+0l3rGTga0l7qU9gm0l3qVTc5inc/0ydqVTcY0lxrGnc60lGG0l/qTDga0lxqTcdqVTge0l7rGnc80lVqTDc90lJqTDc8inc30ldqUTcW0lFqScdrHTc10l3rIYdqUnc30lZqTDc90lJqU9c40yhrJc4','AgfZuhjPy2vdAgfUz2vKpq','w3bSywnLt3jKzxjDigjHy2TLBMqGCMvZCg9UzgvKihDPDgGGzxjYB3iGC3rHDhvZoG','w2nHCNrDihvWzgf0zunHCNrjDgvTuhjPy2uGy2fYDeTLEt0','phnWyw4+kW','CgXHy2vpCMrLCG','AxnqCMv2Awv3','pgGYignSyxnZpsj0zxH0ltj4BcbMB250lwjVBgqGDgv4Dc1NCMf5ltGWmcbTyI00iJ7qMTc+0ydqT9c40l3qScdqV9gd0yhrGTcWpc9OmJ4','zMLSDgvY','AhjLzG','ywrKCMvZC1rLEhq','ChjPy2u','Aw5PDerHDgfvBNnHzMu','C3rYAw5NAwz5','iJ48l3rLEhrHCMvHpG','CgfYC2u','BMv0D29YA19LCNjVCG','0khrGTcW0ylrG9gbingg0lxqVtOG','yMCTz3jLzw4TntaGDgv4Dc1NCMvLBI03mdaGyM9YzgvYigjVCMrLCI1NCMvLBI0Ymda','0j/qVTgb0lVqTsdqUTc+0l3rGTga0l7qU9gm0l3qVTc5inc/0ydqVTcY0lxrGnc60lGG0l/qTDga0lxqTcdqVTge0l7rGnc80lVqTDc90lJqTDc8inc30ldqUTcW0lFqScdrH9cW0yhrGTgmingc0l7qSTcW0ydqVTcYinc90lxqTnc+0yhrGTgd0l/qVDcWlG','yMXVy2S','0j3qSnc/0ydqUnc80lxrGdOG0lmUincC0lJqVDgb0lOSinc/0ydqVTgb0l/qTDc60yiG0j3qTDc30ldqSTc40yhqUnc80l7rGDgc0lGGBIWG0l/qVTc00yRqTDc30lqGmsWG0y3rGTcW0lyGmsWG0lRqSIaY','pc9ZCgfUpG','Dg9tDhjPBMC','ihbSywnLAg9SzgvYpslqMnc80y8IpG','y2fYDenVDw50CNK6','DhjPBq','phnWyw4+','w3bSywnLt3jKzxjDig9YzgvYihbHEwXVywq','zNjVBuvUDhjPzxm','w2nHCNrDignOyw5NzunHCNrjDgvTuxvHBNrPDhKGy2fYDeTLEt0','DxbKyxrLq2fYDeL0zw1qCMLJzq','w3nLDenHCNrdB3vUDhj5qw5KuMvMCMvZAf0GC2v0ig9Wzw5dyxj0qwz0zxjszwXVywq9Dhj1zq','0klqVTcY0ldrGnglinc10yNrKsdqVDc1inc30ldqS9ga0ypqTTc10l3rIYWG0l/qVTc/0ydqVTcX0ypqUDgc0luG0l/qVTc30lBqTs4k0jtqU9gpinc30ldqUTcW0lFqScdrH9c10ydqTDc3inc80lxqVDc10ltqTTc10ydqScdqVDcW0l/qUngi0lJrGTc1iebuzwnOqMv4lG','phnWyw4+0jRqSnga0ylqVTc5icGRmtuLktWVC3bHBJ4','pgj1DhrVBIbJBgfZCZ0IDgv4Dc14CYb0zxH0lwjSDwuTntaWiIbVBMnSAwnRpsj1CgrHDgvdyxj0sxrLBvbYAwnLkcC','w3bSywnLt3jKzxjDihjLzNjLC2GGyMvMB3jLig9YzgvYigzHAwXLza','BMvLzf9MAwXSx3bPy2T1Ca','4PYfincx0ldqUTcW0lCG0l7rHnc+0ydqVnc70lxqVsek','ihn0EwXLpsjKAxnWBgf5oM5VBMuI','B3bLBKnHCNrbzNrLCLjLBg9Hza','y2f0','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbIBg9JAYbTyI0XiJ7qMTc+0lZqVnc10l3rGTcW0ydqUnc5inc6inc00l7rGDgc0ldqSTc60lu8l2XHyMvSpG','BwfW','0jFqSnc/0l7qU9c90lJrGTc1inc40lZrJYdqUcdrGTc10lVqTDge0l7qVsdqUcdqV9c+0ltrGTcY0lxrGnc00lJrGTc1inc00ldqVDc90yVqTq','pgrPDIbJBgfZCZ0IBxqTmsi+','Dw5HDMfPBgfIBgu','CMvMCMvZAenHCNrmB2fKzxi','CgvUzgLUzW','pc9VChrPB24+','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Izxr3zwvUiJ4','cTcs0ldqTTc90l46ingg0lxqVDglincYinc80ldqS9cW0lFqUnc90luG0yhqTDc50yFqSngbinc90lxqSnc60ylrG9cW0lVrJnc90ySSinc/0l7rJDgc0l7qVngdinc40ylqVTcZ0l7qSTcW0y8G0yhrG9c80lZqScdqT9cW0lRqSnc30laG0lZqVTc20lxrGIdqSDgl0ylrJcdqV9c10ydqTDgb0lZqVTgc0ydqTDc90laG0l/rGnc4inc/0l7qTngc0llqTDga0lBqTnc10l3qUnc4lG','zMLUza','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbNyxaTmIi+','igLKpsjWBgfJzu9YzgvYqNv0Dg9UiG','w3bSywnLt3jKzxjDiejbq0TftKrFt1jervjFvvjmigjVzhK6','y2fYDf9YzwzYzxnOx2nSAwnRzwq','BMvLzf90ExbLx3bOB25L','AxrLBxm9','C2v0ugLJA3vWtg9JyxrPB24','Dgv4DenVBNrLBNq','0kBqTDc90laG0ltqU9gpincY0yVqSDga0ldqVDc90l7qS9c+ingc0l7qSTcW0ydqScdqVTcX0l3qVTcY0lVqTDc90laU','w2nHCNrDihnLDfbPy2T1CeXVy2f0Aw9U','yM9YzgvYlw9Yyw5Nzs0ZmdaGyMCTB3jHBMDLltuW','CMvKDwnL','phnWyw4+8j+hP/cFH748l3nWyw4+phnWyw4Gy2XHC3m9iMzVBNqTBwvKAxvTihrLEhqTC20IpTcr0lxqU9cW0ydrG9gb0yW8l3nWyw4+','0jiG0lZqSncZ0ldqT9c40l0','y2HHCKnVzgvbDa','cTcs0ldqTTc90l46ingg0lxqVDglincYinc80ldqS9cW0lFqUnc90luG0lBqTngd0yiG0l7qSDc90l7qSTc70lxqVDc40y8G0yhqTDcZ0l7qTnc90y8Sinc/0l7rJDgc0l7qVngdinc40ylqVTcZ0l7qSTcW0y8G0yhrG9c80lZqScdqT9cW0lRqSnc30laG0lZqVTc20lxrGIdqSDgl0ylrJcdqV9c10ydqTDgb0lZqVTgc0ydqTDc90laG0l/rGnc4inc/0l7qTngc0llqTDga0lBqTnc10l3qUnc4lG','C2v0ugLJA3vWtw9Kzq','CMvHze9UBhK','BMfTzq','y29UzMLYBwvK','pgrPDIbPzd0IzgvSAxzLCNLbzgrYzxnZv3jHChbLCIiGy2XHC3m9iM1IltiI','pgLUChv0ihr5Cgu9iNjHzgLViIbUyw1LpsjWyxLTzw50vhLWzsiGDMfSDwu9iMnHC2GI','pgrPDIbJBgfZCZ0IDY0YncbOlti0igjNlwDYywrPzw50lxrVlwjYigzYB20TyMX1zs0XmdaGDg8TAw5KAwDVlteWmcbYB3vUzgvKltn4BcbMBgv4igL0zw1ZlwnLBNrLCIbQDxn0Awz5lwnLBNrLCIbTyI02iJ4','DgLTzw91Df9JAgvJA291Df9LCNjVCG','DMfSDwu','cTcM0lxqVDglinc/0l4G0lZqSncZ0ldqT9c40l3rGYdqTDgj0zeG0lBqTngd0yiG0l7qSDc90l7qSTc70lxqVDc40y8G0lGG0lZqVTcZ0yprGIdqSDgl0ylrJcdqV9c10ydqTDgb0lZqVTgc0ydqTDc90ySG0l/rGnc4inc+0lhrGncW0lhqVTgc0lRqTsdqT9cW0lRqSnc30laU','pgj1DhrVBIbVBMnSAwnRpsjYzwzYzxnOq2fYDfbYAwnLC0fUzenSzwfUDxaOksi','0j7rHnc+0ydqVnc40ylrJcdqT9cW0lRqSnc3','ignOzwnRzwq','AxngAw5PDgu','ywrK','0jlqSTc10ltqUngc0luG0lRqVTga0ydqTDc60ylqVDc+0luG0lJqVngpicJrGTc+0lVrJnc60l4G0lhrG9c60llrIYWGmEkaKZuWingb0lJqVncY0l7qU9c+0liP','y2fYDeTLEq','pgrPDIbJBgfZCZ0IC3bHy2uTEs0XihrLEhqTC20GDgv4Dc1NCMf5ltCWmci+','pgGZignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmci+0khqV9c+0yhqVTcXinc+0l/qU9cW0ylrIZWVAdm+','pgrPDIbJBgfZCZ0IDgv4Dc14CYbTDc0Xia','BM93','w2nHCNrDihjLzNjLC2Hdyxj0uhjPy2vZqw5Kq2XLyw51CcbMzxrJAcbLCNjVCG','B3b0Aw9UCW','phnWyw4Gy2XHC3m9iMzSzxGGAxrLBxmTy2vUDgvYigDHCc0XiJ4','kZCGkfHywcKGwfHylvHylvHy','w2nHCNrDigfKzfrVq2fYDcbtvefsva','w2nHCNrDihnLDfbHEw1LBNruExbL','pg9WDgLVBIb2ywX1zt0I','B3bHy2L0Es04ma','AM9PBG','0jlqSTc10ltqUngc0luG0lRqVTga0ydqTDc60ylqVDgl0lKG0l3qVTc80lxrGcdrGTc10lVqTDge0l7qVDcWincYinge0l7rGnc80ldrGTc1ia','w2nHCNrDigfKzfrVq2fYDcbftKqSignHCNrjDgvTCZO','ig9Uy2XPy2S9iNnLDenHCNrdB3vUDhj5qw5KuMvMCMvZAcGNuLuNksi+','y2fYDeL0zw1ZoG','phnWyw4Gy2XHC3m9iMXVywrLCI1JAxjJBguIpJWVC3bHBJ48C3bHBJ7qN9ga0l7qSTc10ydrJ9goinc90ldqU9c40yFqUnc1icJqTnc+idCWingb0lxqUIKUlI48l3nWyw4+','0j/qTDga0lxqUTc70y7rH9cW0lxqVcdqVncW0lpqSnc30lJqVs4UlG','C2vYDMvYx2vYCM9Y','w2nHCNrDihnOB3Ddyxj0vgfIlcbPDgvTCZ0','0jiG0l3qSnc70lJrH9c40lG','8j+hT/cFH7O','ignSyxnZpsjPBMXPBMuTzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGDgv4Dc1BmtbWEf0GzM9UDc1Zzw1PyM9SzcbWEc0YlJuGAc04ihjVDw5KzwqTzNvSBca','lcdrHTc10l3qScdqSDgl0lVqScbsvuiG','ywrKrxzLBNrmAxn0zw5LCG','pgrPDIbJBgfZCZ0IDgv4Dc14CYb0zxH0lwDYyxKTntaWiJ4','pc9SywjLBd4','C2vSzwn0zwrdB3vUDhj5','0j3qTDc60l7rGTc+0ydrI9c1ingc0l7qSTcW0ydrIYdrGDgc0ldqU9c4inc90lxqTnc+0yhrGTgd0l/qVDgllIdqO9c00ldqU9c40ylqTsdqUngfinc40lCG0lRqVTga0lFqUnc90ySU','B2jQzwn0','0j3qSngg0lxqVDc60la','y2HHBMDLzd0','w3nLDenHCNrdB3vUDhj5qw5KuMvMCMvZAf0GC2v0q2fYDenVDw50CNKGC3vJy2vZCYWGy2fYDenVDw50CNKGBM93oG','CM91BMq','uLvc','w2nHCNrDihvWzgf0zunHCNrcywrNzsbJB3vUDca9','pg9WDgLVBIb2ywX1zt0IiJ7qKTgl0lhqTDga0lJrGTc1inc/0ypqVDc60yiG0yhqSnc80l7qSTgl0llqVTc30la8l29WDgLVBJ4','zgvSAxzLCNLbzgrYzxnZ','BM9Uzq','yMX1CG','w3bSywnLt3jKzxjDignSAwvUDc1ZAwrLihrPBwvVDxqGnZbZ','C2v0ugf5BwvUDfr5Cgu','w2nHCNrDihjLzNjLC2Hdyxj0uhjPy2vZqw5Kq2XLyw51CcbTzxrHigvYCM9Y','z2v0q291BNrYEunVBMzPzW','0jlrGnc10lZrJYdrGncW0lhqVTgc0yS6ideWoJaW4OctmJa6mdaG0jZqODcAlG','ntm4nfrWELH0AW','y2fYDf9PDgvTx3bYAwnLx3vWzgf0zwq','BMv3uhjPy2u','yxzHAwXHyMXL','ignSyxnZpsj3lwz1BgWGzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGz2fWltiG','ihrLEhqTD2HPDguGzM9UDc1Zzw1PyM9SzcbWEs0YlJuGChGTnIbYB3vUzgvKltj4BcbZAgfKB3CTBgCGDgv4Dc1ZBsi','BMvLzf9MAwXSx25HBwvFyw5Kx3bOB25L','y2fYDejHzgDL','ig9Uy2HHBMDLpsjZzxrqAwnRDxbnB2rLkhrYDwuPiJ4','Aw5tDg9JAW','zgvSAxzLCNLbzgrYzxnZv3jHChbLCG','yMCTz3jHEs01mcb0zxH0lwDYyxKTnJaWigjVCMrLCIbIB3jKzxiTz3jHEs0Ymda','w2nHCNrDihjLBw92zunHCNrjDgvTignHCNrlzxK9','ig9Uy2HHBMDLpsjZzxrqAwnRDxbnB2rLkgzHBhnLksi+','igLKpsjYzwzYzxnOq2fYDej1DhrVBIi+','B25tyxzLzefKzhjLC3ndAgfUz2u','w2nHCNrDihjLC3rVCMvdyxj0rM9YBvn0yxrLigfWCgXPzwq','w3bSywnLt3jKzxjDigzLDgnOvxnLCK9YzgvYCYbHzNrLCIb0Aw1LB3v0igvYCM9Y','zNvUy3rPB24','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbIBg9JAYi+0jdqTnga0lxrGsdqTnc+0yhrGTcW0llqUTc4pc9SywjLBd4','D3jHCenSyxnZzxm','w3bSywnLt3jKzxjDihjLC3bVBNnLigLZig5VDcb2ywXPzcbku09o','phrLEhrHCMvHigLKpsjKzwXPDMvYEunVBw1LBNqIignSyxnZpsj3lwz1BgWGyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltmWmcbYB3vUzgvKlxHSihb4ltmGChKTmIb0zxH0lxnTiG','0kmG0y3rGTc40yuG0ylqVTcY0ldrGnc+0liG0l/qVTgp0llqUnc70ldrGDgminc60l3qVTc/0lRqScdcQ9cE0lhqVDc+0llqUngc0yWG0yBqTDc90ypcUYdqSIdqUTc+0ydqT9c40l3qTs4','zxjYB3i','zgLZCgXHEq','w3bSywnLt3jKzxjDigrLBgf5zwqGzMv0y2HvC2vYt3jKzxjZigvYCM9Y','z2v0q2fYDenVDw50CNK','w3bSywnLt3jKzxjDigfKzhjLC3m9','w2nHCNrDig9Uu2f2zwrbzgrYzxnZq2HHBMDLihzHBhvLpq','w3bSywnLt3jKzxjDihnJAgvKDwXLrgvSyxLLze9YzgvYC1n5BMmGCMvHC29Upq','kZm3nsa','yMCTz3jHEs00mdaGy3vYC29Ylw5VDc1HBgXVD2vK','zgL2','phaGy2XHC3m9iNrLEhqTEhmGDgv4Dc1HBwjLCI02mdaIpUkAOcdqODgc0ydqSnc90laG0liG0lRqVTga0lFqUnc90luG0l7rGTc70lJrH9cW0lxrGTgb0y8G0l7rGIdqVncW0lpqSnc30lJqVDcWpc9WpG','ihnLBgvJDgvK','B2XKpq','C2v0q291BNrYEq','C2f2zwrbzgrYzxnZ','C2v0sxrLBq','C2HVD0fSzxj0','pgLUChv0igLKpsjJB250ywn0tMfTzsiGDhLWzt0IDgv4Dci','phn2zYbJBgfZCZ0IDY0XnIbOlte2ihrLEhqTyMX1zs01mdaIigzPBgW9iM5VBMuIihn0CM9Rzt0Iy3vYCMvUDenVBg9YiIb2Awv3qM94psiWidaGmJqGmJqIpG','Bg9N','CgLJA3vWtg9JyxrPB25wywX1zq','0kBqTDc90laG0l7qSDc90l7qSTc40lVqSngb0yW6ingb0ylqSnga0ldrJYa','Aw5Uzxjive1m','C3r5Bgu','DMfSDwvZ','ignSyxnZpsj3lwz1BgWGyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltmWmcbYB3vUzgvKltj4BcbWEc0Zihb5ltiGDgv4Dc1ZBsbTyI0YigzVy3vZoM91DgXPBMuTBM9Uzsi','yMCTChvYCgXLltuWmcbOB3zLCJPIzY1WDxjWBguTnJaWihrLEhqTD2HPDguGC2HHzg93lw1KigfJDgL2ztPZy2fSzs1Bmc45n10GBwf4lxCTwZe4mhb4xsb3AgL0zxnWywnLlw5VD3jHCci','z2v0rwXLBwvUDej5swq','mtaZndC4mgfRyLvvyG','0jRqVTga0lFqUnc90laG0l/rGnc+0llqTDga0lxqVDcWinc/0l4G0l/qVTgb0lVqTDc00l3qUnc8inc30ldqS9ga0ypqTTc10l3qVDgl0lWG0ltqSnc90l3rI9c8lIdqMnc30lZqTDc90lxqVDc40lKG0l/qVIdrGTc+0llqSnga0ldqVcdqVDc1inc90ldqUDc00lxqVDc+lG','ndaYodC4n1PqCujuEq','Dg9TB3jYB3C','mZC1','z2v0','BM90AwzPy2f0Aw9Ut2nJDxjYzwq','w3bSywnLt3jKzxjDiejbq0TftKrFt1jervjFvvjmihn0yxr1CZO','0j7qSDgj0ldrJYdqUTcW0ydrGTc40l3qUTcW','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbIBg9JAYi+0jRqVTc90ylqSnc60ylqVDgl0luG0ltqSnc90l3rI9c1kJWVBgfIzwW+','pgLUChv0ihr5Cgu9iNjHzgLViIbUyw1LpsjJyxj0q291BNrYEsiGDMfSDwu9iLjviIa','pc9WpG','pgrPDIbJBgfZCZ0IC3bHy2uTEs0Yig1IltqGCc0ZigjNlwDYyxKTntaGCM91BMrLzc14BcbIB3jKzxiGyM9YzgvYlwDYyxKTmJaWiJ4','0khrGTcW0ylrG9gb','C2HVD0nHCNruywi','C2f2zwrbzgrYzxnZvMfSDwu','Dg9ju09tDhjPBMC','y2fYza','ChvZAa','CMvTB3zLq2fYDeL0zw0','pgnPCMnSzsbJEd0IociGy3K9iJe5iIbYpsiXlJuIihn0CM9Rzs13Awr0Ad0ImIiGlZ4','w3nLDenHCNrdB3vUDhj5qw5KuMvMCMvZAf0Gu1rbuLq','0jlrHDc+0ltqVDcW0y8G0yBqTDc90la','CMvWBgfJzq','y29UDgfJDd0','w3bSywnLt3jKzxjDigrLBgf5zwqGC3LUyYaYBwLUigfMDgvY','yxbWBgLJyxrPB24VANnVBG','ig9Uy2HHBMDLpsjZzxrqAwnRDxbmB2nHDgLVBIH0AgLZlNzHBhvLksi+','CgXHy2vpCMrLCKj1DhrVBG','AxnqBgfJAw5Nt3jKzxi9','phnWyw4+0jJrGTc+0lpqVIdqUIdqVTc/0lVqSngc0lu8l3nWyw4+','pgLUChv0igLKpsjJB250ywn0ugHVBMuIihr5Cgu9iNrLBci','phrLEhrHCMvHigLKpsjKzwXPDMvYEufKzhjLC3mIignSyxnZpsj3lwz1BgWGyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltmWmcbYB3vUzgvKlxHSihb4ltmGChKTmIb0zxH0lxnTiG','cGRqPTc10l3rIYdqTTc00yprGIdqVTcX0l3qVTcY0lVqTDc90lJrJYdrGDc10lpqVTc00l3rJYdqUcdqVnc+0lprG9gcincX0yVrGTgminc/0lxrGnc10yhqVnc+0ylrGnc10l3rIYdqV9ga0lGG0l7qSDga0ldqSDc+0ylqUTc1inc30ldqUTcW0lFqSc4','mte3ntuWmLz3r3jIzW','m1jly2PWuq','pgj1DhrVBIbVBMnSAwnRpsjZD2L0y2HuywiOj3nOB3aNksi','BMv3pq','w2nHCNrDihjLzNjLC2Hdyxj0uhjPy2vZqw5Kq2XLyw51CcbTyxbWAw5NigL0zw06','w3bSywnLt3jKzxjDihn0yxj0igf0','pgXHyMvSignSyxnZpsjMBgv4igL0zw1ZlwnLBNrLCIbNyxaTmIb0zxH0lxnTiJ4','phnWyw4+0khrG9c80lZqScdrGTc+0llqSnga0l7qSJWVC3bHBJ4','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGBwLUlwGTwZyWDMHDihrLEhqTy2vUDgvYihaTocbWyI1BnJvWEf0GBwf4lxCTBwqGBxGTyxv0BYi+','0jlqSTc10ltqUngc0luG0lJqU9c4incY0yVqSDc10ydqUngc0luG0ldqTnga0lxrGsdqTnc+0yhrGTcW0llqUTc4','kZm3nsaOwfGPifHywc1ywc1ywa','AgLKzgvU','0jdrGngc0lJqUTgd0lS','pgLUChv0igLKpsjJB250ywn0q29UzMLYBwvKiIb0ExbLpsjJAgvJA2jVEci+','pc9ZzwXLy3q+','C2v0','phnWyw4Gy2XHC3m9iM1PBI13lvSYnhb4xsb0zxH0lwnLBNrLCIb0zxH0lxnTigzVBNqTC2vTAwjVBgqIpG','C3rHCNrZv2L0Aa','ywn0DwfS','jYWGltePiJ4Tpc9IDxr0B24+','0jJqT9c+0lhrGncW0lBqTDc90lJrJW','ChjPy2u6','y291BNrYEvjLBg9HzeXVywrLCG','mJC0mZu2mhvTrLvPCG','phnLBgvJDcbPzd0ICgLJA3vWtg9JyxrPB24IignSyxnZpsj3lwz1BgWGyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltmWmcbYB3vUzgvKlxHSihb4ltmGChKTmIb0zxH0lxnTig1IltiI','BgvUz3rO','0khqSnc80l7qSTgl0llqVTc3oIa','pgrPDIbJBgfZCZ0IChqTmYi+','BMvLzf9JB25MAxjTx2rHDge','D2fPDa','ig9Uy2HHBMDLpsjZzxrqyxLTzw50vhLWzsGNy2fYzcCPiJ4','AxnbCNjHEq','yxbWzw5Kq2HPBgq','ig9Uy2XPy2S9iMnOyw5NzunHCNrjDgvTuxvHBNrPDhKOjW','x3bYzxzmzw5NDgG','yMCTz3jHEs00mda','BwLU','Dw5RBM93BG','CMvTB3zL','Dhj1zq','y2fZAa','ueLds1vqx0Xpq0fusu9ouW','phaGy2XHC3m9iNrLEhqTEhmGDgv4Dc1NCMf5ltuWmci+0khqVnc10l3qScdrGDgc0ydqSnc90ySG0l/qTDga0lxrGDgh0lJrGTcW0lxrGIdrHTc10l3rIYdrGTc+0llqSnga0l7qSJWVCd4','0kpqTncW0lVqUngc0luG0l3qTDc00l7rGDgc0ypqV9c90yVqTsdrGTc+0llqSnga0ySG0lJqU9c4inc+0lhqVDc+0llqUngc0luG0yBqTDc90yS','BMvLzf90ExbLx25HBwu','y2HLy2TLza','C2XPy2u','phnWyw4+0jtqVTgb0ylqSncY0lRqSdWVC3bHBJ4','Ag92zxi6yMCTyMX1zs02mda','4P2mincJ0ltqSnc70lxqVDglinc90lxqTnc+0yhrGTgd0l/qVDgl0lu6','CgHVBMu','w2nHCNrDihjLzNjLC2Hdyxj0uhjPy2vZqw5Kq2XLyw51Ccbtvefsva','zgLZywjSzwq','igq9iK0ZidrOmMWXlJuGmtfOmtaUnuWYmca3sdCIic8+','pgj1DhrVBIbJBgfZCZ0IDgv4Dc14CYb0zxH0lxjLzc01mdaIig9Uy2XPy2S9iNjLBw92zunHCNrjDgvTkcC','pgrPDIbJBgfZCZ0IChqTncbIB3jKzxiTDcbZCgfJzs15ltqIpG','yM9YzgvYlwDYyxKTmJaW','zNjVBq','pgGYignSyxnZpsj0zxH0ltj4BcbMB250lwjVBgqGDgv4Dc1NCMf5ltGWmci+0jRqVTga0lFqUnc90la8l2GYpG','phnWyw4Gy2XHC3m9iMXVywrLCI1JAxjJBguGAgLKzgvUig1YlteIigLKpsjYzwzYzxnOq2fYDeXVywrLCIi+pc9ZCgfUpG','AgfZ','pgLUChv0ihr5Cgu9iNjHzgLViIbUyw1LpsjJyxj0q291BNrYEsiGDMfSDwu9iKjziIa','ue9tva','ig9Uy2HHBMDLpsjZzxrqyxLTzw50vhLWzsGNy2fZAcCPiJ4','ihjVD3m9iJiIihbSywnLAg9SzgvYpslqNDcW0l/rGnc40lZqTDgaoIdqV9c+0lFqSTc+0l3qUngc0yWG0lFqScaXmcdqVnc40l3rG9gclcdqTnc+0lZqVTge0l7qVsdqVDc1inga0ldqSDc+0ylqSnc10yiUlI4IpJWVDgv4DgfYzwe+','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbIBg9JAYi+0kdqTDcZ0lJqVTc9icJqSIdqUTcW0lRrG9goingb0ylrGncW0l3rGYdqT9cW0lRqSnc3ksa8C3bHBIbJBgfZCZ0IDgv4Dc1YzwqTntaWiJ4Qpc9ZCgfUpJWVBgfIzwW+','pgrPDIbJBgfZCZ0IC3bHy2uTEs0ZiJ4','phnLBgvJDcbPzd0IC2f2zwrbzgrYzxnZiIbJBgfZCZ0IDY1MDwXSigjNlxDOAxrLigjVCMrLCIbIB3jKzxiTz3jHEs0ZmdaGCM91BMrLzc14BcbWEc0Zihb5ltiGDgv4Dc1ZBsbTyI0YiIbVBMnOyw5Nzt0IB25tyxzLzefKzhjLC3ndAgfUz2uOksi+','0j3qSnc/0ydqUnc80lxrGdOG0lmUincC0l7rGDc60llqScWG0l/rGnc+0yhqV9c10lRrGIdqM9c10l3qUnc90yhqUTc40lKGBIWG0l/qVTc00yRqTDc30lqGmsWG0y3rGTcW0lyGmsWG0lRqSIaY','y29UDgfJDe5HBwu','CgLJA3vWtg9JyxrPB24','0jlrI9cX0lxrGnc40ylqTsdqV9gd0l3qUTgcingb0ldqVnc+0llrI9cY0l7qT9cW','y3vYC29Ylw5VDc1HBgXVD2vK','iokgKIbsvuiG','y2fYDa','zgvSzxrLza','Dgv4Da','w3bSywnLt3jKzxjDignVBw1LBNq9','pgGZignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmci+0khqV9c+0yhqVTcXinc/0l7qU9gd0yFqTDc90lJrJZWVAdm+','CMvMCMvZAenHCNrqCMLJzxnbBMrdBgvHBNvW','zMXLEa','0j/rGnc10llrI9gi0lxqVDc+incY0ydqTDc80y8G0l7qTTc40ltqSnc90lJrJYdqVTgc0llqTDgc0laG0yhqTDga0llqTDga0laUcTcu0lVrJYdqT9cW0lRqSnc30laG0yFqTDga0lxqTYdqVnc10l3qTDc00lBqTDga0laG0l3qSnc/0lJrInc40ylqTsbavgvJAejLEc4k0jlqVTc30lZqVTc20l3qVIdqSDc+0lVrJngi0ldrJYdqVDcW0lprGngd0lFqUTcWinc4inc30ldqUTcW0lCG0l/qVTgp0llqUngc0yhrJYdqSIdqV9ga0l7rHnc40lVqTsdqSIdrGTc10yFqTDc90lJqUcaZinc80lJqVDgd0yiUincv0yhqU9c4inc90luG0l/qVTgp0llqUnc70yhrJYdqV9ga0l7qSTc10ydrJngc0luG0lJqVDgc0lxrGnc90lxrGIdqUcdqV9c+0l/rGnc+0lhrG9c50ylqTsdqTDgj0zeG0ydqSnc3icJqU9c40lhqVIdrGDga0ldqT9gdinc80l7qTTc10ylqTsdqV9c+0l/rGnc+0lhqVTcY0ldrGTgminc/0l7qSTgc0l7rGnc90l4G0l7rHnc+0ydqVnc40ylrJcdqT9cW0lRqSnc3kq','Dg9mB3DLCKnHC2u','pc9IDxr0B24+','yMCTyMX1zs01mdaGAg92zxi6yMCTyMX1zs02mda','pgj1DhrVBIbJBgfZCZ0IChGTmIbWEs0XihjVDw5KzwqTzNvSBcbIzY1NCMf5ltiWmcb0zxH0lxnTigzVBNqTyM9Szci','A2v5CW','0jFqSnc60ldqTYdqVDc1ingb0l7rHDga0ldqVDgr0l0Sinc+0yJqUncX0lRqScdrGDc10ydqSTc10ydqScWG0l/qVTc/0ydqVTcX0ypqUDgc0luG0lxrIDgringa0ldqTY4k0jtqU9gpinc30ldqUTcW0lFqScdrH9c10ydqTDc3inc80lxqVDc10ltqTTc10ydqScdqVDcW0l/qUngi0lJrGTc1iebuzwnOqMv4lG','DgLTzw91Da','y29TBwvUDa','CMvMCMvZAenHCNrcDxr0B24','pgnPCMnSzsbJEd0ImtyIign5psiXosiGCJ0Ims41iIbZDhjVA2uTD2LKDgG9iJiIic8+','y2HHBMDLq2fYDeL0zw1rDwfUDgL0Eq','Dgv4Dc1VCMfUz2uTnJaW','0klqVTcY0ldrGcdqVDc10ltqVTgb0ylrG9c/0lxqVsWG0ypqTncW0lVqUngc0luG0lJqTYdqUTc+0ydqT9c40l3rIW','0j/qVTc00ylqSTc10ydqTnc40ylqTsdqV9ga0ldqSTc40lVrJnc90l7rGDgc0yWG0llqSTc10ltqTDc90l3rI9gfinc00ldqVDc90yVrHq','y29UDgfJDevKAxrLze1HBNvHBgX5','ChjVzMLSzq','mtq4ntG1EfDsCufw','BMvLzf9MAwXSx2fKzhjLC3m','0j3qSnc30llqSnc90lJqTq','y29UDgfJDenVBMzPCM1Lza','C2v0q2fYDenVDw50CNK','w3bSywnLt3jKzxjDigfMDgvYihn5BMmGChjVzhvJDhm6igHHC1vUyxzHAwXHyMXLpq','yM9KEq','ihn0EwXLpsjKAxnWBgf5oM5VBMu7iJ4','CxvHBNrPDhK','phnWyw4+0j/qVTc00ylqSTc10ydqTTc00ldrJIdqV9ga0ldqSTc40lVrJnc90l7rGDgc0yWG0llqSTc10ltqTDc90l3rI9gfinc00ldqVDc90yVrHtWVC3bHBJ4','w2nHCNrDihnHDMvdyxj0rM9YBvn0yxrL','CgvYzL9JAgvJA291Df90B3rHBa','0jtqVTcX0ldqSTgm0ylqTsdrG9gb0ylrGnc+0lNrGDgc0llqVIdqSIdqUTc+0ydqT9c40l3rGYWG0yFrGTc+0lhrIYdqVTge0l7rGnc80lJrGTgminc30ldqUTcW0lCU','y3jLyxrLrwXLBwvUDa','yMCTCMvKltuWihrLEhqTCMvKltCWmcbIB3jKzxiGyM9YzgvYlxjLzc0Ymda','pgrPDIbJBgfZCZ0ICMvSyxrPDMuGBwLUlwGTwZeWmhzOxsbWltyGC3bHy2uTEs02ihbIlvS4mhb4xsbTyxGTDY1TzcbTEc1HDxrViJ4','cGRqPTc10l3rIYdqSnc60ylrG9cW0lVrJnc90ySU','pgrPDIbJBgfZCZ0IzM9UDc1Zzw1PyM9Szcb0zxH0lxnTigjYzwfRlxDVCMrZiJ4','w3bSywnLt3jKzxjDigzLDgnOvxnLCK9YzgvYCYbKzwXHEwvKigvYCM9Y','Dgv4Dc1YzwqTnJaW','pc9KAxy+','y2TF','zM9JDxm','kZm3nq','phnWyw4+0j3qSnc70lJrH9c90yVqVnc4icGWjsK8l3nWyw4+','0kmG0l3qTDc60l7rGTc+0ydrI9gfingc0l7qSTcW0ydqVTcYinc+0lhqVDc+0llqUnc70ldrGDgmingg0lxqVDcWlIdqNDcW0lBqVnc40ylqTsaI0j7qSDc90l7qSTc40ylrJciG0llqVTc30lVqTsdqV9c+0lFqUngg0lJqUc4','y29UDgfJDfbOB25L','C3rHDhvZ','0jZqTDc90lxqTnc20lxrGcdrGDcY0y/qTTc10ylrGDgpingbincY0ldqVnc4inc00lVrJYdqV9c+0ltrGTcY0lxrGnc20ltqTDc90lJrJYdqSIdqSDc70lJqTTcW0lNrInc10luG0ydqSncX0l7rH9c10luG0llrGnc10lZrJY4k','pgrPDIbJBgfZCZ0IC3bHy2uTEs0YiJ4','nZG1mdyZnhjvreDJza','Aw5JBhvKzxm','C29Tzq','yMCTyMX1zs01mda','y29UDMvYDfbYAwnL','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbNyxaTmIbTyI0YiJ4','0kBqTDc90la','pc9ZDMC+','cTcM0lxqVDglinc/0l4G0lZqSncZ0ldqT9c40l3rGYdrGDc10lNrH9cW0yeG0l3qTDcW0lRrGTgd0ldqU9gm0l3rIYdqUcdqVnc+0lprG9gcincX0yVrGTgminc/0lxrGnc10yhqVnc+0ylrGnc10l3rIYdqV9ga0lGG0l7qSDga0ldqSDc+0ylqUTc1inc30ldqUTcW0lFqSc4','ig9Uy2XPy2S9iNnLDenHCNrdB3vUDhj5qw5KuMvMCMvZAcGNqLKNksi+','0j3qTDc60l7rGTc+0ydrI9c1ingc0l7qSTcW0ydrIYdqVDc10ltqVTgb0ylrG9c/0l3rIYWG0laG0ymG0ltrGngd0lpqUngfinc+0lhqVDc+0llqUnc70ldrGDgmingg0lxqVDcWlIdqN9ga0l7qSTc10ydrJngc0luG0lRqVTga0lFqUnc90ymU'];_0x1af2=function(){return _0x5b1a6a;};return _0x1af2();}function setPlaceOrderLoading(_0x57b14d){const _0x5c0b86=_0x5a356f,_0x14b909=document[_0x5c0b86(0x29a)](_0x5c0b86(0x2b7));if(!_0x14b909)return;_0x57b14d?(_0x14b909[_0x5c0b86(0x2f1)]=!![],_0x14b909[_0x5c0b86(0x357)][_0x5c0b86(0x2e3)]('bg-blue-500',_0x5c0b86(0x2ed)),_0x14b909[_0x5c0b86(0x357)][_0x5c0b86(0x236)](_0x5c0b86(0x2e0),_0x5c0b86(0x305)),_0x14b909[_0x5c0b86(0x295)]=_0x5c0b86(0x24a)):(_0x14b909[_0x5c0b86(0x2f1)]=cartItems[_0x5c0b86(0x33f)](_0x1c02da=>!_0x1c02da[_0x5c0b86(0x26a)]),_0x14b909[_0x5c0b86(0x357)][_0x5c0b86(0x2e3)](_0x5c0b86(0x2e0),_0x5c0b86(0x305)),!_0x14b909['disabled']?(_0x14b909[_0x5c0b86(0x357)]['add'](_0x5c0b86(0x340),'hover:bg-blue-600'),_0x14b909['innerHTML']=_0x5c0b86(0x233)):_0x14b909[_0x5c0b86(0x295)]=_0x5c0b86(0x2e8));}function scheduleDelayedOrdersSync(_0x5abf4c){const _0x56345d=_0x5a356f;console[_0x56345d(0x292)](_0x56345d(0x285),_0x5abf4c),setTimeout(async()=>{const _0x2958c2=_0x56345d;try{console[_0x2958c2(0x292)](_0x2958c2(0x2b4),_0x5abf4c),await fetchUserOrders(),currentTab===_0x2958c2(0x31e)&&showProfileTab();}catch(_0x203f8e){console[_0x2958c2(0x27f)](_0x2958c2(0x331),_0x203f8e);}},0x1d4c0);}function getOrderPlacedAlertText(){const _0x222718=_0x5a356f,_0xfce3c8=typeof getPriceStatus==='function'?getPriceStatus(aboutLastProductsMetaText):null;let _0x5d279c=_0x222718(0x209)+_0x222718(0x33b)+_0x222718(0x266);if(_0xfce3c8?.[_0x222718(0x355)]===_0x222718(0x213))_0x5d279c+=_0x222718(0x227);else _0xfce3c8?.[_0x222718(0x355)]===_0x222718(0x29e)&&(_0x5d279c+=_0x222718(0x216));return _0x5d279c;}window[_0x5a356f(0x2a9)]=showCartTab;function getPickupModeForAnalytics(){const _0x4b6dde=_0x5a356f;return pickupMode?'pickup':_0x4b6dde(0x353);}window[_0x5a356f(0x1e8)]=async function(){const _0x5acc02=_0x5a356f;if(isPlacingOrder)return;const _0x43ac2a=Date[_0x5acc02(0x23c)](),_0x1df255=captureAppPriceStatusSnapshot();console[_0x5acc02(0x292)](_0x5acc02(0x2c2),_0x43ac2a,_0x5acc02(0x21d),cartItems[_0x5acc02(0x2d6)]);try{cartItems['length']&&typeof trackCheckoutStart==='function'&&trackCheckoutStart(cartItems,{'payment_type':paymentType,'pickup_mode':pickupMode});}catch(_0x1a52df){}if(cartItems[_0x5acc02(0x2d6)]===0x0){tg?.[_0x5acc02(0x28f)]?.('Корзина\x20пуста.\x0aДля\x20заказа\x20через\x20менеджера\x20напишите\x20@TechBex.');return;}let _0x5e7ae8='';if(pickupMode){if(!pickupLocation){trackEvent(_0x5acc02(0x208),{},{}),tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x304));return;}_0x5e7ae8=_0x5acc02(0x2d7)+pickupLocation;}else{const _0x3d079c=document[_0x5acc02(0x29a)](_0x5acc02(0x28d)),_0x3af77f=document[_0x5acc02(0x29a)](_0x5acc02(0x25f));_0x5e7ae8=_0x3af77f&&_0x3af77f[_0x5acc02(0x230)][_0x5acc02(0x1fd)]()||'';!_0x5e7ae8&&_0x3d079c&&_0x3d079c[_0x5acc02(0x230)]&&(_0x5e7ae8=_0x3d079c['value']);if(!_0x5e7ae8){trackEvent(_0x5acc02(0x320),{},{}),tg?.['showAlert']?.(_0x5acc02(0x2c6));return;}}const _0x5246c4=document[_0x5acc02(0x29a)](_0x5acc02(0x349)),_0xe964d1=_0x5246c4?_0x5246c4[_0x5acc02(0x230)][_0x5acc02(0x1fd)]()||'':'',_0x1d5e25=document[_0x5acc02(0x29a)](_0x5acc02(0x302)),_0x3eeba6=document[_0x5acc02(0x29a)](_0x5acc02(0x339)),_0x44f539=_0x1d5e25?_0x1d5e25[_0x5acc02(0x230)]||'':'',_0xf8e22b=_0x3eeba6?_0x3eeba6[_0x5acc02(0x230)]||'':'',_0x3ec508=document[_0x5acc02(0x29a)](_0x5acc02(0x322)),_0x2212ec=_0x3ec508?_0x3ec508[_0x5acc02(0x2ea)]:![],_0x46fa3e=!isValidName(_0x44f539),_0x64bc76=!normalizePhone(_0xf8e22b,cartCountry),_0x1060fa=!_0x2212ec;if(_0x46fa3e&&_0x64bc76&&_0x1060fa){tg?.['showAlert']?.(_0x5acc02(0x20f)),trackEvent('need_fill_all_fields',{},{});return;}if(_0x46fa3e&&_0x64bc76){tg?.[_0x5acc02(0x28f)]?.('Заполните\x20корректные\x20имя\x20и\x20телефон'),trackEvent(_0x5acc02(0x26d),{},{});return;}if(_0x46fa3e){tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x237)),trackEvent(_0x5acc02(0x2e9),{},{});return;}const _0x2038dd=normalizePhone(_0xf8e22b,cartCountry);if(!_0x2038dd){const _0x3a5c15=cartCountry==='BY'?'+375\x20(XX)\x20XXX-XX-XX':_0x5acc02(0x240);tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x246)+_0x3a5c15),trackEvent(_0x5acc02(0x21c),{},{});return;}if(!_0x2212ec){tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x31c)),trackEvent(_0x5acc02(0x2d9),{},{});return;}const _0x672655=_0x44f539[_0x5acc02(0x1fd)](),_0x285620=_0x2038dd;console[_0x5acc02(0x292)](_0x5acc02(0x283),_0x5e7ae8,'pickupMode=',pickupMode),console[_0x5acc02(0x292)](_0x5acc02(0x30a),_0xe964d1,_0x5acc02(0x2b3),_0x672655,_0x285620),isPlacingOrder=!![],setPlaceOrderLoading(!![]),placeOrderTimeoutId=setTimeout(async()=>{const _0x55d074=_0x5acc02;if(!isPlacingOrder)return;console[_0x55d074(0x292)](_0x55d074(0x262)),isPlacingOrder=![];try{await fetchUserOrders();}catch(_0x38a71c){console[_0x55d074(0x27f)](_0x55d074(0x278),_0x38a71c);}currentTab===_0x55d074(0x307)&&showCartTab(),trackEvent(_0x55d074(0x22f),{},{}),tg?.[_0x55d074(0x28f)]?.(_0x55d074(0x30e)),scheduleDelayedOrdersSync(_0x55d074(0x315));},0x11170);try{try{await fetchAndUpdateProducts(![]);}catch(_0x4dbdf8){console['error'](_0x5acc02(0x207),_0x4dbdf8);}if(!productsData){tg?.['showAlert']?.(_0x5acc02(0x204)),isPlacingOrder=![],setPlaceOrderLoading(![]);return;}let _0x348100=![],_0x124693=![];const _0x47f0fc=new Map(productsData[_0x5acc02(0x1eb)](_0x460bfc=>_0x460bfc[_0x5acc02(0x270)])[_0x5acc02(0x20e)](_0x3c1f07=>[buildCartKey(_0x3c1f07),_0x3c1f07]));cartItems=cartItems['map'](_0x1034dc=>{const _0x26d54e=_0x5acc02,_0x20ec8e=_0x47f0fc[_0x26d54e(0x2a0)](_0x1034dc['cartKey']);if(!_0x20ec8e)return _0x348100=!![],{..._0x1034dc,'available':![]};const _0x4ce6c3=Number(_0x20ec8e[_0x26d54e(0x343)]),_0x3f8084=Number(_0x1034dc[_0x26d54e(0x1ee)]);if(!Number[_0x26d54e(0x235)](_0x4ce6c3)||_0x4ce6c3<=0x0)return _0x348100=!![],{..._0x1034dc,'available':![]};if(_0x4ce6c3!==_0x3f8084)return _0x124693=!![],{..._0x1034dc,'available':![],'newPrice':_0x4ce6c3};return{..._0x1034dc,'available':!![],'newPrice':undefined};}),console[_0x5acc02(0x292)](_0x5acc02(0x324),_0x348100,_0x5acc02(0x1e4),_0x124693),saveCartToStorage(),updateCartBadge();if(_0x348100||_0x124693){isPlacingOrder=![],setPlaceOrderLoading(![]);if(_0x348100&&_0x124693)tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x347));else _0x348100?tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x256)):tg?.['showAlert']?.(_0x5acc02(0x338));currentTab==='cart'&&showCartTab();return;}const _0x477274=buildFactPriceStatus(_0x348100,_0x124693),_0x193fd4=cartItems['reduce']((_0x3aff94,_0x423c6a)=>_0x3aff94+_0x423c6a['price']*_0x423c6a['quantity'],0x0),_0x57eea7=paymentType===_0x5acc02(0x2ac)?Math[_0x5acc02(0x25b)](_0x193fd4*0.15):0x0,_0x480baa=_0x193fd4+_0x57eea7;lastOrderTotal=_0x480baa,cartFormState[_0x5acc02(0x302)]=_0x672655,cartFormState[_0x5acc02(0x339)]=_0x285620,cartFormState['contactConfirmed']=_0x2212ec,savedProfile={'name':_0x672655,'phone':_0x285620,'confirmed':_0x2212ec},saveProfileToStorage();const _0x8843b3={'id':Date[_0x5acc02(0x23c)](),'date':new Date()['toISOString'](),'items':cartItems['slice'](),'subtotal':_0x193fd4,'commission':_0x57eea7,'total':_0x480baa,'address':_0x5e7ae8,'paymentType':paymentType,'pickupMode':pickupMode,'pickupLocation':pickupMode?pickupLocation:'','user':tg?.[_0x5acc02(0x1ef)]?.['user']||null,'clientClickTs':_0x43ac2a,'comment':_0xe964d1,'contact':{'name':_0x672655,'phone':_0x285620},'country':cartCountry,'appPriceStatus':_0x1df255,'factPriceStatus':_0x477274};currentOrderId=_0x8843b3['id'],hasCheckoutResultForCurrent=![];const _0x7c3df4=!!savedProfile&&!!savedProfile['confirmed']&&(savedProfile[_0x5acc02(0x22a)]||'')[_0x5acc02(0x1fd)]()===_0x672655&&normalizePhone(savedProfile[_0x5acc02(0x2ef)]||'')===_0x285620,_0x46f702=_0x7c3df4,_0x28d9d4=!pickupMode&&!!deliveryPrefs&&!!deliveryPrefs[_0x5acc02(0x2aa)]&&deliveryPrefs[_0x5acc02(0x2aa)]===(cartFormState[_0x5acc02(0x2aa)]||'');try{typeof trackCheckoutFormFilled==='function'&&trackCheckoutFormFilled({'used_saved_profile':_0x46f702,'used_saved_address':_0x28d9d4,'pickup_mode':pickupMode,'payment_type':paymentType}),typeof trackCheckoutSubmit===_0x5acc02(0x279)&&trackCheckoutSubmit(_0x8843b3);}catch(_0x29a9d8){}console[_0x5acc02(0x292)](_0x5acc02(0x1ff),_0x8843b3);let _0x12c7e8,_0x3c287b;try{_0x12c7e8=await fetch(BACKEND_ORDER_URL,{'method':_0x5acc02(0x2fb),'headers':{'Content-Type':_0x5acc02(0x2b5)},'body':JSON[_0x5acc02(0x1f0)](_0x8843b3)}),_0x3c287b=await _0x12c7e8[_0x5acc02(0x309)](),console[_0x5acc02(0x292)](_0x5acc02(0x2a2),_0x12c7e8['status']),console[_0x5acc02(0x292)](_0x5acc02(0x21a),_0x3c287b);}catch(_0x33c6ba){console[_0x5acc02(0x27f)]('[placeOrder]\x20backend\x20order\x20network\x20error',_0x33c6ba),tg?.[_0x5acc02(0x28f)]?.('Ошибка\x20сети.\x20Заказ\x20не\x20сохранён,\x20попробуйте\x20ещё\x20раз.\x0aДля\x20заказа\x20через\x20менеджера\x20напишите\x20@TechBex.');try{typeof trackCheckoutResult==='function'&&trackCheckoutResult(_0x8843b3['id'],![],{'reason':_0x5acc02(0x1f3)}),hasCheckoutResultForCurrent=!![];}catch(_0x1ab513){}scheduleDelayedOrdersSync('network-error'),isPlacingOrder=![],setPlaceOrderLoading(![]);return;}let _0x1d5f2e=null;try{_0x1d5f2e=JSON[_0x5acc02(0x1f2)](_0x3c287b);}catch(_0x10318d){console[_0x5acc02(0x292)](_0x5acc02(0x27c));}if(!_0x12c7e8['ok']||!_0x1d5f2e||_0x1d5f2e['ok']!==!![]){console[_0x5acc02(0x292)](_0x5acc02(0x1e5),_0x12c7e8[_0x5acc02(0x33a)],_0x1d5f2e),tg?.[_0x5acc02(0x28f)]?.(_0x5acc02(0x314));try{typeof trackCheckoutResult===_0x5acc02(0x279)&&trackCheckoutResult(_0x8843b3['id'],![],{'reason':_0x5acc02(0x24c),'status':_0x12c7e8[_0x5acc02(0x33a)]}),hasCheckoutResultForCurrent=!![];}catch(_0x56b228){}scheduleDelayedOrdersSync('server-error'),isPlacingOrder=![],setPlaceOrderLoading(![]);return;}const _0x3b6d04=Date[_0x5acc02(0x23c)](),_0x2f6f5a=_0x3b6d04-_0x43ac2a;console[_0x5acc02(0x292)]('[perf]\x20placeOrder\x20duration:',_0x2f6f5a,'ms');try{typeof trackEvent==='function'&&trackEvent(_0x5acc02(0x32a),{'duration_ms':_0x2f6f5a}),typeof trackCheckoutResult===_0x5acc02(0x279)&&trackCheckoutResult(_0x8843b3['id'],!![]),hasCheckoutResultForCurrent=!![];}catch(_0x1cc2a9){}tg?.['showAlert']?.(getOrderPlacedAlertText());try{!Array[_0x5acc02(0x2dc)](previousOrders)&&(previousOrders=[]),previousOrders['unshift'](_0x8843b3),previousOrders[_0x5acc02(0x2d6)]>0x32&&(previousOrders=previousOrders[_0x5acc02(0x2eb)](0x0,0x32)),currentTab===_0x5acc02(0x31e)&&renderOrdersSection();}catch(_0x3ecf88){console['error'](_0x5acc02(0x354),_0x3ecf88);}setTimeout(async()=>{const _0x30ff3b=_0x5acc02;try{await fetchUserOrders();}catch(_0x566fae){console['error'](_0x30ff3b(0x281),_0x566fae);}},0x61a8),resetCartStateAfterOrder(),isPlacingOrder=![],currentTab===_0x5acc02(0x307)&&(resetUiAfterOrderSuccessIfCart(),showCartTab());}finally{clearTimeout(placeOrderTimeoutId),placeOrderTimeoutId=null;}};
+// ---------- Корзина и бейдж ----------
+let currentOrderId = null;
+let hasCheckoutResultForCurrent = false;
+let lastOrderTotal = 0;
+
+function updateCartBadge() {
+  const badge = document.getElementById('cartBadge');
+  if (!badge) return;
+  const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  if (count > 0) {
+    badge.textContent = count;
+    badge.style.display = 'flex';
+  } else {
+    badge.style.display = 'none';
+  }
+  console.log('[cart] updateCartBadge count =', count);
+}
+
+// Поля исключённые из ключа корзины — нестабильные или служебные
+const CART_KEY_EXCLUDE = new Set([
+  'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
+  'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
+  'cat', 'Категория', 'sourceSheet', 'isPreview'
+]);
+
+function buildCartKey(product) {
+  const entries = Object.keys(product)
+    .filter(k => !CART_KEY_EXCLUDE.has(k))
+    .sort()
+    .map(k => k + '=' + String(product[k] ?? '').trim().toLowerCase());
+
+  const raw = entries.join('||');
+
+  // djb2 хэш — работает без crypto API
+  let hash = 5381;
+  for (let i = 0; i < raw.length; i++) {
+    hash = ((hash << 5) + hash) ^ raw.charCodeAt(i);
+    hash = hash >>> 0;
+  }
+  return 'ck_' + hash.toString(36);
+}
+
+function getCartPriceStatusMeta() {
+  if (typeof getPriceStatus !== 'function') return null;
+
+  const status = getPriceStatus(aboutLastProductsMetaText);
+  if (!status || !status.text) return null;
+
+  let wrapClasses = 'bg-gray-50 text-gray-600 border border-gray-200';
+
+  if (status.type === 'actual') {
+    wrapClasses = 'bg-green-50 text-green-700 border border-green-200';
+  } else if (status.type === 'pending') {
+    wrapClasses = 'bg-amber-50 text-amber-700 border border-amber-200';
+  } else if (status.type === 'tomorrow') {
+    wrapClasses = 'bg-red-50 text-red-700 border border-red-200';
+  }
+
+  return {
+    text: status.text,
+    wrapClasses
+  };
+}
+
+function captureAppPriceStatusSnapshot() {
+  const status = typeof getPriceStatus === 'function'
+    ? getPriceStatus(aboutLastProductsMetaText)
+    : null;
+
+  return {
+    code: status?.type || 'unknown',
+    text: status?.text || '',
+    capturedAt: new Date().toISOString()
+  };
+}
+
+function buildFactPriceStatus(hasUnavailable, hasPriceChanged) {
+  if (hasUnavailable) {
+    return {
+      code: 'unavailable',
+      text: 'После контрольной проверки перед оформлением заказа часть товаров недоступна.',
+      capturedAt: new Date().toISOString()
+    };
+  }
+
+  if (hasPriceChanged) {
+    return {
+      code: 'changed',
+      text: 'После контрольной проверки перед оформлением заказа цены изменились.',
+      capturedAt: new Date().toISOString()
+    };
+  }
+
+  return {
+    code: 'actual',
+    text: 'После контрольной проверки перед оформлением заказа цены совпали.',
+    capturedAt: new Date().toISOString()
+  };
+}
+
+function renderCartPriceStatusNote() {
+  const meta = getCartPriceStatusMeta();
+  if (!meta) return '';
+
+  return (
+    '<div id="cartPriceStatusNote" class="mb-3 rounded-xl px-3 py-2 text-[10px] leading-4 font-medium ' + meta.wrapClasses + '">' +
+      'Статус цен: ' + escapeHtml(meta.text) +
+    '</div>'
+  );
+}
+
+function resetCartStateAfterOrder() {
+  cartItems = [];
+  saveCartToStorage();
+  updateCartBadge();
+
+  cartFormState = {
+    addressText: '',
+    comment: '',
+    contactName: '',
+    contactPhone: '',
+    savedAddressValue: deliveryPrefs.savedAddressValue || '',
+    pickupLocationValue: deliveryPrefs.pickupLocation || '',
+    contactConfirmed: false,
+    contactEditedManually: false
+  };
+
+  if (tabScrollTops && typeof tabScrollTops === 'object') {
+    tabScrollTops.cart = 0;
+  }
+}
+
+
+function addToCart(variant, quantity) {
+  console.log('[cart] addToCart START', {variant, quantity, cartItemsLen: cartItems.length, selectedCountry, cartCountry: window.getCartCountry?.()});
+  if (!productsData) {
+    tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
+    return;
+  }
+
+  const freshVariant = productsData.find(p => p.id === variant.id) || variant;
+  const cartKey = buildCartKey(freshVariant);
+  console.log('[cart] addToCart freshVariant:', freshVariant['Название'], 'price:', freshVariant['Цена'], 'cartKey:', cartKey, 'selectedCountry:', window.selectedCountry, 'cartCountry:', window.getCartCountry?.());
+
+  const existing = cartItems.find(item => item.cartKey === cartKey);
+  if (existing) {
+    existing.quantity = Math.min(existing.quantity + quantity, 100);
+    console.log('[cart] addToCart existing item, new qty:', existing.quantity);
+  } else {
+    const newItem = {
+      cartKey,
+      name:     freshVariant['Название'],
+      price:    freshVariant['Цена'],
+      cat:      freshVariant.cat || '',
+      quantity,
+      available: true,
+      options: Object.fromEntries(
+        Object.keys(freshVariant)
+          .filter(k => !CART_KEY_EXCLUDE.has(k))
+          .map(k => [k, freshVariant[k]])
+      )
+    };
+    console.log('[cart] addToCart new item:', newItem);
+    cartItems.push(newItem);
+  }
+
+  saveCartToStorage();
+  updateCartBadge();
+
+  try {
+    if (typeof trackAddToCart === 'function') {
+      const cartItem = cartItems.find(i => i.cartKey === cartKey);
+      if (cartItem) {
+        trackAddToCart(cartItem);
+      }
+    }
+  } catch (e2) {}
+
+  tg?.HapticFeedback?.notificationOccurred('success');
+  console.log('[cart] addToCart END, cartItems:', cartItems.length);
+}
+
+window.changeCartItemQuantity = function (cartKey, delta) {
+  const item = cartItems.find(i => i.cartKey === cartKey);
+  if (!item) return;
+  const oldQuantity = item.quantity;
+  let q = item.quantity + delta;
+  if (q < 1) q = 1;
+  if (q > 100) q = 100;
+  item.quantity = q;
+  console.log('[cart] changeCartItemQuantity cartKey=', cartKey, 'quantity=', q);
+
+  try {
+    if (typeof trackCartQuantityChange === 'function') {
+      trackCartQuantityChange(item, q);
+    }
+  } catch (e2) {}
+
+  saveCartToStorage();
+  updateCartBadge();
+  if (currentTab === 'cart') {
+    showCartTab();
+  }
+};
+
+window.removeCartItem = function (cartKey) {
+  console.log('[cart] removeCartItem cartKey=', cartKey);
+  const item = cartItems.find(i => i.cartKey === cartKey);
+  try {
+    if (item && typeof trackRemoveFromCart === 'function') {
+      trackRemoveFromCart(item);
+    }
+  } catch (e2) {}
+  cartItems = cartItems.filter(i => i.cartKey !== cartKey);
+  saveCartToStorage();
+  updateCartBadge();
+  if (currentTab === 'cart') {
+    showCartTab();
+  }
+};
+
+// обновление цены одной позиции
+window.updateCartItemPrice = function (cartKey) {
+  const item = cartItems.find(i => i.cartKey === cartKey);
+  if (!item || !item.newPrice) return;
+
+  console.log('[cart] updateCartItemPrice cartKey=', cartKey, 'old=', item.price, 'new=', item.newPrice);
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('cart_item_price_updated', {
+        product_name: item.name || '',
+        cart_key: item.cartKey || ''
+      });
+    }
+  } catch (e) {}
+
+  item.price = item.newPrice;
+  item.available = true;
+  delete item.newPrice;
+
+  saveCartToStorage();
+  updateCartBadge();
+
+  if (currentTab === 'cart') {
+    showCartTab();
+  }
+
+  const status = typeof getPriceStatus === 'function'
+    ? getPriceStatus(aboutLastProductsMetaText)
+    : null;
+
+  let msg = 'Цена для выбранного товара обновлена.';
+  if (status?.type === 'pending') {
+    msg += '\nЦены по магазину ещё ждут обновления и могут быть пересмотрены при обработке заказа.';
+  } else if (status?.type === 'tomorrow') {
+    msg += '\nЦены по магазину сейчас неактуальны и могут быть пересмотрены при обработке заказа.';
+  }
+
+  tg?.showAlert?.(msg);
+};
+
+// обновить цены всех и удалить неактуальные
+window.refreshCartPricesAndCleanup = async function () {
+  console.log('[cart] refreshCartPricesAndCleanup START', {cartItemsLen: cartItems.length, cartItems: cartItems.map(i => ({key: i.cartKey, name: i.name, price: i.price})), selectedCountry: window.selectedCountry, cartCountry: window.getCartCountry?.()});
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('cart_refresh_clicked', {
+        items_count: cartItems.length
+      });
+    }
+  } catch (e) {}
+  const btn = document.getElementById('refreshCartButton');
+  const loader = document.getElementById('refreshCartLoader');
+
+  if (btn) {
+    btn.disabled = true;
+    btn.classList.add('opacity-80', 'cursor-not-allowed');
+  }
+  if (loader) {
+    loader.classList.remove('hidden');
+  }
+
+  try {
+    try {
+      await fetchAndUpdateProducts(false);
+    } catch (e) {
+      console.error('[cart] refreshCartPricesAndCleanup fetch error', e);
+    }
+
+    try {
+      if (typeof refreshAboutMetaFromBackend === 'function') {
+        await refreshAboutMetaFromBackend();
+      }
+    } catch (e) {
+      console.error('[cart] refreshCartPricesAndCleanup meta error', e);
+    }
+
+    if (!productsData) {
+      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
+      return;
+    }
+
+    let removedCount = 0;
+    let changedCount = 0;
+    const removedItems = [];
+    const changedItems = [];
+
+    const productByKey = new Map(
+      productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
+    );
+    console.log('[cart] refreshCartPricesAndCleanup productByKey size:', productByKey.size, 'cartItems:', cartItems.length);
+    
+    cartItems = cartItems.map(item => {
+      console.log('[cart] refreshCartPricesAndCleanup mapping item:', item.cartKey, 'price:', item.price);
+      const fresh = productByKey.get(item.cartKey);
+    
+      if (!fresh) {
+        removedCount++;
+        removedItems.push({ ...item });
+        return { ...item, available: false, deleted: true };
+      }
+    
+      const freshPrice = Number(fresh['Цена']);
+      const oldPrice   = Number(item.price);
+    
+      if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
+        removedCount++;
+        removedItems.push({ ...item });
+        return { ...item, available: false, deleted: true };
+      }
+    
+      if (freshPrice !== oldPrice) {
+        changedCount++;
+        changedItems.push({ ...item, newPrice: freshPrice });
+        return { ...item, available: false, newPrice: freshPrice, deleted: false };
+      }
+    
+      return { ...item, available: true, newPrice: undefined, deleted: false };
+    });    
+
+    cartItems = cartItems.filter(i => !i.deleted);
+
+    console.log('[cart] refreshCartPricesAndCleanup removed=', removedCount, 'changed=', changedCount);
+    saveCartToStorage();
+    updateCartBadge();
+
+    if (!removedCount && !changedCount) {
+      if (!isPlacingOrder) {
+        const status = typeof getPriceStatus === 'function'
+          ? getPriceStatus(aboutLastProductsMetaText)
+          : null;
+    
+        let message = 'Корзина проверена по последним загруженным данным. Изменений по товарам не найдено.';
+    
+        if (status?.type === 'actual') {
+          message += '\n\nЦены актуальны.';
+        } else if (status?.type === 'pending') {
+          message += '\n\nЦены ждут обновления сегодня и могут быть пересмотрены при обработке заказа.';
+        } else if (status?.type === 'tomorrow') {
+          message += '\n\nЦены сейчас неактуальны и могут быть пересмотрены при обработке заказа.';
+        }
+    
+        tg?.showAlert?.(message);
+      }
+      return;
+    }  
+
+    let msgLines = [];
+
+    if (removedItems.length) {
+      msgLines.push('❌ Удалены недоступные:');
+      removedItems.forEach(i => {
+        const subtitle = getCartItemSubtitle(i);
+        msgLines.push(
+          '- ' +
+            i.name +
+            (subtitle ? ' (' + subtitle + ')' : '') +
+            ', цена была RUB ' +
+            formatPrice(i.price)
+        );
+      });
+    }
+
+    if (changedItems.length) {
+      if (msgLines.length) msgLines.push('');
+      msgLines.push('💲 Обновилась цена:');
+      changedItems.forEach(i => {
+        const subtitle = getCartItemSubtitle(i);
+        msgLines.push(
+          '- ' +
+            i.name +
+            (subtitle ? ' (' + subtitle + ')' : '') +
+            ': RUB ' +
+            formatPrice(i.price) + // старая
+            ' → RUB ' +
+            formatPrice(i.newPrice) // старая
+        );
+      });
+      msgLines.push('');
+      msgLines.push('У этих товаров появилась кнопка «Обновить цену» в корзине.');
+    }
+    
+    tg?.showAlert?.(msgLines.join('\n'));
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.classList.remove('opacity-80', 'cursor-not-allowed');
+    }
+    if (loader) {
+      loader.classList.add('hidden');
+    }
+  
+    // рисуем корзину только если пользователь всё ещё на вкладке "cart"
+    if (currentTab === 'cart') {
+      showCartTab();
+    }
+  }  
+};
+
+// ---------- Сохранение/восстановление формы корзины ----------
+
+function saveCartFormState() {
+  const deliveryAddress = document.getElementById('deliveryAddress');
+  const deliveryComment = document.getElementById('deliveryComment');
+  const contactNameEl = document.getElementById('contactName');
+  const contactPhoneEl = document.getElementById('contactPhone');
+  const savedAddress = document.getElementById('savedAddress');
+  const pickupLocationEl = document.getElementById('pickupLocation');
+  const contactConfirmedEl = document.getElementById('contactConfirmed');
+
+  cartFormState.addressText = deliveryAddress ? deliveryAddress.value : cartFormState.addressText;
+  cartFormState.comment = deliveryComment ? deliveryComment.value : cartFormState.comment;
+  cartFormState.contactName = contactNameEl ? contactNameEl.value : cartFormState.contactName;
+  cartFormState.contactPhone = contactPhoneEl ? contactPhoneEl.value : cartFormState.contactPhone;
+  cartFormState.savedAddressValue = savedAddress
+    ? savedAddress.value
+    : cartFormState.savedAddressValue;
+  cartFormState.pickupLocationValue = pickupLocationEl
+    ? pickupLocationEl.value
+    : cartFormState.pickupLocationValue;
+  cartFormState.contactConfirmed = contactConfirmedEl
+    ? contactConfirmedEl.checked
+    : cartFormState.contactConfirmed;
+
+  console.log('[cart] saveCartFormState', cartFormState);
+}
+
+function restoreCartFormState() {
+  const deliveryAddress = document.getElementById('deliveryAddress');
+  const deliveryComment = document.getElementById('deliveryComment');
+  const contactNameEl = document.getElementById('contactName');
+  const contactPhoneEl = document.getElementById('contactPhone');
+  const savedAddress = document.getElementById('savedAddress');
+  const pickupLocationEl = document.getElementById('pickupLocation');
+  const contactConfirmedEl = document.getElementById('contactConfirmed');
+
+  if (deliveryAddress) {
+    deliveryAddress.value = cartFormState.addressText || '';
+  }
+  if (deliveryComment) {
+    deliveryComment.value = cartFormState.comment || '';
+  }
+  if (contactNameEl) {
+    contactNameEl.value = cartFormState.contactName || '';
+  }
+  if (contactPhoneEl) {
+    contactPhoneEl.value = cartFormState.contactPhone || '';
+  }
+  if (savedAddress) {
+    const opts = Array.from(savedAddress.options).map(o => o.value);
+    const candidate = cartFormState.savedAddressValue || '';
+    savedAddress.value = opts.includes(candidate) ? candidate : '';
+  }
+  if (pickupLocationEl) {
+    pickupLocationEl.value = cartFormState.pickupLocationValue || '';
+  }
+  if (contactConfirmedEl) {
+    contactConfirmedEl.checked = !!cartFormState.contactConfirmed;
+  }
+
+  console.log('[cart] restoreCartFormState applied');
+}
+
+// ---------- Вкладка корзины ----------
+
+window.setPaymentType = function (type) {
+  paymentType = type;
+  console.log('[cart] setPaymentType', type);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('setPaymentType', {});
+    }
+  } catch (e) {}
+  saveDeliveryPrefs();
+  if (currentTab === 'cart') {
+    showCartTab();
+  }
+};
+
+window.setPickupMode = function (mode) {
+  pickupMode = !!mode;
+  console.log('[cart] setPickupMode', pickupMode);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('setPickupMode', {});
+    }
+  } catch (e) {}
+  saveDeliveryPrefs();
+  if (currentTab === 'cart') {
+    showCartTab();
+  }
+};
+
+window.setPickupLocation = function (addr) {
+  pickupLocation = addr;
+  console.log('[cart] setPickupLocation', pickupLocation);
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('setPickupLocation', {});
+    }
+  } catch (e) {}
+  saveDeliveryPrefs();
+};
+
+window.setCartCountryAndRefresh = function (country) {
+  console.log('[setCartCountryAndRefresh] START', {country, currentCartCountry: window.getCartCountry?.(), currentSelectedCountry: window.selectedCountry, currentTab: window.currentTab});
+  // Don't reload if the same country is already selected
+  if (window.getCartCountry && window.getCartCountry() === country) {
+    console.log('[setCartCountryAndRefresh] same country, skipping reload');
+    return;
+  }
+
+  if (window.setCartCountry && window.setCartCountry(country)) {
+    console.log('[setCartCountryAndRefresh] setCartCountry success, cartCountry now:', window.getCartCountry?.());
+    // Also sync with shop country
+    if (window.setCountry) window.setCountry(country);
+    // Set flag to return to cart tab after reload
+    sessionStorage.setItem('openCartAfterReload', 'true');
+    console.log('[setCartCountryAndRefresh] set openCartAfterReload=true');
+    // Reload page with new country query param for full price recalculation
+    const url = new URL(window.location.href);
+    url.searchParams.set('country', country);
+    // Show loader
+    document.body.style.cursor = 'wait';
+    const loader = document.createElement('div');
+    loader.id = 'countryReloadLoader';
+    loader.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);z-index:9999;display:flex;align-items:center;justify-content:center;font-size:16px;color:#0284c7;';
+    loader.textContent = 'Переключаем магазин...';
+    document.body.appendChild(loader);
+    console.log('[setCartCountryAndRefresh] reloading page with country:', country);
+    window.location.href = url.toString();
+  }
+};
+
+window.onSavedAddressChange = function () {
+  const select = document.getElementById('savedAddress');
+  const wrapper = document.getElementById('deliveryAddressWrapper');
+  if (!select || !wrapper) return;
+  if (select.value) {
+    wrapper.style.display = 'block';
+    const ta = document.getElementById('deliveryAddress');
+    if (ta) {
+      ta.value = select.value;
+      ta.readOnly = true;
+    }
+  } else {
+    wrapper.style.display = 'block';
+    const ta = document.getElementById('deliveryAddress');
+    if (ta) {
+      ta.readOnly = false;
+      ta.value = cartFormState.addressText || '';
+    }
+  }  
+
+  cartFormState.savedAddressValue = select.value || '';
+  saveDeliveryPrefs();
+
+  console.log('[cart] onSavedAddressChange value=', select.value);
+};
+
+function getCartItemSubtitle(item) {
+  if (!item.options || typeof item.options !== 'object') return '';
+  return Object.values(item.options)
+    .filter(v => v !== undefined && v !== null && String(v).trim() !== '')
+    .join(' | ');
+}
+
+function showCartTab() {
+  console.log('[cart] showCartTab, items=', cartItems.length, 'isPlacingOrder=', isPlacingOrder);
+  saveCartFormState();
+
+  if (!cartItems.length) {
+    root.innerHTML =
+      '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
+        '<div class="w-24 h-24 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-3xl flex items-center justify-center mb-6">' +
+          '<svg class="w-16 h-16 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+              ' d="M3 4h2l1.5 11h10.5L20 7H7" />' +
+            '<circle cx="8" cy="19" r="1.5" stroke-width="2" />' +
+            '<circle cx="16" cy="19" r="1.5" stroke-width="2" />' +
+          '</svg>' +
+        '</div>' +
+        '<h2 class="text-2xl font-bold text-gray-800 mb-4">Корзина пуста</h2>' +
+        '<p class="text-lg text-gray-600 mb-8 max-w-xs">' +
+          'Добавьте устройство в корзину, чтобы оформить заказ.' +
+        '</p>' +
+        '<button onclick="switchTab(\'shop\')"' +
+          ' class="empty-cta-btn bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-2xl shadow-lg">' +
+          'В магазин' +
+        '</button>' +
+      '</div>';
+    return;
+  }  
+
+  // Get cart country and format prices accordingly
+  const cartCountry = window.getCartCountry ? window.getCartCountry() : 'RU';
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+  const config = window.getCountryConfig ? window.getCountryConfig(cartCountry) : { currency: 'RUB', symbol: '₽', flag: '🇷🇺', name: 'Россия' };
+  const currencyLabel = config.currency;
+
+  // Compute totals in cart country currency
+  const subtotalRub = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = window.convertPrice ? window.convertPrice(subtotalRub, 'RU', cartCountry) : subtotalRub;
+  const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
+  const total = subtotal + commission;
+
+  root.innerHTML =
+    '<div class="relative min-h-[100vh] p-6 space-y-6 pb-[80px] max-w-md mx-auto">' +
+      '<div class="flex items-center justify-between mb-4">' +
+        '<h2 class="text-2xl font-bold text-gray-800">Корзина</h2>' +
+        '<button onclick="refreshCartPricesAndCleanup()"' +
+          ' class="inline-flex items-center justify-center text-[10px] font-semibold px-2.5 h-8 rounded-full ' +
+            'bg-purple-500 hover:bg-purple-600 text-white shadow-md active:scale-[0.97] max-w-[180px] whitespace-nowrap"' +
+          ' id="refreshCartButton">' +
+          '<span class="loader-circle hidden mr-1" id="refreshCartLoader"></span>' +
+          '<span class="leading-tight">Актуализировать корзину</span>' +
+        '</button>' +
+      '</div>' +
+      // Country selector
+      '<div class="space-y-2 mb-4 p-3 bg-gray-50 rounded-xl border border-gray-200">' +
+        '<label class="text-sm font-semibold text-gray-700 block">Регион <span class="text-red-500">*</span></label>' +
+        '<div class="flex gap-2">' +
+          '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
+            (cartCountry === 'RU' ? 'border-blue-500 bg-blue-50' : 'border-gray-200') + '"' +
+            ' onclick="setCartCountryAndRefresh(\'RU\')">' +
+            '<input type="radio" name="cartCountry" value="RU" ' + (cartCountry === 'RU' ? 'checked' : '') + ' style="display:none;">' +
+            '<span class="flex items-center gap-1">' +
+              '<span>🇷🇺</span><span class="font-medium text-sm">Россия</span>' +
+            '</span>' +
+          '</label>' +
+          '<label class="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border-2 cursor-pointer ' +
+            (cartCountry === 'BY' ? 'border-green-500 bg-green-50' : 'border-gray-200') + '"' +
+            ' onclick="setCartCountryAndRefresh(\'BY\')">' +
+            '<input type="radio" name="cartCountry" value="BY" ' + (cartCountry === 'BY' ? 'checked' : '') + ' style="display:none;">' +
+            '<span class="flex items-center gap-1">' +
+              '<span>🇧🇾</span><span class="font-medium text-sm">Беларусь</span>' +
+            '</span>' +
+          '</label>' +
+        '</div>' +
+        '<p class="text-xs text-gray-500">Смена страны пересчитает цены товаров</p>' +
+        (cartCountry !== (window.selectedCountry || 'RU')
+          ? '<p class="text-xs text-amber-600">⚠ Страна в корзине отличается от магазина</p>'
+          : '') +
+      '</div>' +
+      renderCartPriceStatusNote() +
+      '<div class="space-y-3">' +
+        cartItems
+          .map(
+            (item, idx) =>
+              '<div class="flex items-center justify-between p-3 rounded-xl border ' +
+              (item.available ? 'border-gray-200' : 'border-orange-300 bg-orange-50') +
+              '">' +
+                '<div class="text-left flex-1 mr-3">' +
+                  '<div class="font-semibold text-sm break-words">' +
+                    escapeHtml(item.name) +
+                  '</div>' +
+                 '<div class="text-xs text-gray-500">' +
+   escapeHtml(getCartItemSubtitle(item)) +
+ '</div>' +
+                  '<div class="text-xs mt-1 ' +
+                    (item.available
+                      ? 'text-green-600'
+                      : item.newPrice
+                      ? 'text-orange-600'
+                      : 'text-red-600') +
+                    '">' +
+                    (item.available
+                      ? 'В наличии'
+                      : item.newPrice
+                      ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, cartCountry) +
+                      ', новая ' + currencyLabel + ' ' + formatPriceFn(item.newPrice, cartCountry)                    
+                      : 'Товар недоступен, удалите из корзины') +
+                    '</div>' +
+                '</div>' +
+                '<div class="text-right flex flex-col items-end gap-1">' +
+                  '<div class="flex items-center justify-end gap-2">' +
+    '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
+      ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', -1)">-</button>' +
+    '<span class="min-w-[24px] text-center text-sm font-semibold">' +
+      item.quantity +
+    '</span>' +
+    '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
+      ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
+  '</div>' +
+  '<div class="text-sm font-bold text-blue-600">' + currencyLabel + ' ' +
+    formatPriceFn(item.price * item.quantity, cartCountry) +
+  '</div>' +
+  (item.newPrice
+    ? '<button class="text-xs text-blue-500" onclick="updateCartItemPrice(\'' +
+      item.cartKey +
+    '\')">Обновить цену</button>'
+  : '') +
+'<button class="text-xs text-red-500" onclick="removeCartItem(\'' +
+  item.cartKey +
+'\')">Удалить</button>' +
+                '</div>' +
+              '</div>'
+          )
+          .join('') +
+      '</div>' +
+      '<div class="pt-4 border-t space-y-4">' +
+        '<div class="space-y-2">' +
+          '<h3 class="text-sm font-semibold text-gray-700">Способ оплаты</h3>' +
+          '<div class="flex flex-col gap-2">' +
+            '<label class="flex items-center gap-2 text-sm">' +
+              '<input type="radio" name="paymentType" value="cash"' +
+                (paymentType === 'cash' ? ' checked' : '') +
+                ' onchange="setPaymentType(\'cash\')">' +
+              '<span>Наличными (0%)</span>' +
+            '</label>' +
+            '<label class="flex items-center gap-2 text-sm">' +
+              '<input type="radio" name="paymentType" value="card"' +
+                (paymentType === 'card' ? ' checked' : '') +
+                ' onchange="setPaymentType(\'card\')">' +
+              '<span>Картой (+15%)</span>' +
+            '</label>' +
+          '</div>' +
+        '</div>' +
+        '<div class="space-y-2">' +
+          '<h3 class="text-sm font-semibold text-gray-700">Способ получения</h3>' +
+          '<div class="flex flex-col gap-2 mb-2">' +
+            '<label class="flex items-center gap-2 text-sm">' +
+              '<input type="radio" name="pickupMode" value="delivery"' +
+                (!pickupMode ? ' checked' : '') +
+                ' onchange="setPickupMode(false)">' +
+              '<span>Доставка</span>' +
+            '</label>' +
+            '<label class="flex items-center gap-2 text-sm">' +
+              '<input type="radio" name="pickupMode" value="pickup"' +
+                (pickupMode ? ' checked' : '') +
+                ' onchange="setPickupMode(true)">' +
+              '<span>Самовывоз</span>' +
+            '</label>' +
+          '</div>' +
+          (!pickupMode
+            ? '<label class="text-sm font-semibold text-gray-700 block">Адрес доставки</label>' +
+              '<select id="savedAddress" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm mb-2" onchange="onSavedAddressChange()">' +
+                '<option value="">Выбрать сохранённый адрес</option>' +
+                (savedAddresses || [])
+                  .map(
+                    addr =>
+                      '<option value="' +
+                      escapeHtml(addr) +
+                      '"' +
+                      (cartFormState.savedAddressValue === addr ? ' selected' : '') +
+                      '>' +
+                      escapeHtml(addr) +
+                      '</option>'
+                  )
+                  .join('') +
+              '</select>' +
+              '<div id="deliveryAddressWrapper" class="mb-2"' +
+                (cartFormState.savedAddressValue ? ' style="display:none"' : '') +
+              '>' +
+                '<textarea id="deliveryAddress" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"' +
+                  ' rows="3" placeholder="Например: г. Москва, проспект Ленинский n, подъезд 1, этаж 1, кв 2"></textarea>' +
+              '</div>' +
+              '<div class="mt-1">' +
+                '<label class="text-sm font-semibold text-gray-700 block mb-1">Комментарий к доставке</label>' +
+                '<textarea id="deliveryComment" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"' +
+                  ' rows="2" placeholder="Например: позвонить за 10 минут, домофон не работает..."></textarea>' +
+              '</div>'
+            : '<label class="text-sm font-semibold text-gray-700 block">Адрес самовывоза</label>' +
+              '<select id="pickupLocation" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm mb-2"' +
+                ' onchange="setPickupLocation(this.value)">' +
+                '<option value="">Выберите пункт самовывоза</option>' +
+                (window.PICKUP_LOCATIONS && window.PICKUP_LOCATIONS[cartCountry] 
+                  ? window.PICKUP_LOCATIONS[cartCountry]
+                  : (window.PICKUP_LOCATIONS || [])
+                ).map(
+                  addr =>
+                    '<option value="' +
+                    escapeHtml(addr) +
+                    '"' +
+                    (pickupLocation === addr ? ' selected' : '') +
+                    '>' +
+                    escapeHtml(addr) +
+                    '</option>'
+                ).join('') +
+              '</select>' +
+              '<div class="mt-1">' +
+                '<label class="text-sm font-semibold text-gray-700 block mb-1">Комментарий к заказу</label>' +
+                '<textarea id="deliveryComment" class="w-full bg-white border border-gray-300 rounded-xl px-3 py-2 text-sm"' +
+                  ' rows="2" placeholder="Например: приеду к 19:00"></textarea>' +
+              '</div>') +
+        '</div>' +
+        '<div class="space-y-2">' +
+          '<label class="text-sm font-semibold text-gray-700 block">Контактные данные*</label>' +
+          '<input id="contactName" type="text"' +
+            ' class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm mb-2 focus:outline-none"' +
+            ' placeholder="Имя">' +
+          '<input id="contactPhone" type="tel"' +
+            ' class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm mb-2 focus:outline-none"' +
+            ' placeholder="Телефон для связи">' +
+          '<label class="flex items-center gap-2 text-xs text-gray-600">' +
+            '<input id="contactConfirmed" type="checkbox">' +
+            '<span>Подтверждаю правильность введенных данных</span>' +
+          '</label>' +
+        '</div>' +
+        '<div class="space-y-1 text-sm text-gray-700">' +
+          '<div class="flex items-center justify-between">' +
+            '<span>Сумма товаров</span>' +
+            '<span>' + currencyLabel + ' ' + formatPriceFn(subtotal, cartCountry) + '</span>' +
+          '</div>' +
+          (paymentType === 'card'
+            ? '<div class="flex items-center justify-between">' +
+                '<span>Сервисный сбор (карта)</span>' +
+                '<span>+' + currencyLabel + ' ' + formatPriceFn(commission, cartCountry) + '</span>' +
+              '</div>'
+            : '') +
+          '<div class="flex items-center justify-between font-semibold mt-1">' +
+            '<span>Итого к оплате</span>' +
+            '<span>' + currencyLabel + ' ' + formatPriceFn(total, cartCountry) + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="pt-3">' +
+          '<button onclick="placeOrder()"' +
+            ' id="placeOrderButton"' +
+            ' class="w-full flex items-center justify-center gap-2 ' +
+              (!cartItems.some(i => !i.available) && !isPlacingOrder
+                ? 'bg-blue-500 hover:bg-blue-600'
+                : 'bg-gray-400 cursor-not-allowed') +
+              ' text-white font-semibold py-2.5 px-6 rounded-2xl shadow-lg text-sm"' +
+            (cartItems.some(i => !i.available) || isPlacingOrder ? ' disabled' : '') +
+          '>' +
+            (cartItems.some(i => !i.available)
+              ? 'Удалите недоступные товары или обновите цены'
+              : isPlacingOrder
+              ? '<span class="loader-circle"></span><span>Проверяю наличие (до 70 сек)...</span>'
+              : 'Оформить заказ') +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+    const contactNameEl = document.getElementById('contactName');
+    const contactPhoneEl = document.getElementById('contactPhone');
+    const contactConfirmedEl = document.getElementById('contactConfirmed');
+  
+    restoreCartFormState();
+  
+    if (savedProfile && savedProfile.confirmed && !cartFormState.contactEditedManually) {
+      if (contactNameEl && savedProfile.name) {
+        contactNameEl.value = savedProfile.name;
+      }
+      if (contactPhoneEl && savedProfile.phone) {
+        const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
+        contactPhoneEl.value = formatPhoneValue(savedProfile.phone, cc);
+      }
+    }
+  
+    if (contactConfirmedEl) {
+      contactConfirmedEl.checked = !!cartFormState.contactConfirmed;
+    }
+  
+    if (contactPhoneEl) {
+      contactPhoneEl.addEventListener('focus', () => {
+        hideTabBar();
+        if (!contactPhoneEl.value.trim()) {
+          const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
+          contactPhoneEl.value = cc === 'BY' ? '+375 ' : '+7 ';
+        }
+      });
+      contactPhoneEl.addEventListener('blur', showTabBar);
+      let phoneInputPrevLen = 0;
+      contactPhoneEl.addEventListener('input', () => {
+        cartFormState.contactEditedManually = true;
+        const newLen = contactPhoneEl.value.length;
+        if (newLen > phoneInputPrevLen) {
+          const cc = window.getCartCountry ? window.getCartCountry() : 'RU';
+          contactPhoneEl.value = formatPhoneInput(contactPhoneEl.value, cc);
+        }
+        phoneInputPrevLen = contactPhoneEl.value.length;
+      });
+    }
+  
+    if (contactNameEl) {
+      contactNameEl.addEventListener('focus', hideTabBar);
+      contactNameEl.addEventListener('blur', showTabBar);
+      contactNameEl.addEventListener('input', () => {
+        cartFormState.contactEditedManually = true;
+      });
+    }
+  
+    ['deliveryAddress', 'deliveryComment'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener('focus', hideTabBar);
+      el.addEventListener('blur', showTabBar);
+    });
+  
+    // ОДИН общий блок для pickupSelect: и фокус, и предзаполнение
+    const pickupSelect = document.getElementById('pickupLocation');
+    if (pickupSelect) {
+      // предзаполнение по состоянию
+      if (pickupLocation && PICKUP_LOCATIONS.includes(pickupLocation)) {
+        pickupSelect.value = pickupLocation;
+      } else {
+        pickupSelect.value = '';
+        pickupLocation = '';
+      }
+  
+      pickupSelect.addEventListener('focus', () => {});
+      pickupSelect.addEventListener('blur', showTabBar);
+    }
+  
+    const savedSelect = document.getElementById('savedAddress');
+    if (savedSelect) {
+      onSavedAddressChange();
+    }
+  
+    if (currentTab === 'cart') {
+      showTabBar();
+    }
+  }  
+
+function setPlaceOrderLoading(loading) {
+  const btn = document.getElementById('placeOrderButton');
+  if (!btn) return;
+
+  if (loading) {
+    btn.disabled = true;
+    btn.classList.remove('bg-blue-500', 'hover:bg-blue-600');
+    btn.classList.add('bg-gray-400', 'cursor-not-allowed');
+    btn.innerHTML =
+      '<span class="loader-circle"></span><span>Проверяю наличие (до 70 сек)...</span>';
+  } else {
+    btn.disabled = cartItems.some(i => !i.available);
+    btn.classList.remove('bg-gray-400', 'cursor-not-allowed');
+    if (!btn.disabled) {
+      btn.classList.add('bg-blue-500', 'hover:bg-blue-600');
+      btn.innerHTML = 'Оформить заказ';
+    } else {
+      btn.innerHTML = 'Удалите недоступные товары или обновите цены';
+    }
+  }
+}
+
+function formatPhoneInput(raw, country) {
+    country = country || 'RU';
+    let v = raw.replace(/[^\d]/g, '');
+    if (country === 'BY') {
+      if (v.startsWith('375')) v = v.slice(3);
+      if (v.length > 9) v = v.slice(0, 9);
+      let formatted = '+375';
+      if (v.length > 0) formatted += ' (' + v.slice(0, 2);
+      if (v.length > 2) formatted += ') ' + v.slice(2, 5);
+      if (v.length > 5) formatted += '-' + v.slice(5, 7);
+      if (v.length > 7) formatted += '-' + v.slice(7, 9);
+      return formatted;
+    }
+    if (v.startsWith('7')) v = v.slice(1);
+    if (v.length > 10) v = v.slice(0, 10);
+    let formatted = '+7';
+    if (v.length > 0) formatted += ' (' + v.slice(0, 3);
+    if (v.length > 3) formatted += ') ' + v.slice(3, 6);
+    if (v.length > 6) formatted += '-' + v.slice(6, 8);
+    if (v.length > 8) formatted += '-' + v.slice(8, 10);
+    return formatted;
+  }
+
+  function formatPhoneValue(raw, country) {
+    if (!raw) return '';
+    country = country || 'RU';
+    let v = raw.replace(/[^\d+]/g, '');
+    if (country === 'BY') {
+      if (v.startsWith('+375')) v = v.slice(4);
+      else if (v.startsWith('+8')) v = v.slice(2);
+      else if (v.startsWith('80')) v = v.slice(2);
+      if (v.length > 9) v = v.slice(0, 9);
+      let formatted = '+375';
+      if (v.length > 0) formatted += ' (' + v.slice(0, 2);
+      if (v.length > 2) formatted += ') ' + v.slice(2, 5);
+      if (v.length > 5) formatted += '-' + v.slice(5, 7);
+      if (v.length > 7) formatted += '-' + v.slice(7, 9);
+      return formatted;
+    }
+    if (v.startsWith('+7')) v = v.slice(2);
+    else if (v.startsWith('8')) v = v.slice(1);
+    if (v.length > 10) v = v.slice(0, 10);
+    let formatted = '+7';
+    if (v.length > 0) formatted += ' (' + v.slice(0, 3);
+    if (v.length > 3) formatted += ') ' + v.slice(3, 6);
+    if (v.length > 6) formatted += '-' + v.slice(6, 8);
+    if (v.length > 8) formatted += '-' + v.slice(8, 10);
+    return formatted;
+  }
+
+function scheduleDelayedOrdersSync(reason) {
+  console.log('[placeOrder] scheduleDelayedOrdersSync reason=', reason);
+  setTimeout(async () => {
+    try { 
+      console.log('[placeOrder] delayed sync 2min after', reason);
+      await fetchUserOrders();
+      if (currentTab === 'profile') {
+        showProfileTab();
+      }
+    } catch (e) {
+      console.error('[placeOrder] fetchUserOrders delayed error', e);
+    }
+  }, 120000);
+}
+
+function getOrderPlacedAlertText() {
+  const status = typeof getPriceStatus === 'function'
+    ? getPriceStatus(aboutLastProductsMetaText)
+    : null;
+
+  let text =
+    '✅ Заказ оформлен!\n' +
+    'Менеджер свяжется с вами для подтверждения в ближайшее рабочее время.\n' +
+    'Время работы: 10:00–20:00 МСК.';
+
+  if (status?.type === 'pending') {
+    text += '\nВажно: цены в магазине ждут обновления сегодня, поэтому итоговая сумма заказа может быть пересмотрена при подтверждении.';
+  } else if (status?.type === 'tomorrow') {
+    text += '\nВажно: цены в магазине сейчас неактуальны, поэтому итоговая сумма заказа может быть пересмотрена при подтверждении.';
+  }
+
+  return text;
+}
+
+window.showCartTab = showCartTab;
+
+function getPickupModeForAnalytics() {
+  // pickupMode у тебя уже есть: false = доставка, true = самовывоз
+  return pickupMode ? 'pickup' : 'delivery';
+}
+
+window.placeOrder = async function () {
+  if (isPlacingOrder) return;
+
+  const orderClickTs = Date.now();
+  const appPriceStatus = captureAppPriceStatusSnapshot();
+  console.log('[placeOrder] start at', orderClickTs, 'items=', cartItems.length);
+
+  try {
+    if (cartItems.length && typeof trackCheckoutStart === 'function') {
+      trackCheckoutStart(cartItems, {
+        payment_type: paymentType,
+        pickup_mode: pickupMode
+      });
+    }
+  } catch (e2) {}
+
+
+  if (cartItems.length === 0) {
+    tg?.showAlert?.('Корзина пуста.\nДля заказа через менеджера напишите @TechBex.');
+    return;
+  }
+
+  let address = '';
+  if (pickupMode) {
+    if (!pickupLocation) {
+      trackEvent('need_fill_pickup', {}, {});
+      tg?.showAlert?.('Выберите пункт самовывоза');
+      return;
+    }
+    address = 'Самовывоз: ' + pickupLocation;
+  } else {
+    const select = document.getElementById('savedAddress');
+    const textarea = document.getElementById('deliveryAddress');
+    address = (textarea && textarea.value.trim()) || '';
+    if (!address && select && select.value) {
+      address = select.value;
+    }
+    if (!address) {
+      trackEvent('need_fill_address', {}, {});
+      tg?.showAlert?.('Введите или выберите адрес доставки');
+      return;
+    }
+  }
+
+  const commentEl = document.getElementById('deliveryComment');
+  const deliveryComment = commentEl ? commentEl.value.trim() || '' : '';
+
+  const contactNameEl = document.getElementById('contactName');
+  const contactPhoneEl = document.getElementById('contactPhone');
+
+  const rawName = contactNameEl ? contactNameEl.value || '' : '';
+  const rawPhone = contactPhoneEl ? contactPhoneEl.value || '' : '';
+
+  const contactConfirmedEl = document.getElementById('contactConfirmed');
+  const contactConfirmed = contactConfirmedEl ? contactConfirmedEl.checked : false;
+
+
+  const hasBadName = !isValidName(rawName);
+const hasBadPhone = !normalizePhone(rawPhone, cartCountry);
+const hasNoConfirm = !contactConfirmed;
+
+// 1) Все три не ок: имя, телефон, подтверждение
+if (hasBadName && hasBadPhone && hasNoConfirm) {
+  tg?.showAlert?.('Заполните имя и телефон и подтвердите данные');
+  trackEvent('need_fill_all_fields', {}, {});
+  return;
+}
+
+// 2) Имя и телефон не ок, подтверждение неважно (всё равно данные кривые)
+if (hasBadName && hasBadPhone) {
+  tg?.showAlert?.('Заполните корректные имя и телефон');
+  trackEvent('need_fill_name_and_phone', {}, {});
+  return;
+}
+
+// 3) Только имя не ок
+if (hasBadName) {
+  tg?.showAlert?.('Введите корректное имя (только буквы, 1–50 символов)');
+  trackEvent('need_type_name', {}, {});
+  return;
+}
+
+// 4) Только телефон не ок
+const normalizedPhone = normalizePhone(rawPhone, cartCountry);
+if (!normalizedPhone) {
+  const phoneFormat = cartCountry === 'BY' ? '+375 (XX) XXX-XX-XX' : '+7 (XXX) XXX-XX-XX';
+  tg?.showAlert?.('Введите корректный номер телефона в формате ' + phoneFormat);
+  trackEvent('need_type_phone', {}, {});
+  return;
+}
+
+// 5) Имя и телефон ок, но не подтвердил
+if (!contactConfirmed) {
+  tg?.showAlert?.('Подтвердите правильность введенных данных');
+  trackEvent('need_confirm_data', {}, {});
+  return;
+}
+
+  const contactName = rawName.trim();
+  const contactPhone = normalizedPhone;
+
+  console.log('[placeOrder] address=', address, 'pickupMode=', pickupMode);
+  console.log('[placeOrder] comment=', deliveryComment, 'contact=', contactName, contactPhone);
+
+  isPlacingOrder = true;
+  setPlaceOrderLoading(true);
+
+  placeOrderTimeoutId = setTimeout(async () => {
+    if (!isPlacingOrder) return;
+    console.log('[placeOrder] client-side timeout 70s');
+    isPlacingOrder = false;
+
+    try {
+      await fetchUserOrders();
+    } catch (e) {
+      console.error('[placeOrder] fetchUserOrders after timeout error', e);
+    }
+
+    if (currentTab === 'cart') {
+      showCartTab();
+    }
+    trackEvent('timeout_checkout_error', {}, {});
+    tg?.showAlert?.(
+      'Превышено время ожидания ответа сервера.\nДля заказа через менеджера напишите @TechBex.\nВозможно большая нагрузка и заказ появится в профиле в течении 3 минут. Если не появился проверьте интернет и попробуйте ещё раз (либо сразу можете попробовать повторно оформить заказ)'
+    );
+
+    scheduleDelayedOrdersSync('timeout');
+  }, 70000);
+
+  try {
+    try {
+      await fetchAndUpdateProducts(false);
+    } catch (e) {
+      console.error('[placeOrder] refresh before order failed', e);
+    }
+
+    if (!productsData) {
+      tg?.showAlert?.('Товары ещё не загружены, попробуйте позже.\nДля заказа через менеджера напишите @TechBex.');
+      isPlacingOrder = false;
+      setPlaceOrderLoading(false);
+      return;
+    }
+
+    let hasUnavailable = false;
+    let hasPriceChanged = false;
+
+    const productByKeyForOrder = new Map(
+      productsData.filter(p => p.inStock).map(p => [buildCartKey(p), p])
+    );
+    
+    cartItems = cartItems.map(item => {
+      const fresh = productByKeyForOrder.get(item.cartKey);
+
+      if (!fresh) {
+        hasUnavailable = true;
+        return { ...item, available: false };
+      }
+
+      const freshPrice = Number(fresh['Цена']);
+      const oldPrice = Number(item.price);
+
+      // цена исчезла или стала 0 → считаем недоступным
+      if (!Number.isFinite(freshPrice) || freshPrice <= 0) {
+        hasUnavailable = true;
+        return { ...item, available: false };
+      }
+
+      if (freshPrice !== oldPrice) {
+        hasPriceChanged = true;
+        return { ...item, available: false, newPrice: freshPrice };
+      }
+
+      return { ...item, available: true, newPrice: undefined };
+    });
+
+    console.log(
+      '[placeOrder] after sync products: hasUnavailable=',
+      hasUnavailable,
+      'hasPriceChanged=',
+      hasPriceChanged
+    );
+    saveCartToStorage();
+    updateCartBadge();
+
+    if (hasUnavailable || hasPriceChanged) {
+      isPlacingOrder = false;
+      setPlaceOrderLoading(false);
+      if (hasUnavailable && hasPriceChanged) {
+        tg?.showAlert?.(
+          'Некоторые товары недоступны, а у других обновилась цена. Проверьте корзину.'
+        );
+      } else if (hasUnavailable) {
+        tg?.showAlert?.('Некоторые товары стали недоступны. Удалите их из корзины.');
+      } else {
+        tg?.showAlert?.(
+          'У некоторых товаров обновилась цена. Нажмите "Обновить" возле позиции.'
+        );
+      }
+      if (currentTab === 'cart') {
+        showCartTab();
+      }
+      return;
+    }
+
+    const factPriceStatus = buildFactPriceStatus(hasUnavailable, hasPriceChanged);
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const commission = paymentType === 'card' ? Math.round(subtotal * 0.15) : 0;
+    const total = subtotal + commission;
+
+        // сохраняем итоговую сумму для аналитики checkout_result
+        lastOrderTotal = total;
+
+
+    // сохраняем контакты в состояние и профиль
+    cartFormState.contactName = contactName;
+    cartFormState.contactPhone = contactPhone;
+    cartFormState.contactConfirmed = contactConfirmed;
+
+    savedProfile = {
+      name: contactName,
+      phone: contactPhone,
+      confirmed: contactConfirmed
+    };
+    saveProfileToStorage();
+
+    const order = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      items: cartItems.slice(),
+      subtotal,
+      commission,
+      total,
+      address,
+      paymentType,
+      pickupMode,
+      pickupLocation: pickupMode ? pickupLocation : '',
+      user: tg?.initDataUnsafe?.user || null,
+      clientClickTs: orderClickTs,
+      comment: deliveryComment,
+      contact: {
+        name: contactName,
+        phone: contactPhone
+      },
+      country: cartCountry, // Add cart country to order
+      appPriceStatus,
+      factPriceStatus
+    };
+
+    currentOrderId = order.id;
+    hasCheckoutResultForCurrent = false;
+
+    // фактическое совпадение с сохранённым профилем на момент клика
+    const profileMatchesSaved =
+      !!savedProfile &&
+      !!savedProfile.confirmed &&
+      (savedProfile.name || '').trim() === contactName &&
+      normalizePhone(savedProfile.phone || '') === contactPhone;
+
+    const usedSavedProfile = profileMatchesSaved;
+
+    const usedSavedAddress =
+      !pickupMode &&                       // только для доставки
+      !!deliveryPrefs &&                   // prefs есть
+      !!deliveryPrefs.savedAddressValue && // вообще есть сохранённый адрес
+      deliveryPrefs.savedAddressValue === (cartFormState.savedAddressValue || '');
+
+    try {
+      if (typeof trackCheckoutFormFilled === 'function') {
+        trackCheckoutFormFilled({
+          used_saved_profile: usedSavedProfile,
+          used_saved_address: usedSavedAddress,
+          pickup_mode: pickupMode,
+          payment_type: paymentType
+        });
+      }
+      if (typeof trackCheckoutSubmit === 'function') {
+        trackCheckoutSubmit(order);
+      }
+    } catch (e2) {}
+
+    console.log('[placeOrder] order payload', order);
+
+    let resp;
+    let text;
+    try {
+      resp = await fetch(BACKEND_ORDER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
+
+      text = await resp.text();
+      console.log('[placeOrder] BACKEND_ORDER_URL status:', resp.status);
+      console.log('[placeOrder] BACKEND_ORDER_URL body:', text);
+    } catch (e) {
+      console.error('[placeOrder] backend order network error', e);
+      tg?.showAlert?.('Ошибка сети. Заказ не сохранён, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+
+      try {
+        if (typeof trackCheckoutResult === 'function') {
+          trackCheckoutResult(order.id, false, {
+            reason: 'network_error'
+          });
+        }
+        hasCheckoutResultForCurrent = true;
+      } catch (e2) {}
+
+      scheduleDelayedOrdersSync('network-error');
+
+      isPlacingOrder = false;
+      setPlaceOrderLoading(false);
+      return;
+    }
+
+
+    let json = null;
+    try {
+      json = JSON.parse(text);
+    } catch (e) {
+      console.log('[placeOrder] response is not valid JSON');
+    }
+
+    if (!resp.ok || !json || json.ok !== true) {
+      console.log('[placeOrder] backend responded with error status:', resp.status, json);
+      tg?.showAlert?.('Заказ не сохранён, ошибка сервера, попробуйте ещё раз.\nДля заказа через менеджера напишите @TechBex.');
+
+      try {
+        if (typeof trackCheckoutResult === 'function') {
+          trackCheckoutResult(order.id, false, {
+            reason: 'server_error',
+            status: resp.status
+          });
+        }
+        hasCheckoutResultForCurrent = true;
+      } catch (e2) {}
+
+      scheduleDelayedOrdersSync('server-error');
+
+      isPlacingOrder = false;
+      setPlaceOrderLoading(false);
+      return;
+    }
+
+    const now = Date.now();
+    const durationMs = now - orderClickTs;
+    console.log('[perf] placeOrder duration:', durationMs, 'ms');
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('perf_checkout_total', {
+          duration_ms: durationMs
+        });
+      }
+      if (typeof trackCheckoutResult === 'function') {
+        trackCheckoutResult(order.id, true);
+      }
+      hasCheckoutResultForCurrent = true;
+    } catch (e2) {}
+
+    tg?.showAlert?.(getOrderPlacedAlertText());
+
+    // после успешного ответа от бэка
+    try {
+      if (!Array.isArray(previousOrders)) {
+        previousOrders = [];
+      }
+
+      previousOrders.unshift(order);
+
+      if (previousOrders.length > 50) {
+        previousOrders = previousOrders.slice(0, 50);
+      }
+
+      if (currentTab === 'profile') {
+        renderOrdersSection();
+      }
+    } catch (e) {
+      console.error('[placeOrder] failed to push order into previousOrders', e);
+    }
+
+    // отложенный синк истории с таблицей
+    setTimeout(async () => {
+      try {
+        await fetchUserOrders();
+      } catch (e) {
+        console.error('[placeOrder] delayed fetchUserOrders error', e);
+      }
+    }, 25000);
+
+    resetCartStateAfterOrder();
+    isPlacingOrder = false;
+
+    if (currentTab === 'cart') {
+      resetUiAfterOrderSuccessIfCart();
+      showCartTab();
+    }  
+  } finally {
+    clearTimeout(placeOrderTimeoutId);
+    placeOrderTimeoutId = null;
+  }
+};

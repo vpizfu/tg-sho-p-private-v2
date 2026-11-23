@@ -1,1 +1,581 @@
-const _0x174da6=_0x25ea;(function(_0x37471c,_0x121bab){const _0x59dea1=_0x25ea,_0x4c4280=_0x37471c();while(!![]){try{const _0x429a1b=parseInt(_0x59dea1(0x183))/0x1+parseInt(_0x59dea1(0x1b5))/0x2+parseInt(_0x59dea1(0x1be))/0x3*(parseInt(_0x59dea1(0x1dd))/0x4)+parseInt(_0x59dea1(0x1a0))/0x5+-parseInt(_0x59dea1(0x19e))/0x6*(-parseInt(_0x59dea1(0x1e1))/0x7)+-parseInt(_0x59dea1(0x198))/0x8+-parseInt(_0x59dea1(0x1a8))/0x9*(parseInt(_0x59dea1(0x18b))/0xa);if(_0x429a1b===_0x121bab)break;else _0x4c4280['push'](_0x4c4280['shift']());}catch(_0x175adb){_0x4c4280['push'](_0x4c4280['shift']());}}}(_0x49cb,0x2f449));const ANALYTICS_URL=(typeof BACKEND_BASE_URL==='string'?BACKEND_BASE_URL:_0x174da6(0x179))+_0x174da6(0x1d2),ANALYTICS_BATCH_SIZE=0x14,ANALYTICS_FLUSH_INTERVAL_MS=0x1388,ANALYTICS_MAX_QUEUE=0x3e8,ANALYTICS_CLIENT_ID_KEY=_0x174da6(0x1b9),ANALYTICS_SESSION_ID_KEY='tbx_analytics_session_id_v1',ANALYTICS_SESSION_TTL_MS=0x3c*0x3c*0x3e8;let analyticsClientId=null,analyticsSessionId=null,analyticsSessionStartedAt=Date[_0x174da6(0x1bb)](),analyticsQueue=[],analyticsFlushTimer=null,analyticsStarted=![];function analyticsGenerateId(_0x2c0136){const _0x5dafa3=_0x174da6;return _0x2c0136+'_'+Math[_0x5dafa3(0x19d)]()[_0x5dafa3(0x185)](0x24)[_0x5dafa3(0x1c6)](0x2)+'_'+Date[_0x5dafa3(0x1bb)]()['toString'](0x24);}function analyticsLoadClientId(){const _0x420f76=_0x174da6;try{const _0x31a721=localStorage[_0x420f76(0x1e0)](ANALYTICS_CLIENT_ID_KEY);if(_0x31a721&&typeof _0x31a721==='string'&&_0x31a721[_0x420f76(0x180)]>0x0)return _0x31a721;}catch(_0x8c910f){}const _0x3d670f=analyticsGenerateId(_0x420f76(0x1ac));try{localStorage[_0x420f76(0x18e)](ANALYTICS_CLIENT_ID_KEY,_0x3d670f);}catch(_0x1f2995){}return _0x3d670f;}function _0x25ea(_0x1b773d,_0x44798a){_0x1b773d=_0x1b773d-0x179;const _0x49cb26=_0x49cb();let _0x25ea28=_0x49cb26[_0x1b773d];if(_0x25ea['jYZjqy']===undefined){var _0x444687=function(_0xcf3851){const _0x48e2b0='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x2c0136='',_0x3d670f='';for(let _0x31a721=0x0,_0x8c910f,_0x1f2995,_0x3dd2f4=0x0;_0x1f2995=_0xcf3851['charAt'](_0x3dd2f4++);~_0x1f2995&&(_0x8c910f=_0x31a721%0x4?_0x8c910f*0x40+_0x1f2995:_0x1f2995,_0x31a721++%0x4)?_0x2c0136+=String['fromCharCode'](0xff&_0x8c910f>>(-0x2*_0x31a721&0x6)):0x0){_0x1f2995=_0x48e2b0['indexOf'](_0x1f2995);}for(let _0x13287b=0x0,_0x1d360c=_0x2c0136['length'];_0x13287b<_0x1d360c;_0x13287b++){_0x3d670f+='%'+('00'+_0x2c0136['charCodeAt'](_0x13287b)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x3d670f);};_0x25ea['iehVXm']=_0x444687,_0x25ea['abaQfx']={},_0x25ea['jYZjqy']=!![];}const _0x1a4e7f=_0x49cb26[0x0],_0x4665d2=_0x1b773d+_0x1a4e7f,_0x75b5c4=_0x25ea['abaQfx'][_0x4665d2];return!_0x75b5c4?(_0x25ea28=_0x25ea['iehVXm'](_0x25ea28),_0x25ea['abaQfx'][_0x4665d2]=_0x25ea28):_0x25ea28=_0x75b5c4,_0x25ea28;}function analyticsLoadSessionId(){const _0x2889ac=_0x174da6;try{const _0x3dd2f4=localStorage[_0x2889ac(0x1e0)](ANALYTICS_SESSION_ID_KEY);if(!_0x3dd2f4)return null;const _0x13287b=JSON[_0x2889ac(0x187)](_0x3dd2f4);if(!_0x13287b||typeof _0x13287b!==_0x2889ac(0x1c2))return null;const {id:_0x1d360c,startedAt:_0xa1516b}=_0x13287b;if(!_0x1d360c||typeof _0x1d360c!==_0x2889ac(0x17e))return null;const _0xa72b90=typeof _0xa1516b===_0x2889ac(0x1cf)?_0xa1516b:0x0,_0x2c3af6=Date[_0x2889ac(0x1bb)]();if(_0x2c3af6-_0xa72b90>ANALYTICS_SESSION_TTL_MS)return null;return analyticsSessionStartedAt=_0xa72b90,_0x1d360c;}catch(_0x122420){return null;}}function analyticsSaveSessionId(_0x324287){const _0x1159a5=_0x174da6;try{const _0x30e5f3={'id':_0x324287,'startedAt':analyticsSessionStartedAt};localStorage[_0x1159a5(0x18e)](ANALYTICS_SESSION_ID_KEY,JSON['stringify'](_0x30e5f3));}catch(_0x2c1d90){}}function analyticsEnsureIds(){const _0x29d910=_0x174da6;!analyticsClientId&&(analyticsClientId=analyticsLoadClientId()),!analyticsSessionId&&(analyticsSessionStartedAt=Date[_0x29d910(0x1bb)](),analyticsSessionId=analyticsGenerateId(_0x29d910(0x1ba)),analyticsSaveSessionId(analyticsSessionId));}function analyticsGetBaseContext(){const _0x449861=_0x174da6;analyticsEnsureIds();const _0xd888a0=Date['now']();let _0x37333b=_0x449861(0x1c8),_0x3796a0=_0x449861(0x1c8),_0x12e091=null,_0x22e61e=null;const _0x4c5370=window[_0x449861(0x182)]&&window[_0x449861(0x182)][_0x449861(0x1a9)];if(_0x4c5370&&_0x4c5370['initData']){_0x37333b=_0x449861(0x1d7),_0x3796a0='telegram';const _0x3d27bc=_0x4c5370[_0x449861(0x1bf)]&&_0x4c5370[_0x449861(0x1bf)]['user'];_0x3d27bc&&(_0x12e091=_0x3d27bc['id']??null,_0x22e61e=_0x3d27bc[_0x449861(0x1b7)]??null);}let _0x32cd6f='',_0x4aae14='';if(typeof location!==_0x449861(0x1d8)&&location[_0x449861(0x1ab)]){_0x4aae14=location[_0x449861(0x1ab)];try{const _0x1812d7=location[_0x449861(0x188)]||'',_0xf284f5=location[_0x449861(0x1ce)]||'';let _0xf68d4d=location[_0x449861(0x17f)]||'';_0xf68d4d[_0x449861(0x18f)]('tgWebAppData=')&&(_0xf68d4d=_0xf68d4d['split']('tgWebAppData=')[0x0],_0xf68d4d=_0xf68d4d['replace'](/[?&]$/,'')),_0x32cd6f=_0x1812d7+_0xf284f5+_0xf68d4d;}catch(_0x268888){_0x32cd6f=location[_0x449861(0x1ab)];}}const _0x46ae02=typeof document!==_0x449861(0x1d8)?document[_0x449861(0x1c0)]:'',_0x17bc77=typeof navigator!=='undefined'?navigator['userAgent']||'':'',_0x3b0856=typeof navigator!=='undefined'?navigator[_0x449861(0x19a)]||'':'',_0x1376e7=typeof screen!==_0x449861(0x1d8)?screen[_0x449861(0x1b4)]||null:null,_0x4e1843=typeof screen!==_0x449861(0x1d8)?screen[_0x449861(0x1c5)]||null:null,_0x33a385=new Date()[_0x449861(0x17d)]();return{'ts':_0xd888a0,'client_id':analyticsClientId,'session_id':analyticsSessionId,'platform':_0x37333b,'source':_0x3796a0,'url':_0x32cd6f,'referrer':_0x46ae02,'ua':_0x17bc77,'lang':_0x3b0856,'screen_w':_0x1376e7,'screen_h':_0x4e1843,'tz_offset_min':_0x33a385,'tg_user_id':_0x12e091,'tg_username':_0x22e61e};}function analyticsScheduleFlush(){if(analyticsFlushTimer)return;analyticsFlushTimer=setTimeout(analyticsFlush,ANALYTICS_FLUSH_INTERVAL_MS);}async function analyticsFlush(){const _0x523486=_0x174da6;analyticsFlushTimer=null;if(!analyticsQueue[_0x523486(0x180)])return;const _0x44e32b=analyticsQueue['slice'](0x0,ANALYTICS_BATCH_SIZE);analyticsQueue=analyticsQueue[_0x523486(0x1c6)](_0x44e32b[_0x523486(0x180)]);try{await fetch(ANALYTICS_URL,{'method':'POST','headers':{'Content-Type':_0x523486(0x190)},'keepalive':!![],'body':JSON[_0x523486(0x1c7)]({'events':_0x44e32b})});}catch(_0xe30166){console[_0x523486(0x1a1)](_0x523486(0x1b6),_0xe30166),analyticsQueue=_0x44e32b[_0x523486(0x1b8)](analyticsQueue)[_0x523486(0x1c6)](-ANALYTICS_MAX_QUEUE);}finally{analyticsQueue[_0x523486(0x180)]&&analyticsScheduleFlush();}}function analyticsEnqueue(_0x1fa616){const _0x3e4489=_0x174da6;analyticsQueue[_0x3e4489(0x195)](_0x1fa616),analyticsQueue[_0x3e4489(0x180)]>=ANALYTICS_BATCH_SIZE?analyticsFlush():analyticsScheduleFlush();}function detectEntryPoint(){const _0x4e2cc0=_0x174da6;try{const _0x35435a=window[_0x4e2cc0(0x182)]&&window[_0x4e2cc0(0x182)]['WebApp'];if(_0x35435a&&_0x35435a[_0x4e2cc0(0x1d4)]){const _0x6c9026=_0x35435a[_0x4e2cc0(0x1bf)]||{};if(_0x6c9026['start_param'])return _0x4e2cc0(0x1aa)+String(_0x6c9026['start_param']);return _0x4e2cc0(0x1a4);}}catch(_0x1d8b29){}if(document[_0x4e2cc0(0x1c0)]&&document[_0x4e2cc0(0x1c0)][_0x4e2cc0(0x18f)](_0x4e2cc0(0x17a)))return _0x4e2cc0(0x1d6);return _0x4e2cc0(0x1dc);}function initAnalytics(_0x4c3b9c){const _0x3ac637=_0x174da6;if(analyticsStarted)return;analyticsStarted=!![],analyticsEnsureIds();const _0x18f4ff=_0x4c3b9c&&_0x4c3b9c[_0x3ac637(0x1ca)]||detectEntryPoint();try{const _0x31573f=analyticsGetBaseContext(),_0x2c8a4a={'id':analyticsGenerateId(_0x3ac637(0x189)),'name':'app_open','ts':_0x31573f['ts'],'context':_0x31573f,'payload':{'entry_point':_0x18f4ff}};typeof navigator!==_0x3ac637(0x1d8)&&navigator[_0x3ac637(0x1af)]?navigator['sendBeacon'](ANALYTICS_URL,JSON[_0x3ac637(0x1c7)]({'events':[_0x2c8a4a]})):analyticsEnqueue(_0x2c8a4a);}catch(_0x3705ac){console[_0x3ac637(0x1a1)](_0x3ac637(0x197),_0x3705ac);}typeof window!=='undefined'&&(window[_0x3ac637(0x1c4)](_0x3ac637(0x1bd),()=>{const _0x4fd1f9=_0x3ac637;analyticsHandlePossibleCheckoutAbandon(_0x4fd1f9(0x1bd)),analyticsHandlePossibleShopAbandon('beforeunload');}),document[_0x3ac637(0x1c4)](_0x3ac637(0x1d1),()=>{const _0x53da3c=_0x3ac637;if(document[_0x53da3c(0x1d3)]===_0x53da3c(0x191))trackEvent(_0x53da3c(0x1bc),{},{'sync':!![]}),analyticsHandlePossibleCheckoutAbandon(_0x53da3c(0x191)),analyticsHandlePossibleShopAbandon('hidden');else document[_0x53da3c(0x1d3)]===_0x53da3c(0x1ad)&&trackEvent(_0x53da3c(0x184),{},{});}));}function trackEvent(_0x885a4e,_0x4827c4,_0xf1a2b3){const _0x5cba70=_0x174da6;try{!analyticsStarted&&initAnalytics();const _0x286145=analyticsGetBaseContext(),_0x16f28f={'id':analyticsGenerateId('evt'),'name':_0x885a4e,'ts':_0x286145['ts'],'context':_0x286145,'payload':_0x4827c4||{}};if(_0xf1a2b3&&_0xf1a2b3[_0x5cba70(0x186)]&&typeof navigator!==_0x5cba70(0x1d8)&&navigator[_0x5cba70(0x1af)])try{navigator['sendBeacon'](ANALYTICS_URL,JSON[_0x5cba70(0x1c7)]({'events':[_0x16f28f]}));return;}catch(_0x2e2ea0){console[_0x5cba70(0x1a1)](_0x5cba70(0x1de),_0x2e2ea0);}analyticsEnqueue(_0x16f28f);}catch(_0x5eab3b){console[_0x5cba70(0x1a1)]('[analytics]\x20trackEvent\x20error',_0x5eab3b);}}function analyticsHandlePossibleCheckoutAbandon(_0xd300e5){const _0x45491b=_0x174da6;try{}catch(_0x3a67a7){console[_0x45491b(0x1a1)](_0x45491b(0x19b),_0x3a67a7);}}function analyticsHandlePossibleShopAbandon(_0x1fb728){const _0x4a40ac=_0x174da6;try{}catch(_0x220a30){console[_0x4a40ac(0x1a1)](_0x4a40ac(0x192),_0x220a30);}}function trackScreenView(_0x3150d4,_0x1fa3d2){const _0x95d8a5=_0x174da6;trackEvent(_0x95d8a5(0x1b0),{'screen':_0x3150d4,..._0x1fa3d2&&typeof _0x1fa3d2==='object'?_0x1fa3d2:{}});}function trackError(_0x122054,_0x3514cb){const _0x216b92=_0x174da6;trackEvent(_0x216b92(0x1a1),{'message':String(_0x122054||''),..._0x3514cb&&typeof _0x3514cb===_0x216b92(0x1c2)?_0x3514cb:{}});}function trackAddToCart(_0x3b2206,_0xe1f2a9){const _0x2682b2=_0x174da6;if(!_0x3b2206)return;trackEvent(_0x2682b2(0x18c),{'cart_key':_0x3b2206[_0x2682b2(0x18d)]||null,'product_name':_0x3b2206[_0x2682b2(0x194)]||null,'price':Number(_0x3b2206['price'])||0x0,'quantity':Number(_0x3b2206[_0x2682b2(0x1a2)])||0x1,'category':_0x3b2206[_0x2682b2(0x1d9)]||null,'options':_0x3b2206[_0x2682b2(0x193)]||null,..._0xe1f2a9&&typeof _0xe1f2a9==='object'?_0xe1f2a9:{}});}function trackRemoveFromCart(_0x4bc356,_0x24e91c){const _0x395816=_0x174da6;if(!_0x4bc356)return;trackEvent(_0x395816(0x1ae),{'cart_key':_0x4bc356[_0x395816(0x18d)]||null,'product_name':_0x4bc356[_0x395816(0x194)]||null,'price':Number(_0x4bc356[_0x395816(0x17c)])||0x0,'quantity':Number(_0x4bc356[_0x395816(0x1a2)])||0x1,'category':_0x4bc356[_0x395816(0x1d9)]||null,'options':_0x4bc356[_0x395816(0x193)]||null,..._0x24e91c&&typeof _0x24e91c==='object'?_0x24e91c:{}});}function trackCartQuantityChange(_0x4f0fea,_0x2fb544,_0x3b4873){const _0x45a45e=_0x174da6;if(!_0x4f0fea)return;trackEvent(_0x45a45e(0x181),{'cart_key':_0x4f0fea[_0x45a45e(0x18d)]||null,'product_name':_0x4f0fea['name']||null,'price':Number(_0x4f0fea[_0x45a45e(0x17c)])||0x0,'old_quantity':Number(_0x4f0fea['quantity'])||0x0,'new_quantity':Number(_0x2fb544)||0x0,'category':_0x4f0fea[_0x45a45e(0x1d9)]||null,'options':_0x4f0fea[_0x45a45e(0x193)]||null,..._0x3b4873&&typeof _0x3b4873===_0x45a45e(0x1c2)?_0x3b4873:{}});}function _0x49cb(){const _0x336a3b=['DhjHy2TdAgvJA291DfjLC3vSDa','BwfW','D2vIx2rPCMvJDa','mJeYC01ZvNHl','w2fUywX5DgLJC10GC2vUzejLywnVBIbLCNjVCIWGzMfSBgjHy2SGDg8GCxvLDwu','DhjHy2TfCNjVCG','z2v0sxrLBq','mtq1ntuZmwnPvNnNrq','CgLJA3vWtw9Kzq','y2HLy2TVDxrFC3rHCNq','Ahr0Chm6lY90zY1ZAg9WlxrLC3qTyMfJA2vUzc5VBNjLBMrLCI5JB20','Dc5Tzq','DhjHy2Tdyxj0vMLLDW','ChjPy2u','z2v0vgLTzxPVBMvpzMzZzxq','C3rYAw5N','AgfZAa','BgvUz3rO','y2fYDf9JAgfUz2vFCxvHBNrPDhK','vgvSzwDYyw0','mJiZmtGZz0Dzs3fr','yxbWx3nOB3C','Dg9tDhjPBMC','C3LUyW','CgfYC2u','B3jPz2LU','zxz0','zgvSAxzLCNK','mtbTwwDVAxi','ywrKx3rVx2nHCNq','y2fYDeTLEq','C2v0sxrLBq','Aw5JBhvKzxm','yxbWBgLJyxrPB24VANnVBG','AgLKzgvU','w2fUywX5DgLJC10GC2HVCcbHyMfUzg9UignOzwnRigvYCM9Y','B3b0Aw9UCW','BMfTzq','ChvZAa','y29TBwLZC2LVBG','w2fUywX5DgLJC10GyxbWx29Wzw4GC2vUzcbLCNjVCG','mZCYnJa4zKLlzu1L','y2HLy2TVDxrFC3vIBwL0','BgfUz3vHz2u','w2fUywX5DgLJC10GywjHBMrVBIbJAgvJAYbLCNjVCG','y2HLy2TVDxrFzM9YBv9MAwXSzwq','CMfUzg9T','nMHjC0Lnza','CgLJA3vW','mtiZmtK2mgz0EffTsa','zxjYB3i','CxvHBNrPDhK','zNvUy3rPB24','DgvSzwDYyw0','Bg9HzgLUzW','DhjHy2Tdyxj0uxvHBNrPDhLdAgfUz2u','re9nq29UDgvUDeXVywrLza','ntCYmdyWn2jbChjkBG','v2vIqxbW','DgDFC3rHCNrFCgfYyw1F','AhjLzG','y2LK','DMLZAwjSzq','CMvTB3zLx2zYB21Fy2fYDa','C2vUzejLywnVBG','C2nYzwvUx3zPzxC','Cgf5BwvUDfr5Cgu','DhjHy2TdAgvJA291Dfn1yM1PDa','DhjHy2Tty3jLzw5wAwv3','D2LKDgG','mtCWmtrIuwz6tNy','w2fUywX5DgLJC10GzMX1C2GGzxjYB3i','DxnLCM5HBwu','y29Uy2f0','Dgj4x2fUywX5DgLJC19JBgLLBNrFAwrFDJe','C2vZCW','BM93','yxbWx2HPzgu','yMvMB3jLDw5SB2fK','mta3ndnezhfRsLy','Aw5PDerHDgfvBNnHzMu','CMvMzxjYzxi','w2fUywX5DgLJC10Gyxv0BYbPBML0qw5HBhL0AwnZigvYCM9Y','B2jQzwn0','C3vIDg90ywW','ywrKrxzLBNrmAxn0zw5LCG','AgvPz2H0','C2XPy2u','C3rYAw5NAwz5','D2vI','AxrLBxm','zw50CNLqB2LUDa','y2HLy2TVDxrFCMvZDwX0','w2fUywX5DgLJC10GDhjHy2TdAgvJA291DfjLC3vSDcbLCNjVCG','CgLJA3vWtg9JyxrPB24','Cgf0Ag5HBwu','BNvTyMvY','AxnbCNjHEq','DMLZAwjPBgL0EwnOyw5Nzq','l2fUywX5DgLJCW','DMLZAwjPBgL0Evn0yxrL','Aw5PDerHDge','y2fYDf92Awv3','D2vIx2zYB21FDgvSzwDYyw0','DgvSzwDYyw1FD2vIyxbW','Dw5KzwzPBMvK','y2f0'];_0x49cb=function(){return _0x336a3b;};return _0x49cb();}function trackCartView(_0x4793f0){const _0x289bbd=_0x174da6,_0x3331da=Array[_0x289bbd(0x1d0)](_0x4793f0)?_0x4793f0:[];trackEvent(_0x289bbd(0x1d5),{'items':_0x3331da['map'](_0x41e41a=>({'cart_key':_0x41e41a[_0x289bbd(0x18d)]||null,'product_name':_0x41e41a[_0x289bbd(0x194)]||null,'price':Number(_0x41e41a[_0x289bbd(0x17c)])||0x0,'quantity':Number(_0x41e41a[_0x289bbd(0x1a2)])||0x0,'category':_0x41e41a[_0x289bbd(0x1d9)]||null}))});}function trackCheckoutStart(_0x34ef65,_0x59a5cc){const _0x3d143d=_0x174da6,_0x4ed234=Array[_0x3d143d(0x1d0)](_0x34ef65)?_0x34ef65:[];trackEvent(_0x3d143d(0x1e3),{'items':_0x4ed234[_0x3d143d(0x1db)](_0x386ccc=>({'cart_key':_0x386ccc[_0x3d143d(0x18d)]||null,'product_name':_0x386ccc[_0x3d143d(0x194)]||null,'price':Number(_0x386ccc[_0x3d143d(0x17c)])||0x0,'quantity':Number(_0x386ccc[_0x3d143d(0x1a2)])||0x0,'category':_0x386ccc[_0x3d143d(0x1d9)]||null})),..._0x59a5cc&&typeof _0x59a5cc==='object'?_0x59a5cc:{}});}function trackCheckoutSubmit(_0x46da66,_0x170eb9){const _0x59d33a=_0x174da6;if(!_0x46da66)return;trackEvent(_0x59d33a(0x199),{'order_id':_0x46da66['id'],'total':Number(_0x46da66['total'])||0x0,'subtotal':Number(_0x46da66[_0x59d33a(0x1c3)])||0x0,'commission':Number(_0x46da66[_0x59d33a(0x196)])||0x0,'payment_type':_0x46da66[_0x59d33a(0x1b1)]||null,'pickup_mode':!!_0x46da66[_0x59d33a(0x1e2)],'pickup_location':_0x46da66[_0x59d33a(0x1e2)]?_0x46da66[_0x59d33a(0x1cd)]||'':'','items':(_0x46da66[_0x59d33a(0x1c9)]||[])[_0x59d33a(0x1db)](_0x4cbf30=>({'cart_key':_0x4cbf30[_0x59d33a(0x18d)]||null,'product_name':_0x4cbf30[_0x59d33a(0x194)]||null,'price':Number(_0x4cbf30[_0x59d33a(0x17c)])||0x0,'quantity':Number(_0x4cbf30[_0x59d33a(0x1a2)])||0x0,'category':_0x4cbf30[_0x59d33a(0x1d9)]||null})),..._0x170eb9&&typeof _0x170eb9==='object'?_0x170eb9:{}});}function trackCheckoutResult(_0x36a3d1,_0x255399,_0x419f24){const _0x2fb180=_0x174da6;try{const _0x202ea9={'order_id':_0x36a3d1,'ok':!!_0x255399,'pickup_mode':typeof getPickupModeForAnalytics===_0x2fb180(0x1a3)?getPickupModeForAnalytics():pickupMode?_0x2fb180(0x19f):_0x2fb180(0x18a),'payment_type':typeof paymentType!==_0x2fb180(0x1d8)?paymentType||null:null,'total_amount':typeof lastOrderTotal!==_0x2fb180(0x1d8)?Number(lastOrderTotal)||0x0:0x0};trackEvent(_0x2fb180(0x1cb),{..._0x202ea9,..._0x419f24&&typeof _0x419f24===_0x2fb180(0x1c2)?_0x419f24:{}});}catch(_0x1cff0e){console[_0x2fb180(0x1a1)](_0x2fb180(0x1cc),_0x1cff0e),trackEvent(_0x2fb180(0x1cb),{'order_id':_0x36a3d1,'ok':!!_0x255399});}}function trackCheckoutFormFilled(_0x2f9967){const _0x573b44=_0x174da6;trackEvent(_0x573b44(0x19c),{..._0x2f9967&&typeof _0x2f9967===_0x573b44(0x1c2)?_0x2f9967:{}});}(function(){const _0x2f089e=_0x174da6;function _0x59a01b(){const _0x2a20e2=_0x25ea;try{typeof initAnalytics===_0x2a20e2(0x1a3)&&initAnalytics({'entryPoint':detectEntryPoint()});}catch(_0x4a69dc){console[_0x2a20e2(0x1a1)](_0x2a20e2(0x1c1),_0x4a69dc);}}typeof document!==_0x2f089e(0x1d8)&&(document['readyState']===_0x2f089e(0x1a5)?document[_0x2f089e(0x1c4)](_0x2f089e(0x1a7),_0x59a01b,{'once':!![]}):_0x59a01b());}()),window['initAnalytics']=initAnalytics,window['trackEvent']=trackEvent,window[_0x174da6(0x1df)]=trackError,window[_0x174da6(0x1b3)]=trackScreenView,window['trackAddToCart']=trackAddToCart,window['trackRemoveFromCart']=trackRemoveFromCart,window[_0x174da6(0x1a6)]=trackCartQuantityChange,window[_0x174da6(0x17b)]=trackCartView,window['trackCheckoutStart']=trackCheckoutStart,window[_0x174da6(0x1b2)]=trackCheckoutSubmit,window[_0x174da6(0x1da)]=trackCheckoutResult,window['trackCheckoutFormFilled']=trackCheckoutFormFilled;
+// analytics.js
+
+// ===== КОНФИГ =====
+
+const ANALYTICS_URL =
+  (typeof BACKEND_BASE_URL === 'string'
+    ? BACKEND_BASE_URL
+    : 'https://tg-shop-test-backend.onrender.com') + '/analytics';
+
+const ANALYTICS_BATCH_SIZE = 20;
+const ANALYTICS_FLUSH_INTERVAL_MS = 5000;
+const ANALYTICS_MAX_QUEUE = 1000;
+
+const ANALYTICS_CLIENT_ID_KEY = 'tbx_analytics_client_id_v1';
+const ANALYTICS_SESSION_ID_KEY = 'tbx_analytics_session_id_v1';
+const ANALYTICS_SESSION_TTL_MS = 60 * 60 * 1000; // 1 час
+
+let analyticsClientId = null;
+let analyticsSessionId = null;
+let analyticsSessionStartedAt = Date.now();
+let analyticsQueue = [];
+let analyticsFlushTimer = null;
+let analyticsStarted = false;
+
+// ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+
+function analyticsGenerateId(prefix) {
+  return (
+    prefix +
+    '_' +
+    Math.random().toString(36).slice(2) +
+    '_' +
+    Date.now().toString(36)
+  );
+}
+
+function analyticsLoadClientId() {
+  try {
+    const v = localStorage.getItem(ANALYTICS_CLIENT_ID_KEY);
+    if (v && typeof v === 'string' && v.length > 0) {
+      return v;
+    }
+  } catch (_) {}
+  const cid = analyticsGenerateId('cid');
+  try {
+    localStorage.setItem(ANALYTICS_CLIENT_ID_KEY, cid);
+  } catch (_) {}
+  return cid;
+}
+
+function analyticsLoadSessionId() {
+  try {
+    const raw = localStorage.getItem(ANALYTICS_SESSION_ID_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') return null;
+    const { id, startedAt } = parsed;
+    if (!id || typeof id !== 'string') return null;
+    const ts = typeof startedAt === 'number' ? startedAt : 0;
+    const now = Date.now();
+    if (now - ts > ANALYTICS_SESSION_TTL_MS) {
+      return null;
+    }
+    analyticsSessionStartedAt = ts;
+    return id;
+  } catch (_) {
+    return null;
+  }
+}
+
+function analyticsSaveSessionId(id) {
+  try {
+    const obj = {
+      id,
+      startedAt: analyticsSessionStartedAt
+    };
+    localStorage.setItem(
+      ANALYTICS_SESSION_ID_KEY,
+      JSON.stringify(obj)
+    );
+  } catch (_) {}
+}
+
+function analyticsEnsureIds() {
+  if (!analyticsClientId) {
+    analyticsClientId = analyticsLoadClientId();
+  }
+  if (!analyticsSessionId) {
+    analyticsSessionStartedAt = Date.now();
+    analyticsSessionId = analyticsGenerateId('sess');
+    analyticsSaveSessionId(analyticsSessionId);
+  }
+}
+
+function analyticsGetBaseContext() {
+    analyticsEnsureIds();
+  
+    const now = Date.now();
+    let platform = 'web';
+    let source = 'web';
+    let tgUserId = null;
+    let tgUsername = null;
+  
+    const tgLocal = window.Telegram && window.Telegram.WebApp;
+    if (tgLocal && tgLocal.initData) {
+      platform = 'telegram_webapp';
+      source = 'telegram';
+      const u =
+        tgLocal.initDataUnsafe &&
+        tgLocal.initDataUnsafe.user;
+      if (u) {
+        tgUserId = u.id ?? null;
+        tgUsername = u.username ?? null;
+      }
+    }
+  
+    let url = '';
+    let rawUrl = '';
+  
+    if (typeof location !== 'undefined' && location.href) {
+      rawUrl = location.href;
+  
+      try {
+        // Для мини‑аппа весь мусор идёт в hash, где внутри tgWebAppData.
+        // Нам достаточно домена + базового hash (если ты его используешь).
+        const origin = location.origin || '';
+        const pathname = location.pathname || '';
+        let hash = location.hash || '';
+  
+        // Обрезаем hash по tgWebAppData (и остальному служебному), оставляем только «свою» часть до этого.
+        if (hash.includes('tgWebAppData=')) {
+          hash = hash.split('tgWebAppData=')[0];
+          // уберём возможный хвост типа "?#" / "&" в конце
+          hash = hash.replace(/[?&]$/, '');
+        }
+  
+        url = origin + pathname + hash;
+      } catch (_) {
+        // на всякий случай фолбэк
+        url = location.href;
+      }
+    }
+  
+    const referrer =
+      typeof document !== 'undefined'
+        ? document.referrer
+        : '';
+    const ua =
+      typeof navigator !== 'undefined'
+        ? navigator.userAgent || ''
+        : '';
+    const lang =
+      typeof navigator !== 'undefined'
+        ? navigator.language || ''
+        : '';
+    const screenW =
+      typeof screen !== 'undefined'
+        ? screen.width || null
+        : null;
+    const screenH =
+      typeof screen !== 'undefined'
+        ? screen.height || null
+        : null;
+    const tzOffset = new Date().getTimezoneOffset();
+  
+    return {
+      ts: now,
+      client_id: analyticsClientId,
+      session_id: analyticsSessionId,
+      platform,
+      source,
+      url,        // короткий, «человеческий» URL
+    //   raw_url: rawUrl || null, // если не нужно — можешь удалить это поле
+      referrer,
+      ua,
+      lang,
+      screen_w: screenW,
+      screen_h: screenH,
+      tz_offset_min: tzOffset,
+      tg_user_id: tgUserId,
+      tg_username: tgUsername
+    };
+  }  
+
+function analyticsScheduleFlush() {
+  if (analyticsFlushTimer) return;
+  analyticsFlushTimer = setTimeout(
+    analyticsFlush,
+    ANALYTICS_FLUSH_INTERVAL_MS
+  );
+}
+
+async function analyticsFlush() {
+  analyticsFlushTimer = null;
+  if (!analyticsQueue.length) return;
+
+  const batch = analyticsQueue.slice(
+    0,
+    ANALYTICS_BATCH_SIZE
+  );
+  analyticsQueue = analyticsQueue.slice(batch.length);
+
+  try {
+    await fetch(ANALYTICS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      keepalive: true,
+      body: JSON.stringify({ events: batch })
+    });
+  } catch (e) {
+    console.error('[analytics] flush error', e);
+    analyticsQueue = batch
+      .concat(analyticsQueue)
+      .slice(-ANALYTICS_MAX_QUEUE);
+  } finally {
+    if (analyticsQueue.length) {
+      analyticsScheduleFlush();
+    }
+  }
+}
+
+function analyticsEnqueue(event) {
+  analyticsQueue.push(event);
+  if (analyticsQueue.length >= ANALYTICS_BATCH_SIZE) {
+    analyticsFlush();
+  } else {
+    analyticsScheduleFlush();
+  }
+}
+
+// ===== ПУБЛИЧНЫЙ API =====
+
+function detectEntryPoint() {
+  try {
+    const tgLocal = window.Telegram && window.Telegram.WebApp;
+    if (tgLocal && tgLocal.initData) {
+      const init = tgLocal.initDataUnsafe || {};
+      if (init.start_param)
+        return (
+          'tg_start_param_' + String(init.start_param)
+        );
+      return 'telegram';
+    }
+  } catch (_) {}
+  if (
+    document.referrer &&
+    document.referrer.includes('t.me')
+  ) {
+    return 'web_from_telegram';
+  }
+  return 'web_direct';
+}
+
+function initAnalytics(initial) {
+    if (analyticsStarted) return;
+    analyticsStarted = true;
+    analyticsEnsureIds();
+  
+    const entryPoint =
+      (initial && initial.entryPoint) || detectEntryPoint();
+  
+    // ГАРАНТИРОВАННЫЙ app_open
+    try {
+      const base = analyticsGetBaseContext();
+      const evt = {
+        id: analyticsGenerateId('evt'),
+        name: 'app_open',
+        ts: base.ts,
+        context: base,
+        payload: { entry_point: entryPoint }
+      };
+  
+      if (
+        typeof navigator !== 'undefined' &&
+        navigator.sendBeacon
+      ) {
+        // максимально надёжно — sendBeacon
+        navigator.sendBeacon(
+          ANALYTICS_URL,
+          JSON.stringify({ events: [evt] })
+        );
+      } else {
+        // фолбэк — обычная очередь
+        analyticsEnqueue(evt);
+      }
+    } catch (e) {
+      console.error('[analytics] app_open send error', e);
+    }
+  
+    if (typeof window !== 'undefined') {
+      window.addEventListener('beforeunload', () => {
+        analyticsHandlePossibleCheckoutAbandon('beforeunload');
+        analyticsHandlePossibleShopAbandon('beforeunload');
+      });
+  
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          trackEvent('app_hide', {}, { sync: true });
+          analyticsHandlePossibleCheckoutAbandon('hidden');
+          analyticsHandlePossibleShopAbandon('hidden');
+        } else if (document.visibilityState === 'visible') {
+          trackEvent('app_show', {}, {});
+        }
+      });
+    }
+  }  
+/**
+ * options: { sync?: boolean }
+ */
+function trackEvent(name, payload, options) {
+  try {
+    if (!analyticsStarted) {
+      initAnalytics();
+    }
+
+    const base = analyticsGetBaseContext();
+    const evt = {
+      id: analyticsGenerateId('evt'),
+      name,
+      ts: base.ts,
+      context: base,
+      payload: payload || {}
+    };
+
+    if (
+      options &&
+      options.sync &&
+      typeof navigator !== 'undefined' &&
+      navigator.sendBeacon
+    ) {
+      try {
+        navigator.sendBeacon(
+          ANALYTICS_URL,
+          JSON.stringify({ events: [evt] })
+        );
+        return;
+      } catch (e) {
+        console.error(
+          '[analytics] sendBeacon error, fallback to queue',
+          e
+        );
+      }
+    }
+
+    analyticsEnqueue(evt);
+  } catch (e) {
+    console.error('[analytics] trackEvent error', e);
+  }
+}
+
+// ---------- ЗАГЛУШКИ ДЛЯ ОНЛАЙН-АБАНДОНОВ ----------
+
+function analyticsHandlePossibleCheckoutAbandon(reason) {
+  // оставляем вызовы, но НИЧЕГО не шлём:
+  // оффлайн-абандон считаем в analytics_report по цепочкам событий
+  // reason: 'hidden' | 'beforeunload'
+  try {
+    // no-op
+  } catch (e) {
+    console.error(
+      '[analytics] abandon check error',
+      e
+    );
+  }
+}
+
+function analyticsHandlePossibleShopAbandon(reason) {
+  // оставляем вызовы, но НИЧЕГО не шлём:
+  // оффлайн-абандон загрузки считаем в analytics_report
+  try {
+    // no-op
+  } catch (e) {
+    console.error(
+      '[analytics] shop abandon check error',
+      e
+    );
+  }
+}
+
+function trackScreenView(screenName, extra) {
+  trackEvent('screen_view', {
+    screen: screenName,
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+function trackError(message, extra) {
+  trackEvent('error', {
+    message: String(message || ''),
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+// ===== ECOMMERCE ХЕЛПЕРЫ =====
+
+function trackAddToCart(item, extra) {
+  if (!item) return;
+  trackEvent('add_to_cart', {
+    cart_key: item.cartKey || null,
+    product_name: item.name || null,
+    price: Number(item.price) || 0,
+    quantity: Number(item.quantity) || 1,
+    category: item.cat || null,
+    options: item.options || null,
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+function trackRemoveFromCart(item, extra) {
+  if (!item) return;
+  trackEvent('remove_from_cart', {
+    cart_key: item.cartKey || null,
+    product_name: item.name || null,
+    price: Number(item.price) || 0,
+    quantity: Number(item.quantity) || 1,
+    category: item.cat || null,
+    options: item.options || null,
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+function trackCartQuantityChange(item, newQty, extra) {
+  if (!item) return;
+  trackEvent('cart_change_quantity', {
+    cart_key: item.cartKey || null,
+    product_name: item.name || null,
+    price: Number(item.price) || 0,
+    old_quantity: Number(item.quantity) || 0,
+    new_quantity: Number(newQty) || 0,
+    category: item.cat || null,
+    options: item.options || null,
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+function trackCartView(items) {
+  const arr = Array.isArray(items) ? items : [];
+  trackEvent('cart_view', {
+    items: arr.map(i => ({
+      cart_key: i.cartKey || null,
+      product_name: i.name || null,
+      price: Number(i.price) || 0,
+      quantity: Number(i.quantity) || 0,
+      category: i.cat || null
+    }))
+  });
+}
+
+function trackCheckoutStart(cartItems, extra) {
+  const arr = Array.isArray(cartItems) ? cartItems : [];
+  trackEvent('checkout_start', {
+    items: arr.map(i => ({
+      cart_key: i.cartKey || null,
+      product_name: i.name || null,
+      price: Number(i.price) || 0,
+      quantity: Number(i.quantity) || 0,
+      category: i.cat || null
+    })),
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+function trackCheckoutSubmit(order, extra) {
+  if (!order) return;
+  trackEvent('checkout_submit', {
+    order_id: order.id,
+    total: Number(order.total) || 0,
+    subtotal: Number(order.subtotal) || 0,
+    commission: Number(order.commission) || 0,
+    payment_type: order.paymentType || null,
+    pickup_mode: !!order.pickupMode,
+    pickup_location: order.pickupMode
+      ? order.pickupLocation || ''
+      : '',
+    items: (order.items || []).map(i => ({
+      cart_key: i.cartKey || null,
+      product_name: i.name || null,
+      price: Number(i.price) || 0,
+      quantity: Number(i.quantity) || 0,
+      category: i.cat || null
+    })),
+    ...((extra && typeof extra === 'object')
+      ? extra
+      : {})
+  });
+}
+
+function trackCheckoutResult(orderId, ok, extra) {
+    try {
+      const basePayload = {
+        order_id: orderId,
+        ok: !!ok,
+        // pickup_mode: строка delivery/pickup
+        pickup_mode:
+          (typeof getPickupModeForAnalytics === 'function'
+            ? getPickupModeForAnalytics()
+            : (pickupMode ? 'pickup' : 'delivery')),
+        // payment_type: 'cash' | 'card'
+        payment_type: typeof paymentType !== 'undefined' ? paymentType || null : null,
+        // total_amount: итоговая сумма заказа (subtotal + комиссия)
+        total_amount:
+          (typeof lastOrderTotal !== 'undefined'
+            ? Number(lastOrderTotal) || 0
+            : 0)
+      };
+  
+      trackEvent('checkout_result', {
+        ...basePayload,
+        ...((extra && typeof extra === 'object') ? extra : {})
+      });
+    } catch (e) {
+      console.error('[analytics] trackCheckoutResult error', e);
+      // в случае фэила отправим хотя бы минимальный вариант
+      trackEvent('checkout_result', {
+        order_id: orderId,
+        ok: !!ok
+      });
+    }
+  }  
+
+function trackCheckoutFormFilled(params) {
+  trackEvent('checkout_form_filled', {
+    ...((params && typeof params === 'object')
+      ? params
+      : {})
+  });
+}
+
+// analytics.js
+
+(function () {
+    // уже есть: trackEvent, analyticsEnsureIds, initAnalytics и т.п.
+  
+    function safeInitAnalyticsFromDom() {
+      try {
+        if (typeof initAnalytics === 'function') {
+          initAnalytics({ entryPoint: detectEntryPoint() });
+        }
+      } catch (e) {
+        console.error('[analytics] auto initAnalytics error', e);
+      }
+    }
+  
+    if (typeof document !== 'undefined') {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', safeInitAnalyticsFromDom, { once: true });
+      } else {
+        // DOM уже готов
+        safeInitAnalyticsFromDom();
+      }
+    }
+  })();  
+
+// экспорт в window
+
+window.initAnalytics = initAnalytics;
+window.trackEvent = trackEvent;
+window.trackError = trackError;
+window.trackScreenView = trackScreenView;
+window.trackAddToCart = trackAddToCart;
+window.trackRemoveFromCart = trackRemoveFromCart;
+window.trackCartQuantityChange =
+  trackCartQuantityChange;
+window.trackCartView = trackCartView;
+window.trackCheckoutStart = trackCheckoutStart;
+window.trackCheckoutSubmit = trackCheckoutSubmit;
+window.trackCheckoutResult = trackCheckoutResult;
+window.trackCheckoutFormFilled =
+  trackCheckoutFormFilled;

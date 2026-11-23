@@ -1,1 +1,390 @@
-const _0x3dc443=_0x1a80;(function(_0xf05889,_0x5eec31){const _0x49a8b5=_0x1a80,_0x5532b9=_0xf05889();while(!![]){try{const _0xc3c305=parseInt(_0x49a8b5(0x206))/0x1*(parseInt(_0x49a8b5(0x217))/0x2)+-parseInt(_0x49a8b5(0x1c5))/0x3*(-parseInt(_0x49a8b5(0x1c4))/0x4)+parseInt(_0x49a8b5(0x233))/0x5*(-parseInt(_0x49a8b5(0x20c))/0x6)+-parseInt(_0x49a8b5(0x20e))/0x7+parseInt(_0x49a8b5(0x213))/0x8+parseInt(_0x49a8b5(0x1fd))/0x9+-parseInt(_0x49a8b5(0x202))/0xa;if(_0xc3c305===_0x5eec31)break;else _0x5532b9['push'](_0x5532b9['shift']());}catch(_0x2e261b){_0x5532b9['push'](_0x5532b9['shift']());}}}(_0xe069,0xe5078));function renderProfileSkeleton(){const _0x206ba2=_0x1a80;root['innerHTML']=_0x206ba2(0x218)+_0x206ba2(0x1dc)+_0x206ba2(0x205)+'<div\x20class=\x22flex-1\x20space-y-2\x22>'+'<div\x20class=\x22h-4\x20w-24\x20bg-gray-200\x20rounded\x20placeholder-shimmer\x22></div>'+_0x206ba2(0x215)+_0x206ba2(0x23d)+_0x206ba2(0x23d)+_0x206ba2(0x1f7)+_0x206ba2(0x1b6)+_0x206ba2(0x1f5)+Array['from']({'length':0x3})[_0x206ba2(0x1f9)](()=>_0x206ba2(0x1ba)+'<div\x20class=\x22h-3\x20w-3/4\x20bg-gray-200\x20rounded\x20placeholder-shimmer\x22></div>'+_0x206ba2(0x23d))[_0x206ba2(0x230)]('')+_0x206ba2(0x23d)+_0x206ba2(0x23d)+_0x206ba2(0x1f7)+_0x206ba2(0x1e5)+Array[_0x206ba2(0x1c3)]({'length':0x3})[_0x206ba2(0x1f9)](()=>_0x206ba2(0x1db)+_0x206ba2(0x226)+'<div\x20class=\x22h-3\x20w-1/3\x20bg-gray-200\x20rounded\x20placeholder-shimmer\x22></div>'+_0x206ba2(0x208)+'</div>')['join']('')+_0x206ba2(0x23d)+'</div>';}window[_0x3dc443(0x207)]=function(_0x1ad5b0){const _0x3e14e0=_0x3dc443,_0x47244f=document[_0x3e14e0(0x1be)](_0x3e14e0(0x21e)+_0x1ad5b0);if(!_0x47244f)return;_0x47244f[_0x3e14e0(0x1d7)][_0x3e14e0(0x20d)]('hidden');};function renderOrdersSection(){const _0x142e9c=_0x3dc443,_0x3b2b2f=document[_0x142e9c(0x1be)]('ordersSectionContent');if(!_0x3b2b2f)return;if(isOrdersLoading&&previousOrders['length']===0x0){_0x3b2b2f['innerHTML']='<p\x20class=\x22text-xs\x20text-gray-400\x22>Загружаем\x20историю\x20заказов...</p>';return;}if(!previousOrders[_0x142e9c(0x227)]){_0x3b2b2f['innerHTML']='<p\x20class=\x22text-sm\x20text-gray-500\x22>Заказов\x20пока\x20нет</p>';return;}const _0x27ee48=window['formatPriceForCountry']||formatPrice,_0x45355d=previousOrders[_0x142e9c(0x1f9)]((_0x368350,_0x5da72e)=>{const _0x2b3948=_0x142e9c,_0x45d177=_0x368350[_0x2b3948(0x1d0)]||'RU',_0x55a80b=window['getCountryConfig']?window[_0x2b3948(0x1b9)](_0x45d177):{'currency':_0x2b3948(0x20f)},_0x4428e8=_0x55a80b[_0x2b3948(0x1c1)],_0x26d251=_0x55a80b[_0x2b3948(0x1ca)];return _0x2b3948(0x1fa)+'<button\x20type=\x22button\x22\x20class=\x22w-full\x20text-left\x20px-3\x20py-2\x20flex\x20items-center\x20justify-between\x22\x20onclick=\x22toggleOrderDetails('+_0x5da72e+_0x2b3948(0x1bc)+'<div\x20class=\x22flex\x20flex-col\x20min-w-0\x20mr-2\x22>'+_0x2b3948(0x211)+_0x368350['id']+_0x2b3948(0x1e9)+'<span\x20class=\x22text-[11px]\x20text-gray-500\x22>'+new Date(_0x368350['date'])[_0x2b3948(0x200)]()+'</span>'+'</div>'+_0x2b3948(0x1fc)+_0x26d251+'\x20'+_0x4428e8+'\x20'+_0x27ee48(_0x368350[_0x2b3948(0x21f)],_0x45d177)+_0x2b3948(0x1e9)+_0x2b3948(0x228)+_0x2b3948(0x216)+_0x2b3948(0x1bd)+escapeHtml(_0x368350[_0x2b3948(0x204)])+_0x2b3948(0x23d)+(_0x368350['comment']?_0x2b3948(0x238)+escapeHtml(_0x368350[_0x2b3948(0x1e1)])+'</div>':'')+(_0x368350[_0x2b3948(0x23e)]&&(_0x368350[_0x2b3948(0x23e)][_0x2b3948(0x1d4)]||_0x368350[_0x2b3948(0x23e)][_0x2b3948(0x22f)])?_0x2b3948(0x23c)+(_0x368350[_0x2b3948(0x23e)][_0x2b3948(0x1d4)]?escapeHtml(_0x368350['contact'][_0x2b3948(0x1d4)]):'')+(_0x368350['contact']['name']&&_0x368350['contact']['phone']?',\x20':'')+(_0x368350[_0x2b3948(0x23e)][_0x2b3948(0x22f)]?escapeHtml(_0x368350[_0x2b3948(0x23e)][_0x2b3948(0x22f)]):'')+_0x2b3948(0x23d):'')+_0x2b3948(0x1d3)+_0x368350[_0x2b3948(0x1f4)][_0x2b3948(0x222)]((_0xe491b,_0x468137)=>_0xe491b+(_0x468137[_0x2b3948(0x1bf)]||0x0),0x0)+_0x2b3948(0x23d)+'<div\x20id=\x22orderDetails_'+_0x5da72e+_0x2b3948(0x23a)+_0x368350[_0x2b3948(0x1f4)]['map'](_0x2019b4=>'<div\x20class=\x22flex\x20items-center\x20justify-between\x20mb-1\x20gap-2\x22>'+'<div\x20class=\x22flex-1\x20min-w-0\x22>'+'<div\x20class=\x22font-semibold\x20text-[11px]\x20break-words\x22>'+escapeHtml(_0x2019b4['name'])+_0x2b3948(0x23d)+_0x2b3948(0x221)+escapeHtml(getCartItemSubtitle(_0x2019b4))+'</div>'+_0x2b3948(0x23d)+_0x2b3948(0x236)+_0x2b3948(0x1cf)+_0x2019b4[_0x2b3948(0x1bf)]+_0x2b3948(0x21a)+'<div>'+_0x4428e8+'\x20'+_0x27ee48(_0x2019b4['price']*_0x2019b4[_0x2b3948(0x1bf)],_0x45d177)+'</div>'+_0x2b3948(0x23d)+_0x2b3948(0x23d))['join']('')+_0x2b3948(0x23d)+_0x2b3948(0x23d)+_0x2b3948(0x23d);})[_0x142e9c(0x230)]('');_0x3b2b2f[_0x142e9c(0x1f3)]=_0x45355d;}function showProfileTab(){const _0x10a4f1=_0x3dc443;console['log'](_0x10a4f1(0x201),isOrdersLoading);const _0x204969=tg?.[_0x10a4f1(0x1f6)]?.[_0x10a4f1(0x224)],_0x3dbe2e=_0x204969?.[_0x10a4f1(0x212)]||'неизвестно',_0x491785='@'+_0x3dbe2e,_0xa79e27=savedAddresses[_0x10a4f1(0x227)]?savedAddresses['map']((_0x7817e9,_0x204dc8)=>_0x10a4f1(0x209)+_0x10a4f1(0x21b)+escapeHtml(_0x7817e9)+'</span>'+'<button\x20class=\x22text-xs\x20text-red-500\x20shrink-0\x22\x20onclick=\x22removeAddress(\x27'+escapeHtml(_0x7817e9)+_0x10a4f1(0x223)+_0x10a4f1(0x23d))[_0x10a4f1(0x230)](''):'<p\x20class=\x22text-sm\x20text-gray-500\x22>Сохранённых\x20адресов\x20нет</p>';root['innerHTML']='<div\x20class=\x22p-6\x20space-y-6\x20pb-[65px]\x20max-w-md\x20mx-auto\x20bg-gray-50\x22>'+_0x10a4f1(0x22b)+_0x10a4f1(0x1d8)+_0x10a4f1(0x1fb)+_0x10a4f1(0x1bb)+_0x10a4f1(0x1e6)+_0x10a4f1(0x214)+_0x10a4f1(0x23d)+'<div\x20class=\x22flex\x20flex-col\x20min-w-0\x20flex-1\x22>'+_0x10a4f1(0x1c6)+_0x10a4f1(0x22c)+_0x10a4f1(0x1e2)+_0x10a4f1(0x1ff)+escapeHtml(_0x491785)+_0x10a4f1(0x1d5)+_0x10a4f1(0x23d)+_0x10a4f1(0x219)+'\x20class=\x22text-[11px]\x20font-semibold\x20text-blue-600\x20px-2\x20py-1\x20rounded-full\x20bg-blue-50\x20border\x20border-blue-100\x20shrink-0\x22'+_0x10a4f1(0x220)+_0x10a4f1(0x1fe)+_0x10a4f1(0x228)+'</div>'+_0x10a4f1(0x23d)+_0x10a4f1(0x23d)+'<div\x20class=\x22space-y-3\x22>'+_0x10a4f1(0x225)+_0x10a4f1(0x1ce)+_0x10a4f1(0x1cb)+'\x20class=\x22w-full\x20bg-white\x20border\x20border-gray-300\x20rounded-2xl\x20px-3\x20py-2\x20text-sm\x20focus:outline-none\x22'+_0x10a4f1(0x234)+_0x10a4f1(0x23b)+_0x10a4f1(0x237)+'\x20placeholder=\x22'+((window['selectedCountry']||'RU')==='BY'?_0x10a4f1(0x1ed):_0x10a4f1(0x21c))+'\x22>'+_0x10a4f1(0x1ec)+_0x10a4f1(0x21d)+_0x10a4f1(0x1b7)+'</button>'+_0x10a4f1(0x23d)+_0x10a4f1(0x23d)+_0x10a4f1(0x1f7)+_0x10a4f1(0x232)+_0x10a4f1(0x1e3)+_0xa79e27+_0x10a4f1(0x23d)+_0x10a4f1(0x1ce)+'<textarea\x20id=\x22newAddress\x22\x20class=\x22w-full\x20bg-white\x20border\x20border-gray-300\x20rounded-2xl\x20px-3\x20py-2\x20text-sm\x20resize-none\x22'+_0x10a4f1(0x22d)+'<button\x20class=\x22w-full\x20bg-gray-900\x20hover:bg-black\x20text-white\x20font-semibold\x20py-2.5\x20px-4\x20rounded-2xl\x20shadow-lg\x20\x20text-sm\x22'+_0x10a4f1(0x1c2)+'Сохранить\x20адрес'+'</button>'+_0x10a4f1(0x23d)+'</div>'+_0x10a4f1(0x22e)+_0x10a4f1(0x1c8)+'<div\x20id=\x22ordersSectionContent\x22></div>'+_0x10a4f1(0x23d)+'</div>',renderOrdersSection();const _0x2cdd7a=document[_0x10a4f1(0x1be)](_0x10a4f1(0x1c7)),_0x35f69c=document[_0x10a4f1(0x1be)]('profilePhone');if(_0x2cdd7a)_0x2cdd7a[_0x10a4f1(0x1ef)]=savedProfile['name']||'';if(_0x35f69c){const _0x30cbc8=savedProfile[_0x10a4f1(0x22f)]||'';_0x35f69c[_0x10a4f1(0x1ef)]=formatPhoneValue(_0x30cbc8,window[_0x10a4f1(0x235)]||'RU');}_0x2cdd7a&&(_0x2cdd7a[_0x10a4f1(0x1dd)](_0x10a4f1(0x1e0),hideTabBar),_0x2cdd7a[_0x10a4f1(0x1dd)](_0x10a4f1(0x1de),showTabBar));_0x35f69c&&(_0x35f69c[_0x10a4f1(0x1dd)](_0x10a4f1(0x1e0),()=>{const _0x1cabe1=_0x10a4f1;hideTabBar(),!_0x35f69c['value'][_0x1cabe1(0x1d6)]()&&(_0x35f69c['value']=(window[_0x1cabe1(0x235)]||'RU')==='BY'?'+375\x20':'+7\x20');}),_0x35f69c['addEventListener'](_0x10a4f1(0x1de),showTabBar));const _0x4279f5=document[_0x10a4f1(0x1be)](_0x10a4f1(0x1d9));_0x4279f5&&(_0x4279f5['addEventListener']('focus',hideTabBar),_0x4279f5[_0x10a4f1(0x1dd)](_0x10a4f1(0x1de),showTabBar));}window[_0x3dc443(0x239)]=function(){const _0x3d4014=_0x3dc443,_0x3e3160=document[_0x3d4014(0x1be)]('newAddress');if(!_0x3e3160)return;const _0x12968e=_0x3e3160[_0x3d4014(0x1ef)][_0x3d4014(0x1d6)]();if(!_0x12968e){tg?.['showAlert']?.(_0x3d4014(0x23f));return;}if(savedAddresses[_0x3d4014(0x1c0)](_0x12968e)){tg?.[_0x3d4014(0x1b8)]?.('Этот\x20адрес\x20уже\x20сохранён');return;}savedAddresses[_0x3d4014(0x210)](_0x12968e),saveAddressesToStorage();try{typeof trackEvent===_0x3d4014(0x1f0)&&trackEvent(_0x3d4014(0x1c9),{'length':_0x12968e[_0x3d4014(0x227)]});}catch(_0x2d78b8){}_0x3e3160[_0x3d4014(0x1ef)]='',currentTab===_0x3d4014(0x1e4)&&showProfileTab();},window[_0x3dc443(0x1f1)]=function(_0x40b7c2){const _0x4e961a=_0x3dc443,_0x149741=String(_0x40b7c2);savedAddresses=savedAddresses[_0x4e961a(0x1d2)](_0xe94f6d=>_0xe94f6d!==_0x149741),saveAddressesToStorage();try{typeof trackEvent==='function'&&trackEvent(_0x4e961a(0x1f8),{'had_delivery_pref':!!(deliveryPrefs&&deliveryPrefs[_0x4e961a(0x1d1)])});}catch(_0x1a222b){}deliveryPrefs&&deliveryPrefs[_0x4e961a(0x1d1)]===_0x149741&&(deliveryPrefs[_0x4e961a(0x1d1)]='');cartFormState&&cartFormState[_0x4e961a(0x1d1)]===_0x149741&&(cartFormState[_0x4e961a(0x1d1)]='');saveDeliveryPrefs();if(currentTab===_0x4e961a(0x1e4))showProfileTab();},window[_0x3dc443(0x1cc)]=function(){const _0x3fc6fe=_0x3dc443,_0x32d9a3=document[_0x3fc6fe(0x1be)](_0x3fc6fe(0x1c7)),_0x2ed27b=document[_0x3fc6fe(0x1be)](_0x3fc6fe(0x1e7));if(!_0x32d9a3||!_0x2ed27b)return;const _0x3b3678=_0x32d9a3[_0x3fc6fe(0x1ef)]||'',_0x4c0e9f=_0x2ed27b[_0x3fc6fe(0x1ef)]||'';if(!isValidName(_0x3b3678)){tg?.[_0x3fc6fe(0x1b8)]?.(_0x3fc6fe(0x1ea));return;}const _0x4ea960=normalizePhone(_0x4c0e9f,window[_0x3fc6fe(0x235)]||'RU');if(!_0x4ea960){const _0x338513=(window[_0x3fc6fe(0x235)]||'RU')==='BY'?'+375\x20(XX)\x20XXX-XX-XX':_0x3fc6fe(0x21c);tg?.[_0x3fc6fe(0x1b8)]?.(_0x3fc6fe(0x231)+_0x338513);return;}const _0x25fdc2=_0x3b3678[_0x3fc6fe(0x1d6)]();savedProfile={'name':_0x25fdc2,'phone':_0x4ea960,'confirmed':!![]},saveProfileToStorage(),_0x2ed27b['value']=_0x4ea960,tg?.[_0x3fc6fe(0x1b8)]?.(_0x3fc6fe(0x1eb));try{typeof trackEvent===_0x3fc6fe(0x1f0)&&trackEvent(_0x3fc6fe(0x1df),{'has_name':!!_0x25fdc2,'phone_country':_0x4ea960[_0x3fc6fe(0x1ee)](0x0,0x2)});}catch(_0x3533e8){}};function formatPhoneInput(_0x22d029,_0x381f92){const _0x2bf0a9=_0x3dc443;let _0x4e94ee=_0x22d029[_0x2bf0a9(0x1ef)][_0x2bf0a9(0x1f2)](/\D/g,'');if(_0x381f92==='BY'){!_0x4e94ee[_0x2bf0a9(0x22a)]('375')&&(_0x4e94ee='375'+_0x4e94ee[_0x2bf0a9(0x1f2)](/^375/,''));if(_0x4e94ee[_0x2bf0a9(0x227)]>0xc)_0x4e94ee=_0x4e94ee[_0x2bf0a9(0x1ee)](0x0,0xc);let _0x931d0e=_0x2bf0a9(0x20b);if(_0x4e94ee['length']>0x3){_0x931d0e+='\x20('+_0x4e94ee['slice'](0x3,0x5);if(_0x4e94ee[_0x2bf0a9(0x227)]>=0x5)_0x931d0e+=')\x20'+_0x4e94ee[_0x2bf0a9(0x1ee)](0x5,0x8);if(_0x4e94ee[_0x2bf0a9(0x227)]>=0x8)_0x931d0e+='-'+_0x4e94ee['slice'](0x8,0xa);if(_0x4e94ee[_0x2bf0a9(0x227)]>=0xa)_0x931d0e+='-'+_0x4e94ee[_0x2bf0a9(0x1ee)](0xa,0xc);}_0x22d029['value']=_0x931d0e;}else{!_0x4e94ee[_0x2bf0a9(0x22a)]('7')&&(_0x4e94ee='7'+_0x4e94ee['replace'](/^7/,''));if(_0x4e94ee[_0x2bf0a9(0x227)]>0xb)_0x4e94ee=_0x4e94ee['slice'](0x0,0xb);let _0x609502='+7';if(_0x4e94ee[_0x2bf0a9(0x227)]>0x1){_0x609502+='\x20('+_0x4e94ee[_0x2bf0a9(0x1ee)](0x1,0x4);if(_0x4e94ee['length']>=0x4)_0x609502+=')\x20'+_0x4e94ee[_0x2bf0a9(0x1ee)](0x4,0x7);if(_0x4e94ee[_0x2bf0a9(0x227)]>=0x7)_0x609502+='-'+_0x4e94ee[_0x2bf0a9(0x1ee)](0x7,0x9);if(_0x4e94ee[_0x2bf0a9(0x227)]>=0x9)_0x609502+='-'+_0x4e94ee[_0x2bf0a9(0x1ee)](0x9,0xb);}_0x22d029[_0x2bf0a9(0x1ef)]=_0x609502;}}function _0xe069(){const _0x2a8828=['pgrPDIbJBgfZCZ0IDgv4Dc1YAwDODcb0zxH0lvSXmhb4xsb3AgL0zxnWywnLlw5VD3jHCci+','ignSyxnZpsj3lwz1BgWGyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltmWmcbYB3vUzgvKltj4BcbWEc0Zihb5ltiGDgv4Dc1ZBsbMB2n1CZPVDxrSAw5Llw5VBMuGBxqTmIi','pgrPDIbJBgfZCZ0IBxqTmsbICMvHAY13B3jKCYb0zxH0lwDYyxKTntaWiJ7qMTc+0lZqVnc10l3rGTcW0ydqUnc5oIa','ywrKqwrKCMvZCW','iIbJBgfZCZ0IAgLKzgvUig10ltiGChqTmIbIB3jKzxiTDcbIB3jKzxiTzgfZAgvKigjVCMrLCI1NCMf5ltiWmci+','pgLUChv0igLKpsjWCM9MAwXLugHVBMuIihr5Cgu9iNrLBci','pgrPDIbJBgfZCZ0IBxqTmsbICMvHAY13B3jKCYi+0jRqVTc90ylqSnc60yi6ia','pc9KAxy+','y29UDgfJDa','0jlqSTc10ltqUngc0luG0ldqTnga0lxrGq','w3bYB2zPBgvDihnJCM9SBfrVt3jKzxjZu2vJDgLVBIbLCNjVCG','pgrPDIbJBgfZCZ0IAc00ihCTmZiGyMCTz3jHEs0YmdaGCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','0khqVTgf0ydqSnc90lJrGTgminc60l7qVDgc0ldqUTgc0yS','C2HVD0fSzxj0','z2v0q291BNrYEunVBMzPzW','pgrPDIbJBgfZCZ0IAc0Xmcb3lwz1BgWGyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltiWmcbYB3vUzgvKltj4BcbMBgv4igL0zw1ZlwnLBNrLCIbWEc0ZiJ4','phbHDgGGC3rYB2TLlwXPBMvJyxa9iNjVDw5KiIbZDhjVA2uTBgLUzwPVAw49iNjVDw5KiIbZDhjVA2uTD2LKDgG9iJiI','ksi+','pgrPDIbJBgfZCZ0IBxqTmsbICMvHAY13B3jKCYi+0jdqTnga0lxrGtOG','z2v0rwXLBwvUDej5swq','CxvHBNrPDhK','Aw5JBhvKzxm','y3vYCMvUy3K','ig9Uy2XPy2S9iMfKzefKzhjLC3mOksi+','zNjVBq','mJi0nZi3mK1OuevdtG','ouLbs29fDW','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1ZDgfYDcbQDxn0Awz5lwjLDhDLzw4Gz2fWltiIpG','ChjVzMLSzu5HBwu','pgGZignSyxnZpsj0zxH0lwXNigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltGWmci+0jJrGDgc0l7rGnc40y8G0lFqSnc60ldqT9c+0li8l2GZpG','ChjVzMLSzv9HzgrYzxnZx3nHDMvK','zMXHzW','pgLUChv0igLKpsjWCM9MAwXLtMfTzsiGDhLWzt0IDgv4Dci','C2f2zvbYB2zPBgvdB250ywn0CW','C3rHCNq','pgrPDIbJBgfZCZ0IC3bHy2uTEs0YigjNlxDOAxrLigjVCMrLCIbIB3jKzxiTz3jHEs0YmdaGCM91BMrLzc0YEgWGCc0ZiJ4','pgrPDJ4','y291BNrYEq','C2f2zwrbzgrYzxnZvMfSDwu','zMLSDgvY','pgrPDIbJBgfZCZ0IBxqTmsb0zxH0lwDYyxKTntaWiJ7qOTc+0llqSnga0l7qSJOG','BMfTzq','pc9WpG','DhjPBq','y2XHC3nmAxn0','pgrPDIbJBgfZCZ0IDY0XnIbOlte2igjNlwDYywrPzw50lxrVlxiGzNjVBs1IBhvLltuWmcb0BY1WDxjWBguTnJaWihjVDw5KzwqTmNHSigzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYihnOCMLUAY0WiJ4','BMv3qwrKCMvZCW','C21VB3rO','pgrPDIbJBgfZCZ0IyMCTD2HPDguGyM9YzgvYigjVCMrLCI1NCMf5ltiWmcbYB3vUzgvKltj4BcbWltmGC3bHy2uTEs0YiJ4','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltqIpG','ywrKrxzLBNrmAxn0zw5LCG','yMX1CG','ChjVzMLSzv9JB250ywn0C19ZyxzLza','zM9JDxm','y29TBwvUDa','pgGYignSyxnZpsj0zxH0lxHSigzVBNqTyM9SzcbSzwfKAw5NlxrPz2H0ihrLEhqTz3jHEs05mdaIpTcF0ydqVTge0lJqU9gmpc9OmJ4','pgrPDIbPzd0IywrKCMvZC2vZtgLZDci+','ChjVzMLSzq','pgrPDIbJBgfZCZ0IAc00ihCTndaGyMCTz3jHEs0YmdaGCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','igq9iK0XnIa3ytqGncaWideXltGGmca0idqGmcaWmtGGmhPnmtiGmtrHnYa3idaGmdaTnYa3Ade0ytCGnYaWidaWltCTn3OIlZ4','ChjVzMLSzvbOB25L','B3jKzxjZu2vJDgLVBG','pc9ZCgfUpG','0jlqSTc10ltqUngc0luG0lRqVTga0ydqTDc60ylqVDc+0luG0lJqVngpicJrGTc+0lVrJnc60l4G0lhrG9c60llrIYWGmEkaKZuWingb0lJqVncY0l7qU9c+0liP','0jRqVTc90ylqSnc60ylrIYdrGDc+0yxrGncW0l3qTDc90yS','pgj1DhrVBIbJBgfZCZ0IDY1MDwXSig10ltmGyMCTz3jHEs05mdaGAg92zxi6yMCTyMXHy2SGDgv4Dc13AgL0zsbMB250lxnLBwLIB2XKihb5ltiUnsbWEc00ihjVDw5KzwqTmNHSihnOywrVDY1SzYb0zxH0lxnTiG','kZm3nsaOwfGPifHywc1ywc1ywa','C2XPy2u','DMfSDwu','zNvUy3rPB24','CMvTB3zLqwrKCMvZCW','CMvWBgfJzq','Aw5Uzxjive1m','AxrLBxm','pgrPDIbJBgfZCZ0IC3bHy2uTEs0YiJ4','Aw5PDerHDgfvBNnHzMu','pgrPDIbJBgfZCZ0IC3bHy2uTEs0ZiJ4','ChjVzMLSzv9HzgrYzxnZx3jLBw92zwq','BwfW','pgrPDIbJBgfZCZ0IBwiTmYbIzY13AgL0zsbIB3jKzxiGyM9YzgvYlwDYyxKTmJaWihjVDw5KzwqTmNHSihnOywrVDY1ZBsbVDMvYzMXVDY1OAwrKzw4IpG','phn2zYbJBgfZCZ0IDY04igGTocb0zxH0lxDOAxrLiIbMAwXSpsjUB25LiIbZDhjVA2u9iMn1CNjLBNrdB2XVCIiGDMLLD0jVEd0ImcaWidi0idi0iJ4','phnWyw4Gy2XHC3m9iNrLEhqTC20GzM9UDc1IB2XKihrLEhqTyMX1zs02mdaGD2HPDgvZCgfJzs1UB3DYyxaIpG','mtqYotGWmZb1vuzOvwO','0jFqSnc60ldqT9gl','phaGy2XHC3m9iNrLEhqTz3jHEs01mdaGDgv4Dc1ZBsbTDc0XigjYzwfRlwfSBci+suq6ia','Dg9mB2nHBgvtDhjPBMC','AxnpCMrLCNnmB2fKAw5Nig9UihjLBMrLCLbYB2zPBgu','mtq4nZm3ntbuuM1yDM0','C2nYB2XSsw50B1zPzxC','ywrKCMvZCW','pgrPDIbJBgfZCZ0IDY0XnIbOlte2igjNlwDYyxKTmJaWihjVDw5KzwqTmNHSihbSywnLAg9SzgvYlxnOAw1TzxiIpJWVzgL2pG','mZuXnZmZCeLJr21A','Dg9Nz2XLt3jKzxjezxrHAwXZ','pgrPDIbJBgfZCZ0IAc0ZihCTms80igjNlwDYyxKTmJaWihjVDw5KzwqGCgXHy2vOB2XKzxiTC2HPBw1LCIi+pc9KAxy+','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltiGCc0YigjNlxDOAxrLigjVCMrLCIbIB3jKzxiTz3jHEs0YmdaGCM91BMrLzc0YEgWGBwiTmsi+','C2nYB2XSvg9pCMrLCNntzwn0Aw9U','kZm3nq','nJi0nJzNvKfjDeC','Dg9Nz2XL','nZa5mZm0nwHMBMTqsa','uLvc','ChvZAa','phnWyw4Gy2XHC3m9iNrLEhqTC20GzM9UDc1Zzw1PyM9Szcb0zxH0lwDYyxKTodaWihrYDw5JyxrLiJ7qL9cW0lRqSnc3icm','DxnLCM5HBwu','mtm5oteYzhPhuu9Z','pc9ZDMC+','pgrPDIbJBgfZCZ0IAc0ZihCTndaGyMCTz3jHEs0YmdaGCM91BMrLzcbWBgfJzwHVBgrLCI1ZAgLTBwvYiJ48l2rPDJ4','pgrPDIbJBgfZCZ0IChGTmYbWyI0YigjVCMrLCI10igjVCMrLCI1NCMf5lteWmcb0zxH0lxHZihrLEhqTz3jHEs02mdaIpG','oe1pyK12Ea','pgrPDIbJBgfZCZ0ICc02ihnWywnLlxKTnIbWyI1BnJvWEf0GBwf4lxCTBwqGBxGTyxv0BYbIzY1NCMf5ltuWiJ4','pgj1DhrVBIb0ExbLpsjIDxr0B24I','ingi0yiUpc9KAxy+','phnWyw4Gy2XHC3m9iMzSzxGTmsb0zxH0lxHZihrLEhqTz3jHEs03mdaGyNjLywSTD29YzhmIpG','kZCGkfHywcKGwfHylvHylvHy','ig9Uy2XPy2S9iNnHDMvqCM9MAwXLq29UDgfJDhmOksi+','B3jKzxjezxrHAwXZxW','Dg90ywW','ig9Uy2XPy2S9iNnJCM9SBfrVt3jKzxjZu2vJDgLVBIGPiJ4','pgrPDIbJBgfZCZ0IDgv4Dc1BmtbWEf0GDgv4Dc1NCMf5ltuWmcbICMvHAY13B3jKCYi+','CMvKDwnL','jYKIpTcJ0ltqSnc70lJrGTgmpc9IDxr0B24+','DxnLCG','pgGZignSyxnZpsj0zxH0lwXNigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltGWmci+0jRqVTc90ylqSnc60ylrI9c1inc00ldqVDc90yVqTtWVAdm+','pgrPDIbJBgfZCZ0IAc0ZihCTms8YigjNlwDYyxKTmJaWihjVDw5KzwqGCgXHy2vOB2XKzxiTC2HPBw1LCIi+pc9KAxy+','BgvUz3rO','pc9IDxr0B24+','zxjYB3i','C3rHCNrZv2L0Aa','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1ZDgfYDcbNyxaTnci+','pgrPDIbJBgfZCZ0IBwLUlxCTmci+','ihjVD3m9iJiIihbSywnLAg9SzgvYpslqNDc+0llrI9c5incW0ltrGnc10yeUlI4IpJWVDgv4DgfYzwe+','pgrPDIbJBgfZCZ0IC3bHy2uTEs0ZiIbPzd0IB3jKzxjZu2vJDgLVBIi+','CgHVBMu','AM9PBG','0jlqSTc10ltqUngc0luG0lRqVTga0ydqTDc60ylqVDgl0lKG0l3qVTc80lxrGcdrGTc10lVqTDge0l7qVDcWincYinge0l7rGnc80ldrGTc1ia','pgGZignSyxnZpsj0zxH0lwXNigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltGWmci+0khqVTgf0ydqSnc90zhqVDc90yVqTsdqSnc00ydqTDgb0la8l2GZpG','nJa1uMLxzMPv','ihbSywnLAg9SzgvYpslqMnc80y8G0ltqU9gpinc30ldqUTcW0lFqSci+','C2vSzwn0zwrdB3vUDhj5'];_0xe069=function(){return _0x2a8828;};return _0xe069();}function formatPhoneValue(_0x3af0e7,_0x59f2bf){const _0x35d237=_0x3dc443,_0x4258fa={'value':_0x3af0e7};return formatPhoneInput(_0x4258fa,_0x59f2bf),_0x4258fa[_0x35d237(0x1ef)];}function _0x1a80(_0x55299a,_0x4f327f){_0x55299a=_0x55299a-0x1b6;const _0xe069e7=_0xe069();let _0x1a803d=_0xe069e7[_0x55299a];if(_0x1a80['CvqEIu']===undefined){var _0x36f699=function(_0x4993d5){const _0x1e28f4='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x1ad5b0='',_0x47244f='';for(let _0x3b2b2f=0x0,_0x27ee48,_0x45355d,_0x368350=0x0;_0x45355d=_0x4993d5['charAt'](_0x368350++);~_0x45355d&&(_0x27ee48=_0x3b2b2f%0x4?_0x27ee48*0x40+_0x45355d:_0x45355d,_0x3b2b2f++%0x4)?_0x1ad5b0+=String['fromCharCode'](0xff&_0x27ee48>>(-0x2*_0x3b2b2f&0x6)):0x0){_0x45355d=_0x1e28f4['indexOf'](_0x45355d);}for(let _0x5da72e=0x0,_0x45d177=_0x1ad5b0['length'];_0x5da72e<_0x45d177;_0x5da72e++){_0x47244f+='%'+('00'+_0x1ad5b0['charCodeAt'](_0x5da72e)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x47244f);};_0x1a80['pZMhEd']=_0x36f699,_0x1a80['wTmRgj']={},_0x1a80['CvqEIu']=!![];}const _0x246e61=_0xe069e7[0x0],_0x10a92f=_0x55299a+_0x246e61,_0x56bd2e=_0x1a80['wTmRgj'][_0x10a92f];return!_0x56bd2e?(_0x1a803d=_0x1a80['pZMhEd'](_0x1a803d),_0x1a80['wTmRgj'][_0x10a92f]=_0x1a803d):_0x1a803d=_0x56bd2e,_0x1a803d;}window[_0x3dc443(0x20a)]=function(){const _0x27f9f8=_0x3dc443;try{const _0x481ec5=document[_0x27f9f8(0x1be)](_0x27f9f8(0x1e8));if(!_0x481ec5)return;_0x481ec5[_0x27f9f8(0x203)]({'behavior':_0x27f9f8(0x1da),'block':_0x27f9f8(0x1cd)});}catch(_0x32f4dd){console[_0x27f9f8(0x229)](_0x27f9f8(0x240),_0x32f4dd);}};
+function renderProfileSkeleton() {
+  root.innerHTML =
+    '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto bg-gray-50">' +
+      '<div class="flex items-center gap-4">' +
+        '<div class="w-16 h-16 bg-gray-200 rounded-2xl placeholder-shimmer"></div>' +
+        '<div class="flex-1 space-y-2">' +
+          '<div class="h-4 w-24 bg-gray-200 rounded placeholder-shimmer"></div>' +
+          '<div class="h-3 w-40 bg-gray-200 rounded placeholder-shimmer"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="space-y-3">' +
+        '<div class="h-4 w-32 bg-gray-200 rounded placeholder-shimmer"></div>' +
+        '<div class="space-y-2">' +
+          Array.from({ length: 3 }).map(() =>
+            '<div class="h-10 w-full bg-white border border-gray-200 rounded-2xl flex items-center px-3">' +
+              '<div class="h-3 w-3/4 bg-gray-200 rounded placeholder-shimmer"></div>' +
+            '</div>'
+          ).join('') +
+        '</div>' +
+      '</div>' +
+      '<div class="space-y-3">' +
+        '<div class="h-4 w-40 bg-gray-200 rounded placeholder-shimmer"></div>' +
+        Array.from({ length: 3 }).map(() =>
+          '<div class="bg-white border border-gray-200 rounded-2xl p-3 space-y-2">' +
+            '<div class="h-3 w-1/2 bg-gray-200 rounded placeholder-shimmer"></div>' +
+            '<div class="h-3 w-1/3 bg-gray-200 rounded placeholder-shimmer"></div>' +
+            '<div class="h-3 w-1/4 bg-gray-200 rounded placeholder-shimmer"></div>' +
+          '</div>'
+        ).join('') +
+      '</div>' +
+    '</div>';
+}
+
+window.toggleOrderDetails = function (index) {
+  const block = document.getElementById('orderDetails_' + index);
+  if (!block) return;
+  block.classList.toggle('hidden');
+};
+
+// --- НОВАЯ ФУНКЦИЯ ДЛЯ СЕКЦИИ ЗАКАЗОВ ---
+
+function renderOrdersSection() {
+  const container = document.getElementById('ordersSectionContent');
+  if (!container) return;
+
+  if (isOrdersLoading && previousOrders.length === 0) {
+    container.innerHTML =
+      '<p class="text-xs text-gray-400">Загружаем историю заказов...</p>';
+    return;
+  }
+
+  if (!previousOrders.length) {
+    container.innerHTML =
+      '<p class="text-sm text-gray-500">Заказов пока нет</p>';
+    return;
+  }
+
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+
+  const ordersHtml = previousOrders
+    .map(
+      (o, idx) => {
+        const orderCountry = o.country || 'RU';
+        const config = window.getCountryConfig ? window.getCountryConfig(orderCountry) : { currency: 'RUB' };
+        const currencyLabel = config.currency;
+        const countryFlag = config.flag;
+
+        return (
+          '<div class="mb-3 bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">' +
+            '<button type="button" class="w-full text-left px-3 py-2 flex items-center justify-between" onclick="toggleOrderDetails(' +
+              idx +
+            ')">' +
+              '<div class="flex flex-col min-w-0 mr-2">' +
+                '<span class="text-sm font-semibold text-gray-800 truncate">Заказ #' +
+                  o.id +
+                '</span>' +
+                '<span class="text-[11px] text-gray-500">' +
+                  new Date(o.date).toLocaleString() +
+                '</span>' +
+              '</div>' +
+              '<span class="text-sm font-bold text-blue-600 whitespace-nowrap">' +
+                countryFlag + ' ' + currencyLabel + ' ' +
+                formatPriceFn(o.total, orderCountry) +
+              '</span>' +
+            '</button>' +
+            '<div class="px-3 pb-2 border-t border-gray-100 text-xs text-gray-600">' +
+              '<div class="mt-1 break-words">Адрес: ' +
+                escapeHtml(o.address) +
+              '</div>' +
+              (o.comment
+                ? '<div class="mt-1 break-words text-gray-500">Комментарий: ' +
+                    escapeHtml(o.comment) +
+                  '</div>'
+                : '') +
+              (o.contact && (o.contact.name || o.contact.phone)
+                ? '<div class="mt-1 break-words">Контакт: ' +
+                    (o.contact.name ? escapeHtml(o.contact.name) : '') +
+                    (o.contact.name && o.contact.phone ? ', ' : '') +
+                    (o.contact.phone ? escapeHtml(o.contact.phone) : '') +
+                  '</div>'
+                : '') +
+              '<div class="mt-1 text-gray-500">Товаров: ' +
+                o.items.reduce((sum, item) => sum + (item.quantity || 0), 0) +
+              '</div>' +
+              '<div id="orderDetails_' +
+                idx +
+              '" class="hidden mt-2 pt-2 border-t border-dashed border-gray-200">' +
+              o.items
+              .map(
+                item =>
+                  '<div class="flex items-center justify-between mb-1 gap-2">' +
+                    '<div class="flex-1 min-w-0">' +
+                      '<div class="font-semibold text-[11px] break-words">' +
+                        escapeHtml(item.name) +
+                      '</div>' +
+                      '<div class="text-[10px] text-gray-500 break-words">' +
+                        escapeHtml(getCartItemSubtitle(item)) +
+                      '</div>' +
+                    '</div>' +
+                    '<div class="text-right text-[10px] whitespace-nowrap">' +
+                      '<div>' + item.quantity + ' шт.</div>' +
+                      '<div>' + currencyLabel + ' ' + formatPriceFn(item.price * item.quantity, orderCountry) + '</div>' +
+                    '</div>' +
+                  '</div>'
+              )
+              .join('') +          
+              '</div>' +
+            '</div>' +
+          '</div>'
+        );
+      }
+    )
+    .join('');
+
+  container.innerHTML = ordersHtml;
+}
+
+function formatPhoneValue(raw, country) {
+    if (!raw) return '';
+    country = country || 'RU';
+    let v = raw.replace(/[^\d+]/g, '');
+    if (country === 'BY') {
+      if (v.startsWith('+375')) v = v.slice(4);
+      else if (v.startsWith('+8')) v = v.slice(2);
+      else if (v.startsWith('80')) v = v.slice(2);
+      if (v.length > 9) v = v.slice(0, 9);
+      let formatted = '+375';
+      if (v.length > 0) formatted += ' (' + v.slice(0, 2);
+      if (v.length > 2) formatted += ') ' + v.slice(2, 5);
+      if (v.length > 5) formatted += '-' + v.slice(5, 7);
+      if (v.length > 7) formatted += '-' + v.slice(7, 9);
+      return formatted;
+    }
+    if (v.startsWith('+7')) v = v.slice(2);
+    else if (v.startsWith('8')) v = v.slice(1);
+    if (v.length > 10) v = v.slice(0, 10);
+    let formatted = '+7';
+    if (v.length > 0) formatted += ' (' + v.slice(0, 3);
+    if (v.length > 3) formatted += ') ' + v.slice(3, 6);
+    if (v.length > 6) formatted += '-' + v.slice(6, 8);
+    if (v.length > 8) formatted += '-' + v.slice(8, 10);
+    return formatted;
+  }
+
+  // --- ОБНОВЛЁННЫЙ showProfileTab ---
+
+function showProfileTab() {
+  console.log('isOrdersLoading on renderProfile', isOrdersLoading);
+
+  const user = tg?.initDataUnsafe?.user;
+  const username = user?.username || 'неизвестно';
+  const displayId = '@' + username;
+
+  const addressesHtml = savedAddresses.length
+    ? savedAddresses
+        .map(
+          (addr, idx) =>
+            '<div class="flex items-center gap-2 p-2 bg-white border border-gray-200 rounded-2xl mb-1">' +
+              '<span class="flex-1 text-xs text-gray-700 break-words">' +
+                escapeHtml(addr) +
+              '</span>' +
+              '<button class="text-xs text-red-500 shrink-0" onclick="removeAddress(\'' + escapeHtml(addr) + '\')">Удалить</button>' +
+            '</div>'
+        )
+        .join('')
+    : '<p class="text-sm text-gray-500">Сохранённых адресов нет</p>';
+
+  root.innerHTML =
+    '<div class="p-6 space-y-6 pb-[65px] max-w-md mx-auto bg-gray-50">' +
+      // хедер профиля + хинт про заказы
+      '<div class="flex items-start gap-4">' +
+        '<div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center shrink-0">' +
+          '<svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+            ' d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="flex flex-col min-w-0 flex-1">' +
+          '<div class="flex items-start justify-between gap-2">' +
+            '<div class="min-w-0">' +
+              '<h2 class="text-xl font-bold leading-tight text-gray-900">Профиль</h2>' +
+              '<p class="text-gray-500 text-sm mt-1 break-all">ID: ' +
+                escapeHtml(displayId) +
+              '</p>' +
+            '</div>' +
+            '<button type="button"' +
+              ' class="text-[11px] font-semibold text-blue-600 px-2 py-1 rounded-full bg-blue-50 border border-blue-100 shrink-0"' +
+              ' onclick="scrollToOrdersSection()">' +
+              'Заказы' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+
+      // контакты по умолчанию
+      '<div class="space-y-3">' +
+        '<h3 class="text-lg font-semibold text-gray-800">Контактые данные</h3>' +
+        '<div class="space-y-2 bg-white border border-gray-200 rounded-2xl p-3">' +
+          '<input id="profileName" type="text"' +
+            ' class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm focus:outline-none"' +
+            ' placeholder="Имя для заказа">' +
+          '<input id="profilePhone" type="tel"' +
+            ' class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm focus:outline-none mt-2"' +
+            ' placeholder="Телефон для связи">' +
+          '<button class="w-full mt-3 bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-2xl shadow-lg text-sm"' +
+            ' onclick="saveProfileContacts()">' +
+            'Сохранить контакты' +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+
+      // сохранённые адреса
+      '<div class="space-y-3">' +
+        '<h3 class="text-lg font-semibold text-gray-800">Сохранённые адреса</h3>' +
+        '<div id="addressesList">' +
+          addressesHtml +
+        '</div>' +
+        '<div class="space-y-2 bg-white border border-gray-200 rounded-2xl p-3">' +
+          '<textarea id="newAddress" class="w-full bg-white border border-gray-300 rounded-2xl px-3 py-2 text-sm resize-none"' +
+            ' rows="2" placeholder="Новый адрес..."></textarea>' +
+          '<button class="w-full bg-gray-900 hover:bg-black text-white font-semibold py-2.5 px-4 rounded-2xl shadow-lg  text-sm"' +
+            ' onclick="addAddress()">' +
+            'Сохранить адрес' +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+
+      // заказы
+      '<div class="space-y-3" id="ordersSection">' +
+        '<h3 class="text-lg font-semibold text-gray-800">История заказов</h3>' +
+        '<div id="ordersSectionContent"></div>' +
+      '</div>' +
+    '</div>';
+
+  // сразу отрисуем секцию заказов (либо "грузим", либо список/пусто)
+  renderOrdersSection();
+
+  // заполнение полей контактов из savedProfile
+  const profileNameEl = document.getElementById('profileName');
+  const profilePhoneEl = document.getElementById('profilePhone');
+
+  if (profileNameEl) profileNameEl.value = savedProfile.name || '';
+  if (profilePhoneEl) {
+    const cc = window.selectedCountry || 'RU';
+    profilePhoneEl.value = savedProfile.phone ? (typeof formatPhoneValue === 'function' ? formatPhoneValue(savedProfile.phone, cc) : savedProfile.phone) : '';
+  }
+
+  if (profileNameEl) {
+    profileNameEl.addEventListener('focus', hideTabBar);
+    profileNameEl.addEventListener('blur', showTabBar);
+  }
+  if (profilePhoneEl) {
+    profilePhoneEl.addEventListener('focus', () => {
+      hideTabBar();
+      if (!profilePhoneEl.value.trim()) {
+        const cc = window.selectedCountry || 'RU';
+        profilePhoneEl.value = cc === 'BY' ? '+375 ' : '+7 ';
+      }
+    });
+    profilePhoneEl.addEventListener('blur', showTabBar);
+  }  
+
+  const newAddressEl = document.getElementById('newAddress');
+  if (newAddressEl) {
+    newAddressEl.addEventListener('focus', hideTabBar);
+    newAddressEl.addEventListener('blur', showTabBar);
+  }
+}
+
+window.addAddress = function () {
+  const ta = document.getElementById('newAddress');
+  if (!ta) return;
+  const val = ta.value.trim();
+  if (!val) {
+    tg?.showAlert?.('Введите адрес');
+    return;
+  }
+  if (savedAddresses.includes(val)) {
+    tg?.showAlert?.('Этот адрес уже сохранён');
+    return;
+  }
+  savedAddresses.push(val);
+  saveAddressesToStorage();
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('profile_address_saved', {
+        length: val.length
+      });
+    }
+  } catch (e2) {}
+  ta.value = '';
+  if (currentTab === 'profile') {
+    showProfileTab();
+  }
+};
+
+window.removeAddress = function (addr) {
+  const addrStr = String(addr);
+  savedAddresses = savedAddresses.filter(a => a !== addrStr);
+  saveAddressesToStorage();
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('profile_address_removed', {
+        had_delivery_pref: !!(deliveryPrefs && deliveryPrefs.savedAddressValue)
+      });
+    }
+  } catch (e2) {}
+
+  // 🔥 Если выбранный адрес совпадает с удалённым — сбрасываем
+  if (deliveryPrefs && deliveryPrefs.savedAddressValue === addrStr) {
+    deliveryPrefs.savedAddressValue = '';
+  }
+  if (cartFormState && cartFormState.savedAddressValue === addrStr) {
+    cartFormState.savedAddressValue = '';
+  }
+  saveDeliveryPrefs();
+
+  if (currentTab === 'profile') showProfileTab();
+};
+
+window.saveProfileContacts = function () {
+  const nameEl = document.getElementById('profileName');
+  const phoneEl = document.getElementById('profilePhone');
+  if (!nameEl || !phoneEl) return;
+
+  const rawName = nameEl.value || '';
+  const rawPhone = phoneEl.value || '';
+
+  if (!isValidName(rawName)) {
+    tg?.showAlert?.('Введите корректное имя (только буквы, 1–50 символов)');
+    return;
+  }
+
+  const country = window.selectedCountry || 'RU';
+  const normalizedPhone = normalizePhone(rawPhone, country);
+  if (!normalizedPhone) {
+    const phoneFormat = country === 'BY' ? '+375 (XX) XXX-XX-XX' : '+7 (XXX) XXX-XX-XX';
+    tg?.showAlert?.('Введите корректный номер телефона в формате ' + phoneFormat);
+    return;
+  }
+
+  const name = rawName.trim();
+
+  savedProfile = { name, phone: normalizedPhone, confirmed: true };
+  saveProfileToStorage();
+
+  phoneEl.value = formatPhoneValue ? formatPhoneValue(normalizedPhone, country) : normalizedPhone;
+
+  tg?.showAlert?.('Контакты сохранены');
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('profile_contacts_saved', {
+        has_name: !!name,
+        phone_country: normalizedPhone.slice(0, 2)
+      });
+    }
+  } catch (e2) {}
+};
+
+window.scrollToOrdersSection = function () {
+  try {
+    const section = document.getElementById('ordersSection');
+    if (!section) return;
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (e) {
+    console.error('[profile] scrollToOrdersSection error', e);
+  }
+};

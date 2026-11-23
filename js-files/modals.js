@@ -1,1 +1,1065 @@
-const _0x36e494=_0x14d6;(function(_0x27fc80,_0x583f79){const _0x3ff6ff=_0x14d6,_0x534b5b=_0x27fc80();while(!![]){try{const _0x5af0d6=parseInt(_0x3ff6ff(0x281))/0x1+-parseInt(_0x3ff6ff(0x27b))/0x2*(-parseInt(_0x3ff6ff(0x23b))/0x3)+-parseInt(_0x3ff6ff(0x1ce))/0x4*(-parseInt(_0x3ff6ff(0x1c7))/0x5)+-parseInt(_0x3ff6ff(0x251))/0x6+-parseInt(_0x3ff6ff(0x1bb))/0x7*(parseInt(_0x3ff6ff(0x215))/0x8)+-parseInt(_0x3ff6ff(0x26a))/0x9*(-parseInt(_0x3ff6ff(0x1fc))/0xa)+parseInt(_0x3ff6ff(0x1b7))/0xb*(-parseInt(_0x3ff6ff(0x252))/0xc);if(_0x5af0d6===_0x583f79)break;else _0x534b5b['push'](_0x534b5b['shift']());}catch(_0x391d9f){_0x534b5b['push'](_0x534b5b['shift']());}}}(_0x2060,0xecaf5));let modalCurrentIndex=0x0,modalImageCount=0x0,modalImageIndexBeforeFullscreen=0x0,modalWarmupPaused=![],modalTouchStartX=0x0,modalTouchStartY=0x0,modalCurrentImageKey=null;const brokenImageMap=new Map();let modalPendingImages=0x0,modalSessionId=0x0;function getVariantCountText(_0x39853d){const _0x2c6794=_0x14d6,_0x1a1da3=_0x39853d%0xa,_0x43eb3a=_0x39853d%0x64;if(_0x1a1da3===0x1&&_0x43eb3a!==0xb)return _0x39853d+'\x20вариант';if(_0x1a1da3>=0x2&&_0x1a1da3<=0x4&&!(_0x43eb3a>=0xc&&_0x43eb3a<=0xe))return _0x39853d+'\x20варианта';return _0x39853d+_0x2c6794(0x224);}function getFinalTypesForCurrentProduct(){const _0x542fa0=_0x14d6;if(!currentProduct||!productsData)return[];const _0x1ccca5=getProductVariants(currentProduct[_0x542fa0(0x1e1)])[_0x542fa0(0x1ec)](_0x3cb61d=>_0x3cb61d[_0x542fa0(0x221)]);if(!_0x1ccca5[_0x542fa0(0x232)])return[];const _0x2cd4c3=getFilteredVariants(_0x1ccca5),_0xbe51e9=getActiveTypesForProduct(currentProduct,_0x1ccca5),_0x46e61d=_0xbe51e9[_0x542fa0(0x1ec)](_0xb06edc=>_0x2cd4c3[_0x542fa0(0x247)](_0x639a94=>_0x639a94[_0xb06edc]!==undefined&&_0x639a94[_0xb06edc]!==null&&_0x639a94[_0xb06edc]!==''));return _0x46e61d;}function selectOptionNoFocus(_0x298c7b,_0x4a5790){const _0x903db7=_0x14d6;document['activeElement']&&document[_0x903db7(0x1f3)]['blur']&&document['activeElement'][_0x903db7(0x204)]();const _0x260cbd=document[_0x903db7(0x277)]('#modalContent\x20.flex-1'),_0x1559f2=_0x260cbd?_0x260cbd[_0x903db7(0x210)]:0x0,_0x54d97e=getFinalTypesForCurrentProduct(),_0x4fa771=_0x54d97e['indexOf'](_0x298c7b);if(_0x4fa771===-0x1)return;for(let _0x5617f8=_0x4fa771+0x1;_0x5617f8<_0x54d97e[_0x903db7(0x232)];_0x5617f8++){delete selectedOption[_0x54d97e[_0x5617f8]];}selectedOption[_0x298c7b]=String(_0x4a5790)[_0x903db7(0x1ba)](),renderProductModal(currentProduct);const _0x43678a=document[_0x903db7(0x277)](_0x903db7(0x243));if(_0x43678a)_0x43678a['scrollTop']=_0x1559f2;tg?.[_0x903db7(0x1c1)]?.['impactOccurred'](_0x903db7(0x27a));}function clearOptionNoFocus(_0x3abcf5){const _0x5e1e48=_0x14d6;document[_0x5e1e48(0x1f3)]&&document[_0x5e1e48(0x1f3)][_0x5e1e48(0x204)]&&document['activeElement'][_0x5e1e48(0x204)]();const _0x154dd2=document['querySelector']('#modalContent\x20.flex-1'),_0x4a3c31=_0x154dd2?_0x154dd2[_0x5e1e48(0x210)]:0x0,_0x35a3c6=getFinalTypesForCurrentProduct(),_0x11fe5a=_0x35a3c6[_0x5e1e48(0x275)](_0x3abcf5);if(_0x11fe5a===-0x1)return;for(let _0x4fc95b=_0x11fe5a;_0x4fc95b<_0x35a3c6[_0x5e1e48(0x232)];_0x4fc95b++){delete selectedOption[_0x35a3c6[_0x4fc95b]];}renderProductModal(currentProduct);const _0x27bba6=document['querySelector'](_0x5e1e48(0x243));if(_0x27bba6)_0x27bba6['scrollTop']=_0x4a3c31;tg?.['HapticFeedback']?.[_0x5e1e48(0x218)]('light');}window[_0x36e494(0x242)]=selectOptionNoFocus,window['clearOptionNoFocus']=clearOptionNoFocus,window[_0x36e494(0x1da)]=function(_0x3974d9){const _0x47645c=_0x36e494,_0x46e6a5=document['querySelector'](_0x47645c(0x243)),_0x196555=_0x46e6a5?_0x46e6a5[_0x47645c(0x210)]:0x0;let _0x11063f=selectedQuantity+_0x3974d9;if(_0x11063f<0x1)_0x11063f=0x1;if(_0x11063f>0x64)_0x11063f=0x64;selectedQuantity=_0x11063f;try{typeof trackEvent===_0x47645c(0x211)&&currentProduct&&trackEvent('product_quantity_change',{'product_name':currentProduct[_0x47645c(0x1e1)]||null,'quantity':selectedQuantity});}catch(_0x2f60dc){}const _0x4c5192=document[_0x47645c(0x1de)](_0x47645c(0x24b));if(_0x4c5192)_0x4c5192[_0x47645c(0x279)]=selectedQuantity;currentProduct&&renderProductModal(currentProduct);const _0x4fa7da=document[_0x47645c(0x277)](_0x47645c(0x243));if(_0x4fa7da)_0x4fa7da[_0x47645c(0x210)]=_0x196555;},window[_0x36e494(0x1d1)]=async function(){const _0x355add=_0x36e494;if(isAddingToCart)return;const _0x3f63db=document[_0x355add(0x277)](_0x355add(0x243)),_0x2c2f36=_0x3f63db?_0x3f63db['scrollTop']:0x0;try{isAddingToCart=!![],renderProductModal(currentProduct);const _0x94afad=document['querySelector'](_0x355add(0x243));if(_0x94afad)_0x94afad[_0x355add(0x210)]=_0x2c2f36;if(!isCompleteSelection()){tg?.[_0x355add(0x248)]?.(_0x355add(0x24e));return;}if(!productsData){tg?.['showAlert']?.(_0x355add(0x1eb));return;}const _0xfd529c=getFilteredVariants(getProductVariants(currentProduct[_0x355add(0x1e1)])[_0x355add(0x1ec)](_0x49f3a4=>_0x49f3a4[_0x355add(0x221)]));if(!_0xfd529c['length']){tg?.[_0x355add(0x248)]?.('❌\x20Нет\x20доступных\x20вариантов');return;}const _0x4a9f62=_0xfd529c[0x0],_0x171842=_0x4a9f62[_0x355add(0x220)],_0x965c2a=Number(_0x171842);if(!Number[_0x355add(0x1f2)](_0x965c2a)||_0x965c2a<=0x0){tg?.[_0x355add(0x248)]?.(_0x355add(0x1fd));return;}addToCart(_0x4a9f62,selectedQuantity);const _0xce4aad=getCartItemSubtitle(_0x4a9f62),_0x20c738=_0x965c2a*selectedQuantity;tg?.[_0x355add(0x248)]?.('✅\x20'+(_0x4a9f62[_0x355add(0x1e1)]||currentProduct['Название'])+(_0xce4aad?'\x0a'+_0xce4aad:'')+_0x355add(0x1c2)+selectedQuantity+'\x0a'+(window['getCurrentCountryConfig']?(function(){const _0x58f873=_0x355add,_0x38f1cd=window[_0x58f873(0x231)]();return _0x38f1cd[_0x58f873(0x1c0)]+'\x20'+(window[_0x58f873(0x23d)]?window[_0x58f873(0x23d)](_0x20c738,window['selectedCountry']||'RU'):formatPrice(_0x20c738));}()):window[_0x355add(0x23d)]?window[_0x355add(0x23d)](_0x20c738,window[_0x355add(0x233)]||'RU'):formatPrice(_0x20c738))),closeModal();}finally{isAddingToCart=![];const _0x2006b0=document['querySelector'](_0x355add(0x243)),_0x197546=_0x2006b0?_0x2006b0[_0x355add(0x210)]:0x0;if(currentProduct){renderProductModal(currentProduct);const _0x2162dc=document[_0x355add(0x277)](_0x355add(0x243));if(_0x2162dc)_0x2162dc['scrollTop']=_0x197546;}}};function renderProductModal(_0x501eec){const _0x377184=_0x36e494;currentProduct=_0x501eec;const _0x40a5d4=document[_0x377184(0x1de)]('modalContent'),_0x6ad968=_0x40a5d4[_0x377184(0x277)]('.flex-1');if(_0x6ad968)_0x6ad968[_0x377184(0x210)]=0x0;const _0x40532f=getProductVariants(_0x501eec['Название']),_0x3b5b82=_0x40532f[_0x377184(0x1ec)](_0x540805=>_0x540805['inStock']);if(!_0x3b5b82[_0x377184(0x232)]){_0x40a5d4[_0x377184(0x1bf)]='<div\x20class=\x22flex\x20flex-col\x20h-full\x22>'+'<div\x20class=\x22p-6\x20pb-4\x20border-b\x20border-gray-200\x22>'+_0x377184(0x21b)+_0x377184(0x1f1)+escapeHtml(_0x501eec[_0x377184(0x1e1)])+'</h2>'+_0x377184(0x1e5)+_0x377184(0x27e)+'<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20stroke-width=\x222\x22\x20d=\x22M6\x2018L18\x206M6\x206l12\x2012\x22/>'+_0x377184(0x1cd)+'</button>'+_0x377184(0x25f)+_0x377184(0x271)+'</div>'+'</div>';return;}const _0x2906d2=getFilteredVariants(_0x3b5b82),_0x403d00=dedupeIdenticalVariants(_0x2906d2),_0x37f43b=getActiveTypesForProduct(_0x501eec,_0x3b5b82),_0x241f7c=_0x37f43b[_0x377184(0x1ec)](_0x94d324=>_0x403d00['some'](_0x59d2ef=>_0x59d2ef[_0x94d324]!==undefined&&_0x59d2ef[_0x94d324]!==null&&_0x59d2ef[_0x94d324]!=='')),_0x1031c9={};_0x241f7c['forEach'](_0x5016c3=>{_0x1031c9[_0x5016c3]=getAvailableOptions(_0x5016c3,_0x3b5b82);});const _0x4d279f=isCompleteSelection(),_0x502f4=_0x403d00['length']?Math['min'][_0x377184(0x241)](null,_0x403d00['map'](_0x409757=>_0x409757[_0x377184(0x220)])):Math['min'][_0x377184(0x241)](null,_0x3b5b82[_0x377184(0x25b)](_0x384e45=>_0x384e45[_0x377184(0x220)]));let _0x1877f0,_0x36d682='';const _0x5f03e9=window['selectedCountry']||'RU',_0x15ab8b=window[_0x377184(0x23d)]||formatPrice,_0x5d415b=window[_0x377184(0x231)]?window[_0x377184(0x231)]():{'currency':'RUB'},_0x5dd459=_0x5d415b['currency'];if(!_0x4d279f)_0x1877f0=_0x377184(0x234)+_0x5dd459+'\x20'+_0x15ab8b(_0x502f4,_0x5f03e9),_0x36d682='за\x20единицу';else{if(_0x4d279f&&_0x403d00[_0x377184(0x232)]>0x0){const _0x510cd5=_0x403d00[0x0][_0x377184(0x220)];_0x1877f0=_0x5dd459+'\x20'+_0x15ab8b(_0x510cd5,_0x5f03e9),_0x36d682=_0x377184(0x223);}else _0x1877f0=_0x377184(0x201);}let _0x152605=[];_0x4d279f&&_0x403d00[_0x377184(0x232)]>0x0&&(_0x152605=getFilteredProductImages(_0x403d00),!_0x152605[_0x377184(0x232)]&&_0x3b5b82[0x0][_0x377184(0x1e4)]&&(_0x152605=[_0x3b5b82[0x0][_0x377184(0x1e4)]]));const _0x52168d=_0x501eec[_0x377184(0x1e4)]||'';!_0x40a5d4[_0x377184(0x25a)][_0x377184(0x1c9)]&&(_0x40a5d4[_0x377184(0x25a)][_0x377184(0x1c9)]='1',_0x40a5d4['innerHTML']=_0x377184(0x222)+_0x377184(0x26b)+_0x377184(0x21b)+'<h2\x20class=\x22text-2xl\x20font-bold\x22\x20id=\x22modalTitle\x22></h2>'+_0x377184(0x1e5)+_0x377184(0x27e)+_0x377184(0x1e3)+'</svg>'+'</button>'+_0x377184(0x25f)+_0x377184(0x22a)+_0x377184(0x20e)+_0x377184(0x24c)+_0x377184(0x25f)+_0x377184(0x25f)+_0x377184(0x23f)+'<div\x20class=\x22modal-image-section\x22>'+_0x377184(0x1ee)+_0x377184(0x25d)+_0x377184(0x1c5)+getPlainSvgPlaceholder()+_0x377184(0x25f)+_0x377184(0x25f)+_0x377184(0x212)+_0x377184(0x1d9)+'<div\x20id=\x22modalImageHint\x22\x20class=\x22px-3\x20pt-1\x20pb-0\x20text-xs\x20text-gray-500\x20text-center\x22></div>'+_0x377184(0x25f)+'<button\x20class=\x22nav-btn\x20nav-prev\x22\x20id=\x22modalPrevBtn\x22\x20onclick=\x22modalPrev();\x20event.stopPropagation()\x22>'+_0x377184(0x1fe)+_0x377184(0x23c)+_0x377184(0x1cd)+'</button>'+_0x377184(0x1e7)+_0x377184(0x1fe)+'<path\x20d=\x22M9.5\x206L15\x2012l-5.5\x206\x22\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20stroke-width=\x222.2\x22\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20/>'+_0x377184(0x1cd)+_0x377184(0x27d)+_0x377184(0x25f)+_0x377184(0x25f)+'<div\x20id=\x22modalBodyDynamic\x22\x20class=\x22px-4\x20pt-0\x20pb-4\x20space-y-4\x22></div>'+_0x377184(0x25f)+_0x377184(0x21d)+_0x377184(0x1d8)+_0x377184(0x1ef)+_0x377184(0x1d0)+_0x377184(0x25f)+'</div>',initModalSwipe());document[_0x377184(0x1de)](_0x377184(0x208))[_0x377184(0x279)]=_0x501eec[_0x377184(0x1e1)],document['getElementById'](_0x377184(0x209))[_0x377184(0x279)]=_0x1877f0+(_0x36d682?'\x20'+_0x36d682:''),document[_0x377184(0x1de)](_0x377184(0x274))['textContent']=getVariantCountText(_0x403d00[_0x377184(0x232)]);const _0x35fc0=document[_0x377184(0x1de)](_0x377184(0x206)),_0x8b0709=document['getElementById'](_0x377184(0x1ff)),_0x39d474=document['getElementById']('modalImageHint'),_0xf1cf48=document['getElementById']('modalPrevBtn'),_0x5a884c=document[_0x377184(0x1de)](_0x377184(0x230));if(!_0x35fc0||!_0x8b0709||!_0x39d474||!_0xf1cf48||!_0x5a884c){console[_0x377184(0x1b8)](_0x377184(0x1ea));return;}let _0x2e99b9=[];if(_0x4d279f&&_0x152605[_0x377184(0x232)]>0x0)_0x2e99b9=_0x152605[_0x377184(0x246)](0x0,0xa);else _0x52168d&&(_0x2e99b9=[_0x52168d]);const _0x15f908=JSON['stringify']({'complete':_0x4d279f,'images':_0x2e99b9,'common':_0x52168d}),_0x2f8653=0x3e8,_0x4ff465=0x1f4;function _0x2ddfe3(_0x3839fe,_0x1bce91){const _0x226002=_0x377184;if(!_0x3839fe)return;const _0xd6f34e=_0x3839fe[_0x226002(0x26e)][_0x226002(0x20c)];_0x1bce91!==_0x4ff465&&(_0x3839fe[_0x226002(0x26e)]['transition']=_0x226002(0x1b6)+_0x1bce91+_0x226002(0x225)),_0x3839fe['classList']['remove']('modal-photo-visible'),_0x3839fe[_0x226002(0x214)][_0x226002(0x1c6)](_0x226002(0x1b5)),requestAnimationFrame(()=>{const _0x2fa926=_0x226002;_0x3839fe[_0x2fa926(0x214)]['remove'](_0x2fa926(0x1b5)),_0x3839fe[_0x2fa926(0x214)][_0x2fa926(0x1c6)]('modal-photo-visible'),setTimeout(()=>{const _0x382fee=_0x2fa926;_0x3839fe['style'][_0x382fee(0x20c)]=_0xd6f34e;},_0x1bce91);});}function _0x270b31(){const _0xcf3066=_0x377184;_0x35fc0[_0xcf3066(0x1bf)]='<div\x20class=\x22flex\x20w-full\x20h-full\x22\x20id=\x22modalSlidesWrapper\x22></div>',_0x8b0709[_0xcf3066(0x1bf)]='',modalImageCount=_0x2e99b9[_0xcf3066(0x232)];const _0x48054f=document['getElementById'](_0xcf3066(0x21c));if(!_0x48054f){console['warn'](_0xcf3066(0x253)),modalWarmupPaused=![];return;}modalSessionId+=0x1;const _0x4cc789=modalSessionId;modalPendingImages=0x0,modalWarmupPaused=!![],console[_0xcf3066(0x1bd)](_0xcf3066(0x226),_0x4cc789);const _0x39a40d='<svg\x20fill=\x22none\x22\x20stroke=\x22currentColor\x22\x20viewBox=\x220\x200\x2024\x2024\x22'+'\x20class=\x22w-12\x20h-12\x20text-gray-400\x22>'+'<path\x20stroke-linecap=\x22round\x22\x20stroke-linejoin=\x22round\x22\x20stroke-width=\x222\x22'+_0xcf3066(0x254)+_0xcf3066(0x1cd);function _0x3bc13a(_0xbdfd5c,_0x21675d){const _0x7be6f0=_0xcf3066,_0x1603d3=_0x21675d===_0x7be6f0(0x1f5)&&_0xbdfd5c,_0x5d54b5=_0x21675d===_0x7be6f0(0x282);if(_0x1603d3)return'<img\x20src=\x22'+_0xbdfd5c+'\x22'+'\x20class=\x22carousel-img\x20w-full\x20h-64\x20object-contain\x20modal-photo\x20modal-photo-hidden\x22'+_0x7be6f0(0x200);if(_0x5d54b5)return _0x7be6f0(0x239)+_0x39a40d+_0x7be6f0(0x25f);return'';}function _0x2bbc73(_0x48bd4f,_0x177483){return'<div\x20class=\x22w-full\x20h-64\x20flex-shrink-0\x20flex\x20items-center\x20justify-center\x20relative\x20bg-white\x22>'+_0x3bc13a(_0x48bd4f,_0x177483)+'</div>';}const _0x308d32=modalCurrentImageKey===null?_0x2f8653:_0x4ff465;if(!_0x2e99b9[_0xcf3066(0x232)])_0x48054f[_0xcf3066(0x1bf)]=_0x2bbc73('',_0xcf3066(0x282)),_0xf1cf48[_0xcf3066(0x26e)]['display']=_0xcf3066(0x1e8),_0x5a884c[_0xcf3066(0x26e)]['display']=_0xcf3066(0x1e8),modalWarmupPaused=![],console['log'](_0xcf3066(0x25c),_0x4cc789),requestAnimationFrame(()=>{const _0x2d1123=_0xcf3066,_0x2ab749=_0x48054f['firstElementChild'],_0x562f07=_0x2ab749?.[_0x2d1123(0x277)](_0x2d1123(0x216));_0x2ddfe3(_0x562f07,_0x308d32);});else{_0x48054f[_0xcf3066(0x1bf)]=_0x2e99b9[_0xcf3066(0x25b)](_0x33e389=>_0x2bbc73(_0x33e389,'empty'))[_0xcf3066(0x278)]('');const _0x30001e=_0x48054f['children'];_0x2e99b9[_0xcf3066(0x280)]((_0x2dc245,_0x34c636)=>{const _0x23f47a=_0xcf3066,_0x4e87b8=_0x30001e[_0x34c636];if(!_0x2dc245||brokenImageMap[_0x23f47a(0x21a)](_0x2dc245)){_0x4e87b8[_0x23f47a(0x1bf)]=_0x3bc13a('',_0x23f47a(0x282));const _0x28438f=_0x4e87b8[_0x23f47a(0x277)](_0x23f47a(0x216));requestAnimationFrame(()=>{_0x2ddfe3(_0x28438f,_0x308d32);});return;}preloadedOnce[_0x23f47a(0x1c6)](_0x2dc245),console[_0x23f47a(0x1bd)]('[modal-preload]\x20buildSlides:\x20idx=',_0x34c636,_0x23f47a(0x24a),_0x2dc245),_0x4e87b8[_0x23f47a(0x1bf)]=_0x3bc13a(_0x2dc245,'photo');const _0xe93f59=_0x4e87b8[_0x23f47a(0x277)](_0x23f47a(0x1cc));modalPendingImages+=0x1,requestAnimationFrame(()=>{_0x2ddfe3(_0xe93f59,_0x308d32);}),_0xe93f59[_0x23f47a(0x1df)](_0x23f47a(0x229),()=>{const _0x1a876d=_0x23f47a;if(modalSessionId!==_0x4cc789)return;modalPendingImages=Math['max'](0x0,modalPendingImages-0x1),console[_0x1a876d(0x1bd)](_0x1a876d(0x276),_0x2dc245,_0x1a876d(0x1cf),modalPendingImages),modalPendingImages<=0x0&&(console[_0x1a876d(0x1bd)](_0x1a876d(0x235),_0x4cc789),modalWarmupPaused=![],isModalWarmupFinished()&&finishModalWarmupAndResumeGlobal());}),_0xe93f59[_0x23f47a(0x1df)](_0x23f47a(0x1be),()=>{const _0x4204ec=_0x23f47a;brokenImageMap[_0x4204ec(0x249)](_0x2dc245,!![]);if(modalSessionId!==_0x4cc789)return;modalPendingImages=Math[_0x4204ec(0x213)](0x0,modalPendingImages-0x1),console['log']('[modal-preload]\x20img\x20error:',_0x2dc245,_0x4204ec(0x1cf),modalPendingImages),_0x4e87b8[_0x4204ec(0x1bf)]=_0x3bc13a('',_0x4204ec(0x282));const _0x4d28b8=_0x4e87b8[_0x4204ec(0x277)](_0x4204ec(0x216));requestAnimationFrame(()=>{_0x2ddfe3(_0x4d28b8,_0x308d32);}),modalPendingImages<=0x0&&(console[_0x4204ec(0x1bd)](_0x4204ec(0x270),_0x4cc789),modalWarmupPaused=![],isModalWarmupFinished()&&finishModalWarmupAndResumeGlobal());});}),modalPendingImages===0x0&&(console[_0xcf3066(0x1bd)]('[modal-preload]\x20all\x20images\x20already\x20cached\x20or\x20broken,\x20resuming\x20warmup\x20immediately,\x20session=',_0x4cc789),modalWarmupPaused=![]),modalCurrentIndex=0x0,_0x2e99b9[_0xcf3066(0x232)]>0x1?(_0x8b0709[_0xcf3066(0x1bf)]=_0x2e99b9[_0xcf3066(0x25b)]((_0x51b20c,_0xc6596c)=>_0xcf3066(0x1d2)+(_0xc6596c===modalCurrentIndex?'\x20active':'')+'\x22\x20onclick=\x22modalGoTo('+_0xc6596c+_0xcf3066(0x23a))[_0xcf3066(0x278)](''),_0xf1cf48[_0xcf3066(0x26e)]['display']='',_0x5a884c[_0xcf3066(0x26e)][_0xcf3066(0x273)]='',initModalCarousel(_0x2e99b9[_0xcf3066(0x232)])):(_0x8b0709['innerHTML']='',_0xf1cf48[_0xcf3066(0x26e)][_0xcf3066(0x273)]=_0xcf3066(0x1e8),_0x5a884c[_0xcf3066(0x26e)]['display']=_0xcf3066(0x1e8));}!_0x4d279f||!_0x152605[_0xcf3066(0x232)]?(_0x39d474['textContent']='❓\x20Чтобы\x20посмотреть\x20реальные\x20фото\x20товара,\x20выберите\x20все\x20параметры\x20устройства.',_0x39d474['classList'][_0xcf3066(0x262)](_0xcf3066(0x1e0))):(_0x39d474[_0xcf3066(0x279)]='',_0x39d474[_0xcf3066(0x214)][_0xcf3066(0x1c6)]('modal-image-hint-hidden'));}if(modalCurrentImageKey===null)_0x270b31(),modalCurrentImageKey=_0x15f908;else{if(modalCurrentImageKey!==_0x15f908){const _0x1b9e38=document['getElementById'](_0x377184(0x21c));if(_0x1b9e38){const _0x3e39f6=_0x1b9e38[_0x377184(0x1d4)]('.modal-photo-visible,\x20.modal-photo-hidden');_0x3e39f6[_0x377184(0x280)](_0x57b360=>{const _0x110257=_0x377184;_0x57b360[_0x110257(0x214)][_0x110257(0x262)](_0x110257(0x1f0)),_0x57b360[_0x110257(0x214)][_0x110257(0x1c6)](_0x110257(0x1b5));});}modalCurrentImageKey=_0x15f908,setTimeout(()=>{_0x270b31();},_0x4ff465);}}const _0x19685b=document['getElementById'](_0x377184(0x260)),_0x422104=_0x241f7c;_0x19685b[_0x377184(0x1bf)]=_0x422104[_0x377184(0x25b)]((_0x5a37bd,_0x2f7f1d)=>{const _0x222363=_0x377184,_0x4bc9ea=_0x2f7f1d>getCurrentSectionIndex();return _0x222363(0x1e6)+(_0x4bc9ea?_0x222363(0x24d):_0x222363(0x23e))+_0x222363(0x22c)+_0x5a37bd+'\x22>'+_0x222363(0x258)+getLabel(_0x5a37bd)+_0x222363(0x228)+_0x222363(0x22d)+_0x1031c9[_0x5a37bd][_0x222363(0x25b)](_0x19b5fe=>{const _0x49578e=_0x222363,_0x56de3a=String(selectedOption[_0x5a37bd])[_0x49578e(0x1ba)]()===String(_0x19b5fe)[_0x49578e(0x1ba)]();return _0x49578e(0x1ed)+(_0x56de3a?'\x20selected':'')+'\x22'+_0x49578e(0x1fa)+_0x5a37bd+'\x22'+'\x20data-option=\x22'+escapeHtml(_0x19b5fe)+'\x22'+_0x49578e(0x1db)+_0x5a37bd+_0x49578e(0x263)+escapeHtml(_0x19b5fe)+_0x49578e(0x267)+escapeHtml(_0x19b5fe)+_0x49578e(0x27d);})[_0x222363(0x278)]('')+(selectedOption[_0x5a37bd]?_0x222363(0x22b)+_0x222363(0x1fa)+_0x5a37bd+_0x222363(0x1fb):'')+_0x222363(0x25f)+(!_0x1031c9[_0x5a37bd]['length']?_0x222363(0x1d7):'')+'</div>';})[_0x377184(0x278)]('')+_0x377184(0x27f)+_0x377184(0x240)+_0x377184(0x244)+_0x377184(0x1f8)+_0x377184(0x1d5)+_0x377184(0x21e)+selectedQuantity+_0x377184(0x20b)+_0x377184(0x1f8)+_0x377184(0x1f9)+_0x377184(0x25f)+_0x377184(0x227)+_0x377184(0x25f)+_0x377184(0x269)+'<div\x20class=\x22text-center\x20text-sm\x20text-gray-500\x20mb-3\x22>'+'Доступно:\x20<span\x20id=\x22variantCount\x22\x20class=\x22font-bold\x20text-blue-600\x22>'+getVariantCountText(_0x403d00[_0x377184(0x232)])+_0x377184(0x20b)+(_0x4d279f&&_0x403d00[_0x377184(0x232)]>0x0?_0x377184(0x264)+_0x377184(0x27c)+_0x377184(0x25f):'')+_0x377184(0x25f)+_0x377184(0x25f),document['querySelectorAll'](_0x377184(0x1c3))[_0x377184(0x280)](_0x5d0b44=>{const _0xa0d0d2=_0x377184;if(_0x5d0b44[_0xa0d0d2(0x25a)][_0xa0d0d2(0x259)]==='1')return;_0x5d0b44['dataset'][_0xa0d0d2(0x259)]='1',_0x5d0b44[_0xa0d0d2(0x1df)](_0xa0d0d2(0x1f7),function(_0x518116){const _0xa271e4=_0xa0d0d2;_0x518116[_0xa271e4(0x1e9)](),_0x518116[_0xa271e4(0x236)]();const _0xf7e528=_0x5d0b44[_0xa271e4(0x1b4)](_0xa271e4(0x1c4));clearOptionNoFocus(_0xf7e528);},{'passive':![]}),_0x5d0b44[_0xa0d0d2(0x1df)](_0xa0d0d2(0x261),function(_0x1e54a5){const _0x24a37a=_0xa0d0d2;_0x1e54a5[_0x24a37a(0x1e9)](),_0x1e54a5['stopPropagation']();const _0x327f37=_0x5d0b44[_0x24a37a(0x1b4)]('data-type');clearOptionNoFocus(_0x327f37);});});const _0x37ecd1=document[_0x377184(0x1de)]('modalAddButton');if(isAddingToCart)_0x37ecd1[_0x377184(0x1bf)]=_0x377184(0x257),_0x37ecd1[_0x377184(0x219)]=_0x377184(0x1c8),_0x37ecd1['disabled']=!![];else{if(_0x4d279f&&_0x403d00[_0x377184(0x232)]>0x0){const _0x368a13=_0x403d00[0x0]['Цена']||0x0,_0x31723b=_0x368a13*selectedQuantity;_0x37ecd1[_0x377184(0x1bf)]=_0x377184(0x266)+_0x5dd459+'\x20'+_0x15ab8b(_0x31723b,_0x5f03e9),_0x37ecd1[_0x377184(0x219)]=_0x377184(0x1ca),_0x37ecd1[_0x377184(0x26f)]=![];}else _0x37ecd1[_0x377184(0x1bf)]=_0x377184(0x1f6),_0x37ecd1[_0x377184(0x219)]='w-full\x20flex\x20items-center\x20justify-center\x20gap-2\x20bg-gray-400\x20text-white\x20font-semibold\x20px-4\x20rounded-2xl\x20shadow-lg\x20\x20cursor-not-allowed',_0x37ecd1[_0x377184(0x26f)]=!![];}}function initModalCarousel(_0x3c498d){const _0x79f2d6=_0x36e494;if(_0x3c498d<=0x1)return;modalImageCount=_0x3c498d;const _0x3d37c0=document[_0x79f2d6(0x1de)]('modalSlidesWrapper')||document['getElementById']('modalCarouselInner');if(!_0x3d37c0)return;function _0x227df9(){const _0x3dd0e2=_0x79f2d6;_0x3d37c0[_0x3dd0e2(0x26e)]['transform']='translateX(-'+modalCurrentIndex*0x64+'%)';const _0x3374bb=document[_0x3dd0e2(0x1d4)](_0x3dd0e2(0x207));_0x3374bb[_0x3dd0e2(0x280)]((_0x859f98,_0x5233f3)=>{const _0x2e86c4=_0x3dd0e2;_0x859f98[_0x2e86c4(0x214)][_0x2e86c4(0x1b3)]('active',_0x5233f3===modalCurrentIndex);});}window[_0x79f2d6(0x237)]=function(){const _0x2cd322=_0x79f2d6;modalCurrentIndex=(modalCurrentIndex+0x1)%modalImageCount,_0x227df9(),tg?.[_0x2cd322(0x1c1)]?.['selectionChanged']();},window[_0x79f2d6(0x22f)]=function(){const _0x4493ca=_0x79f2d6;modalCurrentIndex=modalCurrentIndex===0x0?modalImageCount-0x1:modalCurrentIndex-0x1,_0x227df9(),tg?.[_0x4493ca(0x1c1)]?.[_0x4493ca(0x26d)]();},window['modalGoTo']=function(_0x47f7ae){const _0x2a2656=_0x79f2d6;modalCurrentIndex=_0x47f7ae,_0x227df9(),tg?.[_0x2a2656(0x1c1)]?.[_0x2a2656(0x26d)]();},_0x227df9();}function initModalSwipe(){const _0x184025=_0x36e494,_0x5ed569=document[_0x184025(0x1de)](_0x184025(0x1d6));if(!_0x5ed569)return;_0x5ed569[_0x184025(0x1df)](_0x184025(0x1b9),function(_0x26be16){const _0x2295df=_0x184025,_0x1eb5ac=_0x26be16[_0x2295df(0x1d3)][0x0];modalTouchStartX=_0x1eb5ac[_0x2295df(0x245)],modalTouchStartY=_0x1eb5ac[_0x2295df(0x202)];},{'passive':!![]}),_0x5ed569[_0x184025(0x1df)](_0x184025(0x1f7),function(_0x3ce4d8){const _0xb3f13d=_0x184025,_0x584c5a=_0x3ce4d8[_0xb3f13d(0x1d3)][0x0],_0x3685ea=_0x584c5a[_0xb3f13d(0x245)]-modalTouchStartX,_0x18ca96=Math[_0xb3f13d(0x250)](_0x584c5a[_0xb3f13d(0x202)]-modalTouchStartY);if(Math[_0xb3f13d(0x250)](_0x3685ea)<0x28||_0x18ca96>0x32)return;_0x3685ea<0x0?window['modalNext']&&window['modalNext']():window[_0xb3f13d(0x22f)]&&window[_0xb3f13d(0x22f)]();},{'passive':!![]});}function _0x14d6(_0x4937de,_0x3b2988){_0x4937de=_0x4937de-0x1b3;const _0x2060e4=_0x2060();let _0x14d6b2=_0x2060e4[_0x4937de];if(_0x14d6['mwENlC']===undefined){var _0x7d409c=function(_0x58c7bb){const _0x4691bd='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let _0x39853d='',_0x1a1da3='';for(let _0x43eb3a=0x0,_0x1ccca5,_0x2cd4c3,_0xbe51e9=0x0;_0x2cd4c3=_0x58c7bb['charAt'](_0xbe51e9++);~_0x2cd4c3&&(_0x1ccca5=_0x43eb3a%0x4?_0x1ccca5*0x40+_0x2cd4c3:_0x2cd4c3,_0x43eb3a++%0x4)?_0x39853d+=String['fromCharCode'](0xff&_0x1ccca5>>(-0x2*_0x43eb3a&0x6)):0x0){_0x2cd4c3=_0x4691bd['indexOf'](_0x2cd4c3);}for(let _0x46e61d=0x0,_0x3cb61d=_0x39853d['length'];_0x46e61d<_0x3cb61d;_0x46e61d++){_0x1a1da3+='%'+('00'+_0x39853d['charCodeAt'](_0x46e61d)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(_0x1a1da3);};_0x14d6['UCTrvH']=_0x7d409c,_0x14d6['jDwfzi']={},_0x14d6['mwENlC']=!![];}const _0x3d82b9=_0x2060e4[0x0],_0x1f19e0=_0x4937de+_0x3d82b9,_0x2077cb=_0x14d6['jDwfzi'][_0x1f19e0];return!_0x2077cb?(_0x14d6b2=_0x14d6['UCTrvH'](_0x14d6b2),_0x14d6['jDwfzi'][_0x1f19e0]=_0x14d6b2):_0x14d6b2=_0x2077cb,_0x14d6b2;}function buildModalAllImages(_0x1eeef0){const _0x439be1=_0x36e494,_0x5d5e43=new Set(),_0x4505d0=_0x1eeef0[_0x439be1(0x1e4)]||'';if(_0x4505d0)_0x5d5e43[_0x439be1(0x1c6)](String(_0x4505d0)[_0x439be1(0x1ba)]());const _0x58d4c6=getProductVariants(_0x1eeef0[_0x439be1(0x1e1)])[_0x439be1(0x1ec)](_0xca0e2f=>_0xca0e2f[_0x439be1(0x221)]),_0x5b4431=getFilteredProductImages(_0x58d4c6);return _0x5b4431[_0x439be1(0x280)](_0x1fcd1e=>{const _0x4b584b=_0x439be1;if(_0x1fcd1e)_0x5d5e43[_0x4b584b(0x1c6)](String(_0x1fcd1e)[_0x4b584b(0x1ba)]());}),Array[_0x439be1(0x1dd)](_0x5d5e43);}function buildModalProductImages(_0x1b59f6){const _0x9409a0=_0x36e494,_0x404f0c=new Set(),_0x410ab5=getProductVariants(_0x1b59f6[_0x9409a0(0x1e1)])[_0x9409a0(0x1ec)](_0xffc48d=>_0xffc48d[_0x9409a0(0x221)]),_0x3bc58f=getFilteredVariants(_0x410ab5);if(!_0x3bc58f['length'])return[];const _0x574f46=getFilteredProductImages(_0x3bc58f);return _0x574f46[_0x9409a0(0x280)](_0x57a15c=>{const _0x130a82=_0x9409a0;if(_0x57a15c)_0x404f0c[_0x130a82(0x1c6)](String(_0x57a15c)['trim']());}),Array[_0x9409a0(0x1dd)](_0x404f0c);}function _0x2060(){const _0x1a9e82=['ig9Uy2XPy2S9iMnOyw5Nzvf1yw50Axr5kc0XktSGCMv0DxjUigzHBhnLoYi+ltWVyNv0Dg9UpG','Bw9KywXdyxjVDxnLBa','phaGy2XHC3m9iNrLEhqTEhmGDgv4Dc1NCMf5ltqWmcbTDc0XiJ7qNDc10yiG0llqSnga0lJqSnc90ylqVTcYpc9WpG','icaGicbZDhLSzt0ICgfKzgLUzY1IB3r0B206ignHBgmOzw52khnHzMuTyxjLys1PBNnLDc1IB3r0B20SidbWEcKGkYaXmNb4ktSIpG','pgrPDIbJBgfZCZ0Iy2fYB3vZzwWTzg90CYiGAwq9iM1VzgfSrg90CYi+pc9KAxy+','y2HHBMDLuxvHBNrPDhK','ig9Uy2XPy2S9iNnLBgvJDe9WDgLVBK5VrM9JDxmOjW','w21VzgfSxsb3yxjTDxaGBg9VCcbLCNjVCG','zNjVBq','z2v0rwXLBwvUDej5swq','ywrKrxzLBNrmAxn0zw5LCG','Bw9KywWTAw1Hz2uTAgLUDc1OAwrKzw4','0j3qSnc30llqSnc90lJqTq','ChjVzhvJDf9TB2rHBf9JBg9Zzq','phbHDgGGC3rYB2TLlwXPBMvJyxa9iNjVDw5KiIbZDhjVA2uTBgLUzwPVAw49iNjVDw5KiIbZDhjVA2uTD2LKDgG9iJiIigq9iK02ide4tde4idznnIa2BdeYideYiI8+','0j7qSDgj0ldrJYdqUTcW0ydrGTc40l3qUTcW','pgj1DhrVBIbVBMnSAwnRpsjJBg9Zzu1VzgfSkcKIignSyxnZpsjWltiGAg92zxi6yMCTz3jHEs0XmdaGCM91BMrLzc14Bci+','pgrPDIbJBgfZCZ0IB3b0Aw9UlxnLy3rPB24G','pgj1DhrVBIbJBgfZCZ0IBMf2lwj0BIbUyxyTBMv4DciGAwq9iM1VzgfStMv4Dej0BIiGB25JBgLJAZ0IBw9KywXozxH0kcK7igv2zw50lNn0B3bqCM9WywDHDgLVBIGPiJ4','BM9Uzq','ChjLDMvUDerLzMf1Bhq','w21VzgfSxsbJyxjVDxnLBcbLBgvTzw50CYbUB3qGzM91BMqSihnRAxaGC2XPzgvZigj1AwXK','0klqVTcY0ldrGnglinc90luG0lFqSncZ0ydrG9c30lJqU9c40yhrJcWG0l/qVTc/0ydqVTcX0ypqUDgc0luG0l/qVTc30lBqTq','zMLSDgvY','pgj1DhrVBIbJBgfZCZ0IB3b0Aw9Ulwj0BIbWEc0Zihb5lteUnsb0zxH0lxHZigzVBNqTBwvKAxvTihnJCM9SBc1PDgvT','pgrPDIbJBgfZCZ0IDY1MDwXSigLTywDLlwnHCM91C2vSigGTnJqGCM91BMrLzc14BcbVDMvYzMXVDY1OAwrKzw4GyMCTD2HPDguIigLKpsjTB2rHBenHCM91C2vSiJ4','pgj1DhrVBIbPzd0IBw9KywXbzgrcDxr0B24I','Bw9KywWTCgHVDg8TDMLZAwjSzq','pgGYignSyxnZpsj0zxH0ltj4BcbMB250lwjVBgqIpG','AxngAw5PDgu','ywn0AxzLrwXLBwvUDa','y2XVC2vZDa','CgHVDg8','0jlrI9cX0lxrGnc40ylqTsdqSTgb0luG0l7qV9gg0lJqUa','Dg91y2HLBMq','pgj1DhrVBIbJBgfZCZ0IChGTmYbWEs0XlJuGCM91BMrLzc1MDwXSigjNlwDYyxKTmJaWihrLEhqTBgCGzM9UDc1IB2XKiG','ig9Uy2XPy2S9iMnOyw5Nzvf1yw50Axr5kdePoYbYzxr1CM4GzMfSC2u7iJ4Rpc9IDxr0B24+','igrHDgeTDhLWzt0I','iJ7INju8l2j1DhrVBJ4','mtbfufruwgK','4P2mincM0lxqVDcWinc00lVrJYdrJDgc0l7qS9c+ingc0l7qSTcW0ydqScdqVDc1inc30ldqTncW0l3qScWG0l/qVTc/0ydqVTcX0ypqUDgc0luG0l/qVTc30lBqTq','phn2zYbJBgfZCZ0IBMf2lwLJB24IihzPzxDcB3G9iJaGmcaYncaYnciGyxjPys1OAwrKzw49iNrYDwuIpG','Bw9KywXeB3rZ','igfSDd0IuhjVzhvJDcbPBwfNzsiGBg9HzgLUzZ0IBgf6EsiGlZ4','0j3qTDgcincY0ldrGnc40ldqVDgc0l7qSG','y2XPzw50wq','BwfPBG','yMX1CG','Bw9KywXdB250zw50','Bw9KywXdyxjVDxnLBeLUBMvY','i21VzgfSrg90CYaUzg90','Bw9KywXuAxrSzq','Bw9KywXqCMLJzq','oduW','pc9ZCgfUpG','DhjHBNnPDgLVBG','z2XVyMfSrxjYB3jcB3G','phnWyw4GAwq9iM1VzgfSuhjPy2uIpJWVC3bHBJ4','lM9WDgLVBI1IDg4','C2nYB2XSvg9W','zNvUy3rPB24','pgrPDIbJBgfZCZ0IBw9KywWTy2fYB3vZzwWTzM9VDgvYiJ4','Bwf4','y2XHC3nmAxn0','nJyWndu2weH1twLw','lM1VzgfSlxbOB3rV','yMXVy2S','Aw1Wywn0t2nJDxjYzwq','y2XHC3noyw1L','z2v0','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Izxr3zwvUig1IltiIpG','Bw9KywXtBgLKzxnxCMfWCgvY','pgrPDIbJBgfZCZ0IBw9KywWTzM9VDgvYigjVCMrLCI10igjNlxDOAxrLiG','phnWyw4GAwq9iNf1yw50Axr5vMfSDwuIignSyxnZpsjTAw4TDY1BndbWEf0GDgv4Dc1Jzw50zxiGzM9UDc1Zzw1PyM9Szci+','y2XVC2vK','0kBqTDc90la','Aw5tDg9JAW','pgrPDIbJBgfZCZ0IzMXLEcbMBgv4lwnVBcbOlwz1BgWIpG','0lFqScdqTDc00lJqVDc40yBrGW','incY0ldrGnc40ldqVDgc0l7qSG','BxmGzwfZzq','w21VzgfSlxbYzwXVywrDigj1AwXKu2XPzgvZoIbWyxvZAw5NihDHCM11CcWGC2vZC2LVBJ0','phaGy2XHC3m9iNrLEhqTEhmGDgv4Dc1NCMf5ltqWmcbTDc0XiJ7qNncW0lRrGDc40lZrG9c8ideWmcdrIngclJWVCd4','pc9SywjLBd4','Bg9Hza','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltiGDgv4Dc1ZBsb0zxH0lwDYyxKTntaWiJ4','pgj1DhrVBIbJBgfZCZ0IB3b0Aw9UlwnSzwfYihb4ltmGChKTms41ihrLEhqTEhmGDgv4Dc1YzwqTntaWigzVBNqTBwvKAxvTihjVDw5KzwqTzNvSBcbIB3jKzxiGyM9YzgvYlxjLzc0YmdaGC2nYB2XSlwL0zw0GDY0XmIi','iIbKyxrHlxnLy3rPB249iG','pgrPDIbJBgfZCZ0IzMXLEcbNyxaTmIbZy3jVBgWTy2fYB3vZzwWGCgiTmsi+','w21VzgfSxsbJBg9Zzu1VzgfSigzYB20GC2HVCcaOBM8GDgfIihn3AxrJAcKSig5VihjLBMrLCLnOB3a','Bw9KywXqCMv2','Bw9KywXozxH0qNrU','z2v0q3vYCMvUDenVDw50CNLdB25MAwC','BgvUz3rO','C2vSzwn0zwrdB3vUDhj5','0l7rGIa','w21VzgfSlxbYzwXVywrDigfSBcbWCM9KDwn0igLTywDLCYbSB2fKzwqSihjLC3vTAw5NihDHCM11CcWGC2vZC2LVBJ0','C3rVCfbYB3bHz2f0Aw9U','Bw9KywXozxH0','ChjVzhvJDf9VChrPB25FC2vSzwn0','pgrPDIbJBgfZCZ0IBw9KywWTCgHVDg8GBw9KywWTCgHVDg8TAgLKzgvUigzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYiJ4','ktSGzxzLBNqUC3rVCfbYB3bHz2f0Aw9UkcKIpJWVzgL2pG','mJmYmJe0muPvAhDUzG','phbHDgGGzd0Itte0lJuGnKW5ideYBduUnsa2iIbMAwXSpsjUB25LiIbZDhjVA2u9iMn1CNjLBNrdB2XVCIiGC3rYB2TLlxDPzhrOpsiYlJiIihn0CM9Rzs1SAw5Ly2fWpsjYB3vUzciGC3rYB2TLlwXPBMvQB2LUpsjYB3vUzciGlZ4','zM9YBwf0uhjPy2vgB3jdB3vUDhj5','Dw5SB2nRzwq','pgrPDIbJBgfZCZ0IzMXLEc0Xig92zxjMBg93lxKTyxv0BYiGAwq9iM1VzgfSu2nYB2XSqxjLysi+','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbTyI0YigjSB2nRiJ7qMTc+0lVqUngh0lxrGDgc0llqVJWVBgfIzwW+','yxbWBhK','C2vSzwn0t3b0Aw9UtM9gB2n1CW','i21VzgfSq29UDgvUDcaUzMXLEc0X','pgrPDIbJBgfZCZ0IzMXLEcbPDgvTCY1Jzw50zxiGz2fWltmIpG','y2XPzw50wa','C2XPy2u','C29Tzq','C2HVD0fSzxj0','C2v0','Bg9HzgLUzYb1CMW9','CxvHBNrPDhLwywX1zq','phnWyw4+4OcIidXZCgfUigLKpsjTB2rHBfzHCMLHBNrdB3vUDci+pc9ZCgfUpJWVC3bHBJ4','Bg9JA2vK','4P2mincs0yVqSDc10ydqUngc0luG0llrGDc1inc+0l/rHTc40lG','Cgf1C2vK','ywjZ','ntqYoti3nevpCKfKuq','mtjuuxfNwK8','w21VzgfSxsbZBgLKzxnxCMfWCgvYig5VDcbMB3vUzcWGC2TPCcbIDwLSzfnSAwrLCW','igq9iK00ide2BdqUntG2ltqUntG2ytiGmIaWidaXmI44mJGGmeWXnIaXnM0TmI0YBdeUntG2lteUntG2ytiGmIaWidaXmI44mJGGmeWYmcaXng0TnI02Ac4Wmu02idiWAdeYytiGmIaWidaWmI0YvJzHmIaYidaGmdaTmI0YsdzHmIaYidaGmdaTmIaYDJeYytiGmIaWidaWmIaYEIiVpG','y2XVC2vnB2rHBa','zg9JDw1LBNrfBgvTzw50','phnWyw4Gy2XHC3m9iMXVywrLCI1JAxjJBguIpJWVC3bHBJ48C3bHBJ7qN9ga0l7qSTc10ydrJ9goinc90ldqU9c40yFqUnc1lI4Upc9ZCgfUpG','pgXHyMvSignSyxnZpsj0zxH0lxnTigzVBNqTC2vTAwjVBgqGDgv4Dc1NCMf5ltCWmcbJyxbPDgfSAxPLig1IltiGyMXVy2SIpG','yM91BMq','zgf0yxnLDa','BwfW','w21VzgfSlxbYzwXVywrDig5VigLTywDLCYb0BYbZAg93lcbYzxn1BwLUzYb3yxjTDxaGAw1TzwrPyxrLBhKSihnLC3nPB249','pgrPDIbJBgfZCZ0IAw1Hz2uTy2fYB3vZzwWTAw5UzxiGDY1MDwXSigGTzNvSBcbMBgv4igL0zw1ZlwnLBNrLCIbQDxn0Awz5lwnLBNrLCIiGAwq9iM1VzgfSq2fYB3vZzwXjBM5LCIi+','AgLKzgvU','pc9KAxy+','Bw9KywXcB2r5rhLUyw1PyW','y2XPy2S','CMvTB3zL','jYWGjW','pgrPDIbJBgfZCZ0IDgv4Dc14CYbTDc0XigjNlwjSDwuTntaGyM9YzgvYigjVCMrLCI1IBhvLltiWmcbYB3vUzgvKlxHSihaTmIi+','y2f0','4PYfincsinc60l7rGnc30lJqVDgdia','jYK7ihjLDhvYBIbMywXZztSIpG','w21VzgfSxsbZAg93tw9KywWSihnHDMvKihnOB3aGC2nYB2XSwsa9','pgrPDIbJBgfZCZ0IChqTncbIB3jKzxiTDci+','mta0nJK2odjTu3DQze8','pgrPDIbJBgfZCZ0ICc02ihbIltqGyM9YzgvYlwiGyM9YzgvYlwDYyxKTmJaWiJ4','B3rOzxi','C2vSzwn0Aw9Uq2HHBMDLza','C3r5Bgu','zgLZywjSzwq','w21VzgfSlxbYzwXVywrDigfSBcbWCM9KDwn0igLTywDLCYbZzxr0BgvKicH3AxrOigvYCM9YCYKSihjLC3vTAw5NihDHCM11CcWGC2vZC2LVBJ0','pgrPDIbJBgfZCZ0IDgv4Dc1ZBsb0zxH0lxjLzc01mdaIpTcD0lxrGIdqTnc+0yhrGTgd0l/qVDgl0yuG0llqSnga0lJqSnc90ylqVTcYpc9KAxy+','C2nYB2XSwq','zgLZCgXHEq','Bw9KywXwyxjPyw50q291BNq','Aw5KzxHpzG','w21VzgfSlxbYzwXVywrDigLTzYbSB2fKzwq6','CxvLCNLtzwXLy3rVCG','AM9PBG','Dgv4DenVBNrLBNq','BgLNAhq','ngLttLL0qG','4PYfincH0l/qTDgg0lJrHnc40lRqSngg0lJrJYdqSTgl0lhrGncW0l3qSa','pc9IDxr0B24+','phn2zYbJBgfZCZ0IDY02igGTnIb0zxH0lwDYyxKTntaWiIbMAwXSpsjUB25LiIbZDhjVA2u9iMn1CNjLBNrdB2XVCIiGDMLLD0jVEd0ImcaWidi0idi0iJ4','pgrPDIbJBgfZCZ0ICxvHBNrPDhKTC2vJDgLVBIi+','zM9YrwfJAa','nZC2ndaZzKneu3DP','CgXHy2vOB2XKzxi','Dg9Nz2XL','z2v0qxr0CMLIDxrL','Bw9KywWTCgHVDg8TAgLKzgvU','B3bHy2L0Esa','mtCWodyYmJnPt0zruvm','D2fYBG','Dg91y2HZDgfYDa','DhjPBq','mJfwwevZBhO','w21VzgfSxsbJBg9Zzu1VzgfSigfMDgvYihrHyIbYzxr1CM46ihjLBMrLCLnOB3aGkYbYzxn0B3jLvgfIu2nYB2XSkhnOB3aPlcbZy3jVBgXzid0','Bg9N','zxjYB3i','Aw5Uzxjive1m','y3vYCMvUy3K','sgfWDgLJrMvLzgjHy2S','cTcA0l7qU9c40yFqTDgb0ylqSTc+oIa','i21VzgfSqM9KEur5BMfTAwmGlM9WDgLVBI1JBgvHCG','zgf0ys10ExbL','pgrPDIbJBgfZCZ0IDY1MDwXSigGTzNvSBcbMBgv4igL0zw1ZlwnLBNrLCIbQDxn0Awz5lwnLBNrLCIi+','ywrK','mZeYnte1tfrhEeL4','DY1MDwXSigzSzxGGAxrLBxnJzw50zxiGANvZDgLMEs1Jzw50zxiGz2fWltiGyMCTz3jHEs00mdaGDgv4Dc13AgL0zsbMB250lxnLBwLIB2XKihb4ltqGCM91BMrLzc0YEgWGC2HHzg93lwXNicbJDxjZB3iTBM90lwfSBg93zwq','Aw5PDgLHBgL6zwq','DY1MDwXSigzSzxGGAxrLBxmTy2vUDgvYigP1C3rPzNKTy2vUDgvYigDHCc0YigjNlwjSDwuTntaWigHVDMvYoMjNlwjSDwuTnJaWihrLEhqTD2HPDguGzM9UDc1Zzw1PyM9SzcbWEc00ihjVDw5KzwqTmNHSihnOywrVDY1SzYa','w21VzgfSxsbYzw5KzxjqCM9KDwn0tw9KywWGzM9Y','Aw1N','pc9ZDMC+','mtjTDMPkrKO','CgvUzgLUzZ0','ignSyxnZpsj3lwz1BgWGzMXLEcbPDgvTCY1Jzw50zxiGANvZDgLMEs1Jzw50zxiGz2fWltiGDgv4Dc13AgL0zsbMB250lxnLBwLIB2XKihb4ltqGCM91BMrLzc0YEgWGC2HHzg93ltj4BcaIig9Uy2XPy2S9iMfKzfrVq2fYDezYB21nB2rHBcGPoYbYzxr1CM4GzMfSC2u7iJ48l2j1DhrVBJ4','ywrKvg9dyxj0rNjVBu1VzgfS','pgrPDIbJBgfZCZ0Izg90','y2HHBMDLzfrVDwnOzxm','CxvLCNLtzwXLy3rVCKfSBa'];_0x2060=function(){return _0x1a9e82;};return _0x2060();}function preloadProductVariantImages(_0x44e6ff){}function showModal(_0x19842f){const _0x9550d4=_0x36e494;if(currentTab==='shop'){const _0x4b36e0=window[_0x9550d4(0x272)]||document[_0x9550d4(0x256)][_0x9550d4(0x210)]||0x0;tabScrollTops['shop']=_0x4b36e0,console[_0x9550d4(0x1bd)](_0x9550d4(0x268),_0x4b36e0);}console[_0x9550d4(0x1bd)](_0x9550d4(0x1cb),_0x19842f?.[_0x9550d4(0x1e1)]),renderProductModal(_0x19842f);try{typeof trackEvent===_0x9550d4(0x211)&&trackEvent('product_modal_open',{'product_name':_0x19842f?.[_0x9550d4(0x1e1)]||null,'category':_0x19842f?.[_0x9550d4(0x265)]||null});}catch(_0x152b3b){}modal[_0x9550d4(0x214)][_0x9550d4(0x262)](_0x9550d4(0x25e)),requestAnimationFrame(()=>{requestAnimationFrame(()=>{const _0xd0cf04=_0x14d6,_0x2f35cc=document[_0xd0cf04(0x277)](_0xd0cf04(0x243));if(_0x2f35cc)_0x2f35cc[_0xd0cf04(0x210)]=0x0;});}),globalPhaseBeforePause=globalWarmupState===_0x9550d4(0x26c)?'other':_0x9550d4(0x203),globalWarmupState=_0x9550d4(0x24f);const _0xaacf08=buildModalAllImages(_0x19842f);startModalWarmupAll(_0xaacf08),runModalWarmupLoop()['catch'](_0x1ddeb0=>console[_0x9550d4(0x1bd)](_0x9550d4(0x1dc),_0x1ddeb0)),tg?.['expand']();}(function patchSelectForModalWarmup(){const _0x56cc67=_0x36e494,_0x5566bf=window['selectOptionNoFocus'];window[_0x56cc67(0x242)]=function(_0x13b5bf,_0x43ae14){const _0x29afd2=_0x56cc67;_0x5566bf(_0x13b5bf,_0x43ae14);try{typeof trackEvent===_0x29afd2(0x211)&&currentProduct&&trackEvent(_0x29afd2(0x238),{'product_name':currentProduct[_0x29afd2(0x1e1)]||null,'option_type':_0x13b5bf,'option_value':String(_0x43ae14)});}catch(_0x2c6f80){}if(!currentProduct)return;isCompleteSelection()&&console[_0x29afd2(0x1bd)]('[modal]\x20all\x20options\x20selected,\x20browser\x20loads\x20product\x20images\x20via\x20<img\x20src>');};}(),window[_0x36e494(0x255)]=function(){const _0x43e5ac=_0x36e494;if(modalWasOpenOnShop){try{typeof trackEvent===_0x43e5ac(0x211)&&trackEvent(_0x43e5ac(0x1e2),{'reason':'user','tab':currentTab});}catch(_0x57e703){}console[_0x43e5ac(0x1bd)](_0x43e5ac(0x1bc),tabScrollTops['shop']),renderShop(),restoreTabScroll('shop');}else console[_0x43e5ac(0x1bd)](_0x43e5ac(0x22e));modal[_0x43e5ac(0x214)][_0x43e5ac(0x1c6)](_0x43e5ac(0x25e)),selectedOption={},currentProduct=null,selectedQuantity=0x1,modalCurrentImageKey=null,modalWasOpenOnShop=![],modalSavedScrollTop=0x0;const _0x5ce294=document[_0x43e5ac(0x277)](_0x43e5ac(0x243));if(_0x5ce294)_0x5ce294[_0x43e5ac(0x210)]=0x0;const _0x55fdbf=document[_0x43e5ac(0x1de)](_0x43e5ac(0x205));_0x55fdbf&&_0x55fdbf[_0x43e5ac(0x25a)][_0x43e5ac(0x1c9)]&&(delete _0x55fdbf[_0x43e5ac(0x25a)]['initialized'],_0x55fdbf[_0x43e5ac(0x1bf)]=''),modalAllQueue=[],modalProductQueue=[],modalAllIndex=0x0,modalProductIndex=0x0,modalWarmupPaused=![],console[_0x43e5ac(0x1bd)]('[modal]\x20closeModal:\x20warmup\x20paused\x20flag\x20reset'),finishModalWarmupAndResumeGlobal(),modalState=_0x43e5ac(0x21f),!preloadRunning&&runPreloadLoop(),function _0x325a47(){const _0x5b20aa=_0x43e5ac,_0x5c14fe=document[_0x5b20aa(0x1de)](_0x5b20aa(0x20d));if(!_0x5c14fe)return;if(_0x5c14fe[_0x5b20aa(0x26e)]['display']!==_0x5b20aa(0x217))return;_0x5c14fe['style']['zIndex']=_0x5b20aa(0x20a);}(),tg?.[_0x43e5ac(0x1c1)]?.['impactOccurred'](_0x43e5ac(0x27a));},document[_0x36e494(0x1df)]('touchstart',function(_0xc3a51a){const _0x1985a7=_0x36e494,_0x3b0f18=_0xc3a51a['target'][_0x1985a7(0x1f4)](_0x1985a7(0x20f));if(!_0x3b0f18)return;},{'passive':!![]}));
+let modalCurrentIndex = 0;
+let modalImageCount = 0;
+let modalImageIndexBeforeFullscreen = 0;
+let modalWarmupPaused = false;
+
+let modalTouchStartX = 0;
+let modalTouchStartY = 0;
+
+let modalCurrentImageKey = null;
+
+const brokenImageMap = new Map();
+
+let modalPendingImages = 0;
+let modalSessionId = 0;
+
+function getVariantCountText(count) {
+  const mod10 = count % 10;
+  const mod100 = count % 100;
+
+  if (mod10 === 1 && mod100 !== 11) return count + ' вариант';
+  if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) {
+    return count + ' варианта';
+  }
+  return count + ' вариантов';
+}
+
+function getFinalTypesForCurrentProduct() {
+  if (!currentProduct || !productsData) return [];
+
+  const variantsAll = getProductVariants(
+    currentProduct['Название']
+  ).filter(v => v.inStock);
+  if (!variantsAll.length) return [];
+
+  const filtered = getFilteredVariants(variantsAll);
+  const activeTypes = getActiveTypesForProduct(
+    currentProduct,
+    variantsAll
+  );
+
+  const finalTypes = activeTypes.filter(type =>
+    filtered.some(
+      v =>
+        v[type] !== undefined &&
+        v[type] !== null &&
+        v[type] !== ''
+    )
+  );
+
+  return finalTypes;
+}
+
+function selectOptionNoFocus(type, option) {
+  if (document.activeElement && document.activeElement.blur) {
+    document.activeElement.blur();
+  }
+
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
+
+  const finalTypes = getFinalTypesForCurrentProduct();
+  const typeIndex = finalTypes.indexOf(type);
+  if (typeIndex === -1) return;
+
+  for (let i = typeIndex + 1; i < finalTypes.length; i++) {
+    delete selectedOption[finalTypes[i]];
+  }
+  selectedOption[type] = String(option).trim();
+
+  renderProductModal(currentProduct);
+
+  const newScrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (newScrollContainer)
+    newScrollContainer.scrollTop = prevScrollTop;
+
+  tg?.HapticFeedback?.impactOccurred('light');
+}
+
+function clearOptionNoFocus(type) {
+  if (document.activeElement && document.activeElement.blur) {
+    document.activeElement.blur();
+  }
+
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
+
+  const finalTypes = getFinalTypesForCurrentProduct();
+  const typeIndex = finalTypes.indexOf(type);
+  if (typeIndex === -1) return;
+
+  for (let i = typeIndex; i < finalTypes.length; i++) {
+    delete selectedOption[finalTypes[i]];
+  }
+
+  renderProductModal(currentProduct);
+
+  const newScrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (newScrollContainer)
+    newScrollContainer.scrollTop = prevScrollTop;
+
+  tg?.HapticFeedback?.impactOccurred('light');
+}
+
+window.selectOptionNoFocus = selectOptionNoFocus;
+window.clearOptionNoFocus = clearOptionNoFocus;
+
+window.changeQuantity = function (delta) {
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
+
+  let q = selectedQuantity + delta;
+  if (q < 1) q = 1;
+  if (q > 100) q = 100;
+  selectedQuantity = q;
+
+  try {
+    if (typeof trackEvent === 'function' && currentProduct) {
+      trackEvent('product_quantity_change', {
+        product_name: currentProduct['Название'] || null,
+        quantity: selectedQuantity
+      });
+    }
+  } catch (e2) {}
+
+  const span = document.getElementById('quantityValue');
+  if (span) span.textContent = selectedQuantity;
+
+  if (currentProduct) {
+    renderProductModal(currentProduct);
+  }
+
+  const newScrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (newScrollContainer)
+    newScrollContainer.scrollTop = prevScrollTop;
+};
+
+window.addToCartFromModal = async function () {
+  if (isAddingToCart) return;
+
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
+
+  try {
+    isAddingToCart = true;
+    renderProductModal(currentProduct);
+    const sc2 = document.querySelector(
+      '#modalContent .flex-1'
+    );
+    if (sc2) sc2.scrollTop = prevScrollTop;
+
+    if (!isCompleteSelection()) {
+      tg?.showAlert?.('❌ Выберите все опции');
+      return;
+    }
+
+    if (!productsData) {
+      tg?.showAlert?.('Товары не загрузились, попробуйте позже');
+      return;
+    }
+
+    const variants = getFilteredVariants(
+      getProductVariants(currentProduct['Название']).filter(
+        v => v.inStock
+      )
+    );
+
+    if (!variants.length) {
+      tg?.showAlert?.('❌ Нет доступных вариантов');
+      return;
+    }
+
+    const selectedVariant = variants[0];
+
+    const rawPrice = selectedVariant['Цена'];
+    const price = Number(rawPrice);
+
+    if (!Number.isFinite(price) || price <= 0) {
+      tg?.showAlert?.(
+        '❌ Цена для этого товара не задана, попробуйте позже'
+      );
+      return;
+    }
+
+    addToCart(selectedVariant, selectedQuantity);
+
+    const subtitle = getCartItemSubtitle(selectedVariant);
+    const sum = price * selectedQuantity;
+
+    tg?.showAlert?.(
+      '✅ ' +
+        (selectedVariant['Название'] ||
+          currentProduct['Название']) +
+        (subtitle ? '\n' + subtitle : '') +
+        '\nКоличество: ' +
+        selectedQuantity +
+        '\n' +
+        (window.getCurrentCountryConfig
+          ? (function() {
+              const cfg = window.getCurrentCountryConfig();
+              return cfg.currency + ' ' + (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum));
+            })()
+          : (window.formatPriceForCountry ? window.formatPriceForCountry(sum, window.selectedCountry || 'RU') : formatPrice(sum)))
+    );
+    closeModal();
+  } finally {
+    isAddingToCart = false;
+    const scA = document.querySelector('#modalContent .flex-1');
+    const prevA = scA ? scA.scrollTop : 0;
+    if (currentProduct) {
+      renderProductModal(currentProduct);
+      const scB = document.querySelector(
+        '#modalContent .flex-1'
+      );
+      if (scB) scB.scrollTop = prevA;
+    }
+  }
+};
+
+function renderProductModal(product) {
+  currentProduct = product;
+
+  const modalRoot = document.getElementById('modalContent');
+
+  const scrollContainer = modalRoot.querySelector('.flex-1');
+  if (scrollContainer) scrollContainer.scrollTop = 0;
+
+  const allVariants = getProductVariants(product['Название']);
+  const variants = allVariants.filter(v => v.inStock);
+
+  if (!variants.length) {
+    modalRoot.innerHTML =
+      '<div class="flex flex-col h-full">' +
+      '<div class="p-6 pb-4 border-b border-gray-200">' +
+      '<div class="flex items-center justify-between mb-2">' +
+      '<h2 class="text-2xl font-bold">' +
+      escapeHtml(product['Название']) +
+      '</h2>' +
+      '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
+      '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+      '</svg>' +
+      '</button>' +
+      '</div>' +
+      '<div class="text-sm text-red-500">Нет доступных вариантов</div>' +
+      '</div>' +
+      '</div>';
+    return;
+  }
+
+  const filteredVariants = getFilteredVariants(variants);
+  const availableVariants = dedupeIdenticalVariants(
+    filteredVariants
+  );
+
+  const activeTypes = getActiveTypesForProduct(product, variants);
+
+  const finalTypes = activeTypes.filter(type =>
+    availableVariants.some(
+      v =>
+        v[type] !== undefined &&
+        v[type] !== null &&
+        v[type] !== ''
+    )
+  );
+
+  const availableOptions = {};
+  finalTypes.forEach(type => {
+    availableOptions[type] = getAvailableOptions(type, variants);
+  });
+
+  const complete = isCompleteSelection();
+
+  const currentMinPrice = availableVariants.length
+    ? Math.min.apply(
+        null,
+        availableVariants.map(v => v['Цена'])
+      )
+    : Math.min.apply(null, variants.map(v => v['Цена']));
+
+  let headerPriceText;
+  let headerSuffix = '';
+
+  const country = window.selectedCountry || 'RU';
+  const formatPriceFn = window.formatPriceForCountry || formatPrice;
+  const cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+  const currencyLabel = cfg.currency;
+
+  if (!complete) {
+    headerPriceText = 'от ' + currencyLabel + ' ' + formatPriceFn(currentMinPrice, country);
+    headerSuffix = 'за единицу';
+  } else if (complete && availableVariants.length > 0) {
+    const priceToShow = availableVariants[0]['Цена'];
+    headerPriceText = currencyLabel + ' ' + formatPriceFn(priceToShow, country);
+    headerSuffix = 'за единицу';
+  } else {
+    headerPriceText = 'Нет вариантов';
+  }
+
+  let filteredImages = [];
+  if (complete && availableVariants.length > 0) {
+    filteredImages = getFilteredProductImages(availableVariants);
+    if (!filteredImages.length && variants[0]['Общая картинка']) {
+      filteredImages = [variants[0]['Общая картинка']];
+    }
+  }
+
+  const productCommonImage = product['Общая картинка'] || '';
+
+  if (!modalRoot.dataset.initialized) {
+    modalRoot.dataset.initialized = '1';
+
+    modalRoot.innerHTML =
+  '<div class="flex flex-col h-full">' +
+    // HEADER
+    '<div class="p-6 pb-4 border-b border-gray-200">' +
+      '<div class="flex items-center justify-between mb-2">' +
+        '<h2 class="text-2xl font-bold" id="modalTitle"></h2>' +
+        '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
+          '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
+          '</svg>' +
+        '</button>' +
+      '</div>' +
+      '<div class="flex items-center gap-2 text-sm text-gray-500">' +
+        '<span id="modalPrice"></span>' +
+        '<span>• <span id="modalVariantCount"></span></span>' +
+      '</div>' +
+    '</div>' +
+
+    // SCROLL-ОБЛАСТЬ (flex-1)
+    '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
+      '<div class="modal-image-section">' +
+        '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+          '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
+            '<div class="w-full h-full flex items-center justify-center">' +
+              getPlainSvgPlaceholder() +
+            '</div>' +
+          '</div>' +
+          '<div class="modal-carousel-footer">' +
+            '<div class="carousel-dots" id="modalDots"></div>' +
+            '<div id="modalImageHint" class="px-3 pt-1 pb-0 text-xs text-gray-500 text-center"></div>' +
+          '</div>' +
+          '<button class="nav-btn nav-prev" id="modalPrevBtn" onclick="modalPrev(); event.stopPropagation()">' +
+            '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+              '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+            '</svg>' +
+          '</button>' +
+          '<button class="nav-btn nav-next" id="modalNextBtn" onclick="modalNext(); event.stopPropagation()">' +
+            '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
+              '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
+            '</svg>' +
+          '</button>' +
+        '</div>' +
+      '</div>' +
+      '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
+    '</div>' +
+
+    // FOOTER С КНОПКОЙ — ОТДЕЛЬНЫЙ БЛОК, НЕ ВНУТРИ flex-1
+    '<div class="modal-footer border-t bg-white"' +
+    '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
+      '<button id="modalAddButton"' +
+      ' class="w-full flex items-center justify-center gap-2 text-white font-semibold px-4 rounded-2xl shadow-2xl " onclick="addToCartFromModal(); return false;"></button>' +
+    '</div>' +
+  '</div>';
+
+    initModalSwipe();
+  }
+
+  document.getElementById('modalTitle').textContent =
+    product['Название'];
+  document.getElementById('modalPrice').textContent =
+    headerPriceText +
+    (headerSuffix ? ' ' + headerSuffix : '');
+  document.getElementById(
+    'modalVariantCount'
+  ).textContent = getVariantCountText(availableVariants.length);
+
+  const carouselInner = document.getElementById('modalCarouselInner');
+  const dotsRoot = document.getElementById('modalDots');
+  const imageHintEl = document.getElementById('modalImageHint');
+  const prevBtn = document.getElementById('modalPrevBtn');
+  const nextBtn = document.getElementById('modalNextBtn');
+
+  if (!carouselInner || !dotsRoot || !imageHintEl || !prevBtn || !nextBtn) {
+    console.warn('[modal] carousel elements not found, skip slides build');
+    return;
+  }  
+
+  let imagesToShow = [];
+  if (complete && filteredImages.length > 0) {
+    imagesToShow = filteredImages.slice(0, 10);
+  } else if (productCommonImage) {
+    imagesToShow = [productCommonImage];
+  }
+
+  const nextKey = JSON.stringify({
+    complete,
+    images: imagesToShow,
+    common: productCommonImage
+  });
+
+  const INITIAL_FADE_MS = 1000;
+  const SWAP_FADE_MS = 500;
+
+  function applyFadeIn(el, durationMs) {
+    if (!el) return;
+    const prevTransition = el.style.transition;
+
+    if (durationMs !== SWAP_FADE_MS) {
+      el.style.transition =
+        'opacity ' + durationMs + 'ms ease';
+    }
+
+    el.classList.remove('modal-photo-visible');
+    el.classList.add('modal-photo-hidden');
+
+    requestAnimationFrame(() => {
+      el.classList.remove('modal-photo-hidden');
+      el.classList.add('modal-photo-visible');
+      setTimeout(() => {
+        el.style.transition = prevTransition;
+      }, durationMs);
+    });
+  }
+
+  function buildSlides() {
+    carouselInner.innerHTML =
+      '<div class="flex w-full h-full" id="modalSlidesWrapper"></div>';
+    dotsRoot.innerHTML = '';
+    modalImageCount = imagesToShow.length;
+
+    const slidesWrapper =
+    document.getElementById('modalSlidesWrapper');
+
+  if (!slidesWrapper) {
+    console.warn('[modal] slidesWrapper not found, skip buildSlides');
+    modalWarmupPaused = false;
+    return;
+  }
+
+    modalSessionId += 1;
+    const currentSessionId = modalSessionId;
+    modalPendingImages = 0;
+
+    modalWarmupPaused = true;
+    console.log('[modal-preload] buildSlides: pausing warmup, session=', currentSessionId);
+
+    const svgPlaceholder =
+      '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24"' +
+      ' class="w-12 h-12 text-gray-400">' +
+      '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"' +
+      ' d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>' +
+      '</svg>';
+
+    function makeSlideContent(url, mode) {
+      const hasPhoto = mode === 'photo' && url;
+      const showPlaceholder = mode === 'placeholder';
+
+      if (hasPhoto) {
+        return (
+          '<img src="' +
+          url +
+          '"' +
+          ' class="carousel-img w-full h-64 object-contain modal-photo modal-photo-hidden"' +
+          ' alt="Product image" loading="lazy" />'
+        );
+      }
+      if (showPlaceholder) {
+        return (
+          '<div class="modal-photo modal-photo-hidden flex items-center justify-center">' +
+          svgPlaceholder +
+          '</div>'
+        );
+      }
+      return '';
+    }
+
+    function makeSlide(url, mode) {
+      return (
+        '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+        makeSlideContent(url, mode) +
+        '</div>'
+      );
+    }
+
+    const durationForThisBuild =
+      modalCurrentImageKey === null
+        ? INITIAL_FADE_MS
+        : SWAP_FADE_MS;
+
+        if (!imagesToShow.length) {
+          slidesWrapper.innerHTML = makeSlide('', 'placeholder');
+          prevBtn.style.display = 'none';
+          nextBtn.style.display = 'none';
+        
+          modalWarmupPaused = false;
+          console.log('[modal-preload] no images to show, resuming warmup immediately, session=', currentSessionId);
+        
+          requestAnimationFrame(() => {
+            const slide = slidesWrapper.firstElementChild;
+            const layer = slide?.querySelector('.modal-photo');
+            applyFadeIn(layer, durationForThisBuild);
+          });
+        } else {
+      slidesWrapper.innerHTML = imagesToShow
+        .map(url => makeSlide(url, 'empty'))
+        .join('');
+
+      const slideEls = slidesWrapper.children;
+
+      imagesToShow.forEach((url, idx) => {
+        const slide = slideEls[idx];
+
+        if (!url || brokenImageMap.get(url)) {
+          slide.innerHTML = makeSlideContent(
+            '',
+            'placeholder'
+          );
+          const ph = slide.querySelector('.modal-photo');
+          requestAnimationFrame(() => {
+            applyFadeIn(ph, durationForThisBuild);
+          });
+          return;
+        }
+
+        preloadedOnce.add(url);
+        console.log('[modal-preload] buildSlides: idx=', idx, 'loading url=', url);
+
+        slide.innerHTML = makeSlideContent(url, 'photo');
+        const img = slide.querySelector('img');
+
+        modalPendingImages += 1;
+
+        requestAnimationFrame(() => {
+          applyFadeIn(img, durationForThisBuild);
+        });
+
+        img.addEventListener('load', () => {
+          if (modalSessionId !== currentSessionId) return;
+          modalPendingImages = Math.max(0, modalPendingImages - 1);
+          console.log('[modal-preload] img loaded:', url, 'pending=', modalPendingImages);
+          if (modalPendingImages <= 0) {
+            console.log('[modal-preload] all product images loaded, resuming warmup, session=', currentSessionId);
+            modalWarmupPaused = false;
+            if (isModalWarmupFinished()) {
+              finishModalWarmupAndResumeGlobal();
+            }
+          }
+        });        
+        img.addEventListener('error', () => {
+          brokenImageMap.set(url, true);
+          if (modalSessionId !== currentSessionId) return;
+          modalPendingImages = Math.max(0, modalPendingImages - 1);
+          console.log('[modal-preload] img error:', url, 'pending=', modalPendingImages);
+        
+          slide.innerHTML = makeSlideContent('', 'placeholder');
+          const ph = slide.querySelector('.modal-photo');
+          requestAnimationFrame(() => {
+            applyFadeIn(ph, durationForThisBuild);
+          });
+        
+          if (modalPendingImages <= 0) {
+            console.log('[modal-preload] all product images settled (with errors), resuming warmup, session=', currentSessionId);
+            modalWarmupPaused = false;
+            if (isModalWarmupFinished()) {
+              finishModalWarmupAndResumeGlobal();
+            }
+          }
+        });        
+      });
+
+      if (modalPendingImages === 0) {
+        console.log('[modal-preload] all images already cached or broken, resuming warmup immediately, session=', currentSessionId);
+        modalWarmupPaused = false;
+      }      
+
+      modalCurrentIndex = 0;
+
+      if (imagesToShow.length > 1) {
+        dotsRoot.innerHTML = imagesToShow
+          .map(
+            (_, idx) =>
+              '<div class="dot' +
+              (idx === modalCurrentIndex
+                ? ' active'
+                : '') +
+              '" onclick="modalGoTo(' +
+              idx +
+              '); event.stopPropagation()"></div>'
+          )
+          .join('');
+        prevBtn.style.display = '';
+        nextBtn.style.display = '';
+        initModalCarousel(imagesToShow.length);
+      } else {
+        dotsRoot.innerHTML = '';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      }
+    }
+
+    if (!complete || !filteredImages.length) {
+      imageHintEl.textContent =
+        '❓ Чтобы посмотреть реальные фото товара, выберите все параметры устройства.';
+      imageHintEl.classList.remove('modal-image-hint-hidden');
+    } else {
+      imageHintEl.textContent = '';
+      imageHintEl.classList.add('modal-image-hint-hidden');
+    }
+  }
+
+  if (modalCurrentImageKey === null) {
+    buildSlides();
+    modalCurrentImageKey = nextKey;
+  } else if (modalCurrentImageKey !== nextKey) {
+    const slidesWrapperOld =
+      document.getElementById('modalSlidesWrapper');
+    if (slidesWrapperOld) {
+      const activeLayers =
+        slidesWrapperOld.querySelectorAll(
+          '.modal-photo-visible, .modal-photo-hidden'
+        );
+      activeLayers.forEach(el => {
+        el.classList.remove('modal-photo-visible');
+        el.classList.add('modal-photo-hidden');
+      });
+    }
+
+    modalCurrentImageKey = nextKey;
+
+    setTimeout(() => {
+      buildSlides();
+    }, SWAP_FADE_MS);
+  }
+
+  const body = document.getElementById('modalBodyDynamic');
+  const order = finalTypes;
+
+  body.innerHTML =
+    order
+      .map((type, index) => {
+        const isLocked = index > getCurrentSectionIndex();
+        return (
+          '<div class="option-section ' +
+          (isLocked ? 'locked' : 'unlocked') +
+          '" data-section="' +
+          type +
+          '">' +
+          '<label class="text-sm font-semibold text-gray-700 capitalize mb-2 block">' +
+          getLabel(type) +
+          '</label>' +
+          '<div class="flex gap-2 scroll-carousel pb-1">' +
+          availableOptions[type]
+            .map(option => {
+              const isSelected =
+                String(selectedOption[type]).trim() ===
+                String(option).trim();
+              return (
+                '<button class="option-btn px-3 py-1.5 text-xs font-medium scroll-item' +
+                (isSelected ? ' selected' : '') +
+                '"' +
+                ' data-type="' +
+                type +
+                '"' +
+                ' data-option="' +
+                escapeHtml(option) +
+                '"' +
+                ' onclick="selectOptionNoFocus(\'' +
+                type +
+                '\', \'' +
+                escapeHtml(option) +
+                '\'); return false;">' +
+                escapeHtml(option) +
+                '</button>'
+              );
+            })
+            .join('') +
+          (selectedOption[type]
+            ? '<button class="option-clear px-3 py-1.5 text-xs text-red-500 font-medium rounded-full border border-red-200 scroll-item w-12"' +
+              ' data-type="' +
+              type +
+              '">✕</button>'
+            : '') +
+          '</div>' +
+          (!availableOptions[type].length
+            ? '<p class="text-xs text-gray-400 mt-1">Нет вариантов</p>'
+            : '') +
+          '</div>'
+        );
+      })
+      .join('') +
+    '<div class="quantity-section">' +
+    '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
+    '<div class="flex items-center gap-3">' +
+    '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+    ' onclick="changeQuantity(-1); return false;">-</button>' +
+    '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">' +
+    selectedQuantity +
+    '</span>' +
+    '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold"' +
+    ' onclick="changeQuantity(1); return false;">+</button>' +
+    '</div>' +
+    '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
+    '</div>' +
+    '<div class="pt-4 border-t">' +
+    '<div class="text-center text-sm text-gray-500 mb-3">' +
+    'Доступно: <span id="variantCount" class="font-bold text-blue-600">' +
+    getVariantCountText(availableVariants.length) +
+    '</span>' +
+    (complete && availableVariants.length > 0
+      ? '<div class="text-xs mt-1 bg-blue-50 border border-blue-200 rounded-xl p-2">' +
+        '✅ Спецификация выбрана' +
+        '</div>'
+      : '') +
+    '</div>' +
+    '</div>';
+
+  document
+    .querySelectorAll('#modalBodyDynamic .option-clear')
+    .forEach(btn => {
+      if (btn.dataset.bound === '1') return;
+      btn.dataset.bound = '1';
+
+      btn.addEventListener(
+        'touchend',
+        function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const type = btn.getAttribute('data-type');
+          clearOptionNoFocus(type);
+        },
+        { passive: false }
+      );
+
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        const type = btn.getAttribute('data-type');
+        clearOptionNoFocus(type);
+      });
+    });
+
+  const btn = document.getElementById('modalAddButton');
+
+  if (isAddingToCart) {
+    btn.innerHTML =
+      '<span class="loader-circle"></span><span>Проверяю наличие...</span>';
+    btn.className =
+      'w-full flex itemscenter justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
+    btn.disabled = true;
+  } else if (complete && availableVariants.length > 0) {
+    const price = availableVariants[0]['Цена'] || 0;
+    const sum = price * selectedQuantity;
+    btn.innerHTML = '✅ В корзину ' + currencyLabel + ' ' + formatPriceFn(sum, country);
+    btn.className =
+      'w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-lg ';
+    btn.disabled = false;
+  } else {
+    btn.innerHTML = 'Выберите все опции';
+    btn.className =
+      'w-full flex items-center justify-center gap-2 bg-gray-400 text-white font-semibold px-4 rounded-2xl shadow-lg  cursor-not-allowed';
+    btn.disabled = true;
+  }
+}
+
+function initModalCarousel(imageCount) {
+  if (imageCount <= 1) return;
+  modalImageCount = imageCount;
+  const inner =
+    document.getElementById('modalSlidesWrapper') ||
+    document.getElementById('modalCarouselInner');
+  if (!inner) return;
+
+  function updateModalCarousel() {
+    inner.style.transform =
+      'translateX(-' + modalCurrentIndex * 100 + '%)';
+    const dots = document.querySelectorAll(
+      '#modalDots .dot'
+    );
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === modalCurrentIndex);
+    });
+  }
+
+  window.modalNext = function () {
+    modalCurrentIndex =
+      (modalCurrentIndex + 1) % modalImageCount;
+    updateModalCarousel();
+    tg?.HapticFeedback?.selectionChanged();
+  };
+
+  window.modalPrev = function () {
+    modalCurrentIndex =
+      modalCurrentIndex === 0
+        ? modalImageCount - 1
+        : modalCurrentIndex - 1;
+    updateModalCarousel();
+    tg?.HapticFeedback?.selectionChanged();
+  };
+
+  window.modalGoTo = function (i) {
+    modalCurrentIndex = i;
+    updateModalCarousel();
+    tg?.HapticFeedback?.selectionChanged();
+  };
+
+  updateModalCarousel();
+}
+
+function initModalSwipe() {
+  const carousel = document.getElementById('modalCarousel');
+  if (!carousel) return;
+
+  carousel.addEventListener(
+    'touchstart',
+    function (e) {
+      const touch = e.changedTouches[0];
+      modalTouchStartX = touch.clientX;
+      modalTouchStartY = touch.clientY;
+    },
+    { passive: true }
+  );
+
+  carousel.addEventListener(
+    'touchend',
+    function (e) {
+      const touch = e.changedTouches[0];
+      const dx = touch.clientX - modalTouchStartX;
+      const dy = Math.abs(
+        touch.clientY - modalTouchStartY
+      );
+
+      if (Math.abs(dx) < 40 || dy > 50) return;
+
+      if (dx < 0) {
+        window.modalNext && window.modalNext();
+      } else {
+        window.modalPrev && window.modalPrev();
+      }
+    },
+    { passive: true }
+  );
+}
+
+// *** Новый сценарий прогрева для модалки ***
+
+// собрать все картинки для модалки (modal-all)
+function buildModalAllImages(product) {
+  const urls = new Set();
+
+  const common = product['Общая картинка'] || '';
+  if (common) urls.add(String(common).trim());
+
+  const variants = getProductVariants(product['Название']).filter(
+    v => v.inStock
+  );
+  const allImages = getFilteredProductImages(variants);
+  allImages.forEach(u => {
+    if (u) urls.add(String(u).trim());
+  });
+
+  return Array.from(urls);
+}
+
+// собрать картинки для выбранного продукта (modal-product)
+function buildModalProductImages(product) {
+  const urls = new Set();
+  const allVariants = getProductVariants(
+    product['Название']
+  ).filter(v => v.inStock);
+  const filtered = getFilteredVariants(allVariants);
+  if (!filtered.length) return [];
+  const productImages = getFilteredProductImages(filtered);
+  productImages.forEach(u => {
+    if (u) urls.add(String(u).trim());
+  });
+  return Array.from(urls);
+}
+
+function preloadProductVariantImages(product) {
+  // заменён новой схемой — теперь используем группы modal-all/modal-product
+  // оставляем пустым, чтобы не ломать вызовы
+}
+
+// открыть модалку
+function showModal(product) {
+  if (currentTab === 'shop') {
+    const y =
+      window.scrollY || document.documentElement.scrollTop || 0;
+    tabScrollTops.shop = y;
+    console.log(
+      '[modal] showModal, saved shop scrollY =',
+      y
+    );
+  }
+
+  console.log(
+    '[modal] renderProductModal for',
+    product?.['Название']
+  );
+  renderProductModal(product);
+
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('product_modal_open', {
+        product_name: product?.['Название'] || null,
+        category: product?.cat || null
+      });
+    }
+  } catch (e) {}
+
+  modal.classList.remove('hidden');
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      const scrollContainer = document.querySelector(
+        '#modalContent .flex-1'
+      );
+      if (scrollContainer) scrollContainer.scrollTop = 0;
+    });
+  });
+
+  // Останавливаем глобальный прогрев
+  globalPhaseBeforePause = globalWarmupState === 'other'
+    ? 'other'
+    : 'main';
+  globalWarmupState = 'paused';
+
+  // Стартуем прогрев модалки: modal-all
+  const modalAllUrls = buildModalAllImages(product);
+  startModalWarmupAll(modalAllUrls);
+  runModalWarmupLoop().catch(e => console.log('[modal] warmup loop error', e));
+
+  tg?.expand();
+}
+
+
+// выбор опций: при полном выборе продукта запускаем modal-product прогрев
+(function patchSelectForModalWarmup() {
+  const originalSelectOptionNoFocus = window.selectOptionNoFocus;
+  window.selectOptionNoFocus = function (type, option) {
+    originalSelectOptionNoFocus(type, option);
+
+    try {
+      if (typeof trackEvent === 'function' && currentProduct) {
+        trackEvent('product_option_select', {
+          product_name: currentProduct['Название'] || null,
+          option_type: type,
+          option_value: String(option)
+        });
+      }
+    } catch (e2) {}
+
+    if (!currentProduct) return;
+
+    if (isCompleteSelection()) {
+      console.log('[modal] all options selected, browser loads product images via <img src>');
+    }    
+  };
+})();
+
+window.closeModal = function () {
+  if (modalWasOpenOnShop) {
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('product_modal_close', {
+          reason: 'user',
+          tab: currentTab
+        });
+      }
+    } catch (e2) {}
+  
+    console.log(
+      '[modal] closeModal after tab return: renderShop + restoreTabScroll(shop), scrollY =',
+      tabScrollTops.shop
+    );
+    renderShop();
+    restoreTabScroll('shop');
+  } else {
+    console.log(
+      '[modal] closeModal from shop (no tab switch), no renderShop'
+    );
+  }
+
+  modal.classList.add('hidden');
+
+  selectedOption = {};
+  currentProduct = null;
+  selectedQuantity = 1;
+  modalCurrentImageKey = null;
+
+  modalWasOpenOnShop = false;
+  modalSavedScrollTop = 0;
+
+  const scrollContainer = document.querySelector(
+    '#modalContent .flex-1'
+  );
+  if (scrollContainer) scrollContainer.scrollTop = 0;
+
+  const modalRoot = document.getElementById('modalContent');
+  if (modalRoot && modalRoot.dataset.initialized) {
+    delete modalRoot.dataset.initialized;
+    modalRoot.innerHTML = '';
+  }
+
+  modalAllQueue = [];
+  modalProductQueue = [];
+  modalAllIndex = 0;
+  modalProductIndex = 0;
+
+  modalWarmupPaused = false;
+  console.log('[modal] closeModal: warmup paused flag reset');
+  
+
+  // Пытаемся разморозить глобальный прогрев, только если модальные задачи уже были завершены
+  finishModalWarmupAndResumeGlobal();
+
+  modalState = 'closed';
+
+  if (!preloadRunning) {
+    runPreloadLoop();
+  }
+
+  (function resetAlertZIndexAfterModalClose() {
+    const box = document.getElementById('globalErrorBox');
+    if (!box) return;
+    if (box.style.display !== 'block') return;
+    // базовый уровень для работы «alert под новой модалкой»
+    box.style.zIndex = '850';
+  })();
+
+  tg?.HapticFeedback?.impactOccurred('light');
+};
+
+document.addEventListener(
+  'touchstart',
+  function (e) {
+    const target = e.target.closest('.option-btn');
+    if (!target) return;
+  },
+  { passive: true }
+);
