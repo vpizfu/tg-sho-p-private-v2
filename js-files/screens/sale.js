@@ -85,30 +85,21 @@ function renderSaleCard(item) {
   const currencyLabel = cfg.currency;
 
   return (
-    '<div class="relative bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">' +
-    '<div class="absolute top-2 left-2 z-10 flex items-center gap-1 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full shadow">' +
-    '<svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9h6a1 1 0 110 2H7a1 1 0 110-2zm0 4h4a1 1 0 110 2H7a1 1 0 110-2zm3-8a1 1 0 011 1v2h2a1 1 0 110 2h-2v2a1 1 0 11-2 0v-2H8a1 1 0 110-2h2V6a1 1 0 011-1z"/></svg>' +
-    ' -' + Math.round((1 - salePrice / (oldPrice || salePrice)) * 100) + '%' +
-    '</div>' +
+    '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" onclick="addToCartSale(' + JSON.stringify(item).replace(/'/g, "\\'") + ', 1); switchTab(\'cart\')">' +
+    '<div class="absolute top-2 left-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
+    '<div class="w-full h-32 rounded-xl mb-3 bg-gray-50 flex items-center justify-center overflow-hidden">' +
     (image
-      ? '<div class="w-full h-40 bg-gray-50 flex items-center justify-center p-4">' +
-        '<img src="' + image.replace(/'/g, "\\'") + '" class="max-w-full max-h-full object-contain" alt="" onerror="this.style.display=\'none\'">' +
-        '</div>'
-      : '<div class="w-full h-32 bg-gray-50 flex items-center justify-center"><svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg></div>') +
-    '<div class="p-3">' +
-    '<div class="font-medium text-sm text-gray-900 leading-tight line-clamp-2 min-h-[2.5em]">' + escapeHtml(name) + '</div>' +
-    (subtitle ? '<div class="text-xs text-gray-500 mt-1 truncate">' + escapeHtml(subtitle) + '</div>' : '') +
-    '<div class="flex items-baseline gap-2 mt-2">' +
-    (hasOldPrice
+      ? '<img src="' + image.replace(/'/g, "\\'") + '" class="max-w-full max-h-full object-contain" alt="" onerror="this.style.display=\'none\'">'
+      : '<svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>') +
+    '</div>' +
+    '<div class="font-bold text-base mb-1 product-title">' + escapeHtml(name) + '</div>' +
+    '<div class="flex items-baseline gap-2">' +
+    (hasOldPrice && oldPrice !== salePrice
       ? '<span class="text-sm text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>'
       : '') +
-    '<span class="text-lg text-red-600 font-bold">' + currencyLabel + ' ' + formatPriceFn(salePrice, country) + '</span>' +
+    '<span class="text-blue-600 font-black text-xl">' + currencyLabel + ' ' + formatPriceFn(salePrice, country) + '</span>' +
     '</div>' +
-    '<button onclick="addToCartSale(' + JSON.stringify(item).replace(/'/g, "\\'") + ', 1); switchTab(\'cart\')" ' +
-    'class="mt-3 w-full text-sm font-semibold py-2.5 rounded-xl bg-blue-500 hover:bg-blue-600 text-white active:scale-[0.97] transition-transform">' +
-    'В корзину' +
-    '</button>' +
-    '</div>' +
+    (subtitle ? '<div class="text-xs text-gray-500 mt-1">' + escapeHtml(subtitle) + '</div>' : '') +
     '</div>'
   );
 }
