@@ -113,7 +113,6 @@ function resetCartStateAfterOrder() {
   __cartStore.value = [];
   saveCartToStorage();
   updateCartBadge();
-  if (window.__salesStore) window.__salesStore.value = [];
 
   cartFormState = {
     addressText: '',
@@ -1512,15 +1511,13 @@ if (!contactConfirmed) {
       }
     }, 25000);
 
-    // после заказа — обновить остатки распродаж
+    // после заказа — обновить остатки распродаж из ответа бека
     try {
-      if (window.__salesStore && window.SALES_API_URL) {
-        fetch(window.SALES_API_URL)
-          .then(function(r) { return r.json(); })
-          .then(function(sales) {
-            if (Array.isArray(sales)) __salesStore.value = sales;
-          })
-          .catch(function() {});
+      if (json && Array.isArray(json.allSales) && window.__salesStore) {
+        window.__salesStore.value = json.allSales;
+        if (currentTab === 'sale' && typeof showSaleTab === 'function') {
+          showSaleTab();
+        }
       }
     } catch (e) {}
 

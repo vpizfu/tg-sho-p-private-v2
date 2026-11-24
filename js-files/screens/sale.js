@@ -345,7 +345,36 @@ function filterInStockSales(sales) {
   return (sales || []).filter(function(s) { return s.inStock !== false; });
 }
 
+function renderSaleSkeleton() {
+  return (
+    '<div class="pb-[65px] max-w-md mx-auto">' +
+      '<div class="mb-5">' +
+        '<div class="flex items-center justify-between gap-3 min-w-0">' +
+          '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
+          '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium whitespace-nowrap bg-red-50 text-red-500 ring-1 ring-red-100">Ожидается обновление цен завтра</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="grid grid-cols-2 gap-3 px-4">' +
+        Array.from({ length: 6 }).map(function() {
+          return (
+            '<div class="bg-white rounded-2xl p-4 shadow-lg">' +
+              '<div class="h-32 mb-3 rounded-xl overflow-hidden">' +
+                '<div class="w-full h-full rounded-xl placeholder-shimmer"></div>' +
+              '</div>' +
+              '<div class="h-4 w-3/4 mb-2 rounded placeholder-shimmer"></div>' +
+              '<div class="h-5 w-1/2 mb-2 rounded placeholder-shimmer"></div>' +
+              '<div class="h-3 w-1/3 rounded placeholder-shimmer"></div>' +
+            '</div>'
+          );
+        }).join('') +
+      '</div>' +
+    '</div>'
+  );
+}
+
 function showSaleTab() {
+  root.innerHTML = renderSaleSkeleton();
+
   var salesData = null;
   if (window.__salesStore && window.__salesStore.value && window.__salesStore.value.length) {
     salesData = window.__salesStore.value;

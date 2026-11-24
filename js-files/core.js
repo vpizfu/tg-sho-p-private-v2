@@ -1672,6 +1672,10 @@ async function fetchAndUpdateProducts(showLoader = false) {
       console.warn('[core] failed to fetch sales', e);
     }
 
+    if (currentTab === 'sale' && typeof showSaleTab === 'function') {
+      showSaleTab();
+    }
+
     syncProductsAndCart();
     logStage('update __productsStore.value + sync', t0);
 
