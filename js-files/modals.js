@@ -753,6 +753,18 @@ function renderProductModal(product) {
       });
     });
 
+  document.querySelectorAll('#modalBodyDynamic .option-btn:not([data-opt-bound])').forEach(function(btn) {
+    btn.dataset.optBound = '1';
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      var type = btn.getAttribute('data-type');
+      var opt = btn.getAttribute('data-option');
+      if (type && opt) {
+        selectOptionNoFocus(type, opt);
+      }
+    });
+  });
+
   const btn = document.getElementById('modalAddButton');
 
   if (isAddingToCart) {
