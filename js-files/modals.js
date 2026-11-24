@@ -352,7 +352,7 @@ function renderProductModal(product) {
     // SCROLL-ОБЛАСТЬ (flex-1)
     '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
       '<div class="modal-image-section">' +
-        '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+        '<div class="w-full image-carousel h-48 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
             '<div class="w-full h-full flex items-center justify-center">' +
               getPlainSvgPlaceholder() +
@@ -395,7 +395,7 @@ function renderProductModal(product) {
   if (isRed) {
     priceEl.innerHTML = '<span class="text-red-600 font-bold">' + headerPriceText + '</span>' +
       (headerSuffix ? ' ' + headerSuffix : '') +
-      ' <span class="inline-flex items-center justify-center w-4 h-4 bg-orange-500 rounded-full" style="font-size:9px;line-height:1">🔥</span>';
+      ' <span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>';
   } else {
     priceEl.textContent = headerPriceText + (headerSuffix ? ' ' + headerSuffix : '');
   }
@@ -489,7 +489,7 @@ function renderProductModal(product) {
           '<img src="' +
           url +
           '"' +
-          ' class="carousel-img w-full h-64 object-contain modal-photo modal-photo-hidden"' +
+          ' class="carousel-img w-full h-48 object-contain modal-photo modal-photo-hidden"' +
           ' alt="Product image" loading="lazy" />'
         );
       }
@@ -505,7 +505,7 @@ function renderProductModal(product) {
 
     function makeSlide(url, mode) {
       return (
-        '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+        '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
         makeSlideContent(url, mode) +
         '</div>'
       );

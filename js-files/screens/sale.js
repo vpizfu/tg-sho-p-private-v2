@@ -1,3 +1,5 @@
+var loadedSaleImages = new Set();
+
 const SALE_CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
@@ -91,7 +93,7 @@ function renderSaleCard(item) {
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-id="' + escapeHtml(item.id) + '">' +
     '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
-    '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
+    '<div class="w-full h-40 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
     (image
       ? '<div class="image-placeholder-container relative w-full h-full" id="' + randId + '">' +
         '<div class="image-placeholder-svg absolute inset-0">' +
@@ -115,7 +117,17 @@ function renderSaleCard(item) {
 }
 
 window.handleSaleImageLoad = function(img, url) {
+  var alreadyLoaded = loadedSaleImages.has(url);
+  loadedSaleImages.add(url);
   var container = img.closest('.image-placeholder-container');
+  if (alreadyLoaded) {
+    img.classList.add('fade-in-image');
+    if (container) {
+      var svg = container.querySelector('.image-placeholder-svg');
+      if (svg) svg.style.display = 'none';
+    }
+    return;
+  }
   if (!container) { img.classList.add('fade-in-image'); return; }
   var svg = container.querySelector('.image-placeholder-svg');
   if (!svg) { img.classList.add('fade-in-image'); return; }
@@ -171,9 +183,9 @@ function showSaleModal(saleItem) {
   if (modalRoot.dataset.initialized) delete modalRoot.dataset.initialized;
   modalRoot.innerHTML =
     '<div class="flex flex-col h-full">' +
-    '<div class="p-6 pb-4 border-b border-gray-200">' +
-      '<div class="flex items-center justify-between mb-2">' +
-        '<h2 class="text-2xl font-bold">' + escapeHtml(name) + '</h2>' +
+    '<div class="p-4 pb-3 border-b border-gray-200">' +
+      '<div class="flex items-center justify-between">' +
+        '<h2 class="text-xl font-bold">' + escapeHtml(name) + '</h2>' +
         '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
           '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
             '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
@@ -187,16 +199,16 @@ function showSaleModal(saleItem) {
     '</div>' +
     '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
       '<div class="modal-image-section">' +
-        '<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+        '<div class="w-full image-carousel h-48 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
             '<div class="flex w-full h-full" id="modalSlidesWrapper">' +
               (images.length
                 ? images.map(function(url, i) {
-                    return '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                      '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img w-full h-64 object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                    return '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+                      '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img w-full h-48 object-contain modal-photo modal-photo-hidden"' alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
                       '</div>';
                   }).join('')
-                : '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+                : '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
                   '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                   '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
                   '</svg></div>'
