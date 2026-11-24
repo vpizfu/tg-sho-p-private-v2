@@ -1067,6 +1067,24 @@ function loadCartFromStorage() {
     __cartStore.value = __cartStore.value.filter(item => !!item.cartKey);
     if (__cartStore.value.length !== before) {
       console.log('[cart] migration: dropped', before - __cartStore.value.length, 'legacy items without cartKey');
+    }
+
+    // схлопываем sale-товары с одинаковым id
+    var merged = {};
+    __cartStore.value.forEach(function(item) {
+      if (item.isSale && item.id) {
+        var key = 'sale_' + item.id;
+        if (merged[key]) {
+          merged[key].quantity = Math.min(merged[key].quantity + item.quantity, item.maxQuantity || 999);
+        } else {
+          merged[key] = item;
+        }
+      } else {
+        merged['reg_' + item.cartKey] = item;
+      }
+    });
+    __cartStore.value = Object.values(merged);
+    if (__cartStore.value.length !== before) {
       saveCartToStorage();
     }
   } catch (e) {
