@@ -49,6 +49,14 @@ html,
 body {
   touch-action: manipulation;
 }
+html, body {
+  touch-action: manipulation;
+}
+
+.scroll-carousel,
+.option-btn {
+  touch-action: manipulation !important;
+}
 
 /* Лоадер плейсхолдеров */
 .placeholder-shimmer {
