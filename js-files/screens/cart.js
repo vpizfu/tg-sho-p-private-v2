@@ -20,6 +20,7 @@ const CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
   'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
+  'quantity', 'status'
 ]);
 
 function buildCartKey(product) {
@@ -605,6 +606,13 @@ function getCartItemSubtitle(item) {
   if (!item.options || typeof item.options !== 'object') return '';
   return Object.values(item.options)
     .filter(v => v !== undefined && v !== null && String(v).trim() !== '')
+    .filter(v => {
+      var s = String(v).trim();
+      if (s === '✅' || s === '❌') return false;
+      if (/^https?:\/\//i.test(s)) return false;
+      if (/^\d+$/.test(s) && s.length <= 2) return false;
+      return true;
+    })
     .join(' | ');
 }
 
@@ -709,7 +717,7 @@ function showCartTab() {
                       : 'text-red-600') +
                     '">' +
                     (item.available
-                      ? 'В наличии'
+                      ? item.isSale ? 'В наличии ' + item.maxQuantity + ' шт' : 'В наличии'
                       : item.newPrice
                       ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, __cartCountryStore.value) +
                       ', новая ' + currencyLabel + ' ' + formatPriceFn(item.newPrice, __cartCountryStore.value)                    
@@ -726,7 +734,7 @@ function showCartTab() {
     '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
       ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
   '</div>' +
-  '<div class="text-sm font-bold ' + (item.isRedPrice ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + (item.isRedPrice ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>' : '') + currencyLabel + ' ' +
+  '<div class="text-sm font-bold ' + (item.isRedPrice || item.isSale ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + (item.isRedPrice || item.isSale ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>' : '') + currencyLabel + ' ' +
     formatPriceFn(item.price * item.quantity, __cartCountryStore.value) +
   '</div>' +
   (item.newPrice

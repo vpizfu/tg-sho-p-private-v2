@@ -1006,6 +1006,7 @@ window.closeModal = function () {
   } catch (e2) {}
 
   modal.classList.add('hidden');
+  if (saleModal) saleModal.classList.add('hidden');
 
   selectedOption = {};
   currentProduct = null;
@@ -1022,6 +1023,9 @@ window.closeModal = function () {
     delete modalRoot.dataset.initialized;
     modalRoot.innerHTML = '';
   }
+
+  const saleModalRoot = document.getElementById('saleModalContent');
+  if (saleModalRoot) saleModalRoot.innerHTML = '';
 
   modalAllQueue = [];
   modalProductQueue = [];

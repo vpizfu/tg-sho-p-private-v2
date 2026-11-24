@@ -4,7 +4,7 @@ const SALE_CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
   'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
-  'price', 'salePrice', 'image', 'rowNumber'
+  'price', 'salePrice', 'image', 'rowNumber', 'quantity', 'status'
 ]);
 
 function buildSaleCartKey(product) {
@@ -92,8 +92,8 @@ function renderSaleCard(item) {
 
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-id="' + escapeHtml(item.id) + '">' +
-    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
-    '<div class="w-full h-40 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
+    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white font-bold rounded-full shadow leading-none text-xs">%</div>' +
+    '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
     (image
       ? '<div class="image-placeholder-container relative w-full h-full" id="' + randId + '">' +
         '<div class="image-placeholder-svg absolute inset-0">' +
@@ -101,7 +101,7 @@ function renderSaleCard(item) {
             '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
           '</svg>' +
         '</div>' +
-        '<img src="' + image.replace(/'/g, "\\'") + '" class="product-image animatable absolute inset-0 object-contain" alt="" onload="handleSaleImageLoad(this, \'' + image.replace(/'/g, "\\'") + '\')" onerror="this.style.display=\'none\'">' +
+        '<img src="' + image.replace(/'/g, "\\'") + '" class="product-image' + (loadedSaleImages.has(image) ? '' : ' animatable') + ' absolute inset-0 object-contain" alt="" onload="handleSaleImageLoad(this, \'' + image.replace(/'/g, "\\'") + '\')" onerror="this.style.display=\'none\'">' +
         '</div>'
       : '<svg class="w-10 h-10 text-gray-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>') +
     '</div>' +
@@ -169,6 +169,8 @@ function showSaleModal(saleItem) {
   var currencyLabel = cfg.currency;
   var discountPercent = oldPrice > 0 ? Math.round((1 - price / oldPrice) * 100) : 0;
 
+  var saleModalEl = document.getElementById('saleModal');
+  if (!saleModalEl) return;
   if (modal && !modal.classList.contains('hidden')) {
     saveModalState(currentTab);
     modal.classList.add('hidden');
@@ -176,11 +178,8 @@ function showSaleModal(saleItem) {
   delete savedModalState.sale;
   currentProduct = saleItem;
 
-  if (!window.modal) return;
-  var modalRoot = document.getElementById('modalContent');
+  var modalRoot = document.getElementById('saleModalContent');
   if (!modalRoot) return;
-
-  if (modalRoot.dataset.initialized) delete modalRoot.dataset.initialized;
   modalRoot.innerHTML =
     '<div class="flex flex-col h-full">' +
     '<div class="p-4 pb-3 border-b border-gray-200">' +
@@ -242,7 +241,7 @@ function showSaleModal(saleItem) {
   modalCurrentIndex = 0;
   startSaleCarousel();
 
-  window.modal.classList.remove('hidden');
+  saleModalEl.classList.remove('hidden');
   tg?.expand();
 }
 

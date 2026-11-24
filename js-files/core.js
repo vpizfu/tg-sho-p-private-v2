@@ -349,7 +349,9 @@ const EXCLUDE_FILTER_FIELDS = new Set([
   'isPreview',
   'redPrice',
   'Красная цена',
-  'image'
+  'image',
+  'quantity',
+  'status'
 ]);
 
 function sortAdapterImageLast(images) {
@@ -556,10 +558,26 @@ let placeOrderTimeoutId = null;
 var savedModalState = {};
 
 function saveModalState(tab) {
+  if (tab === 'sale') {
+    var saleEl = document.getElementById('saleModalContent');
+    if (!saleEl || saleEl.innerHTML === '') return;
+    var saleSc = saleEl.querySelector('.flex-1');
+    savedModalState[tab] = {
+      innerHTML: saleEl.innerHTML,
+      currentProduct: currentProduct,
+      selectedOption: JSON.parse(JSON.stringify(selectedOption)),
+      selectedQuantity: selectedQuantity,
+      scrollTop: saleSc ? saleSc.scrollTop : 0,
+      tab: tab
+    };
+    saleEl.innerHTML = '';
+    return;
+  }
   var el = document.getElementById('modalContent');
   if (!el) return;
   var sc = el.querySelector('.flex-1');
   savedModalState[tab] = {
+    innerHTML: el.innerHTML,
     currentProduct: currentProduct,
     selectedOption: JSON.parse(JSON.stringify(selectedOption)),
     selectedQuantity: selectedQuantity,
@@ -571,6 +589,15 @@ function saveModalState(tab) {
 function restoreModalState(tab) {
   var state = savedModalState[tab];
   if (!state) return null;
+  if (state.innerHTML) {
+    if (tab === 'sale') {
+      var saleEl = document.getElementById('saleModalContent');
+      if (saleEl) saleEl.innerHTML = state.innerHTML;
+    } else {
+      var el = document.getElementById('modalContent');
+      if (el) el.innerHTML = state.innerHTML;
+    }
+  }
   delete savedModalState[tab];
   return state;
 }
@@ -590,8 +617,10 @@ let cartFormState = {
 
 const root = document.getElementById('root');
 const modal = document.getElementById('productModal');
+const saleModal = document.getElementById('saleModal');
 window.root = root;
 window.modal = modal;
+window.saleModal = saleModal;
 
 // ------- СТЕЙТЫ ПРОГРЕВА -------
 
@@ -1383,8 +1412,12 @@ function switchTab(tabName) {
   saveCurrentTabScroll();
 
   if (modal && !modal.classList.contains('hidden')) {
-    saveModalState(currentTab);
+    saveModalState(currentTab === 'sale' ? 'shop' : currentTab);
     modal.classList.add('hidden');
+  }
+  if (saleModal && !saleModal.classList.contains('hidden')) {
+    saveModalState('sale');
+    saleModal.classList.add('hidden');
   }
 
   Promise.resolve()
@@ -1404,7 +1437,6 @@ function switchTab(tabName) {
           currentProduct = restored.currentProduct;
           selectedOption = restored.selectedOption;
           selectedQuantity = restored.selectedQuantity;
-          renderProductModal(currentProduct);
           var sc1 = document.querySelector('#modalContent .flex-1');
           if (sc1) sc1.scrollTop = restored.scrollTop;
           modal.classList.remove('hidden');
@@ -1425,10 +1457,9 @@ function switchTab(tabName) {
           currentProduct = restored.currentProduct;
           selectedOption = restored.selectedOption;
           selectedQuantity = restored.selectedQuantity;
-          showSaleModal(currentProduct);
-          var sc2 = document.querySelector('#modalContent .flex-1');
+          var sc2 = document.querySelector('#saleModalContent .flex-1');
           if (sc2) sc2.scrollTop = restored.scrollTop;
-          modal.classList.remove('hidden');
+          saleModal.classList.remove('hidden');
         }
       } else if (tabName === 'profile') {
         showProfileTab();
