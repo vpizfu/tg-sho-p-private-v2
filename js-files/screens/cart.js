@@ -353,7 +353,7 @@ window.refreshCartPricesAndCleanup = async function () {
         return { ...item, available: false, deleted: true };
       }
     
-      if (freshPrice !== oldPrice || hasRateChanged) {
+      if (freshPrice !== oldPrice || window.__hasRateChanged) {
         changedCount++;
         changedItems.push({ ...item, newPrice: freshPrice });
         return { ...item, available: false, newPrice: freshPrice, deleted: false };
@@ -734,7 +734,7 @@ function showCartTab() {
     '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
       ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
   '</div>' +
-  '<div class="text-sm font-bold ' + (item.isRedPrice || item.isSale ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + (item.isRedPrice || item.isSale ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>' : '') + currencyLabel + ' ' +
+  '<div class="text-sm font-bold ' + (item.isRedPrice ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + (item.isRedPrice ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>' : '') + currencyLabel + ' ' +
     formatPriceFn(item.price * item.quantity, __cartCountryStore.value) +
   '</div>' +
   (item.newPrice
@@ -1257,6 +1257,7 @@ if (!contactConfirmed) {
     );
     
     __cartStore.value = __cartStore.value.map(item => {
+      if (item.isSale) return { ...item, available: true, newPrice: undefined };
       const fresh = productByKeyForOrder.get(item.cartKey);
 
       if (!fresh) {

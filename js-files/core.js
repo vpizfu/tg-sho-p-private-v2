@@ -1459,6 +1459,8 @@ function switchTab(tabName) {
           selectedQuantity = restored.selectedQuantity;
           var sc2 = document.querySelector('#saleModalContent .flex-1');
           if (sc2) sc2.scrollTop = restored.scrollTop;
+          modalCurrentIndex = 0;
+          if (typeof startSaleCarousel === 'function') startSaleCarousel();
           saleModal.classList.remove('hidden');
         }
       } else if (tabName === 'profile') {

@@ -80,7 +80,7 @@ function addToCartSale(saleItem, quantity) {
 
 function renderSaleCard(item) {
   var name = item.name || item['Название'] || '';
-  var image = item.image || item['Общая картинка'] || '';
+  var image = item.image || item['Общая картинка'] || (item.images && item.images[0]) || '';
   var oldPrice = Number(item.price) || 0;
   var salePrice = Number(item.salePrice) || 0;
   var subtitle = getSaleItemSubtitle(item);
@@ -92,7 +92,7 @@ function renderSaleCard(item) {
 
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-id="' + escapeHtml(item.id) + '">' +
-    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white font-bold rounded-full shadow leading-none text-xs">%</div>' +
+    '<span class="absolute top-2 right-2 z-10 inline-block text-[10px] font-bold text-red-500 bg-red-50 border border-red-200 rounded-full px-1.5 py-0.5 leading-none">%</span>' +
     '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
     (image
       ? '<div class="image-placeholder-container relative w-full h-full" id="' + randId + '">' +
@@ -252,6 +252,7 @@ window.saleImgError = function(el) {
 window.addToCartSaleFromModal = function () {
   addToCartSale(currentProduct, 1);
   closeModal();
+  try { tg?.showAlert?.('Товар добавлен в корзину'); } catch (e) {}
 };
 
 function startSaleCarousel() {
