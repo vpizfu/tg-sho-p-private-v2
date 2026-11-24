@@ -807,6 +807,9 @@ function productCard(product) {
     uniqueVariants[0]
   );
 
+  var saleForCard = getSaleForProduct(product['Название']);
+  var hasRedPrice = !saleForCard && cheapestVariant.redPrice;
+
   const commonImage =
     product['Общая картинка'] ||
     uniqueVariants[0]?.['Общая картинка'] ||
@@ -883,18 +886,18 @@ function productCard(product) {
     carouselId +
     '" data-current="0">' +
     '</div>' +
+    (hasRedPrice ? '<div class="absolute top-1 right-1 z-10 flex items-center justify-center w-6 h-6 bg-orange-500 rounded-full shadow" style="font-size:11px;line-height:1">🔥</div>' : '') +
     '</div>' +
     '<div class="font-bold text-base mb-1 product-title">' +
     escapeHtml(product['Название']) +
     '</div>' +
     (function() {
-      var sale = getSaleForProduct(product['Название']);
       var cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
       var fmt = window.formatPriceForCountry || window.formatPrice;
       var country = window.__selectedCountryStore.value || 'RU';
       var currencyLabel = cfg.currency;
 
-      if (sale) {
+      if (saleForCard) {
         var oldPrice = Number(sale.price) || 0;
         var salePrice = Number(sale.salePrice) || 0;
         var hasOldPrice = oldPrice > 0 && oldPrice !== salePrice;
@@ -905,10 +908,8 @@ function productCard(product) {
       }
 
       var normalPrice = cheapestVariant['Цена'];
-      var isRed = cheapestVariant.redPrice;
-      var priceClass = isRed ? 'text-red-600' : 'text-blue-600';
-      var fireBadge = isRed ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-orange-500 rounded-full ml-1" style="font-size:11px;line-height:1">🔥</span>' : '';
-      return '<div class="mb-1 flex items-center"><span class="' + priceClass + ' font-black text-xl">' + currencyLabel + ' ' + fmt(normalPrice, country) + '</span>' + fireBadge + '</div>';
+      var priceClass = hasRedPrice ? 'text-red-600' : 'text-blue-600';
+      return '<div class="mb-1"><span class="' + priceClass + ' font-black text-xl">' + currencyLabel + ' ' + fmt(normalPrice, country) + '</span></div>';
     })() +
     '<div class="text-xs text-gray-500 mb-4">' +
     getVariantCountText(uniqueVariants.length) +
