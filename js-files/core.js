@@ -1475,6 +1475,13 @@ function switchTab(tabName) {
             });
           });
 
+          if (typeof initModalCarousel === 'function') {
+            var slideCount = document.querySelectorAll('#modalSlidesWrapper > div').length;
+            if (slideCount > 1) {
+              initModalCarousel(slideCount);
+            }
+          }
+
           if (typeof modalGoTo === 'function' && restored.modalCurrentIndex !== undefined) {
             modalGoTo(restored.modalCurrentIndex);
           }
