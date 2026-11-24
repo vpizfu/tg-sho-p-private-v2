@@ -64,6 +64,7 @@ function addToCartSale(saleItem, quantity) {
       available: true,
       isSale: true,
       id: saleItem.id || '',
+      rowNumber: saleItem.rowNumber,
       options,
       image: saleItem.image || saleItem['Общая картинка'] || ''
     });
