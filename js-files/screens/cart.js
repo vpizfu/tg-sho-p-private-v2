@@ -1504,6 +1504,18 @@ if (!contactConfirmed) {
       }
     }, 25000);
 
+    // после заказа — обновить остатки распродаж
+    try {
+      if (window.__salesStore && window.SALES_API_URL) {
+        fetch(window.SALES_API_URL)
+          .then(function(r) { return r.json(); })
+          .then(function(sales) {
+            if (Array.isArray(sales)) __salesStore.value = sales;
+          })
+          .catch(function() {});
+      }
+    } catch (e) {}
+
     resetCartStateAfterOrder();
     isPlacingOrder = false;
 

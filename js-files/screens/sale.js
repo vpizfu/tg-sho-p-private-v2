@@ -54,8 +54,15 @@ function addToCartSale(saleItem, quantity) {
   var maxQty = saleItem.quantity || 1;
   var cartKey = buildSaleCartKey(saleItem);
   var existing = __cartStore.value.find(function(item) { return item.cartKey === cartKey; });
+  var alreadyInCart = existing ? existing.quantity : 0;
+  var canAdd = maxQty - alreadyInCart;
+  if (canAdd <= 0) {
+    try { tg?.showAlert?.('Товар закончился'); } catch (e) {}
+    return;
+  }
+  var addQty = Math.min(quantity, canAdd);
   if (existing) {
-    existing.quantity = Math.min(existing.quantity + quantity, maxQty);
+    existing.quantity += addQty;
   } else {
     var options = {};
     Object.keys(saleItem)
@@ -65,7 +72,7 @@ function addToCartSale(saleItem, quantity) {
       cartKey: cartKey,
       name: saleItem.name || saleItem['Название'] || '',
       price: Number(saleItem.salePrice) || 0,
-      quantity: Math.min(quantity, maxQty),
+      quantity: addQty,
       maxQuantity: maxQty,
       available: true,
       isSale: true,
@@ -81,6 +88,7 @@ function addToCartSale(saleItem, quantity) {
 }
 
 function renderSaleCard(item) {
+  if ((item.quantity || 1) <= 0) return '';
   var name = item.name || item['Название'] || '';
   var image = item.image || item['Общая картинка'] || (item.images && item.images[0]) || '';
   var oldPrice = Number(item.price) || 0;
@@ -179,6 +187,11 @@ function showSaleModal(saleItem) {
   }
 
   saleCurrentItem = saleItem;
+  var currentQty = saleItem.quantity || 0;
+  var cartKey = buildSaleCartKey(saleItem);
+  var existing = __cartStore.value.find(function(i) { return i.cartKey === cartKey; });
+  var inCart = existing ? existing.quantity : 0;
+  var avail = currentQty - inCart;
 
   var modalRoot = document.getElementById('saleModalContent');
   if (!modalRoot) return;
@@ -237,7 +250,7 @@ function showSaleModal(saleItem) {
      '</div>' +
      '<div class="modal-footer bg-white"' +
      '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-       '<button id="saleModalAddBtn" class="w-[calc(100%-40px)] mx-auto flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-[11px] rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
+       '<button id="saleModalAddBtn" class="w-[calc(100%-40px)] mx-auto flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-[11px] rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">' + (avail <= 0 ? 'Нет в наличии' : 'В корзину') + '</button>' +
      '</div>' +
    '</div>';
 
