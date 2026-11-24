@@ -1443,6 +1443,18 @@ function switchTab(tabName) {
           selectedQuantity = restored.selectedQuantity;
           var sc1 = document.querySelector('#modalContent .flex-1');
           if (sc1) sc1.scrollTop = restored.scrollTop;
+
+          document.querySelectorAll('#modalBodyDynamic .option-clear').forEach(function(btn) {
+            if (btn.dataset.bound === '1') return;
+            btn.dataset.bound = '1';
+            btn.addEventListener('click', function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              var type = btn.getAttribute('data-type');
+              clearOptionNoFocus(type);
+            });
+          });
+
           modal.classList.remove('hidden');
         }
       } else if (tabName === 'cart') {
