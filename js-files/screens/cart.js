@@ -191,7 +191,11 @@ window.changeCartItemQuantity = function (cartKey, delta) {
     if (currentTab === 'cart') showCartTab();
     return;
   }
-  if (q > 100) q = 100;
+  if (item.isSale && item.maxQuantity) {
+    if (q > item.maxQuantity) q = item.maxQuantity;
+  } else {
+    if (q > 100) q = 100;
+  }
   item.quantity = q;
   console.log('[cart] changeCartItemQuantity cartKey=', cartKey, 'quantity=', q);
 

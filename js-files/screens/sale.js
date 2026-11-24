@@ -47,25 +47,27 @@ function getSaleItemSubtitle(item) {
 }
 
 function addToCartSale(saleItem, quantity) {
-  const cartKey = buildSaleCartKey(saleItem);
-  const existing = __cartStore.value.find(item => item.cartKey === cartKey);
+  var maxQty = saleItem.quantity || 1;
+  var cartKey = buildSaleCartKey(saleItem);
+  var existing = __cartStore.value.find(function(item) { return item.cartKey === cartKey; });
   if (existing) {
-    existing.quantity = Math.min(existing.quantity + quantity, 100);
+    existing.quantity = Math.min(existing.quantity + quantity, maxQty);
   } else {
-    const options = {};
+    var options = {};
     Object.keys(saleItem)
-      .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
-      .forEach(k => { options[k] = saleItem[k]; });
+      .filter(function(k) { return !SALE_CART_KEY_EXCLUDE.has(k); })
+      .forEach(function(k) { options[k] = saleItem[k]; });
     __cartStore.value.push({
-      cartKey,
+      cartKey: cartKey,
       name: saleItem.name || saleItem['Название'] || '',
       price: Number(saleItem.salePrice) || 0,
-      quantity,
+      quantity: Math.min(quantity, maxQty),
+      maxQuantity: maxQty,
       available: true,
       isSale: true,
       id: saleItem.id || '',
       rowNumber: saleItem.rowNumber,
-      options,
+      options: options,
       image: saleItem.image || saleItem['Общая картинка'] || ''
     });
   }
@@ -75,24 +77,31 @@ function addToCartSale(saleItem, quantity) {
 }
 
 function renderSaleCard(item) {
-  const name = item.name || item['Название'] || '';
-  const image = item.image || item['Общая картинка'] || '';
-  const oldPrice = Number(item.price) || 0;
-  const salePrice = Number(item.salePrice) || 0;
-  const hasOldPrice = oldPrice > 0 && oldPrice !== salePrice;
-  const subtitle = getSaleItemSubtitle(item);
-  const formatPriceFn = window.formatPriceForCountry || formatPrice;
-  const country = window.__selectedCountryStore.value || 'RU';
-  const cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
-  const currencyLabel = cfg.currency;
+  var name = item.name || item['Название'] || '';
+  var image = item.image || item['Общая картинка'] || '';
+  var oldPrice = Number(item.price) || 0;
+  var salePrice = Number(item.salePrice) || 0;
+  var subtitle = getSaleItemSubtitle(item);
+  var formatPriceFn = window.formatPriceForCountry || formatPrice;
+  var country = window.__selectedCountryStore.value || 'RU';
+  var cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+  var currencyLabel = cfg.currency;
+  var randId = 'simg_' + Math.random().toString(36).substr(2, 9);
 
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-id="' + escapeHtml(item.id) + '">' +
     '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white text-xs font-bold rounded-full shadow">%</div>' +
-    '<div class="w-full h-32 rounded-xl mb-3 bg-gray-50 flex items-center justify-center overflow-hidden">' +
+    '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
     (image
-      ? '<img src="' + image.replace(/'/g, "\\'") + '" class="max-w-full max-h-full object-contain" alt="" onerror="this.style.display=\'none\'">'
-      : '<svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>') +
+      ? '<div class="image-placeholder-container relative w-full h-full" id="' + randId + '">' +
+        '<div class="image-placeholder-svg absolute inset-0">' +
+          '<svg class="w-10 h-10 text-gray-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
+          '</svg>' +
+        '</div>' +
+        '<img src="' + image.replace(/'/g, "\\'") + '" class="product-image animatable absolute inset-0 object-contain" alt="" onload="handleSaleImageLoad(this, \'' + image.replace(/'/g, "\\'") + '\')" onerror="this.style.display=\'none\'">' +
+        '</div>'
+      : '<svg class="w-10 h-10 text-gray-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>') +
     '</div>' +
     '<div class="font-bold text-base mb-1 product-title">' + escapeHtml(name) + '</div>' +
     '<div class="flex flex-col leading-tight">' +
@@ -104,6 +113,15 @@ function renderSaleCard(item) {
     '</div>'
   );
 }
+
+window.handleSaleImageLoad = function(img, url) {
+  var container = img.closest('.image-placeholder-container');
+  if (!container) { img.classList.add('fade-in-image'); return; }
+  var svg = container.querySelector('.image-placeholder-svg');
+  if (!svg) { img.classList.add('fade-in-image'); return; }
+  svg.classList.add('svg-fade-out');
+  setTimeout(function() { img.classList.add('fade-in-image'); }, 500);
+};
 
 function renderSalePage(sales) {
   root.innerHTML =
@@ -173,9 +191,9 @@ function showSaleModal(saleItem) {
           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
             '<div class="flex w-full h-full" id="modalSlidesWrapper">' +
               (images.length
-                ? images.map(function(url) {
+                ? images.map(function(url, i) {
                     return '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                      '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img w-full h-64 object-contain" alt="" loading="lazy" onerror="saleImgError(this)">' +
+                      '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img w-full h-64 object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
                       '</div>';
                   }).join('')
                 : '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
@@ -201,17 +219,7 @@ function showSaleModal(saleItem) {
           ) +
         '</div>' +
       '</div>' +
-      '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4">' +
-        '<div class="quantity-section">' +
-          '<label class="text-sm font-semibold text-gray-700 mb-2 block">Количество</label>' +
-          '<div class="flex items-center gap-3">' +
-            '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold" onclick="changeSaleQuantity(-1); return false;">-</button>' +
-            '<span id="quantityValue" class="min-w-[40px] text-center font-semibold">1</span>' +
-            '<button class="px-3 py-1.5 rounded-full bg-gray-200 text-lg font-bold" onclick="changeSaleQuantity(1); return false;">+</button>' +
-          '</div>' +
-          '<p class="text-xs text-gray-400 mt-1">Максимум 100 шт.</p>' +
-        '</div>' +
-      '</div>' +
+      '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
     '</div>' +
     '<div class="modal-footer border-t bg-white"' +
     '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
@@ -219,7 +227,6 @@ function showSaleModal(saleItem) {
     '</div>' +
   '</div>';
 
-  selectedQuantity = 1;
   modalCurrentIndex = 0;
   startSaleCarousel();
 
@@ -227,23 +234,12 @@ function showSaleModal(saleItem) {
   tg?.expand();
 }
 
-var saleQuantity = 1;
-
 window.saleImgError = function(el) {
   el.parentElement.innerHTML = '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>';
 };
 
-window.changeSaleQuantity = function (delta) {
-  var q = saleQuantity + delta;
-  if (q < 1) q = 1;
-  if (q > 100) q = 100;
-  saleQuantity = q;
-  var span = document.getElementById('quantityValue');
-  if (span) span.textContent = saleQuantity;
-};
-
 window.addToCartSaleFromModal = function () {
-  addToCartSale(currentProduct, saleQuantity);
+  addToCartSale(currentProduct, 1);
   closeModal();
 };
 
@@ -256,7 +252,13 @@ function startSaleCarousel() {
   if (!slidesWrapper || !carouselInner) return;
 
   var slides = slidesWrapper.children;
-  if (slides.length <= 1) return;
+  if (slides.length <= 1) {
+    if (slides.length === 1) {
+      var firstImg = slides[0].querySelector('.modal-photo');
+      if (firstImg) setTimeout(function() { firstImg.classList.remove('modal-photo-hidden'); firstImg.classList.add('modal-photo-visible'); }, 100);
+    }
+    return;
+  }
 
   if (dotsRoot) {
     dotsRoot.innerHTML = '';
@@ -270,6 +272,8 @@ function startSaleCarousel() {
 
   if (prevBtn) prevBtn.style.display = 'flex';
   if (nextBtn) nextBtn.style.display = 'flex';
+
+  setTimeout(function() { goToSaleSlide(0); }, 50);
 
   window.modalPrev = function() {
     var idx = modalCurrentIndex > 0 ? modalCurrentIndex - 1 : slides.length - 1;
@@ -290,6 +294,11 @@ function startSaleCarousel() {
         dots[j].className = 'carousel-dot' + (j === idx ? ' active' : '');
       }
     }
+    var slideImgs = slidesWrapper.children[idx].querySelectorAll('.modal-photo');
+    slideImgs.forEach(function(el) {
+      el.classList.remove('modal-photo-hidden');
+      el.classList.add('modal-photo-visible');
+    });
   }
 }
 
