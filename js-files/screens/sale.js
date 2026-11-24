@@ -220,7 +220,7 @@ function showSaleModal(saleItem) {
                (images.length
                  ? images.map(function(url, i) {
                      return '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:20rem;background:#f9fafb">' +
-                       '<img src="' + url.replace(/'/g, "\\'") + '" class="max-h-[30vh] w-full object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                       '<img src="' + url.replace(/'/g, "\\'") + '" class="max-h-[30vh] w-full object-contain modal-photo modal-photo-hidden" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
                        '</div>';
                    }).join('')
                  : '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:20rem;background:#f9fafb">' +
