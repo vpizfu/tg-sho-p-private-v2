@@ -25,12 +25,12 @@ function getVariantCountText(count) {
 }
 
 function getFinalTypesForCurrentProduct() {
-  if (!currentProduct || !__productsStore.value) return [];
+  if (!currentProduct || !__productsStore.value) { console.log('[getFinalTypes] no currentProduct or productsStore'); return []; }
 
   const variantsAll = getProductVariants(
     currentProduct['Название']
   ).filter(v => v.inStock);
-  if (!variantsAll.length) return [];
+  if (!variantsAll.length) { console.log('[getFinalTypes] no inStock variants for', currentProduct['Название']); return []; }
 
   const filtered = getFilteredVariants(variantsAll);
   const activeTypes = getActiveTypesForProduct(
@@ -46,7 +46,7 @@ function getFinalTypesForCurrentProduct() {
         v[type] !== ''
     )
   );
-
+  console.log('[getFinalTypes] finalTypes:', finalTypes);
   return finalTypes;
 }
 
@@ -83,6 +83,7 @@ function selectOptionNoFocus(type, option) {
 }
 
 function clearOptionNoFocus(type) {
+  console.log('[clearOptionNoFocus] type:', type);
   if (document.activeElement && document.activeElement.blur) {
     document.activeElement.blur();
   }
@@ -90,9 +91,6 @@ function clearOptionNoFocus(type) {
   const scrollContainer = document.querySelector(
     '#modalContent .flex-1'
   );
-  const prevScrollTop = scrollContainer
-    ? scrollContainer.scrollTop
-    : 0;
 
   const finalTypes = getFinalTypesForCurrentProduct();
   const typeIndex = finalTypes.indexOf(type);
