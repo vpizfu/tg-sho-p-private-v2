@@ -1,4 +1,6 @@
 var loadedSaleImages = new Set();
+var saleModalIndex = 0;
+var saleCurrentItem = null;
 
 const SALE_CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
@@ -171,12 +173,13 @@ function showSaleModal(saleItem) {
 
   var saleModalEl = document.getElementById('saleModal');
   if (!saleModalEl) return;
-  if (modal && !modal.classList.contains('hidden')) {
-    saveModalState(currentTab);
-    modal.classList.add('hidden');
+
+  if (window.modal && !window.modal.classList.contains('hidden')) {
+    if (typeof saveModalState === 'function') saveModalState(currentTab);
+    window.modal.classList.add('hidden');
   }
-  delete savedModalState.sale;
-  currentProduct = saleItem;
+
+  saleCurrentItem = saleItem;
 
   var modalRoot = document.getElementById('saleModalContent');
   if (!modalRoot) return;
@@ -196,11 +199,11 @@ function showSaleModal(saleItem) {
         '<span class="text-red-600 font-bold text-lg">' + currencyLabel + ' ' + formatPriceFn(price, country) + '</span>' +
         '</div>' +
     '</div>' +
-    '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
+    '<div class="flex-1 overflow-y-auto" id="saleScrollArea">' +
       '<div class="modal-image-section">' +
-'<div class="w-full image-carousel h-40 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
-           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
-             '<div class="flex w-full h-full" id="modalSlidesWrapper">' +
+'<div class="w-full image-carousel h-40 rounded-xl overflow-hidden bg-white" id="saleModalCarousel">' +
+           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="saleModalCarouselInner">' +
+             '<div class="flex w-full h-full" id="saleSlidesWrapper">' +
                (images.length
                  ? images.map(function(url, i) {
                      return '<div class="w-full h-40 flex-shrink-0 flex items-center justify-center relative bg-white">' +
@@ -211,11 +214,11 @@ function showSaleModal(saleItem) {
                    '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
                    '</svg></div>'
-              ) +
-            '</div>' +
-          '</div>' +
-          (images.length > 1
-            ? '<div class="modal-carousel-footer"><div class="carousel-dots" id="modalDots"></div></div>' +
+               ) +
+             '</div>' +
+           '</div>' +
+           (images.length > 1
+             ? '<div class="modal-carousel-footer"><div class="carousel-dots" id="saleCarouselDots"></div></div>' +
 '<button class="nav-btn nav-prev" id="salePrevBtn" onclick="saleModalPrev(); event.stopPropagation()">' +
                  '<svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true">' +
                    '<path d="M14.5 6L9 12l5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
@@ -226,19 +229,19 @@ function showSaleModal(saleItem) {
                    '<path d="M9.5 6L15 12l-5.5 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />' +
                  '</svg>' +
                '</button>'
-            : ''
-          ) +
-        '</div>' +
-      '</div>' +
-      '<div id="modalBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
-    '</div>' +
-    '<div class="modal-footer border-t bg-white"' +
-    '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-      '<button id="modalAddButton" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-2xl cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
-    '</div>' +
-  '</div>';
+             : ''
+           ) +
+         '</div>' +
+       '</div>' +
+       '<div id="saleBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
+     '</div>' +
+     '<div class="modal-footer border-t bg-white"' +
+     '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
+       '<button id="saleModalAddBtn" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-2xl cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
+     '</div>' +
+   '</div>';
 
-  modalCurrentIndex = 0;
+  saleModalIndex = 0;
   startSaleCarousel();
 
   saleModalEl.classList.remove('hidden');
@@ -250,17 +253,17 @@ window.saleImgError = function(el) {
 };
 
 window.addToCartSaleFromModal = function () {
-  addToCartSale(currentProduct, 1);
+  addToCartSale(saleCurrentItem, 1);
   closeModal();
   try { tg?.showAlert?.('Товар добавлен в корзину'); } catch (e) {}
 };
 
 function startSaleCarousel() {
-  var slidesWrapper = document.getElementById('modalSlidesWrapper');
-  var dotsRoot = document.getElementById('modalDots');
+  var slidesWrapper = document.getElementById('saleSlidesWrapper');
+  var dotsRoot = document.getElementById('saleCarouselDots');
   var prevBtn = document.getElementById('salePrevBtn');
   var nextBtn = document.getElementById('saleNextBtn');
-  var carouselInner = document.getElementById('modalCarouselInner');
+  var carouselInner = document.getElementById('saleModalCarouselInner');
   if (!slidesWrapper || !carouselInner) return;
 
   var slides = slidesWrapper.children;
@@ -288,17 +291,17 @@ function startSaleCarousel() {
   setTimeout(function() { goToSaleSlide(0); }, 50);
 
   window.saleModalPrev = function() {
-    var idx = modalCurrentIndex > 0 ? modalCurrentIndex - 1 : slides.length - 1;
+    var idx = saleModalIndex > 0 ? saleModalIndex - 1 : slides.length - 1;
     goToSaleSlide(idx);
   };
 
   window.saleModalNext = function() {
-    var idx = modalCurrentIndex < slides.length - 1 ? modalCurrentIndex + 1 : 0;
+    var idx = saleModalIndex < slides.length - 1 ? saleModalIndex + 1 : 0;
     goToSaleSlide(idx);
   };
 
   function goToSaleSlide(idx) {
-    modalCurrentIndex = idx;
+    saleModalIndex = idx;
     carouselInner.style.transform = 'translateX(-' + (idx * 100) + '%)';
     if (dotsRoot) {
       var dots = dotsRoot.children;

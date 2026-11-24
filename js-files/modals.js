@@ -993,66 +993,71 @@ function showModal(product) {
 })();
 
 window.closeModal = function () {
-  delete savedModalState[currentTab];
+  var isShopOpen = modal && !modal.classList.contains('hidden');
+  var isSaleOpen = saleModal && !saleModal.classList.contains('hidden');
 
-  try {
-    if (typeof trackEvent === 'function') {
-      trackEvent('product_modal_close', {
-        reason: 'user',
-        tab: currentTab
-      });
+  if (isShopOpen) {
+    delete savedModalState[currentTab];
+
+    try {
+      if (typeof trackEvent === 'function') {
+        trackEvent('product_modal_close', {
+          reason: 'user',
+          tab: currentTab
+        });
+      }
+    } catch (e2) {}
+
+    modal.classList.add('hidden');
+
+    selectedOption = {};
+    currentProduct = null;
+    selectedQuantity = 1;
+    modalCurrentImageKey = null;
+
+    const scrollContainer = document.querySelector(
+      '#modalContent .flex-1'
+    );
+    if (scrollContainer) scrollContainer.scrollTop = 0;
+
+    const modalRoot = document.getElementById('modalContent');
+    if (modalRoot && modalRoot.dataset.initialized) {
+      delete modalRoot.dataset.initialized;
+      modalRoot.innerHTML = '';
     }
-  } catch (e2) {}
 
-  modal.classList.add('hidden');
-  if (saleModal) saleModal.classList.add('hidden');
+    modalAllQueue = [];
+    modalProductQueue = [];
+    modalAllIndex = 0;
+    modalProductIndex = 0;
 
-  selectedOption = {};
-  currentProduct = null;
-  selectedQuantity = 1;
-  modalCurrentImageKey = null;
+    modalWarmupPaused = false;
+    console.log('[modal] closeModal: warmup paused flag reset');
 
-  const scrollContainer = document.querySelector(
-    '#modalContent .flex-1'
-  );
-  if (scrollContainer) scrollContainer.scrollTop = 0;
+    finishModalWarmupAndResumeGlobal();
 
-  const modalRoot = document.getElementById('modalContent');
-  if (modalRoot && modalRoot.dataset.initialized) {
-    delete modalRoot.dataset.initialized;
-    modalRoot.innerHTML = '';
+    modalState = 'closed';
+
+    if (!preloadRunning) {
+      runPreloadLoop();
+    }
+
+    (function resetAlertZIndexAfterModalClose() {
+      const box = document.getElementById('globalErrorBox');
+      if (!box) return;
+      if (box.style.display !== 'block') return;
+      box.style.zIndex = '850';
+    })();
+
+    tg?.HapticFeedback?.impactOccurred('light');
   }
 
-  const saleModalRoot = document.getElementById('saleModalContent');
-  if (saleModalRoot) saleModalRoot.innerHTML = '';
-
-  modalAllQueue = [];
-  modalProductQueue = [];
-  modalAllIndex = 0;
-  modalProductIndex = 0;
-
-  modalWarmupPaused = false;
-  console.log('[modal] closeModal: warmup paused flag reset');
-  
-
-  // Пытаемся разморозить глобальный прогрев, только если модальные задачи уже были завершены
-  finishModalWarmupAndResumeGlobal();
-
-  modalState = 'closed';
-
-  if (!preloadRunning) {
-    runPreloadLoop();
+  if (isSaleOpen) {
+    saleModal.classList.add('hidden');
+    var saleRoot = document.getElementById('saleModalContent');
+    if (saleRoot) saleRoot.innerHTML = '';
+    try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
   }
-
-  (function resetAlertZIndexAfterModalClose() {
-    const box = document.getElementById('globalErrorBox');
-    if (!box) return;
-    if (box.style.display !== 'block') return;
-    // базовый уровень для работы «alert под новой модалкой»
-    box.style.zIndex = '850';
-  })();
-
-  tg?.HapticFeedback?.impactOccurred('light');
 };
 
 document.addEventListener(

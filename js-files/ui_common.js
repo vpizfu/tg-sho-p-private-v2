@@ -79,10 +79,17 @@
     tg?.showAlert?.('❌ ' + message + '\nДля заказа через менеджера напишите @TechBex.');
   }  
   
-  // Бэкдроп модалки
+  // Бэкдроп модалки магазина
 if (window.modal) {
     window.modal.addEventListener('click', e => {
       if (e.target === window.modal) closeModal();
+    });
+  }
+
+  // Бэкдроп модалки распродаж
+if (window.saleModal) {
+    window.saleModal.addEventListener('click', e => {
+      if (e.target === window.saleModal) closeModal();
     });
   }
 
@@ -90,6 +97,8 @@ if (window.modal) {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       if (window.modal && !window.modal.classList.contains('hidden')) {
+        closeModal();
+      } else if (window.saleModal && !window.saleModal.classList.contains('hidden')) {
         closeModal();
       }
     }

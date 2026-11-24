@@ -8,7 +8,7 @@ const OPTIONS = {
   stringArrayEncoding: ['base64'],
   rotateStringArray: false,
   shuffleStringArray: false,
-  reservedNames: ['__hasRateChanged', '__exchangeRateStore', '__cartStore', '__productsStore', '__salesStore', '__selectedCountryStore', '__byRoundingStore', '__paymentTypeStore', '__cartCountryStore', 'root', 'modal', 'saleModal', 'formatPrice', 'escapeHtml', 'savedModalState', 'saveModalState', 'restoreModalState', 'currentProduct', 'saleImgError', 'handleSaleImageLoad', 'startSaleCarousel', 'saleModalPrev', 'saleModalNext'],
+  reservedNames: ['__hasRateChanged', '__exchangeRateStore', '__cartStore', '__productsStore', '__salesStore', '__selectedCountryStore', '__byRoundingStore', '__paymentTypeStore', '__cartCountryStore', 'root', 'modal', 'saleModal', 'formatPrice', 'escapeHtml', 'savedModalState', 'saveModalState', 'restoreModalState', 'currentProduct', 'saleImgError', 'handleSaleImageLoad', 'startSaleCarousel', 'saleModalPrev', 'saleModalNext', 'saveSaleModalState', 'restoreSaleModalState', 'saleCurrentItem', 'saleModalIndex'],
 };
 
 function getJsFiles(dir) {

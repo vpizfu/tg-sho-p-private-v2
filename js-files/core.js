@@ -554,25 +554,10 @@ let isRefreshingProducts = false;
 let isTabChanging = false;
 let placeOrderTimeoutId = null;
 
-// модалка при переключении табов
+// модалка магазина
 var savedModalState = {};
 
 function saveModalState(tab) {
-  if (tab === 'sale') {
-    var saleEl = document.getElementById('saleModalContent');
-    if (!saleEl || saleEl.innerHTML === '') return;
-    var saleSc = saleEl.querySelector('.flex-1');
-    savedModalState[tab] = {
-      innerHTML: saleEl.innerHTML,
-      currentProduct: currentProduct,
-      selectedOption: JSON.parse(JSON.stringify(selectedOption)),
-      selectedQuantity: selectedQuantity,
-      scrollTop: saleSc ? saleSc.scrollTop : 0,
-      tab: tab
-    };
-    saleEl.innerHTML = '';
-    return;
-  }
   var el = document.getElementById('modalContent');
   if (!el) return;
   var sc = el.querySelector('.flex-1');
@@ -590,15 +575,34 @@ function restoreModalState(tab) {
   var state = savedModalState[tab];
   if (!state) return null;
   if (state.innerHTML) {
-    if (tab === 'sale') {
-      var saleEl = document.getElementById('saleModalContent');
-      if (saleEl) saleEl.innerHTML = state.innerHTML;
-    } else {
-      var el = document.getElementById('modalContent');
-      if (el) el.innerHTML = state.innerHTML;
-    }
+    var el = document.getElementById('modalContent');
+    if (el) el.innerHTML = state.innerHTML;
   }
   delete savedModalState[tab];
+  return state;
+}
+
+// модалка распродаж — полностью изолирована
+var savedSaleModalState = null;
+
+function saveSaleModalState() {
+  var saleEl = document.getElementById('saleModalContent');
+  if (!saleEl || saleEl.innerHTML === '') return;
+  var saleSc = saleEl.querySelector('.flex-1');
+  savedSaleModalState = {
+    innerHTML: saleEl.innerHTML,
+    saleCurrentItem: saleCurrentItem,
+    scrollTop: saleSc ? saleSc.scrollTop : 0
+  };
+  saleEl.innerHTML = '';
+}
+
+function restoreSaleModalState() {
+  if (!savedSaleModalState) return null;
+  var state = savedSaleModalState;
+  var saleEl = document.getElementById('saleModalContent');
+  if (saleEl) saleEl.innerHTML = state.innerHTML;
+  savedSaleModalState = null;
   return state;
 }
 let modalClosedAfterTabReturn = false;
@@ -1412,11 +1416,11 @@ function switchTab(tabName) {
   saveCurrentTabScroll();
 
   if (modal && !modal.classList.contains('hidden')) {
-    saveModalState(currentTab === 'sale' ? 'shop' : currentTab);
+    saveModalState(currentTab);
     modal.classList.add('hidden');
   }
   if (saleModal && !saleModal.classList.contains('hidden')) {
-    saveModalState('sale');
+    saveSaleModalState();
     saleModal.classList.add('hidden');
   }
 
@@ -1452,14 +1456,11 @@ function switchTab(tabName) {
       } else if (tabName === 'sale') {
         showSaleTab();
         restoreTabScroll('sale');
-        restored = restoreModalState('sale');
+        restored = restoreSaleModalState();
         if (restored) {
-          currentProduct = restored.currentProduct;
-          selectedOption = restored.selectedOption;
-          selectedQuantity = restored.selectedQuantity;
+          saleCurrentItem = restored.saleCurrentItem;
           var sc2 = document.querySelector('#saleModalContent .flex-1');
           if (sc2) sc2.scrollTop = restored.scrollTop;
-          modalCurrentIndex = 0;
           if (typeof startSaleCarousel === 'function') startSaleCarousel();
           saleModal.classList.remove('hidden');
         }
