@@ -215,7 +215,7 @@ function showSaleModal(saleItem) {
     '<div class="flex-1 overflow-y-auto" id="saleScrollArea">' +
       '<div class="modal-image-section">' +
 '<div class="w-full image-carousel rounded-xl overflow-hidden bg-white" id="saleModalCarousel" style="height:unset;min-height:20rem">' +
-           '<div class="image-carousel-inner w-full flex items-center justify-center overflow-hidden" id="saleModalCarouselInner" style="min-height:20rem">' +
+           '<div class="image-carousel-inner w-full overflow-hidden" id="saleModalCarouselInner" style="min-height:20rem">' +
              '<div class="flex w-full" id="saleSlidesWrapper">' +
                (images.length
                  ? images.map(function(url, i) {
