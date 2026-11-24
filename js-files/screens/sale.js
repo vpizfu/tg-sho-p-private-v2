@@ -2,7 +2,7 @@ const SALE_CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
   'cat', 'Категория', 'sourceSheet', 'isPreview',
-  'price', 'salePrice'
+  'price', 'salePrice', 'image', 'rowNumber'
 ]);
 
 function buildSaleCartKey(product) {
@@ -165,8 +165,7 @@ function showSaleModal(saleItem) {
       '<div class="flex items-center gap-2 text-sm">' +
         (oldPrice > 0 ? '<span class="text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>' : '') +
         '<span class="text-red-600 font-bold text-lg">' + currencyLabel + ' ' + formatPriceFn(price, country) + '</span>' +
-        (discountPercent > 0 ? '<span class="text-green-600 font-semibold text-sm">-' + discountPercent + '%</span>' : '') +
-      '</div>' +
+        '</div>' +
     '</div>' +
     '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
       '<div class="modal-image-section">' +
