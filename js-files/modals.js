@@ -799,6 +799,8 @@ function initModalCarousel(imageCount) {
     document.getElementById('modalCarouselInner');
   if (!inner) return;
 
+  inner.style.transition = 'transform 0.3s ease';
+
   function updateModalCarousel() {
     inner.style.transform =
       'translateX(-' + modalCurrentIndex * 100 + '%)';

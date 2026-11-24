@@ -281,6 +281,7 @@ function startSaleCarousel(startAt) {
   console.log('[sale-carousel] startSaleCarousel startAt=', startAt, 'slidesWrapper:', !!slidesWrapper, 'carouselInner:', !!carouselInner);
   if (!slidesWrapper || !carouselInner) return;
 
+  carouselInner.style.transition = 'transform 0.3s ease';
   var slides = slidesWrapper.children;
   console.log('[sale-carousel] slides count:', slides.length, 'overflow:', carouselInner.style.overflow);
   if (slides.length <= 1) {
