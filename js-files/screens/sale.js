@@ -92,7 +92,7 @@ function renderSaleCard(item) {
 
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full" data-sale-id="' + escapeHtml(item.id) + '">' +
-    '<span class="absolute top-2 right-2 z-10 inline-block text-[10px] font-bold text-red-500 bg-red-50 border border-red-200 rounded-full px-1.5 py-0.5 leading-none">%</span>' +
+    '<div class="absolute top-2 right-2 z-10 flex items-center justify-center w-7 h-7 bg-red-500 text-white font-bold rounded-full shadow leading-none text-xs">%</div>' +
     '<div class="w-full h-32 rounded-xl mb-3 image-carousel cursor-pointer overflow-hidden relative bg-gray-50">' +
     (image
       ? '<div class="image-placeholder-container relative w-full h-full" id="' + randId + '">' +
@@ -198,16 +198,16 @@ function showSaleModal(saleItem) {
     '</div>' +
     '<div class="flex-1 overflow-y-auto" id="modalScrollArea">' +
       '<div class="modal-image-section">' +
-        '<div class="w-full image-carousel h-48 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
-          '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
-            '<div class="flex w-full h-full" id="modalSlidesWrapper">' +
-              (images.length
-                ? images.map(function(url, i) {
-                    return '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                      '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img w-full h-48 object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
-                      '</div>';
-                  }).join('')
-                : '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+'<div class="w-full image-carousel h-36 rounded-xl overflow-hidden bg-white" id="modalCarousel">' +
+           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="modalCarouselInner">' +
+             '<div class="flex w-full h-full" id="modalSlidesWrapper">' +
+               (images.length
+                 ? images.map(function(url, i) {
+                     return '<div class="w-full h-36 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+                       '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img w-full h-36 object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                       '</div>';
+                   }).join('')
+                 : '<div class="w-full h-36 flex-shrink-0 flex items-center justify-center relative bg-white">' +
                   '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                   '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
                   '</svg></div>'
@@ -234,7 +234,7 @@ function showSaleModal(saleItem) {
     '</div>' +
     '<div class="modal-footer border-t bg-white"' +
     '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-      '<button id="modalAddButton" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 rounded-2xl shadow-2xl cursor-pointer" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
+      '<button id="modalAddButton" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-2xl cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
     '</div>' +
   '</div>';
 

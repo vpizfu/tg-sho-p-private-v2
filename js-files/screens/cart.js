@@ -113,6 +113,7 @@ function resetCartStateAfterOrder() {
   __cartStore.value = [];
   saveCartToStorage();
   updateCartBadge();
+  if (window.__salesStore) window.__salesStore.value = [];
 
   cartFormState = {
     addressText: '',
@@ -734,7 +735,7 @@ function showCartTab() {
     '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
       ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
   '</div>' +
-  '<div class="text-sm font-bold ' + (item.isRedPrice ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + (item.isRedPrice ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>' : '') + currencyLabel + ' ' +
+  '<div class="text-sm font-bold ' + (item.isRedPrice ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + currencyLabel + ' ' +
     formatPriceFn(item.price * item.quantity, __cartCountryStore.value) +
   '</div>' +
   (item.newPrice

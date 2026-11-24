@@ -886,7 +886,7 @@ function productCard(product) {
     carouselId +
     '" data-current="0">' +
     '</div>' +
-    (hasRedPrice ? '<span class="absolute top-2 right-2 z-10 inline-block text-[10px] font-bold text-red-500 bg-red-50 border border-red-200 rounded-full px-1.5 py-0.5 leading-none">🔥</span>' : '') +
+    (hasRedPrice ? '' : '') +
     '</div>' +
     '<div class="font-bold text-base mb-1 product-title">' +
     escapeHtml(product['Название']) +

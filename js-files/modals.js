@@ -394,8 +394,7 @@ function renderProductModal(product) {
   var priceEl = document.getElementById('modalPrice');
   if (isRed) {
     priceEl.innerHTML = '<span class="text-red-600 font-bold">' + headerPriceText + '</span>' +
-      (headerSuffix ? ' ' + headerSuffix : '') +
-      ' <span class="inline-flex items-center justify-center w-5 h-5 bg-red-500 rounded-full text-xs">🔥</span>';
+      (headerSuffix ? ' ' + headerSuffix : '');
   } else {
     priceEl.textContent = headerPriceText + (headerSuffix ? ' ' + headerSuffix : '');
   }
