@@ -746,19 +746,7 @@ function renderProductModal(product) {
       if (btn.dataset.bound === '1') return;
       btn.dataset.bound = '1';
 
-      btn.addEventListener(
-        'touchend',
-        function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          const type = btn.getAttribute('data-type');
-          clearOptionNoFocus(type);
-        },
-        { passive: false }
-      );
-
       btn.addEventListener('click', function (e) {
-        e.preventDefault();
         e.stopPropagation();
         const type = btn.getAttribute('data-type');
         clearOptionNoFocus(type);
