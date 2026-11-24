@@ -217,17 +217,16 @@ function showSaleModal(saleItem) {
 '<div class="w-full image-carousel h-48 rounded-xl overflow-hidden bg-white" id="saleModalCarousel">' +
            '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="saleModalCarouselInner">' +
              '<div class="flex w-full h-full" id="saleSlidesWrapper">' +
-               (images.length
-                 ? images.map(function(url, i) {
-                     return '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                       '<img src="' + url.replace(/'/g, "\\'") + '" class="w-full h-48 object-contain modal-photo modal-photo-hidden" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
-                       '</div>';
-                   }).join('')
-                 : '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                   '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
-                   '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
-                   '</svg></div>'
-               ) +
+(images.length
+                  ? images.map(function(url, i) {
+                      return '<div class="w-full h-48 flex-shrink-0 relative">' +
+                        '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img product-image absolute inset-0 w-full h-full object-contain modal-photo modal-photo-hidden" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                        '</div>';
+                    }).join('')
+                  : '<div class="w-full h-48 flex-shrink-0 relative bg-gray-50">' +
+                    '<svg class="absolute inset-0 w-full h-full text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
+                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg></div>'
+                ) +
              '</div>' +
            '</div>' +
            (images.length > 1
