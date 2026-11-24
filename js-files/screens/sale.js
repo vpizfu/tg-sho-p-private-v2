@@ -54,6 +54,7 @@ function addToCartSale(saleItem, quantity) {
   var addQty = Math.min(quantity, canAdd);
   if (existing) {
     existing.quantity += addQty;
+    existing.maxQuantity = maxQty;
   } else {
     var options = {};
     Object.keys(saleItem)
