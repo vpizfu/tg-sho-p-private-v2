@@ -753,7 +753,7 @@ function renderProductModal(product) {
       });
     });
 
-  document.querySelectorAll('#modalBodyDynamic .option-btn:not([data-opt-bound])').forEach(function(btn) {
+  document.querySelectorAll('#modalBodyDynamic .option-btn').forEach(function(btn) {
     btn.dataset.optBound = '1';
     btn.addEventListener('click', function(e) {
       e.preventDefault();
