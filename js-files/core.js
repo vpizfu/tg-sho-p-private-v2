@@ -567,6 +567,7 @@ function saveModalState(tab) {
     selectedOption: JSON.parse(JSON.stringify(selectedOption)),
     selectedQuantity: selectedQuantity,
     scrollTop: sc ? sc.scrollTop : 0,
+    modalCurrentIndex: modalCurrentIndex,
     tab: tab
   };
 }
@@ -592,6 +593,7 @@ function saveSaleModalState() {
   savedSaleModalState = {
     innerHTML: saleEl.innerHTML,
     saleCurrentItem: saleCurrentItem,
+    saleModalIndex: saleModalIndex,
     scrollTop: saleSc ? saleSc.scrollTop : 0
   };
   saleEl.innerHTML = '';
@@ -1455,6 +1457,10 @@ function switchTab(tabName) {
             });
           });
 
+          if (typeof modalGoTo === 'function' && restored.modalCurrentIndex !== undefined) {
+            modalGoTo(restored.modalCurrentIndex);
+          }
+
           modal.classList.remove('hidden');
         }
       } else if (tabName === 'cart') {
@@ -1473,7 +1479,7 @@ function switchTab(tabName) {
           saleCurrentItem = restored.saleCurrentItem;
           var sc2 = document.querySelector('#saleModalContent .flex-1');
           if (sc2) sc2.scrollTop = restored.scrollTop;
-          if (typeof startSaleCarousel === 'function') startSaleCarousel();
+          if (typeof startSaleCarousel === 'function') startSaleCarousel(restored.saleModalIndex);
           saleModal.classList.remove('hidden');
         }
       } else if (tabName === 'profile') {

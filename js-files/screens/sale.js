@@ -206,11 +206,11 @@ function showSaleModal(saleItem) {
              '<div class="flex w-full" id="saleSlidesWrapper">' +
                (images.length
                  ? images.map(function(url, i) {
-                     return '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:20rem">' +
+                     return '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:20rem;background:#f9fafb">' +
                        '<img src="' + url.replace(/'/g, "\\'") + '" class="max-h-[30vh] w-full object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
                        '</div>';
                    }).join('')
-                 : '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:20rem">' +
+                 : '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:20rem;background:#f9fafb">' +
                    '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
                    '</svg></div>'
@@ -235,9 +235,9 @@ function showSaleModal(saleItem) {
        '</div>' +
        '<div id="saleBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
      '</div>' +
-     '<div class="modal-footer border-t bg-white"' +
+     '<div class="modal-footer bg-white"' +
      '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-       '<button id="saleModalAddBtn" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">✅ В корзину ' + currencyLabel + ' ' + formatPriceFn(price, country) + '</button>' +
+       '<button id="saleModalAddBtn" class="w-[calc(100%-40px)] mx-auto flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-[11px] rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
      '</div>' +
    '</div>';
 
@@ -258,7 +258,8 @@ window.addToCartSaleFromModal = function () {
   try { tg?.showAlert?.('Товар добавлен в корзину'); } catch (e) {}
 };
 
-function startSaleCarousel() {
+function startSaleCarousel(startAt) {
+  startAt = startAt !== undefined ? startAt : 0;
   var slidesWrapper = document.getElementById('saleSlidesWrapper');
   var dotsRoot = document.getElementById('saleCarouselDots');
   var prevBtn = document.getElementById('salePrevBtn');
@@ -288,7 +289,7 @@ function startSaleCarousel() {
   if (prevBtn) prevBtn.style.display = 'flex';
   if (nextBtn) nextBtn.style.display = 'flex';
 
-  setTimeout(function() { goToSaleSlide(0); }, 50);
+  setTimeout(function() { goToSaleSlide(startAt); }, 50);
 
   window.saleModalPrev = function() {
     var idx = saleModalIndex > 0 ? saleModalIndex - 1 : slides.length - 1;
