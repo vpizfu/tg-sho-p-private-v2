@@ -808,7 +808,7 @@ function productCard(product) {
   );
 
   var saleForCard = getSaleForProduct(product['Название']);
-  var hasRedPrice = !saleForCard && cheapestVariant.redPrice;
+  var hasRedPrice = !saleForCard && uniqueVariants.some(function(v) { return v.redPrice; });
 
   const commonImage =
     product['Общая картинка'] ||

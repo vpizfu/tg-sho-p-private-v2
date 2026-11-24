@@ -390,7 +390,7 @@ function renderProductModal(product) {
 
   document.getElementById('modalTitle').textContent =
     product['Название'];
-  var isRed = complete && availableVariants.length > 0 && availableVariants[0].redPrice;
+  var isRed = complete && availableVariants.length > 0 && availableVariants.some(function(v) { return v.redPrice; });
   var priceEl = document.getElementById('modalPrice');
   if (isRed) {
     priceEl.innerHTML = '<span class="text-red-600 font-bold">' + headerPriceText + '</span>' +
