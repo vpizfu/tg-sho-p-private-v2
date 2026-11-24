@@ -905,7 +905,10 @@ function productCard(product) {
       }
 
       var normalPrice = cheapestVariant['Цена'];
-      return '<div class="mb-1"><span class="text-blue-600 font-black text-xl">' + currencyLabel + ' ' + fmt(normalPrice, country) + '</span></div>';
+      var isRed = cheapestVariant.redPrice;
+      var priceClass = isRed ? 'text-red-600' : 'text-blue-600';
+      var fireBadge = isRed ? '<span class="inline-flex items-center justify-center w-5 h-5 bg-orange-500 rounded-full ml-1" style="font-size:11px;line-height:1">🔥</span>' : '';
+      return '<div class="mb-1 flex items-center"><span class="' + priceClass + ' font-black text-xl">' + currencyLabel + ' ' + fmt(normalPrice, country) + '</span>' + fireBadge + '</div>';
     })() +
     '<div class="text-xs text-gray-500 mb-4">' +
     getVariantCountText(uniqueVariants.length) +

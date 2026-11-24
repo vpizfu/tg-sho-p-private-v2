@@ -1473,7 +1473,7 @@ function syncCartWithProducts() {
     const product = productByKey.get(item.cartKey);
 
     if (!product || !product.inStock) {
-      return { ...item, available: false };
+      return { ...item, available: false, isRedPrice: item.isRedPrice || false };
     }
 
     const freshPrice = Number(product['Цена']);
@@ -1481,22 +1481,22 @@ function syncCartWithProducts() {
       return { ...item, available: false };
     }
 
-    // цена изменилась → помечаем как недоступный с newPrice
     if (freshPrice !== Number(item.price)) {
       return {
         ...item,
         available: false,
         newPrice:  freshPrice,
-        name:      product['Название']
+        name:      product['Название'],
+        isRedPrice: !!product.redPrice
       };
     }
 
-    // всё ок
     return {
       ...item,
       available: true,
       newPrice:  undefined,
-      name:      product['Название']
+      name:      product['Название'],
+      isRedPrice: !!product.redPrice
     };
   });
 

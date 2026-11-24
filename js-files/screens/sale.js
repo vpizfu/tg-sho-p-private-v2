@@ -1,7 +1,7 @@
 const SALE_CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
-  'cat', 'Категория', 'sourceSheet', 'isPreview',
+  'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
   'price', 'salePrice', 'image', 'rowNumber'
 ]);
 

@@ -390,9 +390,15 @@ function renderProductModal(product) {
 
   document.getElementById('modalTitle').textContent =
     product['Название'];
-  document.getElementById('modalPrice').textContent =
-    headerPriceText +
-    (headerSuffix ? ' ' + headerSuffix : '');
+  var isRed = complete && availableVariants.length > 0 && availableVariants[0].redPrice;
+  var priceEl = document.getElementById('modalPrice');
+  if (isRed) {
+    priceEl.innerHTML = '<span class="text-red-600 font-bold">' + headerPriceText + '</span>' +
+      (headerSuffix ? ' ' + headerSuffix : '') +
+      ' <span class="inline-flex items-center justify-center w-4 h-4 bg-orange-500 rounded-full" style="font-size:9px;line-height:1">🔥</span>';
+  } else {
+    priceEl.textContent = headerPriceText + (headerSuffix ? ' ' + headerSuffix : '');
+  }
   document.getElementById(
     'modalVariantCount'
   ).textContent = getVariantCountText(availableVariants.length);

@@ -19,7 +19,7 @@ function updateCartBadge() {
 const CART_KEY_EXCLUDE = new Set([
   'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
-  'cat', 'Категория', 'sourceSheet', 'isPreview'
+  'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
 ]);
 
 function buildCartKey(product) {
@@ -153,6 +153,7 @@ function addToCart(variant, quantity) {
       cat:      freshVariant.cat || '',
       quantity,
       available: true,
+      isRedPrice: !!freshVariant.redPrice,
       options: Object.fromEntries(
         Object.keys(freshVariant)
           .filter(k => !CART_KEY_EXCLUDE.has(k))
@@ -725,7 +726,7 @@ function showCartTab() {
     '<button class="px-2 py-1 rounded-full bg-gray-200 text-sm font-bold"' +
       ' onclick="changeCartItemQuantity(\'' + item.cartKey + '\', 1)">+</button>' +
   '</div>' +
-  '<div class="text-sm font-bold text-blue-600">' + currencyLabel + ' ' +
+  '<div class="text-sm font-bold ' + (item.isRedPrice ? 'text-red-600' : 'text-blue-600') + ' flex items-center gap-1">' + (item.isRedPrice ? '<span class="inline-flex items-center justify-center w-4 h-4 bg-orange-500 rounded-full" style="font-size:9px;line-height:1">🔥</span>' : '') + currencyLabel + ' ' +
     formatPriceFn(item.price * item.quantity, __cartCountryStore.value) +
   '</div>' +
   (item.newPrice
