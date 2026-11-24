@@ -294,9 +294,13 @@ function startSaleCarousel() {
   }
 }
 
+function filterInStockSales(sales) {
+  return (sales || []).filter(function(s) { return s.inStock !== false; });
+}
+
 function showSaleTab() {
   if (window.__salesStore && window.__salesStore.value && window.__salesStore.value.length) {
-    renderSalePage(window.__salesStore.value);
+    renderSalePage(filterInStockSales(window.__salesStore.value));
     return;
   }
 
@@ -308,7 +312,7 @@ function showSaleTab() {
         return;
       }
       if (window.__salesStore) window.__salesStore.value = sales;
-      renderSalePage(sales);
+      renderSalePage(filterInStockSales(sales));
     })
     .catch(function() {
       renderSalePlaceholder();
