@@ -147,14 +147,14 @@ window.handleSaleImageLoad = function(img, url) {
 
 function renderSalePage(sales) {
 root.innerHTML =
-     '<div class="relative min-h-[100vh] p-4 pb-[80px] max-w-md mx-auto">' +
-'<div class="mb-5">' +
+     '<div class="pb-[65px]">' +
+'<div class="mb-5 p-4">' +
       '<div class="flex items-center justify-between gap-3 min-w-0">' +
         '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
         '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium whitespace-nowrap bg-red-50 text-red-500 ring-1 ring-red-100">Ожидается обновление цен завтра</div>' +
       '</div>' +
      '</div>' +
-     '<div class="grid grid-cols-2 gap-3">' +
+     '<div class="grid grid-cols-2 gap-3 px-4">' +
      sales.map(renderSaleCard).join('') +
      '</div>' +
      '</div>';
