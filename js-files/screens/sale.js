@@ -214,16 +214,16 @@ function showSaleModal(saleItem) {
     '</div>' +
     '<div class="flex-1 overflow-y-auto" id="saleScrollArea">' +
       '<div class="modal-image-section">' +
-'<div class="w-full image-carousel h-48 rounded-xl overflow-hidden bg-white" id="saleModalCarousel">' +
+'<div class="w-full image-carousel h-64 rounded-xl overflow-hidden bg-white" id="saleModalCarousel">' +
            '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="saleModalCarouselInner">' +
              '<div class="flex w-full h-full" id="saleSlidesWrapper">' +
                (images.length
                  ? images.map(function(url, i) {
-                     return '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                       '<img src="' + url.replace(/'/g, "\\'") + '" class="w-full h-48 object-contain modal-photo modal-photo-hidden" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                     return '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+                       '<img src="' + url.replace(/'/g, "\\'") + '" class="w-full h-64 object-contain modal-photo modal-photo-hidden" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
                        '</div>';
                    }).join('')
-                 : '<div class="w-full h-48 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+                 : '<div class="w-full h-64 flex-shrink-0 flex items-center justify-center relative bg-white">' +
                    '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
                    '</svg></div>'
