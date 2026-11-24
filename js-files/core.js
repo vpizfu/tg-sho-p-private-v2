@@ -559,7 +559,7 @@ var savedModalState = {};
 
 function saveModalState(tab) {
   var el = document.getElementById('modalContent');
-  if (!el) return;
+  if (!el) { console.log('[saveModalState] no modalContent for tab', tab); return; }
   var sc = el.querySelector('.flex-1');
   savedModalState[tab] = {
     innerHTML: el.innerHTML,
@@ -574,6 +574,7 @@ function saveModalState(tab) {
 
 function restoreModalState(tab) {
   var state = savedModalState[tab];
+  console.log('[restoreModalState] tab:', tab, 'found:', !!state);
   if (!state) return null;
   if (state.innerHTML) {
     var el = document.getElementById('modalContent');
@@ -588,7 +589,7 @@ var savedSaleModalState = null;
 
 function saveSaleModalState() {
   var saleEl = document.getElementById('saleModalContent');
-  if (!saleEl || saleEl.innerHTML === '') return;
+  if (!saleEl || saleEl.innerHTML === '') { console.log('[saveSaleModalState] empty, skip'); return; }
   var saleSc = saleEl.querySelector('.flex-1');
   savedSaleModalState = {
     innerHTML: saleEl.innerHTML,
@@ -600,6 +601,7 @@ function saveSaleModalState() {
 }
 
 function restoreSaleModalState() {
+  console.log('[restoreSaleModalState] savedSaleModalState:', !!savedSaleModalState);
   if (!savedSaleModalState) return null;
   var state = savedSaleModalState;
   var saleEl = document.getElementById('saleModalContent');

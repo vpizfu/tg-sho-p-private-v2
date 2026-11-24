@@ -915,6 +915,7 @@ function showModal(product) {
     saveModalState(currentTab);
     modal.classList.add('hidden');
   }
+  console.log('[showModal] delete savedModalState.shop');
   delete savedModalState.shop;
 
   if (currentTab === 'shop') {
@@ -997,7 +998,9 @@ window.closeModal = function () {
   var isSaleOpen = saleModal && !saleModal.classList.contains('hidden');
 
   if (isShopOpen) {
+    console.log('[closeModal] closing shop modal, currentTab:', currentTab, 'keys before:', Object.keys(savedModalState));
     delete savedModalState[currentTab];
+    console.log('[closeModal] keys after:', Object.keys(savedModalState));
 
     try {
       if (typeof trackEvent === 'function') {
