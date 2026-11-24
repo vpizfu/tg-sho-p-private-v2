@@ -1056,6 +1056,7 @@ window.closeModal = function () {
     saleModal.classList.add('hidden');
     var saleRoot = document.getElementById('saleModalContent');
     if (saleRoot) saleRoot.innerHTML = '';
+    saleCurrentItem = null;
     try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
   }
 };

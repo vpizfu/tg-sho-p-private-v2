@@ -175,7 +175,6 @@ function showSaleModal(saleItem) {
   if (!saleModalEl) return;
 
   if (window.modal && !window.modal.classList.contains('hidden')) {
-    if (typeof saveModalState === 'function') saveModalState(currentTab);
     window.modal.classList.add('hidden');
   }
 
@@ -185,32 +184,33 @@ function showSaleModal(saleItem) {
   if (!modalRoot) return;
   modalRoot.innerHTML =
     '<div class="flex flex-col h-full">' +
-    '<div class="p-4 pb-3 border-b border-gray-200">' +
-      '<div class="flex items-center justify-between">' +
-        '<h2 class="text-xl font-bold">' + escapeHtml(name) + '</h2>' +
+    '<div class="p-6 pb-4 border-b border-gray-200">' +
+      '<div class="flex items-center justify-between mb-2">' +
+        '<h2 class="text-2xl font-bold">' + escapeHtml(name) + '</h2>' +
         '<button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-xl">' +
           '<svg class="w-6 h-6 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
             '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>' +
           '</svg>' +
         '</button>' +
       '</div>' +
-      '<div class="flex items-center gap-2 text-sm">' +
+      '<div class="flex items-center gap-2 text-sm text-gray-500">' +
         (oldPrice > 0 ? '<span class="text-gray-400 line-through">' + currencyLabel + ' ' + formatPriceFn(oldPrice, country) + '</span>' : '') +
-        '<span class="text-red-600 font-bold text-lg">' + currencyLabel + ' ' + formatPriceFn(price, country) + '</span>' +
+        '<span class="text-red-600 font-bold">' + currencyLabel + ' ' + formatPriceFn(price, country) + '</span>' +
+        '<span>• <span>1 вариант</span></span>' +
         '</div>' +
     '</div>' +
     '<div class="flex-1 overflow-y-auto" id="saleScrollArea">' +
       '<div class="modal-image-section">' +
-'<div class="w-full image-carousel h-40 rounded-xl overflow-hidden bg-white" id="saleModalCarousel">' +
-           '<div class="image-carousel-inner w-full h-full flex items-center justify-center" id="saleModalCarouselInner">' +
-             '<div class="flex w-full h-full" id="saleSlidesWrapper">' +
+'<div class="w-full image-carousel rounded-xl overflow-hidden bg-white" id="saleModalCarousel" style="height:unset;min-height:10rem">' +
+           '<div class="image-carousel-inner w-full flex items-center justify-center overflow-hidden" id="saleModalCarouselInner" style="min-height:10rem">' +
+             '<div class="flex w-full" id="saleSlidesWrapper">' +
                (images.length
                  ? images.map(function(url, i) {
-                     return '<div class="w-full h-40 flex-shrink-0 flex items-center justify-center relative bg-white">' +
-                       '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img max-h-full w-full object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                     return '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:10rem">' +
+                       '<img src="' + url.replace(/'/g, "\\'") + '" class="max-h-[30vh] w-full object-contain modal-photo modal-photo-hidden" alt="" loading="lazy" onerror="saleImgError(this)" data-slide="' + i + '">' +
                        '</div>';
                    }).join('')
-                 : '<div class="w-full h-40 flex-shrink-0 flex items-center justify-center relative bg-white">' +
+                 : '<div class="w-full flex-shrink-0 flex items-center justify-center relative bg-white" style="min-height:10rem">' +
                    '<svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">' +
                    '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
                    '</svg></div>'
@@ -237,7 +237,7 @@ function showSaleModal(saleItem) {
      '</div>' +
      '<div class="modal-footer border-t bg-white"' +
      '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-       '<button id="saleModalAddBtn" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-2xl cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">В корзину</button>' +
+       '<button id="saleModalAddBtn" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">✅ В корзину ' + currencyLabel + ' ' + formatPriceFn(price, country) + '</button>' +
      '</div>' +
    '</div>';
 
