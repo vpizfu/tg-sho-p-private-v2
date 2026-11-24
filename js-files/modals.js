@@ -91,6 +91,9 @@ function clearOptionNoFocus(type) {
   const scrollContainer = document.querySelector(
     '#modalContent .flex-1'
   );
+  const prevScrollTop = scrollContainer
+    ? scrollContainer.scrollTop
+    : 0;
 
   const finalTypes = getFinalTypesForCurrentProduct();
   const typeIndex = finalTypes.indexOf(type);

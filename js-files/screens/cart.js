@@ -334,7 +334,15 @@ window.refreshCartPricesAndCleanup = async function () {
       console.log('[cart] refreshCartPricesAndCleanup mapping item:', item.cartKey, 'price:', item.price);
 
       if (item.isSale) {
-        return { ...item, available: true, newPrice: undefined, deleted: false };
+        // обновляем maxQuantity из __salesStore если доступно
+        var saleQty = item.maxQuantity;
+        try {
+          if (window.__salesStore && Array.isArray(window.__salesStore.value) && item.id) {
+            var found = window.__salesStore.value.find(function(s) { return String(s.id) === String(item.id); });
+            if (found && found.quantity !== undefined) saleQty = found.quantity;
+          }
+        } catch (e) {}
+        return { ...item, available: true, newPrice: undefined, deleted: false, maxQuantity: saleQty };
       }
 
       const fresh = productByKey.get(item.cartKey);

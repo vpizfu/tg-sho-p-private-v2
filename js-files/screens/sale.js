@@ -278,9 +278,11 @@ function startSaleCarousel(startAt) {
   var prevBtn = document.getElementById('salePrevBtn');
   var nextBtn = document.getElementById('saleNextBtn');
   var carouselInner = document.getElementById('saleModalCarouselInner');
+  console.log('[sale-carousel] startSaleCarousel startAt=', startAt, 'slidesWrapper:', !!slidesWrapper, 'carouselInner:', !!carouselInner);
   if (!slidesWrapper || !carouselInner) return;
 
   var slides = slidesWrapper.children;
+  console.log('[sale-carousel] slides count:', slides.length, 'overflow:', carouselInner.style.overflow);
   if (slides.length <= 1) {
     if (slides.length === 1) {
       var firstImg = slides[0].querySelector('.modal-photo');
@@ -317,6 +319,7 @@ function startSaleCarousel(startAt) {
   function goToSaleSlide(idx) {
     saleModalIndex = idx;
     carouselInner.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    console.log('[sale-carousel] goToSaleSlide idx=', idx, 'transform:', carouselInner.style.transform);
     if (dotsRoot) {
       var dots = dotsRoot.children;
       for (var j = 0; j < dots.length; j++) {
@@ -324,9 +327,11 @@ function startSaleCarousel(startAt) {
       }
     }
     var slideImgs = slidesWrapper.children[idx].querySelectorAll('.modal-photo');
+    console.log('[sale-carousel] slide', idx, 'images found:', slideImgs.length);
     slideImgs.forEach(function(el) {
       el.classList.remove('modal-photo-hidden');
       el.classList.add('modal-photo-visible');
+      console.log('[sale-carousel] image src:', el.src, 'natural:', el.naturalWidth, 'x', el.naturalHeight, 'complete:', el.complete);
     });
   }
 }
