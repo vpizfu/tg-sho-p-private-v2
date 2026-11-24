@@ -111,7 +111,7 @@ function renderSaleCard(item) {
             '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>' +
           '</svg>' +
         '</div>' +
-        '<img src="' + image.replace(/'/g, "\\'") + '" class="product-image' + (loadedSaleImages.has(image) ? '' : ' animatable') + ' absolute inset-0 object-contain" alt="" onload="handleSaleImageLoad(this, \'' + image.replace(/'/g, "\\'") + '\')" onerror="this.style.display=\'none\'">' +
+        '<img src="' + image.replace(/'/g, "\\'") + '" class="carousel-img product-image absolute inset-0 object-contain' + (loadedSaleImages.has(image) ? ' fade-in-image' : ' animatable') + '" alt="" onload="handleSaleImageLoad(this, \'' + image.replace(/'/g, "\\'") + '\')" onerror="this.style.display=\'none\'">' +
         '</div>'
       : '<svg class="w-10 h-10 text-gray-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>') +
     '</div>' +
@@ -146,9 +146,12 @@ window.handleSaleImageLoad = function(img, url) {
 };
 
 function renderSalePage(sales) {
-  root.innerHTML =
-    '<div class="relative min-h-[100vh] p-4 pb-[80px] max-w-md mx-auto">' +
-    '<h2 class="text-xl font-bold text-gray-800 mb-4">Распродажа</h2>' +
+root.innerHTML =
+     '<div class="relative min-h-[100vh] p-4 pb-[80px] max-w-md mx-auto">' +
+     '<div class="flex items-center justify-between gap-3 min-w-0 mb-4">' +
+       '<a href="#" class="nav-logo flex-shrink-0">Tech<span>Bex</span></a>' +
+       '<div class="inline-flex items-center justify-center rounded-full px-3 py-1 text-[10px] font-medium whitespace-nowrap bg-red-50 text-red-500 ring-1 ring-red-100">Ожидается обновление цен завтра</div>' +
+     '</div>' +
     '<div class="grid grid-cols-2 gap-3">' +
     sales.map(renderSaleCard).join('') +
     '</div>' +
