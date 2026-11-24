@@ -906,6 +906,12 @@ function preloadProductVariantImages(product) {
 
 // открыть модалку
 function showModal(product) {
+  if (modal && !modal.classList.contains('hidden')) {
+    saveModalState(currentTab);
+    modal.classList.add('hidden');
+  }
+  delete savedModalState.shop;
+
   if (currentTab === 'shop') {
     const y =
       window.scrollY || document.documentElement.scrollTop || 0;
@@ -982,28 +988,16 @@ function showModal(product) {
 })();
 
 window.closeModal = function () {
-  if (modalWasOpenOnShop) {
+  delete savedModalState[currentTab];
 
-    try {
-      if (typeof trackEvent === 'function') {
-        trackEvent('product_modal_close', {
-          reason: 'user',
-          tab: currentTab
-        });
-      }
-    } catch (e2) {}
-  
-    console.log(
-      '[modal] closeModal after tab return: renderShop + restoreTabScroll(shop), scrollY =',
-      tabScrollTops.shop
-    );
-    renderShop();
-    restoreTabScroll('shop');
-  } else {
-    console.log(
-      '[modal] closeModal from shop (no tab switch), no renderShop'
-    );
-  }
+  try {
+    if (typeof trackEvent === 'function') {
+      trackEvent('product_modal_close', {
+        reason: 'user',
+        tab: currentTab
+      });
+    }
+  } catch (e2) {}
 
   modal.classList.add('hidden');
 
@@ -1011,9 +1005,6 @@ window.closeModal = function () {
   currentProduct = null;
   selectedQuantity = 1;
   modalCurrentImageKey = null;
-
-  modalWasOpenOnShop = false;
-  modalSavedScrollTop = 0;
 
   const scrollContainer = document.querySelector(
     '#modalContent .flex-1'

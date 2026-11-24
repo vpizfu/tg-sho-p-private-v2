@@ -16,6 +16,7 @@ const __selectedCountryStore = { value: 'RU' };
 const __cartCountryStore = { value: 'RU' };
 const __byRoundingStore = { value: { step: 1, mode: 'ceil' } };
 const __paymentTypeStore = { value: 'cash' };
+const __salesStore = { value: [] };
 
 window.__exchangeRateStore = __exchangeRateStore;
 window.__cartStore = __cartStore;
@@ -24,6 +25,7 @@ window.__selectedCountryStore = __selectedCountryStore;
 window.__cartCountryStore = __cartCountryStore;
 window.__byRoundingStore = __byRoundingStore;
 window.__paymentTypeStore = __paymentTypeStore;
+window.__salesStore = __salesStore;
 
 Object.defineProperty(window, 'cartItems', {
   get: function() { return __cartStore.value; },
@@ -548,8 +550,27 @@ let isTabChanging = false;
 let placeOrderTimeoutId = null;
 
 // модалка при переключении табов
-let modalWasOpenOnShop = false;
-let modalSavedScrollTop = 0;
+var savedModalState = {};
+
+function saveModalState(tab) {
+  var el = document.getElementById('modalContent');
+  if (!el) return;
+  var sc = el.querySelector('.flex-1');
+  savedModalState[tab] = {
+    currentProduct: currentProduct,
+    selectedOption: JSON.parse(JSON.stringify(selectedOption)),
+    selectedQuantity: selectedQuantity,
+    scrollTop: sc ? sc.scrollTop : 0,
+    tab: tab
+  };
+}
+
+function restoreModalState(tab) {
+  var state = savedModalState[tab];
+  if (!state) return null;
+  delete savedModalState[tab];
+  return state;
+}
 let modalClosedAfterTabReturn = false;
 
 // сохранение состояния формы корзины между рендерами
@@ -566,6 +587,8 @@ let cartFormState = {
 
 const root = document.getElementById('root');
 const modal = document.getElementById('productModal');
+window.root = root;
+window.modal = modal;
 
 // ------- СТЕЙТЫ ПРОГРЕВА -------
 
@@ -1314,7 +1337,7 @@ const tabScrollTops = {
 };
 
 function saveCurrentTabScroll() {
-  if (currentTab === 'shop' && modalWasOpenOnShop) {
+  if (currentTab === 'shop') {
     return;
   }
 
@@ -1356,49 +1379,33 @@ function switchTab(tabName) {
   const prevTab = currentTab;
   saveCurrentTabScroll();
 
-  if (currentTab === 'shop' && tabName !== 'shop') {
-    if (modal && !modal.classList.contains('hidden')) {
-      const scrollContainer = document.querySelector('#modalContent .flex-1');
-      modalSavedScrollTop = scrollContainer ? scrollContainer.scrollTop : 0;
-      modalWasOpenOnShop = true;
-      modal.classList.add('hidden');
-      console.log(
-        '[modal] hide on tab switch, saved modal scroll =',
-        modalSavedScrollTop
-      );
-    } else {
-      modalWasOpenOnShop = false;
-      modalSavedScrollTop = 0;
-      console.log('[modal] no open modal on leaving shop');
-    }
+  if (modal && !modal.classList.contains('hidden')) {
+    saveModalState(currentTab);
+    modal.classList.add('hidden');
   }
 
   Promise.resolve()
     .then(() => {
+      var restored;
+
       if (tabName === 'shop') {
-        if (modalWasOpenOnShop && currentProduct && modal) {
-          console.log(
-            '[modal] return to shop with open modal, restore modal scroll =',
-            modalSavedScrollTop
-          );
-          modal.classList.remove('hidden');
-          const scrollContainer = document.querySelector('#modalContent .flex-1');
-          if (scrollContainer) scrollContainer.scrollTop = modalSavedScrollTop;
+        refreshAboutMetaFromBackend();
+        if (!__productsStore.value) {
+          root.innerHTML = buildShimmerHTML();
         } else {
-          console.log('[modal] return to shop without modal, rerender shop');
-          modalWasOpenOnShop = false;
-          modalSavedScrollTop = 0;
-
-          refreshAboutMetaFromBackend();
-
-          if (!__productsStore.value) {
-            // товары ещё не загружены — показываем шиммер
-            root.innerHTML = buildShimmerHTML();
-          } else {
-            renderShop();
-            restoreTabScroll('shop');
-          }
-        }        
+          renderShop();
+          restoreTabScroll('shop');
+        }
+        restored = restoreModalState('shop');
+        if (restored) {
+          currentProduct = restored.currentProduct;
+          selectedOption = restored.selectedOption;
+          selectedQuantity = restored.selectedQuantity;
+          renderProductModal(currentProduct);
+          var sc1 = document.querySelector('#modalContent .flex-1');
+          if (sc1) sc1.scrollTop = restored.scrollTop;
+          modal.classList.remove('hidden');
+        }
       } else if (tabName === 'cart') {
         try {
           if (__cartStore.value.length && typeof trackCartView === 'function') {
@@ -1410,6 +1417,16 @@ function switchTab(tabName) {
       } else if (tabName === 'sale') {
         showSaleTab();
         restoreTabScroll('sale');
+        restored = restoreModalState('sale');
+        if (restored) {
+          currentProduct = restored.currentProduct;
+          selectedOption = restored.selectedOption;
+          selectedQuantity = restored.selectedQuantity;
+          showSaleModal(currentProduct);
+          var sc2 = document.querySelector('#modalContent .flex-1');
+          if (sc2) sc2.scrollTop = restored.scrollTop;
+          modal.classList.remove('hidden');
+        }
       } else if (tabName === 'profile') {
         showProfileTab();
         restoreTabScroll('profile');
@@ -1449,6 +1466,10 @@ function syncCartWithProducts() {
   );
 
   __cartStore.value = __cartStore.value.map(item => {
+    if (item.isSale) {
+      return { ...item, available: true, newPrice: undefined };
+    }
+
     const product = productByKey.get(item.cartKey);
 
     if (!product || !product.inStock) {
@@ -1549,6 +1570,15 @@ async function fetchAndUpdateProducts(showLoader = false) {
     );
     CATEGORIES = ['Все товары', ...cats];
     console.log('[core] CATEGORIES', CATEGORIES);
+
+    try {
+      const saleResp = await fetch(SALES_API_URL);
+      if (saleResp.ok) {
+        __salesStore.value = await saleResp.json();
+      }
+    } catch (e) {
+      console.warn('[core] failed to fetch sales', e);
+    }
 
     syncProductsAndCart();
     logStage('update __productsStore.value + sync', t0);

@@ -788,6 +788,13 @@ function handleProductImageError(img, imageSrc) {
   img.style.display = 'none';
 }
 
+function getSaleForProduct(productName) {
+  if (!window.__salesStore || !Array.isArray(window.__salesStore.value)) return null;
+  return window.__salesStore.value.find(function(s) {
+    return (s.name || s['Название'] || '') === productName;
+  }) || null;
+}
+
 function productCard(product) {
   const allVariants = getProductVariants(product['Название']);
   const variants = allVariants.filter(v => v.inStock);
@@ -828,19 +835,6 @@ function productCard(product) {
     hasImage &&
     typeof failedImageUrls !== 'undefined' &&
     failedImageUrls.has(safeMainImage);
-
-  console.log('[persist-debug]', {
-    name: product['Название'],
-    hasImage,
-    cacheKey,
-    cacheSetDefined:
-      typeof loadedImageCacheKeys !== 'undefined',
-    inSet:
-      typeof loadedImageCacheKeys !== 'undefined'
-        ? loadedImageCacheKeys.has(cacheKey)
-        : null,
-    isLoadedPersistently
-  });
 
   return (
     '<div class="bg-white rounded-2xl p-4 shadow-lg group cursor-pointer relative w-full"' +
@@ -893,16 +887,26 @@ function productCard(product) {
     '<div class="font-bold text-base mb-1 product-title">' +
     escapeHtml(product['Название']) +
     '</div>' +
-    '<div class="text-blue-600 font-black text-xl mb-1">' +
-    (window.formatPriceForCountry
-      ? (window.getCurrentCountryConfig
-          ? (function() {
-              const cfg = window.getCurrentCountryConfig();
-              return cfg.currency + ' ' + window.formatPriceForCountry(cheapestVariant['Цена'], window.__selectedCountryStore.value);
-            })()
-          : window.formatPriceForCountry(cheapestVariant['Цена'], window.__selectedCountryStore.value))
-      : 'RUB ' + formatPrice(cheapestVariant['Цена'])) +
-    '</div>' +
+    (function() {
+      var sale = getSaleForProduct(product['Название']);
+      var cfg = window.getCurrentCountryConfig ? window.getCurrentCountryConfig() : { currency: 'RUB' };
+      var fmt = window.formatPriceForCountry || window.formatPrice;
+      var country = window.__selectedCountryStore.value || 'RU';
+      var currencyLabel = cfg.currency;
+
+      if (sale) {
+        var oldPrice = Number(sale.price) || 0;
+        var salePrice = Number(sale.salePrice) || 0;
+        var hasOldPrice = oldPrice > 0 && oldPrice !== salePrice;
+        return '<div class="flex items-baseline gap-2 mb-1">' +
+          (hasOldPrice ? '<span class="text-sm text-gray-400 line-through">' + currencyLabel + ' ' + fmt(oldPrice, country) + '</span>' : '<span class="text-sm invisible">0</span>') +
+          '<span class="text-red-600 font-black text-xl">' + currencyLabel + ' ' + fmt(salePrice, country) + '</span>' +
+          '</div>';
+      }
+
+      var normalPrice = cheapestVariant['Цена'];
+      return '<div class="mb-1"><span class="text-blue-600 font-black text-xl">' + currencyLabel + ' ' + fmt(normalPrice, country) + '</span></div>';
+    })() +
     '<div class="text-xs text-gray-500 mb-4">' +
     getVariantCountText(uniqueVariants.length) +
     '</div>' +
@@ -1119,6 +1123,8 @@ function renderCategoryOptionsIntoContainer(categories, container, selected) {
 }
 
 function renderShop() {
+  if (window.isRenderingShop) return;
+  window.isRenderingShop = true;
   console.log('---------------- [renderShop] ----------------');
   console.log('[renderShop] __selectedCountryStore.value:', window.__selectedCountryStore.value, '__cartCountryStore.value:', window.getCartCountry?.(), '__cartStore.value:', __cartStore.value?.length);
   console.log(
@@ -1358,6 +1364,7 @@ root.innerHTML =
 
   isFirstShopRender = false;
   console.log('---------------- [/renderShop] ----------------');
+  window.isRenderingShop = false;
   if (!hasShopLoadedOnce) {
     hasShopLoadedOnce = true;
     try {

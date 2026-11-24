@@ -48,7 +48,8 @@
   function formatPrice(value) {
     const num = Math.floor(Number(value) || 0);
     return String(num);
-  }  
+  }
+  window.formatPrice = formatPrice;  
   
   function showError(message) {
     root.innerHTML =
@@ -79,16 +80,16 @@
   }  
   
   // Бэкдроп модалки
-  if (modal) {
-    modal.addEventListener('click', e => {
-      if (e.target === modal) closeModal();
+if (window.modal) {
+    window.modal.addEventListener('click', e => {
+      if (e.target === window.modal) closeModal();
     });
   }
-  
+
   // ESC
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      if (modal && !modal.classList.contains('hidden')) {
+      if (window.modal && !window.modal.classList.contains('hidden')) {
         closeModal();
       }
     }

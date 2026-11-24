@@ -691,6 +691,7 @@ function showCartTab() {
                 '<div class="text-left flex-1 mr-3">' +
                   '<div class="font-semibold text-sm break-words">' +
                     escapeHtml(item.name) +
+                    (item.isSale ? ' <span class="inline-block text-[10px] font-bold text-red-500 bg-red-50 border border-red-200 rounded-full px-1.5 py-0.5 leading-none">%</span>' : '') +
                   '</div>' +
                  '<div class="text-xs text-gray-500">' +
    escapeHtml(getCartItemSubtitle(item)) +
