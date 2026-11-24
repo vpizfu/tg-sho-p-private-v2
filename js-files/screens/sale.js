@@ -2,25 +2,8 @@ var loadedSaleImages = new Set();
 var saleModalIndex = 0;
 var saleCurrentItem = null;
 
-const SALE_CART_KEY_EXCLUDE = new Set([
-  'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
-  'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
-  'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
-  'price', 'salePrice', 'image', 'rowNumber', 'quantity', 'status'
-]);
-
 function buildSaleCartKey(product) {
-  const entries = Object.keys(product)
-    .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
-    .sort()
-    .map(k => k + '=' + String(product[k] ?? '').trim().toLowerCase());
-  const raw = entries.join('||');
-  let hash = 5381;
-  for (let i = 0; i < raw.length; i++) {
-    hash = ((hash << 5) + hash) ^ raw.charCodeAt(i);
-    hash = hash >>> 0;
-  }
-  return 'sck_' + hash.toString(36);
+  return 'sck_' + (product.id || '');
 }
 
 function renderSalePlaceholder() {
@@ -41,10 +24,18 @@ function renderSalePlaceholder() {
     '</div>';
 }
 
+var SALE_EXCLUDED_KEYS = new Set([
+  'id', 'Артикул', 'Цена', 'Входная цена', 'Наценка',
+  'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
+  'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
+  'price', 'salePrice', 'image', 'rowNumber', 'quantity', 'status',
+  'name', 'subtitle', 'options'
+]);
+
 function getSaleItemSubtitle(item) {
   if (!item.options && typeof item !== 'object') return '';
   const vals = Object.keys(item)
-    .filter(k => !SALE_CART_KEY_EXCLUDE.has(k))
+    .filter(k => !SALE_EXCLUDED_KEYS.has(k))
     .map(k => item[k])
     .filter(v => v !== undefined && v !== null && String(v).trim() !== '');
   return vals.join(' | ');
@@ -66,7 +57,7 @@ function addToCartSale(saleItem, quantity) {
   } else {
     var options = {};
     Object.keys(saleItem)
-      .filter(function(k) { return !SALE_CART_KEY_EXCLUDE.has(k); })
+      .filter(function(k) { return !SALE_EXCLUDED_KEYS.has(k); })
       .forEach(function(k) { options[k] = saleItem[k]; });
     __cartStore.value.push({
       cartKey: cartKey,
