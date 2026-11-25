@@ -1672,6 +1672,25 @@ async function fetchAndUpdateProducts(showLoader = false) {
       console.warn('[core] failed to fetch sales', e);
     }
 
+    // актуализация sale-товаров в корзине
+    if (window.__salesStore && Array.isArray(window.__salesStore.value)) {
+      var saleIndex = {};
+      window.__salesStore.value.forEach(function(s) { saleIndex[String(s.id)] = s; });
+      __cartStore.value.forEach(function(item) {
+        if (item.isSale && item.id) {
+          var fresh = saleIndex[String(item.id)];
+          if (fresh) {
+            item.maxQuantity = fresh.quantity || 0;
+            item.available = fresh.inStock !== false && (fresh.quantity || 0) >= (item.quantity || 1);
+          } else {
+            item.available = false;
+          }
+        }
+      });
+      saveCartToStorage();
+      updateCartBadge();
+    }
+
     if (currentTab === 'sale' && typeof showSaleTab === 'function') {
       showSaleTab();
     }
