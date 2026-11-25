@@ -771,10 +771,10 @@ function showCartTab() {
                     (item.isSale
                       ? (item.maxQuantity || 0) <= 0
                       ? 'Товар недоступен, удалите из корзины'
-                      : !item.available
-                      ? 'Товар недоступен, удалите из корзины'
                       : (item.maxQuantity || 0) < (item.quantity || 1)
                       ? 'Доступно только ' + (item.maxQuantity || 0) + ' шт, уменьшите количество'
+                      : !item.available
+                      ? 'Товар недоступен, удалите из корзины'
                       : 'В наличии ' + item.maxQuantity + ' шт'
                       : item.available
                       ? 'В наличии'
