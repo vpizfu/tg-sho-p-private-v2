@@ -1693,6 +1693,8 @@ async function fetchAndUpdateProducts(showLoader = false) {
 
     if (currentTab === 'sale' && typeof showSaleTab === 'function') {
       showSaleTab();
+    } else if (currentTab === 'cart' && typeof showCartTab === 'function') {
+      showCartTab();
     }
 
     syncProductsAndCart();
