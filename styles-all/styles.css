@@ -394,25 +394,29 @@ img,
 }
 
 /* Высота модалки задаётся в HTML через h-[85vh] */
-#modalContent {
+#modalContent,
+#saleModalContent {
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
 
-#modalContent .flex-1 {
+#modalContent .flex-1,
+#saleModalContent .flex-1 {
   min-height: 0;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 
 /* Нижняя зона модалки с кнопкой */
-#modalContent .modal-footer {
+#modalContent .modal-footer,
+#saleModalContent .modal-footer {
   padding: 12px 16px;
 }
 
 /* Кнопка "В корзину" — компактная */
-#modalContent .modal-footer button {
+#modalContent .modal-footer button,
+#saleModalContent .modal-footer button {
   height: 44px;
   font-size: 14px;
   border-radius: 14px;
