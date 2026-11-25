@@ -1269,7 +1269,7 @@ if (!contactConfirmed) {
         var freshSale = (window.__salesStore && Array.isArray(window.__salesStore.value))
           ? window.__salesStore.value.find(function(s) { return String(s.id) === String(item.id); })
           : null;
-        var saleAvailable = freshSale && freshSale.inStock !== false && (freshSale.quantity || 0) > 0;
+        var saleAvailable = freshSale && freshSale.inStock !== false && (freshSale.quantity || 0) >= (item.quantity || 1);
         if (!saleAvailable) {
           hasUnavailable = true;
           return { ...item, available: false };
