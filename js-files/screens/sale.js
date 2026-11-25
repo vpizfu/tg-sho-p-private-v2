@@ -42,6 +42,10 @@ function getSaleItemSubtitle(item) {
 }
 
 function addToCartSale(saleItem, quantity) {
+  if (saleItem.inStock === false) {
+    try { tg?.showAlert?.('Товар закончился'); } catch (e) {}
+    return;
+  }
   var maxQty = saleItem.quantity || 1;
   var cartKey = buildSaleCartKey(saleItem);
   var existing = __cartStore.value.find(function(item) { return item.cartKey === cartKey; });
