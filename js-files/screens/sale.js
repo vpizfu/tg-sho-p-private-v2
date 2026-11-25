@@ -252,9 +252,9 @@ function showSaleModal(saleItem) {
        '</div>' +
        '<div id="saleBodyDynamic" class="px-4 pt-0 pb-4 space-y-4"></div>' +
      '</div>' +
-     '<div class="modal-footer bg-white"' +
+     '<div class="modal-footer border-t bg-white"' +
      '     style="padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);">' +
-       '<button id="saleModalAddBtn" class="w-[calc(100%-40px)] mx-auto flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-[11px] rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">' + (avail <= 0 ? 'Нет в наличии' : 'В корзину') + '</button>' +
+       '<button id="saleModalAddBtn" class="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-[11px] rounded-2xl shadow-lg cursor-pointer text-base" onclick="addToCartSaleFromModal(); return false;">' + (avail <= 0 ? 'Нет в наличии' : 'В корзину') + '</button>' +
      '</div>' +
    '</div>';
 
