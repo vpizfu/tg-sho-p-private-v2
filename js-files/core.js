@@ -1086,6 +1086,24 @@ function loadCartFromStorage() {
       }
     });
     __cartStore.value = Object.values(merged);
+
+    // валидация sale-товаров по __salesStore (если уже загружен)
+    if (window.__salesStore && Array.isArray(window.__salesStore.value) && window.__salesStore.value.length) {
+      var saleIdx = {};
+      window.__salesStore.value.forEach(function(s) { saleIdx[String(s.id)] = s; });
+      __cartStore.value.forEach(function(item) {
+        if (item.isSale && item.id) {
+          var fresh = saleIdx[String(item.id)];
+          if (fresh) {
+            item.maxQuantity = fresh.quantity || 0;
+            item.available = fresh.inStock !== false && (fresh.quantity || 0) >= (item.quantity || 1);
+          } else {
+            item.available = false;
+          }
+        }
+      });
+    }
+
     if (__cartStore.value.length !== before) {
       saveCartToStorage();
     }

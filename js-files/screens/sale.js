@@ -29,7 +29,7 @@ var SALE_EXCLUDED_KEYS = new Set([
   'inStock', 'Статус', 'Общая картинка', 'Изображения', 'images',
   'cat', 'Категория', 'sourceSheet', 'isPreview', 'redPrice',
   'price', 'salePrice', 'image', 'rowNumber', 'quantity', 'status',
-  'name', 'subtitle', 'options'
+  'name', 'subtitle', 'options', 'force'
 ]);
 
 function getSaleItemSubtitle(item) {
