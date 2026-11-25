@@ -768,16 +768,20 @@ function showCartTab() {
                       ? 'text-orange-600'
                       : 'text-red-600') +
                     '">' +
-                    (!item.available || (item.isSale && (item.maxQuantity || 0) <= 0))
-                      ? item.newPrice
+                    (item.isSale
+                      ? (item.maxQuantity || 0) <= 0
+                      ? 'Товар недоступен, удалите из корзины'
+                      : !item.available
+                      ? 'Товар недоступен, удалите из корзины'
+                      : (item.maxQuantity || 0) < (item.quantity || 1)
+                      ? 'Доступно только ' + (item.maxQuantity || 0) + ' шт, уменьшите количество'
+                      : 'В наличии ' + item.maxQuantity + ' шт'
+                      : item.available
+                      ? 'В наличии'
+                      : item.newPrice
                       ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, __cartCountryStore.value) +
                       ', новая ' + currencyLabel + ' ' + formatPriceFn(item.newPrice, __cartCountryStore.value)                    
-                      : 'Товар недоступен, удалите из корзины'
-                      : item.isSale && (item.maxQuantity || 0) < (item.quantity || 1)
-                      ? 'Доступно только ' + (item.maxQuantity || 0) + ' шт, уменьшите количество'
-                      : item.isSale
-                      ? 'В наличии ' + item.maxQuantity + ' шт'
-                      : 'В наличии') +
+                      : 'Товар недоступен, удалите из корзины') +
                     '</div>' +
                 '</div>' +
                 '<div class="text-right flex flex-col items-end gap-1">' +
