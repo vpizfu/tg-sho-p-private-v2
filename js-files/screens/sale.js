@@ -224,8 +224,8 @@ function showSaleModal(saleItem) {
              '<div class="flex w-full h-full" id="saleSlidesWrapper">' +
 (images.length
                   ? images.map(function(url, i) {
-                      return '<div class="w-full h-48 flex-shrink-0 relative">' +
-                        '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img product-image absolute inset-0 w-full h-full object-contain modal-photo modal-photo-hidden" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
+                      return '<div class="w-full h-48 flex-shrink-0 relative bg-gray-50">' +
+                        '<img src="' + url.replace(/'/g, "\\'") + '" class="carousel-img product-image absolute inset-0 w-full h-full object-contain modal-photo' + (i === 0 ? ' modal-photo-visible' : ' modal-photo-hidden') + '" alt="" loading="eager" onerror="saleImgError(this)" data-slide="' + i + '">' +
                         '</div>';
                     }).join('')
                   : '<div class="w-full h-48 flex-shrink-0 relative bg-gray-50">' +
@@ -291,7 +291,7 @@ function startSaleCarousel(startAt) {
   if (slides.length <= 1) {
     if (slides.length === 1) {
       var firstImg = slides[0].querySelector('.modal-photo');
-      if (firstImg) setTimeout(function() { firstImg.classList.remove('modal-photo-hidden'); firstImg.classList.add('modal-photo-visible'); }, 100);
+      if (firstImg) { firstImg.classList.remove('modal-photo-hidden'); firstImg.classList.add('modal-photo-visible'); }
     }
     return;
   }
@@ -309,7 +309,7 @@ function startSaleCarousel(startAt) {
   if (prevBtn) prevBtn.style.display = 'flex';
   if (nextBtn) nextBtn.style.display = 'flex';
 
-  setTimeout(function() { goToSaleSlide(startAt); }, 50);
+  goToSaleSlide(startAt);
 
   window.saleModalPrev = function() {
     var idx = saleModalIndex > 0 ? saleModalIndex - 1 : slides.length - 1;
