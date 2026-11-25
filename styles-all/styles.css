@@ -385,7 +385,8 @@ img,
 }
 
 /* Бекдроп модалки товара */
-#productModal {
+#productModal,
+#saleModal {
   padding-top: 0;
   padding-bottom: 65px;
   padding-left: 8px;
