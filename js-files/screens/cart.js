@@ -724,7 +724,7 @@ function showCartTab() {
                       ? 'text-orange-600'
                       : 'text-red-600') +
                     '">' +
-                    (item.available
+                    (item.available && (!item.isSale || (item.maxQuantity || 0) > 0)
                       ? item.isSale ? 'В наличии ' + item.maxQuantity + ' шт' : 'В наличии'
                       : item.newPrice
                       ? 'Цена обновилась: старая ' + currencyLabel + ' ' + formatPriceFn(item.price, __cartCountryStore.value) +
