@@ -1308,6 +1308,15 @@ function resetUiAfterOrderSuccessIfCart() {
       document.activeElement.blur();
     }
 
+    // Сбросить чекбокс подтверждения
+    const confirmCb = document.getElementById('contactConfirmed');
+    if (confirmCb) {
+      confirmCb.checked = false;
+      if (typeof cartFormState !== 'undefined') {
+        cartFormState.contactConfirmed = false;
+      }
+    }
+
     // Сбросить скролл только на вкладке корзины
     window.scrollTo(0, 0);
 
