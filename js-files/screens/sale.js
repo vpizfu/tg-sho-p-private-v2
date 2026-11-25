@@ -46,8 +46,12 @@ function addToCartSale(saleItem, quantity) {
     try { tg?.showAlert?.('Товар закончился'); } catch (e) {}
     return;
   }
-  var maxQty = saleItem.quantity || 1;
-  var cartKey = buildSaleCartKey(saleItem);
+  var maxQty = getSaleQuantity(saleItem);
+  if (maxQty <= 0) {
+    try { tg?.showAlert?.('Товар закончился'); } catch (e) {}
+    return;
+  }
+    var cartKey = buildSaleCartKey(saleItem);
   var existing = __cartStore.value.find(function(item) { return item.cartKey === cartKey; });
   var alreadyInCart = existing ? existing.quantity : 0;
   var canAdd = maxQty - alreadyInCart;
@@ -84,7 +88,7 @@ function addToCartSale(saleItem, quantity) {
 }
 
 function renderSaleCard(item) {
-  if ((item.quantity || 1) <= 0) return '';
+  if (getSaleQuantity(item) <= 0) return '';
   var name = item.name || item['Название'] || '';
   var image = item.image || item['Общая картинка'] || (item.images && item.images[0]) || '';
   var oldPrice = Number(item.price) || 0;
@@ -188,7 +192,7 @@ function showSaleModal(saleItem) {
   }
 
   saleCurrentItem = saleItem;
-  var currentQty = saleItem.quantity || 0;
+  var currentQty = getSaleQuantity(saleItem);
   var cartKey = buildSaleCartKey(saleItem);
   var existing = __cartStore.value.find(function(i) { return i.cartKey === cartKey; });
   var inCart = existing ? existing.quantity : 0;
@@ -337,8 +341,15 @@ function startSaleCarousel(startAt) {
   }
 }
 
+function getSaleQuantity(item) {
+  var q = item.quantity;
+  if (q === undefined || q === null || q === '') return 0;
+  q = Number(q);
+  return isNaN(q) ? 0 : q;
+}
+
 function filterInStockSales(sales) {
-  return (sales || []).filter(function(s) { return s.inStock !== false; });
+  return (sales || []).filter(function(s) { return s.inStock !== false && getSaleQuantity(s) > 0; });
 }
 
 function showSaleTab() {
