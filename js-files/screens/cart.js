@@ -1265,7 +1265,17 @@ if (!contactConfirmed) {
     );
     
     __cartStore.value = __cartStore.value.map(item => {
-      if (item.isSale) return { ...item, available: true, newPrice: undefined };
+      if (item.isSale) {
+        var freshSale = (window.__salesStore && Array.isArray(window.__salesStore.value))
+          ? window.__salesStore.value.find(function(s) { return String(s.id) === String(item.id); })
+          : null;
+        var saleAvailable = freshSale && freshSale.inStock !== false && (freshSale.quantity || 0) > 0;
+        if (!saleAvailable) {
+          hasUnavailable = true;
+          return { ...item, available: false };
+        }
+        return { ...item, available: true, newPrice: undefined };
+      }
       const fresh = productByKeyForOrder.get(item.cartKey);
 
       if (!fresh) {
