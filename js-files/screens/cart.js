@@ -628,11 +628,13 @@ function showCartTab() {
   console.log('[cart] showCartTab, items=', __cartStore.value.length, 'isPlacingOrder=', isPlacingOrder);
   saveCartFormState();
 
-  // валидация sale-товаров по __salesStore
+  // валидация товаров в корзине по актуальным данным
+  var changed = false;
+
+  // sale-товары
   if (window.__salesStore && Array.isArray(window.__salesStore.value) && window.__salesStore.value.length) {
     var saleIdx = {};
     window.__salesStore.value.forEach(function(s) { saleIdx[String(s.id)] = s; });
-    var changed = false;
     __cartStore.value.forEach(function(item) {
       if (item.isSale && item.id) {
         var fresh = saleIdx[String(item.id)];
@@ -650,8 +652,25 @@ function showCartTab() {
         }
       }
     });
-    if (changed) saveCartToStorage();
   }
+
+  // обычные товары
+  if (window.__productsStore && Array.isArray(window.__productsStore.value) && window.__productsStore.value.length) {
+    var prodByKey = {};
+    window.__productsStore.value.forEach(function(p) {
+      var k = (typeof buildCartKey === 'function') ? buildCartKey(p) : p.cartKey;
+      if (k) prodByKey[k] = p;
+    });
+    __cartStore.value.forEach(function(item) {
+      if (item.isSale) return;
+      var fresh = prodByKey[item.cartKey];
+      if (!fresh || fresh.inStock === false) {
+        if (item.available !== false) { item.available = false; changed = true; }
+      }
+    });
+  }
+
+  if (changed) saveCartToStorage();
 
   if (!__cartStore.value.length) {
     root.innerHTML =
