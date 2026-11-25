@@ -628,6 +628,31 @@ function showCartTab() {
   console.log('[cart] showCartTab, items=', __cartStore.value.length, 'isPlacingOrder=', isPlacingOrder);
   saveCartFormState();
 
+  // валидация sale-товаров по __salesStore
+  if (window.__salesStore && Array.isArray(window.__salesStore.value) && window.__salesStore.value.length) {
+    var saleIdx = {};
+    window.__salesStore.value.forEach(function(s) { saleIdx[String(s.id)] = s; });
+    var changed = false;
+    __cartStore.value.forEach(function(item) {
+      if (item.isSale && item.id) {
+        var fresh = saleIdx[String(item.id)];
+        if (fresh) {
+          var newMax = fresh.quantity || 0;
+          var newAvail = fresh.inStock !== false && newMax >= (item.quantity || 1);
+          if (item.maxQuantity !== newMax || item.available !== newAvail) {
+            item.maxQuantity = newMax;
+            item.available = newAvail;
+            changed = true;
+          }
+        } else if (item.available !== false) {
+          item.available = false;
+          changed = true;
+        }
+      }
+    });
+    if (changed) saveCartToStorage();
+  }
+
   if (!__cartStore.value.length) {
     root.innerHTML =
       '<div class="flex flex-col items-center justify-center min-h-[60vh] text-center p-8 pb-[65px] max-w-md mx-auto">' +
